@@ -157,7 +157,7 @@ public class ProductController {
 	}
 	
 	
-	@RequestMapping("/product.do")
+	@RequestMapping("/mproduct.do")
 	@ResponseBody
 	public ModelAndView getAll_product(@RequestParam(defaultValue = "") String sort, String category, @RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max) {
 		ModelAndView view = new ModelAndView();
@@ -165,7 +165,7 @@ public class ProductController {
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
 
-		view.setViewName("main");
+/*		view.setViewName("main");*/
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 		
@@ -207,7 +207,7 @@ public class ProductController {
 		list = dao.getAll_product(sql);
 		
 		view.addObject("list", list);
-		view.addObject("viewPage", "product/product.jsp");
+/*		view.addObject("viewPage", "product/product.jsp");*/
 		view.addObject("category", category);
 		view.addObject("sort", sort);
 		view.addObject("pageMax", pageMax);
