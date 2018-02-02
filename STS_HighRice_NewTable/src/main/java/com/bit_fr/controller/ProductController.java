@@ -227,9 +227,11 @@ public class ProductController {
 	@RequestMapping("/sellList.do")
 	public ModelAndView sellList(String member_id) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+//		mav.setViewName("main");
+		String sql = "select * from product where member_id="+member_id;
+		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
-		mav.addObject("viewPage", "sell/sellList.jsp");
+		mav.setViewName("sell/sellList");
 		return mav;
 	}
 
