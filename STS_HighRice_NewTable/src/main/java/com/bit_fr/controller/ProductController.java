@@ -2,6 +2,7 @@ package com.bit_fr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Array;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -206,11 +207,17 @@ public class ProductController {
 
 		list = dao.getAll_product(sql);
 		
+		for(int i=0 ; i<list.size() ; i++) {
+			String comma = list.get(i).getPrice()+"";
+			price_with.set(i, comma);
+		}
+		
 		view.addObject("list", list);
 /*		view.addObject("viewPage", "product/product.jsp");*/
 		view.addObject("category", category);
 		view.addObject("sort", sort);
 		view.addObject("pageMax", pageMax);
+		view.addObject("price_with", price_with);
 		return view;
 	}
 

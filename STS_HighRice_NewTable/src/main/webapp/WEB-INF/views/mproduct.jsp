@@ -13,26 +13,47 @@
 <meta name="apple-moblie-web-status-bar-style" content="black"/>
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script><script type="text/javascript">
-//창을 띄울 때 상품들의 이미지 크기를 조정.
-$(".product_img").css("width", $("#product_box").width() * 0.24)
-$(".product_img").css("height", $("#product_box").width() * 0.24)
+<style type="text/css">
+#product_box a{
+	text-decoration: none;
+	color: black;
+	font-weight: normal;
+}
 
-//창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
-$(window).resize(function() {
-	$(".product_img").css("width", $("#product_box").width() * 0.24)
-	$(".product_img").css("height", $("#product_box").width() * 0.24)
-})
+#product_box{
+	font-size: 2.3vw;
+}
+
+.small{
+	font-size: 1.3vw;
+}
+
+.ui-block-a{
+	padding: 0px 0px 7px 0px;
+}
+
+.ui-block-b{
+	padding: 0px 0px 7px 0px;
+}
+.product_img{
+	padding: 3px 3px 0px 3px;
+}
+
+#category{
+	margin: 0px;
+	padding: 0px;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+<script type="text/javascript">
+
+
 $(function(){
-	$(".product_img").css("width", $("#product_box").width() * 0.24)
-	$(".product_img").css("height", $("#product_box").width() * 0.24)
-	$(window).resize(function() {
-		$(".product_img").css("width", $("#product_box").width() * 0.24)
-		$(".product_img").css("height", $("#product_box").width() * 0.24)
-	})
+
+	
 })
 </script>
-<script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 </head>
 <body>
 	<div id="" data-role="page">
@@ -41,13 +62,10 @@ $(function(){
 			<h3>HEADER</h3>
 		</div>
 		
-		<div data-role="content" style="text-align: center;">
-			<h3 id="category"></h3>
-			<div data-role="fieldcontain" style="width: 100%">
-				<div style="width: 45%; float: left;">
-					<label for="sort">Select: </label>
-				</div>
-				<div style="width: 45%; float: left;">
+		<div data-role="content" style="text-align: center; position: relative;">
+			<h3 id="category">${category}</h3>
+			<div data-role="fieldcontain" style="width: 100%; display: inline-block;">
+				<div style="width: 46%; float: right; margin-top: 20px;">
 					<select id="sort" name="sort">
 						<option data-placeholder="true">How to sort</option>
 						<option value="품질등급순">품질등급순</option>
@@ -56,34 +74,47 @@ $(function(){
 					</select>
 				</div>
 			</div>
-			<!-- <div id="product_box" class="ui-grid-a" style="width: 100%; float: left;"> -->
-			<c:forEach items="${list}" var="list" varStatus="status">
-			<div id="product_box" class="ui-grid-a" style="width: 45%; background-color: #DDDDDD; float: left; border: 5px solid; border-color: white; padding-top: 3px;">
-				<c:if test="${status.count%2==1}">
-					<div class="ui-block-a">
-					<img src="resources/img/product/${list.main_img}" class="product_img"><br>
-					ITEM NAME<br>
-					QUALITY: A<br>
-					10,000WON/MONTH<br>
-					</div>
-				</c:if>
-				<c:if test="${status.count%2==0}">
-					<div class="ui-block-b">
-					${list.product_name}
-					<img src="resources/img/product/${list.main_img}" class="product_img"><br>
-					ITEM NAME<br>
-					QUALITY: B<br>
-					12,000WON/MONTH<br>
-					</div>
-				</c:if>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div style="width: 100%; display: inline-block;" id="product_box" >
+				<c:forEach items="${list}" var="list" varStatus="status">
+				<a href="detailProduct.do?product_id=${list.product_id}">
+				<div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center;">
+					<c:if test="${status.count%2==1}">
+						<div class="ui-block-a"  style=" width:100%;">
+							<div class="product_img">
+								<img src="resources/img/product/${list.main_img}" width="100%"><br>
+							</div>
+							<p>${list.product_name}</p>
+							QUALITY: ${list.quality}<br>
+							PRICE: insertComma(${list.price})<font class="small">WON</font>/<font class="small">MONTH</font><br>
+						</div>
+					</c:if>
+					<c:if test="${status.count%2==0}">
+						<div class="ui-block-b"  style="width:100%;">
+							<div class="product_img">
+								<img src="resources/img/product/${list.main_img}" width="100%"><br>
+							</div>
+							<p>${list.product_name}</p>
+							QUALITY: ${list.quality}<br>
+							PRICE: ${list.price}<font class="small">WON</font>/<font class="small">MONTH</font><br>
+						</div>
+					</c:if>
 				</div>
-			</c:forEach>
+				</a>
+				</c:forEach>
+			</div>
+			<div>		
+				<c:forEach var="pageNum" begin="1" end="${pageMax }">
+					<a href="mproduct.do?pageNum=${pageNum }&category=${category}&order=${order}" style="font-size: 1.15vw;">${pageNum}</a>
+				</c:forEach>
 			</div>
 		</div>
+		
 		<div data-role="footer" data-position="fixed">
 			<h3>FOOTER</h3>
 		</div>
-		
 	</div>
 </body>
 </html>
