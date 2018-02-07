@@ -2,14 +2,12 @@ package com.bit_fr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
-import java.sql.Array;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit_fr.dao.ProductDao;
@@ -219,13 +216,13 @@ public class ProductController {
 		sql += "where rnum>=" + startNum + " and rnum<=" + endNum;
 
 		list = dao.getAll_product(sql);
-		
+
 		ArrayList<String> price_with = new ArrayList<String>();
-		
-		for(int i=0 ; i<list.size() ; i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			DecimalFormat comma = new DecimalFormat("#,###");
 			int price = list.get(i).getPrice();
-			price_with.add(comma.format(price)+"");
+			price_with.add(comma.format(price) + "");
 		}
 
 		view.addObject("list", list);
@@ -246,8 +243,8 @@ public class ProductController {
 		view.addObject("viewPage", "product/product_detail.jsp");
 		return view;
 	}
-	
-	@RequestMapping(value="/getProduct_detail.do", produces="text/plain;charset=UTF-8")
+
+	@RequestMapping(value = "/getProduct_detail.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String getProductDetail(int product_id) {
 		String str = "";
@@ -263,20 +260,54 @@ public class ProductController {
 	}
 
 	@RequestMapping("/sellList.do")
-	public ModelAndView sellList(String member_id) {
+	public ModelAndView sellList(HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+
+		String member_id = (String) session.getAttribute("member_id");
+
+		int count = dao.getMySellCount_product(member_id);
+		int max = 5;
+		int end = page * max;
+		int start = end - (max - 1);
+
+		if (end > count) {
+			end = count;
+		}
+
+		int totalPage = count / max;
+		if (count % max != 0) {
+			totalPage++;
+		}
+
+		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"
+				+ member_id + "' order by product_id desc) order by rownum) r where r.rnum>=" + start + "and r.rnum<="
+				+ end;
+		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
+
+		mav.addObject("totalPage", totalPage);
 		mav.addObject("viewPage", "sell/sellList.jsp");
+
+		mav.setViewName("main");
+		return mav;
+	}
+
+	@RequestMapping("/sellDetail.do")
+	public ModelAndView sellDetail(int product_id) {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("p", dao.getOne_product(product_id));
+
+		mav.addObject("viewPage", "sell/sellDetail.jsp");
+
 		return mav;
 	}
 
 	@RequestMapping(value = "/sellList_product.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getMySell_product(String member_id, @RequestParam(defaultValue = "1") int pageNum) {
-		/*
-		 * ModelAndView view = new ModelAndView(); view.setViewName("main");
-		 */
+
+		//ModelAndView view = new ModelAndView(); view.setViewName("main");
+
 		int productMax = 10;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
@@ -349,10 +380,11 @@ public class ProductController {
 		return str;
 	}
 
-	@RequestMapping(value = "/sellInsert.do", produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request) {
+	@RequestMapping("/sellInsert.do")
+	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");
+		System.out.println(path);
+		String member_id = (String) session.getAttribute("member_id");
 		String main_img = "";
 		String sub_img = "";
 		int fsize1 = 0;
@@ -360,7 +392,7 @@ public class ProductController {
 		MultipartFile mainIMG = p.getMainIMG();
 		MultipartFile subIMG = p.getSubIMG();
 
-		if (mainIMG != null && subIMG != null) {
+		if (mainIMG.getSize() != 0 && subIMG.getSize() != 0) {
 			try {
 				byte[] data1 = mainIMG.getBytes();
 				byte[] data2 = subIMG.getBytes();
@@ -381,33 +413,96 @@ public class ProductController {
 				System.out.println(e);
 			}
 		}
+		p.setMember_id(member_id);
 		p.setMain_img(main_img);
 		p.setSub_img(sub_img);
 
 		int product_id = dao.getNextId_product();
 		p.setProduct_id(product_id);
 		p.setCondition("등록");
-		String str = "";
 
 		ModelAndView view = new ModelAndView();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(p);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		
 		dao.insert_product(p);
-		view.setViewName("main");
+		// view.setViewName("main");
 		view.addObject("member_id", p.getMember_id());
-		view.addObject("viewPage", "sell/sellList.jsp");
+		// view.addObject("viewPage", "sell/sellList");
+		view.setViewName("redirect:/sellList.do");
 		return view;
 	}
 
 	@RequestMapping("/sellUpdate.do")
-	public ModelAndView update_sell() {
+	public ModelAndView update_sell(ProductVo p, HttpServletRequest request) {
+
 		ModelAndView view = new ModelAndView();
-		view.setViewName("main");
-		view.addObject("viewPage", "sell/sellUpdate.jsp");
+
+		MultipartFile mainIMG = p.getMainIMG();
+		MultipartFile subIMG = p.getSubIMG();
+
+		String main_img = "";
+		String sub_img = "";
+
+		String path = request.getRealPath("/resources/img/product");
+
+		String oldMain = dao.getOne_product(p.getProduct_id()).getMain_img();
+		String oldSub = dao.getOne_product(p.getProduct_id()).getSub_img();
+
+		p.setMain_img(oldMain);
+		p.setSub_img(oldSub);
+
+		if (mainIMG.getSize() != 0) {
+			main_img = mainIMG.getOriginalFilename();
+
+			if (!main_img.equals(oldMain)) {
+				File file = new File(path + "/" + oldMain);
+				file.delete();
+
+				try {
+					byte b[] = mainIMG.getBytes();
+					FileOutputStream fos = new FileOutputStream(path + "/" + main_img);
+
+					fos.write(b);
+
+					fos.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+				}
+				p.setMain_img(main_img);
+
+			}
+		}
+
+		if (subIMG.getSize() != 0) {
+			sub_img = subIMG.getOriginalFilename();
+
+			if (!sub_img.equals(oldSub)) {
+				File file = new File(path + "/" + oldSub);
+				file.delete();
+
+				try {
+					byte b[] = subIMG.getBytes();
+					FileOutputStream fos = new FileOutputStream(path + "/" + sub_img);
+
+					fos.write(b);
+
+					fos.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+				}
+
+				p.setSub_img(sub_img);
+
+			}
+		}
+
+		int re = dao.update_product(p.getProduct_name(), p.getCategory(), p.getQuality(), p.getMain_img(),
+				p.getSub_img(), p.getProduct_id());
+		if (re == 1) {
+			view.setViewName("redirect:/sellList.do");
+		}
+
 		return view;
 	}
 }

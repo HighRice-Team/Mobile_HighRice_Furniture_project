@@ -193,7 +193,7 @@ public class ProductManager {
 	}
 
 	public static int update_product(String product_name, String category, String quality, String main_img,
-			String sub_img) {
+			String sub_img, int product_id) {
 		SqlSession session = factory.openSession(true);
 		HashMap map = new HashMap();
 		map.put("product_name", product_name);
@@ -201,6 +201,7 @@ public class ProductManager {
 		map.put("quality", quality);
 		map.put("main_img", main_img);
 		map.put("sub_img", sub_img);
+		map.put("product_id", product_id);
 		int re = session.update("product.update_product", map);
 		session.close();
 		return re;
