@@ -17,7 +17,6 @@ import com.bit_fr.dao.ProductDao;
 import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -43,47 +42,46 @@ public class OrderlistController {
 	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
 	}
-	
+
 	@RequestMapping(value = "/getMyOrderlist.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String getMyOrderlist(HttpSession session,OrderlistVo v) {
+	public String getMyOrderlist(HttpSession session, OrderlistVo v) {
 		System.out.println(v.toString());
-		String str="";
+		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		List<OrderlistVo>list = orderlistDao.getAllMyOrder_orderlist(member_id,v);
-		
+		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, v);
+
 		try {
 			ObjectMapper om = new ObjectMapper();
 			str = om.writeValueAsString(list);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		return str;
 
+		return str;
 
 	}
 
 	@RequestMapping(value = "/goPayment.do", produces = "text/plain;charset=utf-8")
-	public ModelAndView goPayment(HttpSession session , int rentMonth , int product_id) {
+	public ModelAndView goPayment(HttpSession session, int rentMonth, int product_id) {
 		ModelAndView mav = new ModelAndView("main");
-		
+
 		String member_id = (String) session.getAttribute("id");
 
 		ProductVo pv = productDao.getOne_product(product_id);
 		int price = pv.getPrice();
-		
+
 		MemberVo mv = memberDao.getOne_member(member_id);
 		String pwd = mv.getPwd();
-		
+
 		long paymentOne = rentMonth * price;
-		
+
 		mav.addObject("pwd", pwd);
 		mav.addObject("product_id", product_id);
 		mav.addObject("paymentOne", paymentOne);
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/payment.jsp");
-		
+
 		return mav;
 	}
 
@@ -103,7 +101,6 @@ public class OrderlistController {
 
 		return mav;
 	}
-
 
 	@RequestMapping(value = "/cartList.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goCartList(HttpSession session, @RequestParam(defaultValue = "1") int pageNUM) {
@@ -148,32 +145,32 @@ public class OrderlistController {
 
 		return mav;
 	}
-	
-	@RequestMapping(value="paymentOkAjax.do", produces = "text/plain;charset=utf-8")
+
+	@RequestMapping(value = "paymentOkAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne ) {
+	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		
+
 		int re = -1;
 
 		// 멤버의 잔고 & 결제하기.
 		MemberVo mv = memberDao.getOne_member(member_id);
 		long balance = mv.getBalance();
-		
+
 		// 결제하기.
 		if ((balance - paymentOne) >= 0) {
 			// 결제하기위한 잔액이 충분할 때.
 			re = orderlistDao.updatePaymentProduct_orderlist(member_id, paymentOne);
 
-			//관리자 통장에 입금되기.
+			// 관리자 통장에 입금되기.
 			re = orderlistDao.updateDepositToMaster_orderlist(paymentOne);
-			
+
 			// 잔액차감 성공.
 			if (re == 1) {
 				String condition = "입금완료";
 				re = productDao.updateCondition_product(product_id, condition);
-				
+
 				// Orderlist 생성하기.
 				int nextOreder_id = orderlistDao.getCountNextOrderId_orderlist();
 
@@ -200,7 +197,7 @@ public class OrderlistController {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		
+
 		return str;
 	}
 
@@ -276,23 +273,23 @@ public class OrderlistController {
 		// 멤버의 잔고 & 결제하기.
 		MemberVo mv = memberDao.getOne_member(member_id);
 		long balance = mv.getBalance();
-		
+
 		// 결제하기.
 		if ((balance - paymentOne) >= 0) {
 			// 결제하기위한 잔액이 충분할 때.
 			re = orderlistDao.updatePaymentProduct_orderlist(member_id, paymentOne);
 
-			//관리자 통장에 입금되기.
+			// 관리자 통장에 입금되기.
 			re = orderlistDao.updateDepositToMaster_orderlist(paymentOne);
-			
+
 			// 잔액차감 성공.
 			if (re == 1) {
 				String condition = "입금완료";
 				re = productDao.updateCondition_product(product_id, condition);
-				
+
 				// 대여날짜 수정하기.
-				int rent_month = orderlistDao.getMyRentMonth_orderlist(member_id , product_id);
-				re = orderlistDao.updateRentalDateFromCartlistPayment_orderlist(member_id , product_id , rent_month);
+				int rent_month = orderlistDao.getMyRentMonth_orderlist(member_id, product_id);
+				re = orderlistDao.updateRentalDateFromCartlistPayment_orderlist(member_id, product_id, rent_month);
 			}
 		} else {
 			// 잔액부족.

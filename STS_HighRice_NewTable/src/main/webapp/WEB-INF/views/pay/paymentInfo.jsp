@@ -7,13 +7,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, 
 		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="resources/css/jquery.mobile-1.3.2.css" />
 <title>Insert title here</title>
 <style type="text/css">
 	
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="resources/js/jquery.mobile-1.3.2.js"></script>
 <script type="text/javascript">
 $(function(){
 		var price = eval($("#price").html())
