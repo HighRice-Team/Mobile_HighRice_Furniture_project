@@ -179,7 +179,7 @@ public class ProductController {
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
 
-/*		view.setViewName("main");*/
+		view.setViewName("main");
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
@@ -229,7 +229,7 @@ public class ProductController {
 		}
 
 		view.addObject("list", list);
-/*		view.addObject("viewPage", "product/product.jsp");*/
+		view.addObject("viewPage", "product/product_list.jsp");
 		view.addObject("category", category);
 		view.addObject("sort", sort);
 		view.addObject("pageMax", pageMax);
@@ -240,10 +240,10 @@ public class ProductController {
 	@RequestMapping("/product_detail.do")
 	public ModelAndView getOne_product(int product_id) {
 		ModelAndView view = new ModelAndView();
-/*		view.setViewName("main");*/
+		view.setViewName("main");
 		ProductVo p = dao.getOne_product(product_id);
 		view.addObject("list", p);
-/*		view.addObject("viewPage", "product/productDetail.jsp");*/
+		view.addObject("viewPage", "product/product_detail.jsp");
 		return view;
 	}
 	
