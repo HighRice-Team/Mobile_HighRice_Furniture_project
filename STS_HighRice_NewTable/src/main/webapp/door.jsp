@@ -22,7 +22,7 @@ $(function(){
 			location.href="sellWrite.do"
 		})
 		$("#rentbtn").click(function(){
-			location.href="main.do"
+			location.href="goPaymentInfo.do"
 		})
 	})
 </script>

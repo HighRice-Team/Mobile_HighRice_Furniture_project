@@ -89,9 +89,10 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/goPaymentInfo.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goPaymentInfo(HttpSession session, int product_id, int rentMonth) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView();
 
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 
 		ProductVo productVo = productDao.getOne_product(product_id);
 		MemberVo memberVo = memberDao.getOne_member(member_id);
@@ -99,7 +100,8 @@ public class OrderlistController {
 		mav.addObject("productVo", productVo);
 		mav.addObject("memberVo", memberVo);
 		mav.addObject("rentMonth", rentMonth);
-		mav.addObject("viewPage", "pay/paymentInfo.jsp");
+//		mav.addObject("viewPage", "pay/paymentInfo.jsp");
+		mav.setViewName("pay/paymentInfo");
 
 		return mav;
 	}
