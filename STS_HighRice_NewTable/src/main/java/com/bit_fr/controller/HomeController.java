@@ -145,9 +145,9 @@ public class HomeController {
 	public ModelAndView sellWrite(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String member_id = (String)session.getAttribute("id");
-//		mav.addObject("viewPage", "sell/sellWrite.jsp");
+		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		mav.setViewName("sell/sellWrite");
+		mav.setViewName("main");
 
 		return mav;
 	}
