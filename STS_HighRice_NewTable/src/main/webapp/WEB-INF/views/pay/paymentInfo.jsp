@@ -58,10 +58,7 @@ $(function(){
 </head>
 <body>
 
-	<div data-role="page">
-		<div data-role="header">
-			<h2>PAYMENT</h2>
-		</div>
+
 		<div data-role="content">
 			<div style="text-align: center;">
 				<h2>결제</h2>
@@ -140,10 +137,7 @@ $(function(){
 				</div>
 			</form>
 		</div>
-		<div data-role="footer" data-position="fixed">
-			<h2>Team HighRice</h2>
-		</div>
-	</div>
+
 
 </body>
 </html>

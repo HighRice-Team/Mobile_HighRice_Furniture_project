@@ -29,10 +29,7 @@ $(function(){
 </head>
 <body>
 
-	<div data-role="page">
-		<div data-role="header">
-			<h2>BIT FR</h2>
-		</div>
+	
 		<div data-role="content">
 			<div id="white">
 				<img src="resources/img/door.jpg" style="width: 100%; height: 50%;">
@@ -54,10 +51,6 @@ $(function(){
 				</div>
 			</div>
 		</div>
-		<div data-role="footer" data-position="fixed">
-			<h2>Team HighRice</h2>
-		</div>
-	</div>
 
 </body>
 </html>

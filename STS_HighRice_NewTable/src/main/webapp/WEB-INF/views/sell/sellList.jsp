@@ -36,10 +36,7 @@ $(function(){
 </head>
 <body>
 
-	<div data-role="page">
-		<div data-role="header">
-			<h2>SELL List</h2>
-		</div>
+
 		<div data-role="content">
 			<h2 style="text-align: center;">${member_id }님의 가구</h2>
 			<br>
@@ -79,10 +76,7 @@ $(function(){
 			</div>
 				
 		</div>
-		<div data-role="footer" data-position="fixed">
-			<h2>Team HighRice</h2>
-		</div>
-	</div>
+
 
 </body>
 </html>

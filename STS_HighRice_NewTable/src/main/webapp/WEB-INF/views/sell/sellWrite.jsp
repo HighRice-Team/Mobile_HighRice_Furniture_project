@@ -62,10 +62,6 @@ $(function(){
 </head>
 <body>
 
-	<div data-role="page">
-		<div data-role="header">
-			<h2>SELL WRITE</h2>
-		</div>
 		<div data-role="content">
 			<form id="sellInsertForm" method="post" enctype="multipart/form-data" data-ajax="false" action="sellInsert.do">
 		
@@ -136,10 +132,7 @@ $(function(){
 			</div>
 		</form>
 		</div>
-		<div data-role="footer" data-position="fixed">
-			<h2>Team HighRice</h2>
-		</div>
-	</div>
+
 
 </body>
 </html>

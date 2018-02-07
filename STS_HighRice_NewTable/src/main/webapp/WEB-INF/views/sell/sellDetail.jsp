@@ -85,10 +85,7 @@ $(function(){
 </head>
 <body>
 
-	<div data-role="page">
-		<div data-role="header">
-			<h2>SELL Update</h2>
-		</div>
+
 		<div data-role="content">
 			<h2 style="text-align: center;">상품 변경 페이지</h2>
 			<form id="sellUpdateForm" method="post" enctype="multipart/form-data" action="sellUpdate.do" data-ajax="false">
@@ -172,10 +169,7 @@ $(function(){
 			</div>
 		</form>
 		</div>
-		<div data-role="footer" data-position="fixed">
-			<h2>Team HighRice</h2>
-		</div>
-	</div>
+
 
 </body>
 </html>
