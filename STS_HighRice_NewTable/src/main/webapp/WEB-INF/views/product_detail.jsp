@@ -12,7 +12,6 @@
 <meta name="apple-mobile-web-capable" content="yes"/>
 <meta name="apple-moblie-web-status-bar-style" content="black"/>
 <title>Insert title here</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <style type="text/css">
 
 #product_box a{
@@ -51,9 +50,7 @@ p{
 	padding: 0px;
 }
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script type="text/javascript">
 $(function(){
 	qnaBoardList();
@@ -130,63 +127,30 @@ $(function(){
 </script>
 </head>
 <body>
-	<div id="" data-role="page">
-	
-		<div data-role="header">
-			<h3>HEADER</h3>
+	<div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
+		<h3 id="category">${list.category}</h3>
+		<br>
+		<div>
+			<img src="resources/img/product/${list.main_img}" style="width: 100%">
 		</div>
 		
-		<div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
-			<h3 id="category">${list.category}</h3>
+		<div style="width: 100%; float: left; text-align: left;">
+			<input type="hidden" value="${list.product_id }" id="product_id">
+			<input type="hidden" value="${member_id }" id="member_id" value="a3">
+			<input type="hidden" value="${list.price }" id="price">
 			<br>
-			<div>
-				<img src="resources/img/product/${list.main_img}" style="width: 100%">
-			</div>
-			
-			<div style="width: 100%; float: left; text-align: left;">
-				<input type="hidden" value="${list.product_id }" id="product_id">
-				<input type="hidden" value="${member_id }" id="member_id" value="a3">
-				<input type="hidden" value="${list.price }" id="price">
-				<br>
-				<h2>${list.product_name }</h2>
-				<hr>
-				<div style="display: inline;">
-					<p style="padding: 0; margin: 0 0 2% 1%;">상품 등급 : ${list.quality}</p>
-					<p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : ${list.price}원</p>
-					<div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
-						<div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
-							대여 기간 :
-						</div>
-						<div class="ui-block-b">
-							<select id="rentMonth" style="margin: 0 0 0 0; padding: 0 0 0 0;" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-								<option selected="selected">6개월 이상 필수 선택</option>
-								<option value=6>6개월</option>
-								<option value=7>7개월</option>
-								<option value=8>8개월</option>
-								<option value=9>9개월</option>
-								<option value=10>10개월</option>
-								<option value=11>11개월</option>
-								<option value=12>1년</option>
-							</select>
-						</div>
+			<h2>${list.product_name }</h2>
+			<hr>
+			<div style="display: inline;">
+				<p style="padding: 0; margin: 0 0 2% 1%;">상품 등급 : ${list.quality}</p>
+				<p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : ${list.price}원</p>
+				<div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
+					<div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
+						대여 기간 :
 					</div>
-					<hr>
-					<div class="ui-grid-a">
-						<div class="ui-block-a" style="width: 70%">
-							<p class="tot_p" style="font-size: 18px; font-weight: bold;">선택 기간 총 대여 금액</p>
-						</div>
-						<div class="ui-block-b" style="width: 25%;">
-							<p class="tot_p" style="font-size: 18px; font-weight: bold; text-align: right; color: red;">0</p>
-						</div>
-					</div>
-				</div>
-				<%-- <div class="ui-grid-a" style="width: 100%; display: inline;">
-					<div class="ui-block-a" style="width: 70%; align-content: right; padding-top: 9px;">
-						가격 : ${list.price}
-					</div>
-					<div class="ui-block-b" style="width: 30%">
-						<select id="rentMonth" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-							<option selected="selected">대여기간</option>
+					<div class="ui-block-b">
+						<select id="rentMonth" style="margin: 0 0 0 0; padding: 0 0 0 0;" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
+							<option selected="selected">6개월 이상 필수 선택</option>
 							<option value=6>6개월</option>
 							<option value=7>7개월</option>
 							<option value=8>8개월</option>
@@ -196,54 +160,57 @@ $(function(){
 							<option value=12>1년</option>
 						</select>
 					</div>
-				</div> --%>
-				
-				<c:if test="${list.member_id != sessionScope.id}">
-					<div class="ui-grid-a">
-						<div class="ui-block-a" data-corners="false">
-							<a href="#" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
-						</div>
-						<div class="ui-block-b" data-corners="false">
-							<a href="#" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
-						</div>
+				</div>
+				<hr>
+				<div class="ui-grid-a">
+					<div class="ui-block-a" style="width: 70%">
+						<p class="tot_p" style="font-size: 18px; font-weight: bold;">선택 기간 총 대여 금액</p>
 					</div>
-				</c:if>
-				<c:if test="${list.member_id == sessionScope.id}">&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;
-					나의 물건 입니다.&nbsp;&nbsp;&nbsp;
-	      		</c:if>
+					<div class="ui-block-b" style="width: 25%;">
+						<p class="tot_p" style="font-size: 18px; font-weight: bold; text-align: right; color: red;">0</p>
+					</div>
+				</div>
 			</div>
+			
+			<c:if test="${list.member_id != sessionScope.id}">
+				<div class="ui-grid-a">
+					<div class="ui-block-a" data-corners="false">
+						<a href="#" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
+					</div>
+					<div class="ui-block-b" data-corners="false">
+						<a href="#" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${list.member_id == sessionScope.id}">&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;
+				나의 물건 입니다.&nbsp;&nbsp;&nbsp;
+      		</c:if>
 		</div>
-		<hr>
-		<div style="background-color: grey;">
-			<img src="resources/img/product/${list.sub_img}" style="width: 100%;">
+	</div>
+	<hr>
+	<div style="background-color: grey;">
+		<img src="resources/img/product/${list.sub_img}" style="width: 100%;">
+	</div>
+	
+	<div id="qna" class="ui-grid-a" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+		<div class="ui-block-a" style="width: 30%; margin: 0 0 0 0; padding: 0 0 0 0;">
+			<select id="rentMonth"  data-inline="true" data-mini="true" data-inline="true" data-corners="false">
+				<option selected="selected">문의 분류</option>
+				<option value="물품문의">물품문의</option>
+				<option value="주문/결제문의">주문/결제문의</option>
+				<option value="배송문의">배송문의</option>
+				<option value="취소/환불문의">취소/환불문의</option>
+				<option value="기타문의">기타문의</option>
+			</select>
 		</div>
-		
-		<div id="qna" class="ui-grid-a" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-			<div class="ui-block-a" style="width: 30%; margin: 0 0 0 0; padding: 0 0 0 0;">
-				<select id="rentMonth"  data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-					<option selected="selected">문의 분류</option>
-					<option value="물품문의">물품문의</option>
-					<option value="주문/결제문의">주문/결제문의</option>
-					<option value="배송문의">배송문의</option>
-					<option value="취소/환불문의">취소/환불문의</option>
-					<option value="기타문의">기타문의</option>
-				</select>
-			</div>
-			<div class="ui-block-b" style="width: 70%; margin: 0 0 0 0; padding: 0 0 0 0;">
-				<input type="text" data-mini="true" style="width: 80%; margin: 0 0 0 0; padding: 0 0 0 5%;" placeholder="제목을 입력하세요.">
-			</div>
+		<div class="ui-block-b" style="width: 70%; margin: 0 0 0 0; padding: 0 0 0 0;">
+			<input type="text" data-mini="true" style="width: 80%; margin: 0 0 0 0; padding: 0 0 0 5%;" placeholder="제목을 입력하세요.">
 		</div>
-		<textarea placeholder="문의 내용을 입력하세요."></textarea>
-		<hr>
-		
-		<div id="productReplyList" style="float:center">
-		
-		</div>
-
-		<div data-role="footer" data-position="fixed">
-			<h3>FOOTER</h3>
-		</div>
+	</div>
+	<textarea placeholder="문의 내용을 입력하세요."></textarea>
+	<hr>
+	<div id="productReplyList" style="float:center">
 	</div>
 </body>
 </html>

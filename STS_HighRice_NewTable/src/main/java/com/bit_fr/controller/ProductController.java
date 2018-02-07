@@ -2,16 +2,14 @@ package com.bit_fr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-<<<<<<< HEAD
+
 import java.sql.Array;
-=======
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -170,14 +168,8 @@ public class ProductController {
 
 		return str;
 	}
-<<<<<<< HEAD
-	
-	
-	@RequestMapping("/product_list.do")
-=======
 
-	@RequestMapping("/product.do")
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+	@RequestMapping("/product_list.do")
 	@ResponseBody
 	public ModelAndView getAll_product(@RequestParam(defaultValue = "") String sort, String category,
 			@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "0") int min,
@@ -227,7 +219,6 @@ public class ProductController {
 		sql += "where rnum>=" + startNum + " and rnum<=" + endNum;
 
 		list = dao.getAll_product(sql);
-<<<<<<< HEAD
 		
 		ArrayList<String> price_with = new ArrayList<String>();
 		
@@ -236,8 +227,6 @@ public class ProductController {
 			int price = list.get(i).getPrice();
 			price_with.add(comma.format(price)+"");
 		}
-=======
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 
 		view.addObject("list", list);
 /*		view.addObject("viewPage", "product/product.jsp");*/
