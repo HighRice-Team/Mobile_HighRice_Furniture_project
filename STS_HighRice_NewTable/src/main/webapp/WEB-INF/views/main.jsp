@@ -113,6 +113,7 @@ div .log {
 				$.ajax({
 					url : "logout.do",
 					success : function() {
+						
 						location.href = "";
 					}
 
