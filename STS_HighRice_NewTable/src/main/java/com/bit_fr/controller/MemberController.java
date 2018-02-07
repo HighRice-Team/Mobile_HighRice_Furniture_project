@@ -108,6 +108,7 @@ public class MemberController {
 				session.setAttribute("id", v.getMember_id());
 				session.setAttribute("grade", v2.getGrade());
 				session.setAttribute("pwd", v2.getPwd());
+				session.setAttribute("name", v2.getName());
 
 			} else {
 				str = "0";
