@@ -82,7 +82,7 @@
 	</insert>
 
 	<update id="update_product">
-		update product set product_name=#{product_name}, category=#{category}, quality=#{quality}, main_img=#{main_img}, sub_img=#{sub_img}
+		update product set product_name=#{product_name}, category=#{category}, quality=#{quality}, main_img=#{main_img}, sub_img=#{sub_img} where product_id=#{product_id}
 	</update>
 	
 	<update id="updateCondition_product">
