@@ -1,70 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0,
-			maximum-scale=1.0, minimum-scale=1.0,
-			user-scale=no" />
-<meta name="appel-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <style type="text/css">
-div #container {
-	margin-top: 20px;
-}
-
-ul.tabs {
-	/* 	float:left; */
-	list-style: none;
-	/* 	margin-left:-45px; */
-	margin-bottom: 30px;
-}
-
-ul.tabs li {
-	float: left;
-	width: 35%
-}
-
-.tab_container .tab_content {
-	margin-top: 25px;
-}
-
-.tab_container .tab_content ul li {
-	list-style: none;
-}
-
-ul.tabs li.active {
-	background: #FFFFFF;
-	border-bottom: 1px solid #FFFFFF;
-}
-
-div #container {
-	margin: 30px;
-}
-
-div .log {
-	margin-top: 50px;
-	margin-right: 20px;
-}
-/* .logname { */
-/* 	visibility: hidden; */
-/* } */
-.nav {
-	visibility: hidden;
-}
-/* .ui-icon-login{ */
-/* 	background-image: url("../resources/login.png"); */
-/* } */
+	div #container { margin-top: 20px;}
+	ul.tabs { /*float:left;*/ list-style: none; /*margin-left:-45px;*/ margin-bottom: 30px;}
+	ul.tabs li { float: left; width: 35% }
+	.tab_container .tab_content { margin-top: 25px; }
+	.tab_container .tab_content ul li { list-style: none; }
+	ul.tabs li.active { background: #FFFFFF; border-bottom: 1px solid #FFFFFF; }
+	div #container { margin: 30px; }
+	div .log { margin-top: 50px; margin-right: 20px; }
+	/* .logname { visibility: hidden; } */
+	.nav { visibility: hidden; }
+	/* .ui-icon-login{	background-image: url("../resources/login.png");} */
+	
+	/* join에 필요한 스타일 시트 jian */
+	.p-1row {font-size: 12px; margin: 20px 0 0 0}
+	.p-2row {font-size: 12px; margin: 12px 0 0 0}
+	.fr-button { text-align: center; }
+	.join-row .rate-2 { width: 20% }
+	.join-row .rate-4 { width: 40% }
+	.join-row .rate-6 { width: 60% }
+	.join-row .rate-8 { width: 80% } 
+	.frjmin .juminform { width: 47% }
+	.frjmin .juminhyphen { width: 6% }
+	.frjmin .juminhyphen .p { margin-top: 15px; text-align: center}
+	.join-process { margin: 0 0 20px 0 }
+	.join-process .step { height:50px; text-align: center; background-color: #ddd;}
+	.join-process .point { background-color: #ccc;}
+	.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; padding: 20px 0 20px 0}
 </style>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script
-	src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 
