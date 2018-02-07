@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +16,14 @@
 	href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <style type="text/css">
 div #container {
-	margin-top: 20px; 
+	margin-top: 20px;
 }
 
 ul.tabs {
 	/* 	float:left; */
 	list-style: none;
 	/* 	margin-left:-45px; */
- 	margin-bottom: 30px; 
+	margin-bottom: 30px;
 }
 
 ul.tabs li {
@@ -32,7 +32,7 @@ ul.tabs li {
 }
 
 .tab_container .tab_content {
-	margin-top: 25px; 
+	margin-top: 25px;
 }
 
 .tab_container .tab_content ul li {
@@ -55,7 +55,7 @@ div .log {
 /* .logname { */
 /* 	visibility: hidden; */
 /* } */
-.nav{
+.nav {
 	visibility: hidden;
 }
 /* .ui-icon-login{ */
@@ -81,42 +81,44 @@ div .log {
 				$("#" + activeTab).fadeIn()
 			}
 		});
-		
-		$("#loginBtn").click(function(){
-			
-		var member_id = $("#member_id").val();
-		var pwd = $("#pwd").val();
-		var data = {"member_id":member_id,"pwd":pwd}
-		$.ajax({
-			url:"login.do",
-			data:data,		
-			success:function(data){
-			if(data==1)
-			{
-				location.href="";
-				$(".ui-block-a").css("visibility","visible");
-				$("#login_img").attr("src", "resources/logout.png");
-			}else if(data==0){
-				$("#msg_footer").html("비밀번호 오류")
-			}else{
-				$("#msg_footer").html("존재하지 않는 아이디 입니다.")
+
+		$("#loginBtn").click(function() {
+
+			var member_id = $("#member_id").val();
+			var pwd = $("#pwd").val();
+			var data = {
+				"member_id" : member_id,
+				"pwd" : pwd
 			}
-		}
-		
+			$.ajax({
+				url : "login.do",
+				data : data,
+				success : function(data) {
+					if (data == 1) {
+						location.href = "";
+						$(".ui-block-a").css("visibility", "visible");
+						$("#login_img").attr("src", "resources/logout.png");
+					} else if (data == 0) {
+						$("#msg_footer").html("비밀번호 오류")
+					} else {
+						$("#msg_footer").html("존재하지 않는 아이디 입니다.")
+					}
+				}
+
+			});
 		});
-		});
-		
-		$("#logout_img").click(function(){
-			if(confirm("로그아웃 하시겠습니까?")){
-		         $.ajax({
-		            url:"logout.do",
-		            success:function(){
-		               alert("로그아웃 완료");
-		               location.href="";
-		            }
-		            
-		         })
-		      }
+
+		$("#logout_img").click(function() {
+			if (confirm("로그아웃 하시겠습니까?")) {
+				$.ajax({
+					url : "logout.do",
+					success : function() {
+						
+						location.href = "";
+					}
+
+				})
+			}
 		});
 
 	});
@@ -129,44 +131,45 @@ div .log {
 			<a href="#menu" data-icon="bars" data-iconpos="notext">Menu</a>
 		</div>
 		<div data-role="content">
+			<jsp:include page="${viewPage }" />
+
 			<div data-role="panel" data-position="left" data-display="overlay"
 				id="menu">
 				<ul data-role="listview">
 					<li data-icon="delete"><a href="#" data-rel="close">Closemenu</a></li>
 				</ul>
-				
+
 				<div class="log ui-grid-a">
-				<c:if test="${not empty sessionScope.name }">
-					<span class="ui-block-a logname">${sessionScope.name}님 환영합니다.</span>
-				 
-					<span
-						class="ui-block-b"><a data-inline="true" href="#"
-						data-rel="popup" data-position-to="window" data-transition="pop"><img id="logout_img"
-							align="right" src="resources/logout.png" style="width: 30%"></a>
-					</span>
-				</c:if>
-				<c:if test="${empty sessionScope.name }">
-					<span class="ui-block-a">Please Login</span>
-					<span
-						class="ui-block-b"><a data-inline="true" href="#popupLogin"
-						data-rel="popup" data-position-to="window" data-transition="pop"><img id="login_img"
-							align="right" src="resources/login.png" style="width: 30%"></a>
-					</span>
-				</c:if>
+					<c:if test="${not empty sessionScope.name }">
+						<span class="ui-block-a logname">${sessionScope.name}님
+							환영합니다.</span>
+
+						<span class="ui-block-b"><a data-inline="true" href="#"
+							data-rel="popup" data-position-to="window" data-transition="pop"><img
+								id="logout_img" align="right" src="resources/img/logout.png"
+								style="width: 30%"></a> </span>
+					</c:if>
+					<c:if test="${empty sessionScope.name }">
+						<span class="ui-block-a">Please Login</span>
+						<span class="ui-block-b"><a data-inline="true"
+							href="#popupLogin" data-rel="popup" data-position-to="window"
+							data-transition="pop"><img id="login_img" align="right"
+								src="resources/img/login.png" style="width: 30%"></a> </span>
+					</c:if>
 				</div>
-				
+
 				<div style="margin-top: 20px;">
-				<c:if test="${not empty sessionScope.name}">
-					<div data-role="navbar" data-position="inline">
-						<ul>
-							<li><a href="#" data-ajax="false">My Page</a></li>
-							<li><a href="#" data-ajax="false">SELL</a></li>
-							<li><a href="#" data-ajax="false">CART</a></li>
-						</ul>
-					</div>
-				</c:if>
+					<c:if test="${not empty sessionScope.name}">
+						<div data-role="navbar" data-position="inline">
+							<ul>
+								<li><a href="#" data-ajax="false">My Page</a></li>
+								<li><a href="#" data-ajax="false">SELL</a></li>
+								<li><a href="#" data-ajax="false">CART</a></li>
+							</ul>
+						</div>
+					</c:if>
 				</div>
-				
+
 				<div id="container">
 					<div style="width: 100%; text-align: center;">
 						<ul class="tabs" data-role="listview"
@@ -210,8 +213,9 @@ div .log {
 						<!-- #tab2 -->
 					</div>
 					<!-- .tab_container -->
-				</div>
+				</div><!-- container end -->
 			</div>
+			<!-- end panel -->
 
 			<div data-role="popup" id="popupLogin" data-position-to="window"
 				style="width: 330px;">
@@ -221,44 +225,42 @@ div .log {
 						data-iconpos="notext" class="ui-btn-right">close</a>      
 				</div>
 				<div>
-				<form id="loginForm">
-					<table align="center" style="width: 100%;">
-						<tr>
-							<td>아이디:</td>
-							<td><input type="text" id="member_id"
-						name="member_id"
-								placeholder="username"></td>
+					<form id="loginForm">
+						<table align="center" style="width: 100%;">
+							<tr>
+								<td>아이디:</td>
+								<td><input type="text" id="member_id" name="member_id"
+									placeholder="username"></td>
 
-						</tr>
-						<tr>
-							<td>비민번호:</td>
-							<td><input type="password" id="pwd" name="pwd"
-								placeholder="password"></td>
-						</tr>
-						<tr>
-					<td colspan="2" style="color: red" id="msg_footer"></td>
-				</tr>
-					</table>
-					    
-				</form>
-				<div align="center" class="ui-grid-b">
-<!-- 				<input type = "button" value="로그인" id="loginBtn" class="ui-block-a"> -->
-					<a href="#" id="loginBtn" data-role="button" data-inline="true"
-						style="width: 27%;"><span>로그인</span></a> 
-						<a href="join.jsp"
-						data-role="button" data-inline="true" style="width: 27%" >조인</a> <a
-						href="idseek.jsp" data-role="button" data-inline="true"
-						style="width: 27%">찾기</a>
-				</div>
-			</div>
-			</div>
+							</tr>
+							<tr>
+								<td>비민번호:</td>
+								<td><input type="password" id="pwd" name="pwd"
+									placeholder="password"></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="color: red" id="msg_footer"></td>
+							</tr>
+						</table>
+						    
+					</form>
+					<div align="center">
+						<!-- 				<input type = "button" value="로그인" id="loginBtn" class="ui-block-a"> -->
+						<a href="#" id="loginBtn" data-role="button" data-inline="true"
+							style="width: 27%;"><span>로그인</span></a> <a href="join.jsp"
+							data-role="button" data-inline="true" style="width: 27%">조인</a> <a
+							href="idseek.jsp" data-role="button" data-inline="true"
+							style="width: 27%">찾기</a>
+					</div></div><!--login form end -->
+			</div><!-- popup end-->
 
+		</div><!-- content end -->
+
+		<div data-role="footer" data-position="fixed">
+			<h2>비트캠프</h2>
 		</div>
 
+	</div><!-- page end -->
 
-	</div>
-	<div data-role="footer" data-position="fixed">
-		<h2>비트캠프</h2>
-	</div>
 </body>
 </html>
