@@ -2,6 +2,9 @@ package com.bit_fr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
+import java.sql.Array;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,17 +169,17 @@ public class ProductController {
 		return str;
 	}
 
-	@RequestMapping("/product.do")
+	@RequestMapping("/product_list.do")
 	@ResponseBody
 	public ModelAndView getAll_product(@RequestParam(defaultValue = "") String sort, String category,
 			@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "0") int min,
 			@RequestParam(defaultValue = "0") int max) {
 		ModelAndView view = new ModelAndView();
-		int productMax = 16;
+		int productMax = 10;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
 
-		view.setViewName("main");
+/*		view.setViewName("main");*/
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
@@ -216,23 +219,47 @@ public class ProductController {
 		sql += "where rnum>=" + startNum + " and rnum<=" + endNum;
 
 		list = dao.getAll_product(sql);
+		
+		ArrayList<String> price_with = new ArrayList<String>();
+		
+		for(int i=0 ; i<list.size() ; i++) {
+			DecimalFormat comma = new DecimalFormat("#,###");
+			int price = list.get(i).getPrice();
+			price_with.add(comma.format(price)+"");
+		}
 
 		view.addObject("list", list);
-		view.addObject("viewPage", "product/product.jsp");
+/*		view.addObject("viewPage", "product/product.jsp");*/
 		view.addObject("category", category);
 		view.addObject("sort", sort);
 		view.addObject("pageMax", pageMax);
+		view.addObject("price_with", price_with);
 		return view;
 	}
 
-	@RequestMapping("/productDetail.do")
+	@RequestMapping("/product_detail.do")
 	public ModelAndView getOne_product(int product_id) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("main");
+/*		view.setViewName("main");*/
 		ProductVo p = dao.getOne_product(product_id);
 		view.addObject("list", p);
-		view.addObject("viewPage", "product/productDetail.jsp");
+/*		view.addObject("viewPage", "product/productDetail.jsp");*/
 		return view;
+	}
+	
+	@RequestMapping(value="/getProduct_detail.do", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getProductDetail(int product_id) {
+		String str = "";
+		ProductVo p = dao.getOne_product(product_id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(p);
+			System.out.println(str);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return str;
 	}
 
 	@RequestMapping("/sellList.do")
