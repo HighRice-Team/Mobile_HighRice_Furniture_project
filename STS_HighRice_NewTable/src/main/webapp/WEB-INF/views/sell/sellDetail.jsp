@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, 
 		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="resources/css/jquery.mobile-1.3.2.css" />
 <title>Insert title here</title>
 <style type="text/css">
 	label{
@@ -28,14 +27,12 @@
 	}
 	
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 $(document).bind("mobileinit", function(){
 	 $("select[name=category]").find("option[value='"+$("#pp").val()+"']").attr("selected", "selected");	  
 	   $("input[value="+$("#qq").val()+"]").attr("checked","checked")
 })
 </script>
-<script src="resources/js/jquery.mobile-1.3.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	   $("#update").click(function(){
