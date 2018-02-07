@@ -1,6 +1,7 @@
 package com.bit_fr.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import java.sql.Array;
@@ -10,10 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -263,13 +267,48 @@ public class ProductController {
 	}
 
 	@RequestMapping("/sellList.do")
-	public ModelAndView sellList(String member_id) {
+	public ModelAndView sellList(HttpSession session, @RequestParam(value="page", defaultValue="1")int page) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		
+//		String member_id = (String) session.getAttribute("member_id");
+		String member_id = "a1";
+		
+		int count = dao.getMySellCount_product(member_id);
+		int max = 5;
+		int end = page * max;
+		int start = end - (max - 1);
+		
+		if(end > count) {
+			end = count;
+		}
+		
+		int totalPage = count/max;
+		if(count%max != 0) {
+			totalPage++;
+		}
+		
+		
+//		mav.setViewName("main");
+		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"+member_id+"' order by product_id desc) order by rownum) r where r.rnum>="+start+"and r.rnum<="+end;
+		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
-		mav.addObject("viewPage", "sell/sellList.jsp");
+		
+		mav.addObject("totalPage", totalPage);
+		
+		mav.setViewName("sell/sellList");
 		return mav;
 	}
+	
+	@RequestMapping("/sellDetail.do")
+	public ModelAndView sellDetail(int product_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("p", dao.getOne_product(product_id));
+		
+		mav.setViewName("sell/sellDetail");
+		
+		return mav;
+	}
+	
 
 	@RequestMapping(value = "/sellList_product.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
@@ -348,66 +387,136 @@ public class ProductController {
 
 		return str;
 	}
+	
+	   @RequestMapping("/sellInsert.do")
+	   public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
+	      String path = request.getRealPath("/resources/img/product");   
+	      System.out.println(path);
+//	      String member_id = (String) session.getAttribute("member_id");
+	      String member_id = "a1";
+	      String main_img = "";
+	      String sub_img = "";
+	      int fsize1 = 0;
+	      int fsize2 = 0;
+	      MultipartFile mainIMG = p.getMainIMG();
+	      MultipartFile subIMG = p.getSubIMG();
+	      
+	      if(mainIMG.getSize()!=0 && subIMG.getSize()!=0) {
+	         try{
+	            byte []data1 = mainIMG.getBytes();
+	            byte []data2 = subIMG.getBytes();
+	      
+	            main_img = mainIMG.getOriginalFilename();
+	            sub_img = subIMG.getOriginalFilename();
+	            fsize1 = data1.length;
+	            fsize2 = data2.length;
+	            FileOutputStream fos1 = new FileOutputStream(path + "/" + main_img);
+	            FileOutputStream fos2 = new FileOutputStream(path + "/" + sub_img);
+	            fos1.write(data1);
+	            fos2.write(data2);
+	            fos1.close();
+	            fos2.close();
+	            
+	         }catch (Exception e) {
+	            // TODO: handle exception
+	            System.out.println(e);
+	         }
+	      }
+	      p.setMember_id(member_id);
+	      p.setMain_img(main_img);
+	      p.setSub_img(sub_img);
 
-	@RequestMapping(value = "/sellInsert.do", produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request) {
-		String path = request.getRealPath("/resources/img/product");
-		String main_img = "";
-		String sub_img = "";
-		int fsize1 = 0;
-		int fsize2 = 0;
-		MultipartFile mainIMG = p.getMainIMG();
-		MultipartFile subIMG = p.getSubIMG();
+	      int product_id = dao.getNextId_product();
+	      p.setProduct_id(product_id);
+	      p.setCondition("등록");
+	      
+	      ModelAndView view = new ModelAndView();
+	      
+	      System.out.println(p);
+	      
+	      dao.insert_product(p);
+//	      view.setViewName("main");
+	      view.addObject("member_id", p.getMember_id());
+//	      view.addObject("viewPage", "sell/sellList");
+	      view.setViewName("redirect:/sellList.do");
+	      return view;
+	   }
 
-		if (mainIMG != null && subIMG != null) {
-			try {
-				byte[] data1 = mainIMG.getBytes();
-				byte[] data2 = subIMG.getBytes();
-
-				main_img = mainIMG.getOriginalFilename();
-				sub_img = subIMG.getOriginalFilename();
-				fsize1 = data1.length;
-				fsize2 = data2.length;
-				FileOutputStream fos1 = new FileOutputStream(path + "/" + main_img);
-				FileOutputStream fos2 = new FileOutputStream(path + "/" + sub_img);
-				fos1.write(data1);
-				fos2.write(data2);
-				fos1.close();
-				fos2.close();
-
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println(e);
-			}
-		}
-		p.setMain_img(main_img);
-		p.setSub_img(sub_img);
-
-		int product_id = dao.getNextId_product();
-		p.setProduct_id(product_id);
-		p.setCondition("등록");
-		String str = "";
-
-		ModelAndView view = new ModelAndView();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(p);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		dao.insert_product(p);
-		view.setViewName("main");
-		view.addObject("member_id", p.getMember_id());
-		view.addObject("viewPage", "sell/sellList.jsp");
-		return view;
-	}
 
 	@RequestMapping("/sellUpdate.do")
-	public ModelAndView update_sell() {
+	public ModelAndView update_sell(ProductVo p, HttpServletRequest request) {
+
 		ModelAndView view = new ModelAndView();
-		view.setViewName("main");
-		view.addObject("viewPage", "sell/sellUpdate.jsp");
-		return view;
+
+
+		MultipartFile mainIMG = p.getMainIMG();
+		MultipartFile subIMG = p.getSubIMG();
+		
+		String main_img = "";
+		String sub_img = "";
+		
+		String path = request.getRealPath("/resources/img/product");
+		
+		String oldMain = dao.getOne_product(p.getProduct_id()).getMain_img();
+		String oldSub = dao.getOne_product(p.getProduct_id()).getSub_img();
+
+		
+		p.setMain_img(oldMain);
+		p.setSub_img(oldSub);
+		
+		if(mainIMG.getSize() != 0) {
+			main_img = mainIMG.getOriginalFilename();
+			
+			if(!main_img.equals(oldMain)) {
+				File file = new File(path+"/"+oldMain);
+				file.delete();
+				
+				try {
+					byte b[] = mainIMG.getBytes();
+					FileOutputStream fos = new FileOutputStream(path+"/"+main_img);
+					
+					fos.write(b);
+					
+					fos.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+				}
+				p.setMain_img(main_img);
+				
+			}
+		}
+		
+		if(subIMG.getSize() != 0) {
+			sub_img = subIMG.getOriginalFilename();
+			
+			if(!sub_img.equals(oldSub)) {
+				File file = new File(path+"/"+oldSub);
+				file.delete();
+			
+				try {
+					byte b[] = subIMG.getBytes();
+					FileOutputStream fos = new FileOutputStream(path+"/"+sub_img);
+					
+					fos.write(b);
+					
+					fos.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+				}
+				
+				p.setSub_img(sub_img);
+				
+			}
+		}
+		
+		int re = dao.update_product(p.getProduct_name(), p.getCategory(), p.getQuality(), p.getMain_img(), p.getSub_img(), p.getProduct_id());
+		if(re == 1) {
+			view.setViewName("redirect:/sellList.do");
+		}
+		
+		
+		return view;		
 	}
 }
