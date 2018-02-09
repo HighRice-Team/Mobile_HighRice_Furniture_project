@@ -5,6 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 <title>Insert title here</title>
 <style type="text/css">
 	label{
