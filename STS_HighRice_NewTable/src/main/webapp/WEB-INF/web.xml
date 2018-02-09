@@ -40,7 +40,7 @@
   <filter-mapping>
     <filter-name>loginMember</filter-name>
     <url-pattern>/myPage.do</url-pattern>
-    <url-pattern>/cartList.do</url-pattern>
+<!--     <url-pattern>/cartList.do</url-pattern> -->
 <!--     <url-pattern>/goPaymentInfo.do</url-pattern> -->
 <!--     <url-pattern>/goPayment.do</url-pattern> -->
     <url-pattern>/admin.do</url-pattern>

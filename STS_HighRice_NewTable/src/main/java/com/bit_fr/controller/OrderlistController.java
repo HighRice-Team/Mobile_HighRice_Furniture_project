@@ -115,7 +115,8 @@ public class OrderlistController {
 		int endNUM = pageNUM * orderlistMAX;
 		int startNUM = endNUM - (orderlistMAX - 1);
 
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 
 		String sql = "select * from (" + "select rownum rnum,product_name,main_img,price,rent_month,pr,con "
 				+ "from ( select product_name,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
@@ -146,7 +147,7 @@ public class OrderlistController {
 		mav.addObject("mv", mv);
 		mav.addObject("list", list);
 		mav.addObject("pageMAX", pageMAX);
-		mav.addObject("viewPage", "cartList.jsp");
+		mav.addObject("viewPage", "cart/cartList.jsp");
 
 		return mav;
 	}
@@ -211,7 +212,8 @@ public class OrderlistController {
 	@ResponseBody
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);

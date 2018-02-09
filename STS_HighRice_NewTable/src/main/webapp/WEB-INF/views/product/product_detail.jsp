@@ -238,7 +238,7 @@ $(function(){
                   <a href="#" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
                </div>
                <div class="ui-block-b" data-corners="false">
-                  <a href="#" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+                  <a href="#" data-role="button" data-corners="false" id="goToCart">ADD TO CART<br><hr>장바구니</a>
                </div>
             </div>
          </c:if>
