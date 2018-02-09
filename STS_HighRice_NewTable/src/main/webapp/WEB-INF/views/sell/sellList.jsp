@@ -5,22 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, 
-		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="resources/css/jquery.mobile-1.3.2.css" />
 <title>Insert title here</title>
 <style type="text/css">
-img{
+.img{
 	width:100px;
 	height: 100px;
 }
+
+#page a{
+   text-decoration: none;
+   color: black;
+   font-size: 2.5vw;
+}
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="resources/js/jquery.mobile-1.3.2.js"></script>
 <script type="text/javascript">
 $(function(){
 		
-	
 		$(".sell").click(function(){
 			if($(this).find(".condition").html() == "등록"){
 				location.href="sellDetail.do?product_id="+$(this).find("#product_id").val();
@@ -36,7 +36,6 @@ $(function(){
 </head>
 <body>
 
-
 		<div data-role="content">
 			<h2 style="text-align: center;">${member_id }님의 가구</h2>
 			<br>
@@ -49,11 +48,11 @@ $(function(){
 							
 							<td rowspan="3">
 								<c:if test="${not empty p.main_img}">
-									<img src="resources/img/product/${p.main_img }">
+									<img src="resources/img/product/${p.main_img }" class="img">
 								</c:if>
 								
 								<c:if test="${empty p.main_img}">
-									<img src="resources/img/noImage.png">
+									<img src="resources/img/noImage.png" class="img">
 								</c:if>
 							</td>
 							
@@ -61,7 +60,7 @@ $(function(){
 							<td>${p.category }</td>
 						</tr>
 						<tr style="text-align: center;">
-							<td>${p.quality }</td>
+							<td>${p.quality }&nbsp;/&nbsp;${p.price }&nbsp;원</td>
 						</tr>
 						<tr style="text-align: center;">
 							<td>상태 : <span class="condition">${p.condition }</span></td>
@@ -71,7 +70,7 @@ $(function(){
 			</c:forEach>
 			<div style="text-align: center;">
 				<c:forEach var="i"  begin="1" end="${totalPage }">
-					<span style="font-size: 20px;"><a href="sellList.do?page=${i }" data-ajax="false">${i }</a></span>&nbsp;&nbsp;
+					<span id="page" style="font-size: 20px;"><a href="sellList.do?page=${i }" data-ajax="false">${i }</a></span>&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 				

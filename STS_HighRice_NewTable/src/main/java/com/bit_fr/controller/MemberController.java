@@ -256,6 +256,23 @@ public class MemberController {
 		return str;
 	}
 	
+	@RequestMapping(value="updateAddr_member.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateAddr_member(MemberVo v) {
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		int re = member_dao.updateAddr_member(v);
+		
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
 	
 	@RequestMapping(value="sendMail.do",produces="text/plain;charset=utf-8")
 	@ResponseBody

@@ -163,7 +163,7 @@ div .log {
 						<div data-role="navbar" data-position="inline">
 							<ul>
 								<li><a href="#" data-ajax="false">My Page</a></li>
-								<li><a href="#" data-ajax="false">SELL</a></li>
+								<li><a href="sellWrite.do" data-ajax="false">SELL</a></li>
 								<li><a href="#" data-ajax="false">CART</a></li>
 							</ul>
 						</div>
@@ -182,16 +182,16 @@ div .log {
 						<div id="tab1" class="tab_content">
 							<ul data-role="listview">
 								<li><p>
-										<a href="#">DESK</a>
+										<a href="product_list.do?category=DESK" data-ajax="false">DESK</a>
 									</p></li>
 								<li><p>
-										<a href="#">SOFA</a>
+										<a href="product_list.do?category=SOFA" data-ajax="false">SOFA</a>
 									</p></li>
 								<li><p>
-										<a href="#">BED</a>
+										<a href="product_list.do?category=BED" data-ajax="false">BED</a>
 									</p></li>
 								<li><p>
-										<a href="#">CLOSET</a>
+										<a href="product_list.do?category=CLOSET" data-ajax="false">CLOSET</a>
 									</p></li>
 							</ul>
 						</div>

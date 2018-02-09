@@ -100,8 +100,8 @@ public class OrderlistController {
 		mav.addObject("productVo", productVo);
 		mav.addObject("memberVo", memberVo);
 		mav.addObject("rentMonth", rentMonth);
-//		mav.addObject("viewPage", "pay/paymentInfo.jsp");
-		mav.setViewName("pay/paymentInfo");
+		mav.addObject("viewPage", "pay/paymentInfo.jsp");
+		mav.setViewName("main");
 
 		return mav;
 	}
@@ -155,7 +155,8 @@ public class OrderlistController {
 	@ResponseBody
 	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne ) {
 		String str = "";
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 		
 		int re = -1;
 

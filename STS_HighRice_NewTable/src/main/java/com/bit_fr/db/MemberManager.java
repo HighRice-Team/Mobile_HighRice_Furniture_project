@@ -150,6 +150,14 @@ public class MemberManager {
 		return re;
 	}
 	
+	public static int updateAddr_member(MemberVo v) {
+		SqlSession session = factory.openSession(true);
+		int re = session.update("member.updateAddr_member", v);
+		session.close();
+		
+		return re;
+	}
+	
 	public static int updatePayback_member(String member_id, int payback) {
 		int re = -1;
 		HashMap<String, String> map = new HashMap<String, String>();

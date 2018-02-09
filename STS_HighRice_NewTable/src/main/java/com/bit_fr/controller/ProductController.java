@@ -288,14 +288,12 @@ public class ProductController {
 		}
 		
 		
-//		mav.setViewName("main");
+		mav.setViewName("main");
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"+member_id+"' order by product_id desc) order by rownum) r where r.rnum>="+start+"and r.rnum<="+end;
 		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
-		
 		mav.addObject("totalPage", totalPage);
-		
-		mav.setViewName("sell/sellList");
+		mav.addObject("viewPage" ,"sell/sellList.jsp");
 		return mav;
 	}
 	
@@ -303,8 +301,8 @@ public class ProductController {
 	public ModelAndView sellDetail(int product_id) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("p", dao.getOne_product(product_id));
-		
-		mav.setViewName("sell/sellDetail");
+		mav.setViewName("main");
+		mav.addObject("viewPage" ,"sell/sellDetail.jsp");
 		
 		return mav;
 	}
@@ -432,12 +430,10 @@ public class ProductController {
 	      
 	      ModelAndView view = new ModelAndView();
 	      
-	      System.out.println(p);
 	      
 	      dao.insert_product(p);
-//	      view.setViewName("main");
+
 	      view.addObject("member_id", p.getMember_id());
-//	      view.addObject("viewPage", "sell/sellList");
 	      view.setViewName("redirect:/sellList.do");
 	      return view;
 	   }

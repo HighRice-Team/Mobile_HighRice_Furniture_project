@@ -28,14 +28,12 @@
 	}
 	
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 $(document).bind("mobileinit", function(){
 	 $("select[name=category]").find("option[value='"+$("#pp").val()+"']").attr("selected", "selected");	  
 	   $("input[value="+$("#qq").val()+"]").attr("checked","checked")
 })
 </script>
-<script src="resources/js/jquery.mobile-1.3.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	   $("#update").click(function(){
@@ -100,7 +98,7 @@ $(function(){
 						<input type="text" name="product_name" id="product_name" style="width:90%" value="${p.product_name }">
 					</div>
 				</div>
-				<input type="hidden" name="member_id" value="${member_id}" id="member_id">
+				<input type="hidden" name="member_id" value="${member_id}" id="member_id_sell">
 				<input type="hidden" id="pp" value="${p.category }">
 			</div>
 			

@@ -5,9 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, 
-		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="resources/css/jquery.mobile-1.3.2.css" />
 <title>Insert title here</title>
 <style type="text/css">
 	label{
@@ -23,8 +20,6 @@
 	}
 	
 </style>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="resources/js/jquery.mobile-1.3.2.js"></script>
 <script type="text/javascript">
 $(function(){
 	   $("#insert").click(function(){
@@ -72,7 +67,7 @@ $(function(){
 						<input type="text" name="product_name" id="product_name" style="width:90%">
 					</div>
 				</div>
-				<input type="hidden" name="member_id" value="${member_id}" id="member_id">
+				<input type="hidden" name="member_id" value="${member_id}">
 			</div>
 			
 			
