@@ -130,6 +130,9 @@ public class OrderlistController {
 		if (list.size() % orderlistMAX != 0) {
 			pageMAX++;
 		}
+		
+		
+		
 
 		sql += "where rnum >= " + startNUM + " and rnum <= " + endNUM;
 
