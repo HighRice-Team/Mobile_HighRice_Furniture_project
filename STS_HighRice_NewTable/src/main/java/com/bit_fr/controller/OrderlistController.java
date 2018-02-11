@@ -141,7 +141,7 @@ public class OrderlistController {
 		mav.addObject("mv", mv);
 		mav.addObject("list", list);
 		mav.addObject("pageMAX", pageMAX);
-		mav.addObject("viewPage", "cartList.jsp");
+		mav.addObject("viewPage", "cart/cartList.jsp");
 
 		return mav;
 	}
