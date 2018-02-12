@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit_fr.dao.ProductDao;
+import com.bit_fr.dao.QnaBoardDao;
 import com.bit_fr.vo.ProductVo;
+import com.bit_fr.vo.QnaBoardVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -29,6 +31,13 @@ public class ProductController {
 
 	public void setDao(ProductDao dao) {
 		this.dao = dao;
+	}
+	@Autowired
+	private QnaBoardDao qdao;
+	
+	
+	public void setQdao(QnaBoardDao qdao) {
+		this.qdao = qdao;
 	}
 
 	@RequestMapping("/customize.do")
@@ -235,28 +244,16 @@ public class ProductController {
 	}
 
 	@RequestMapping("/product_detail.do")
-	public ModelAndView getOne_product(int product_id) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("main");
+	public ModelAndView getProductDetail(int product_id) {
+		ModelAndView mav = new ModelAndView("main");
 		ProductVo p = dao.getOne_product(product_id);
-		view.addObject("list", p);
-		view.addObject("viewPage", "product/product_detail.jsp");
-		return view;
-	}
-
-	@RequestMapping(value = "/getProduct_detail.do", produces = "text/plain;charset=UTF-8")
-	@ResponseBody
-	public String getProductDetail(int product_id) {
-		String str = "";
-		ProductVo p = dao.getOne_product(product_id);
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(p);
-			System.out.println(str);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return str;
+		List<QnaBoardVo> list = qdao.getAll_qnaBoard();
+		mav.addObject("product_id",product_id);
+		mav.addObject("vo",p);
+		mav.addObject("list",list);
+		mav.addObject("viewPage","product/product_detail.jsp");
+		
+		return mav;
 	}
 
 	@RequestMapping("/sellList.do")

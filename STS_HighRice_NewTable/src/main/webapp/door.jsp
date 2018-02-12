@@ -25,9 +25,7 @@ $(function(){
 </script>
 </head>
 <body>
-
-	
-		<div data-role="content">
+	<div data-role="content">
 			<div id="white">
 				<img src="resources/img/door.jpg" style="width: 100%; height: 50%;">
 				<div>
