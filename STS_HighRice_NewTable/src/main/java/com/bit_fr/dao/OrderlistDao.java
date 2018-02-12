@@ -83,5 +83,9 @@ public class OrderlistDao {
 	public int insertPayment_orderlist(OrderlistVo v) {
 		return OrderlistManager.insertPayment_orderlist(v);
 	}
+	
+	public int deleteOrders_orderlist(String order_id) {
+		return OrderlistManager.deleteOrders_orderlist(order_id);
+	}
 
 }

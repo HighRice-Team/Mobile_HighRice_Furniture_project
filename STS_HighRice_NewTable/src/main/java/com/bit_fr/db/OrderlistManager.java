@@ -306,5 +306,14 @@ public class OrderlistManager {
 
 		return re;
 	}
+	
+	public static int deleteOrders_orderlist(String order_id) {
+		int re = -1;
+		HashMap map = new HashMap();
+		map.put("order_id", order_id);
+		SqlSession session = factory.openSession(true);
+		re = session.delete("orderlist.deleteOrders_orderlist",map);
+		return re;
+	}
 
 }

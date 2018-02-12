@@ -16,6 +16,7 @@
 	.fr-header .logo-area .logo-img {height: 40px; float: right}
 	.fr-header .menu-img {height: 30px}
 	.close-img {height: 30px; float: right}
+	.check-img {height: 20px; float: right}
 	.menu-panel {width: 300px}
 	.menu-panel .log-img {height: 20px}
 	.penel-div {margin: 30px 0 20px 0}
@@ -34,8 +35,10 @@
 	.p-1row {font-size: 12px; margin: 20px 0 0 0}
 	.p-2row {font-size: 12px; margin: 12px 0 0 0}
 	.fr-button {text-align: center}
+	.join-row .rate-1 {width: 10%}
 	.join-row .rate-2 {width: 20%}
 	.join-row .rate-4 {width: 40%}
+	.join-row .rate-5 {width: 50%}
 	.join-row .rate-6 {width: 60%}
 	.join-row .rate-8 {width: 80%} 
 	.frjmin .juminform {width: 47%}
@@ -45,11 +48,26 @@
 	.join-process .step {height: 50px; text-align: center; background-color: #ddd}
 	.join-process .point {background-color: #ccc}
 	.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; margin: 5px 10px 0 0}
+	
 </style>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+// 		$(".menu").click(function(){
+// 			$("body").addClass("ui-mobile-viewport-transitioning")
+// 		})
+		
+// 		$("#close_menu").click(function(){
+// 			$("body").removeClass("ui-mobile-viewport-transitioning")
+// 		})
+		
+// 		$("div[data-panelid='menu']").click(function(){
+// 			alert("a")
+// 		})
+
+
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -91,13 +109,13 @@
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
-			<div class="logo-area"><img src="resources/img/m/logo.png" class="logo-img"></div>
+			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
 		</div>
-		<div data-role="content">
+		<div data-role="content" id="content">
 			<jsp:include page="${viewPage }" />
 			<!-- Start panel -->
-			<div data-role="panel" data-position="left" data-display="overlay" id="menu" class="menu-panel">
-				<a href="#" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>	
+			<div data-role="panel" data-position="left" data-position-fixed="true" data-display="overlay" id="menu" class="menu-panel">
+				<a href="#" data-rel="close" id="close_menu"><img src="resources/img/m/close.png" class="close-img"></a>	
  				<c:if test="${not empty sessionScope.name}">
 					<div>${sessionScope.name}님 환영합니다.
 						<a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
@@ -116,7 +134,7 @@
 					<div data-role="navbar" data-position="inline">
 						<ul>
 							<li><a href="#" data-ajax="false">My Page</a></li>
-							<li><a href="#" data-ajax="false">SELL</a></li>
+							<li><a href="sellList.do" data-ajax="false">SELL</a></li>
 							<li><a href="cartList.do" data-ajax="false">CART</a></li>
 						</ul>
 						<c:if test="${not empty sessionScope.name}">
@@ -173,8 +191,8 @@
 					<div id="loginCheck"></div> 
 				</form>
 				<div class="login-div">
-					<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do">회원가입</a>
-					<a data-role="button" data-inline="true" data-mini="true" href="findMember.do">id/pw 찾기</a>
+					<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do" data-ajax="false">회원가입</a>
+					<a data-role="button" data-inline="true" data-mini="true" href="findMember.do" data-ajax="false">id/pw 찾기</a>
 					<a data-role="button" data-inline="true" data-mini="true" href="#" id="loginBtn">로그인</a>
 				</div>
 			</div>
