@@ -112,8 +112,8 @@ public class OrderlistController {
 
 		String member_id = (String) session.getAttribute("id");
 
-		String sql = "select * from (" + "select rownum rnum,product_name,main_img,price,rent_month,pr,con "
-				+ "from ( select product_name,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
+		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con "
+				+ "from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
 				+ member_id + "' and p.condition='물품게시' order by order_id desc))";
 
 		// SQL
@@ -140,6 +140,7 @@ public class OrderlistController {
 		mav.addObject("adr", adr);
 		mav.addObject("mv", mv);
 		mav.addObject("list", list);
+		mav.addObject("listSize", list.size());
 		mav.addObject("pageMAX", pageMAX);
 		mav.addObject("viewPage", "cart/cartList.jsp");
 
@@ -328,6 +329,16 @@ public class OrderlistController {
 			// TODO: handle exception
 			System.out.println(e);
 		}
+		return str;
+	}
+	
+	@RequestMapping(value="deleteOrders_orderlist.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String deleteOrders_orderlist(String order_id) {
+		String str ="";
+		order_id = order_id.substring(0, order_id.length()-1);
+		str = orderlistDao.deleteOrders_orderlist(order_id)+"";
+		
 		return str;
 	}
 

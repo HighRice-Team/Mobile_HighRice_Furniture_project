@@ -7,12 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, 
 		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <title>Insert title here</title>
 <style type="text/css">
 #white{
 	background-color: white;
 }
 </style>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 $(function(){
 		$("#sellbtn").click(function(){
@@ -42,6 +48,7 @@ $(function(){
 					<img src="resources/img/sell2.jpg" id="sellbtn" style="cursor: pointer; width:100%;">
 				</div>
 				<div class="ui-block-b" style="text-align: center">
+					<a href="index.do" data-ajax="false"><img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;"></a>
 					<img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;">
 				</div>
 			</div>
