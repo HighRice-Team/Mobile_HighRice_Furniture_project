@@ -48,6 +48,7 @@
 </style>
 
 
+<link rel="stylesheet" href="resources/css/bitfr_style.css">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
@@ -115,10 +116,10 @@
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
 			<div class="logo-area"><img src="resources/img/m/logo.png" class="logo-img"></div>
 		</div>
+		
 		<div data-role="content">
 			<jsp:include page="${viewPage }" />
 
-			
 		</div>
 		<div data-role="footer" data-position="fixed" class="fr-footer">
 			<img src="resources/img/m/menu.png" class="menu-img">

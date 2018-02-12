@@ -27,9 +27,7 @@
 $(function(){
 		
 		$("#rentbtn").click(function(){
-			$.ajax({url:"onsite.do",success:function(data){
-				location.href="index.do"
-			}})
+			location.href="index.do"
 		})
 		
 		
@@ -92,7 +90,7 @@ $(function(){
 					<img src="resources/img/sell2.jpg" id="sellbtn" style="cursor: pointer; width:100%;">
 				</div>
 				<div class="ui-block-b" style="text-align: center">
-					<a href="index.do"><img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;"></a>
+					<img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;">
 				</div>
 			</div>
 		</div>
