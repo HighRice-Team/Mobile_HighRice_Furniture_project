@@ -72,7 +72,7 @@ $(function(){
 		<div></div>
 		<div style="width: 100%; display: inline-block;" id="product_box" >
 			<c:forEach items="${list}" var="list" varStatus="status">
-			<a href="product_detail.do?product_id=${list.product_id}">
+			<a href="product_detail.do?product_id=${list.product_id}" data-ajax="false">
 			<div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center; padding-bottom: 10px;">
 				<div>
 					<div class="product_img">

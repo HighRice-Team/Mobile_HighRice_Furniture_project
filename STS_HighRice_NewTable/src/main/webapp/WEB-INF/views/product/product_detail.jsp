@@ -140,91 +140,7 @@ $(function(){
 </head>
 <body>
    <div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
-<<<<<<< HEAD
-      <h3 id="category">${list.category}</h3>
-      <br>
-      <div>
-         <img src="resources/img/product/${list.main_img}" style="width: 100%">
-      </div>
-      
-      <div style="width: 100%; float: left; text-align: left;">
-         <input type="hidden" value="${list.product_id }" id="product_id">
-         <input type="hidden" value="${member_id }" id="member_id" value="a3">
-         <input type="hidden" value="${list.price }" id="price">
-         <br>
-         <h2>${list.product_name }</h2>
-         <hr>
-         <div style="display: inline;">
-            <p style="padding: 0; margin: 0 0 2% 1%;">상품 등급 : ${list.quality}</p>
-            <p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : <span id="pp"></span>원</p>
-            <div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
-               <div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
-                  대여 기간 :
-               </div>
-               <div class="ui-block-b">
-                  <select id="rentMonth" style="margin: 0 0 0 0; padding: 0 0 0 0;" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-                     <option selected="selected" value="0">6개월 이상 필수 선택</option>
-                     <option value=6>6개월</option>
-                     <option value=7>7개월</option>
-                     <option value=8>8개월</option>
-                     <option value=9>9개월</option>
-                     <option value=10>10개월</option>
-                     <option value=11>11개월</option>
-                     <option value=12>1년</option>
-                  </select>
-               </div>
-            </div>
-            <hr>
-            <div class="ui-grid-a">
-               <div class="ui-block-a" style="width: 70%">
-                  <p class="tot_p" style="font-size: 18px; font-weight: bold;">선택 기간 총 대여 금액</p>
-               </div>
-               <div class="ui-block-b" style="width: 25%;">
-                  <p class="tot_p" id="tot_p" style="font-size: 18px; font-weight: bold; text-align: right; color: red;">0</p>
-               </div>
-            </div>
-         </div>
-         
-         <c:if test="${list.member_id != sessionScope.id}">
-            <div class="ui-grid-a">
-               <div class="ui-block-a" data-corners="false">
-                  <a href="#" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
-               </div>
-               <div class="ui-block-b" data-corners="false">
-                  <a href="#" data-role="button" data-corners="false" id="goToCart">ADD TO CART<br><hr>장바구니</a>
-               </div>
-            </div>
-         </c:if>
-         <c:if test="${list.member_id == sessionScope.id}">&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            나의 물건 입니다.&nbsp;&nbsp;&nbsp;
-            </c:if>
-      </div>
-   </div>
-   <hr>
-   <div style="background-color: grey;">
-      <img src="resources/img/product/${list.sub_img}" style="width: 100%;">
-   </div>
-   
-   <div id="qna" class="ui-grid-a" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-      <div class="ui-block-a" style="width: 30%; margin: 0 0 0 0; padding: 0 0 0 0;">
-         <select id="rentMonth"  data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-            <option selected="selected">문의 분류</option>
-            <option value="물품문의">물품문의</option>
-            <option value="주문/결제문의">주문/결제문의</option>
-            <option value="배송문의">배송문의</option>
-            <option value="취소/환불문의">취소/환불문의</option>
-            <option value="기타문의">기타문의</option>
-         </select>
-      </div>
-      <div class="ui-block-b" style="width: 70%; margin: 0 0 0 0; padding: 0 0 0 0;">
-         <input type="text" data-mini="true" style="width: 80%; margin: 0 0 0 0; padding: 0 0 0 5%;" placeholder="제목을 입력하세요.">
-      </div>
-   </div>
-   <textarea placeholder="문의 내용을 입력하세요."></textarea>
-   <hr>
-   <div id="productReplyList" style="float:center">
-=======
+
       <h3 id="category">${vo.category}</h3>
       <br>
       <div>
@@ -270,10 +186,10 @@ $(function(){
          <c:if test="${vo.member_id != sessionScope.id}">
             <div class="ui-grid-a">
                <div class="ui-block-a" data-corners="false">
-                  <a href="#" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
+                  <a href="#" data-role="button" data-theme="a" data-corners="false" id="gotopayment">BUY NOW<br><hr>구매하기</a>
                </div>
                <div class="ui-block-b" data-corners="false">
-                  <a href="#" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+                  <a href="#" data-role="button" data-corners="false" id="goToCart">ADD TO CART<br><hr>장바구니</a>
                </div>
             </div>
          </c:if>
@@ -342,7 +258,6 @@ $(function(){
                 </div>
    			</c:if>
    		</c:forEach>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
    </div>
 </body>
 </html>

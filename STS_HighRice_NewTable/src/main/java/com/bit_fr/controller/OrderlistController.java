@@ -66,7 +66,8 @@ public class OrderlistController {
 	public ModelAndView goPayment(HttpSession session, int rentMonth, int product_id) {
 		ModelAndView mav = new ModelAndView("main");
 
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 
 		ProductVo pv = productDao.getOne_product(product_id);
 		int price = pv.getPrice();
@@ -89,7 +90,8 @@ public class OrderlistController {
 	public ModelAndView goPaymentInfo(HttpSession session, int product_id, int rentMonth) {
 		ModelAndView mav = new ModelAndView("main");
 
-		String member_id = (String) session.getAttribute("id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
 
 		ProductVo productVo = productDao.getOne_product(product_id);
 		MemberVo memberVo = memberDao.getOne_member(member_id);

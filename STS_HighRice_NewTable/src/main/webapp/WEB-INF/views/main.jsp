@@ -46,10 +46,19 @@
 	.join-process .point {background-color: #ccc}
 	.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; margin: 5px 10px 0 0}
 </style>
+
+
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		<%
+			String needToLogin = (String)session.getAttribute("needToLogin");
+		%>
+		
+		var needToLogin = '<%= needToLogin%>'
+		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -84,10 +93,23 @@
 				}})
 			}
 		});
+		
+// 		if($("#onsite").val() != 1){
+			
+// 			window.open("door.do","pop","width=100%;,height=100%;, scrollbars=yes, resizable=yes, status=yes")
+// 		}
+
+		if(needToLogin == 'plz'){
+
+			$("#popupLogin").popup("open")
+		}
+		
+		
 	});
 </script>
 </head>
 <body>
+<input type="text" value="${sessionScope.on }" id="onsite">
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
@@ -96,7 +118,14 @@
 		<div data-role="content">
 			<jsp:include page="${viewPage }" />
 
-			<!-- Start panel -->
+			
+		</div>
+		<div data-role="footer" data-position="fixed" class="fr-footer">
+			<img src="resources/img/m/menu.png" class="menu-img">
+		</div>
+		
+		
+		<!-- Start panel -->
 			<div data-role="panel" data-position="left" data-display="overlay" id="menu" class="menu-panel">
 				<a href="#" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>	
  				<c:if test="${not empty sessionScope.name}">
@@ -137,10 +166,10 @@
 						<div id="tab1" class="tab_content" >
 							<ul data-role="listview">
 
-								<li><p><a href="#">DESK</a></p></li>
-								<li><p><a href="#">SOFA</a></p></li>
-								<li><p><a href="#">BED</a></p></li>
-								<li><p><a href="#">CLOSET</a></p></li>
+								<li><p><a href="product_list.do?category=DESK" data-ajax="false">DESK</a></p></li>
+								<li><p><a href="product_list.do?category=SOFA" data-ajax="false">SOFA</a></p></li>
+								<li><p><a href="product_list.do?category=BED" data-ajax="false">BED</a></p></li>
+								<li><p><a href="product_list.do?category=CLOSET" data-ajax="false">CLOSET</a></p></li>
 
 							</ul>
 						</div>
@@ -155,6 +184,8 @@
 				</div>
 			</div>
 			<!-- End panel -->
+			
+			
 			<!-- Start login popup -->
 			<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
 				<div class="login-div">
@@ -182,10 +213,8 @@
 				</div>
 			</div>
 			<!-- End login popup -->
-		</div>
-		<div data-role="footer" data-position="fixed" class="fr-footer">
-			<img src="resources/img/m/menu.png" class="menu-img">
-		</div>
+		
+		
 	</div>
 </body>
 </html>

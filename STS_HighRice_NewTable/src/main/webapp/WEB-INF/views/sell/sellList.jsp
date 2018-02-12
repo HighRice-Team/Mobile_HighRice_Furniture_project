@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 <style type="text/css">
 .img{
-	width:100px;
-	height: 100px;
+	width:80%;
+/* 	height: 30%; */
 }
 
 #page a{

@@ -73,6 +73,9 @@
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
 			$(".category_img").css("height", $("#product_box").width() * 0.225)
 		})
+		
+		
+
 	});
 </script>
 <script type="text/javascript">
@@ -111,6 +114,8 @@
 				slide_start()
 			}, auto_time);
 		});
+		
+		
 
 	});
 </script>
@@ -149,6 +154,8 @@
 		$("#cancel_btn").click(function(){
 			location.href="index.do";
 		});
+		
+		
 	});
 
 </script>

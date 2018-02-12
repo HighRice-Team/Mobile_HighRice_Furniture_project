@@ -96,7 +96,7 @@ public class ProductController {
 
 	@RequestMapping("/index.do")
 	public ModelAndView main(@RequestParam(defaultValue = "1") int pageNum, String category, String quality,
-			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max) {
+			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max, HttpSession session) {
 		ModelAndView mav = new ModelAndView("main");
 		int productMax = 8;
 		int endNum = pageNum * productMax;
@@ -144,6 +144,7 @@ public class ProductController {
 			int price = list.get(i).getPrice();
 			price_with.add(comma.format(price) + "");
 		}
+		
 
 		mav.addObject("list", list);
 		mav.addObject("category", category);
@@ -260,7 +261,9 @@ public class ProductController {
 	public ModelAndView sellList(HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page) {
 		ModelAndView mav = new ModelAndView();
 
-		String member_id = (String) session.getAttribute("member_id");
+//		String member_id = (String) session.getAttribute("id");
+		String member_id = "a1";
+	
 
 		int count = dao.getMySellCount_product(member_id);
 		int max = 5;
@@ -281,7 +284,7 @@ public class ProductController {
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"
 				+ member_id + "' order by product_id desc) order by rownum) r where r.rnum>=" + start + "and r.rnum<="
 				+ end;
-		mav.addObject("list", dao.getMySell_product(sql));
+		mav.addObject("vo", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
 
 
@@ -382,7 +385,7 @@ public class ProductController {
 		return str;
 	}
 
-//<<<<<<< HEAD
+
 //	      int product_id = dao.getNextId_product();
 //	      p.setProduct_id(product_id);
 //	      p.setCondition("등록");
@@ -396,7 +399,7 @@ public class ProductController {
 //	      view.setViewName("redirect:/sellList.do");
 //	      return view;
 //	   }
-//=======
+
 	@RequestMapping("/sellInsert.do")
 	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");

@@ -1,5 +1,6 @@
 package com.bit_fr.controller;
 
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -77,6 +78,22 @@ public class HomeController {
 
 		return "home";
 	}
+	
+//	처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
+	@RequestMapping(value="/onsite.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String onsite(HttpSession session) {
+		String str = "";
+		session.setAttribute("on", 1);
+		
+		return str;
+	}
+	
+	@RequestMapping("/door.do")
+	public void door() {
+		
+	}
+	
 	
 	@RequestMapping("/myPage.do")
 	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min,String selectedMyPage) {
