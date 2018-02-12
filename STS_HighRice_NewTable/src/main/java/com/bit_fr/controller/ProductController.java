@@ -284,7 +284,7 @@ public class ProductController {
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"
 				+ member_id + "' order by product_id desc) order by rownum) r where r.rnum>=" + start + "and r.rnum<="
 				+ end;
-		mav.addObject("vo", dao.getMySell_product(sql));
+		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
 
 

@@ -48,17 +48,14 @@
 </style>
 
 
+
 <link rel="stylesheet" href="resources/css/bitfr_style.css">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		
-		<%
-			String needToLogin = (String)session.getAttribute("needToLogin");
-		%>
 		
-		var needToLogin = '<%= needToLogin%>'
 		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
@@ -95,26 +92,50 @@
 			}
 		});
 		
-// 		if($("#onsite").val() != 1){
-			
-// 			window.open("door.do","pop","width=100%;,height=100%;, scrollbars=yes, resizable=yes, status=yes")
-// 		}
-
+		//로그인시 필터 적용
+		var needToLogin = $("#needToLogin").val()
+		
 		if(needToLogin == 'plz'){
-
-			$("#popupLogin").popup("open")
+			document.getElementById("btnlogin").click();
 		}
 		
+		
+		//처음 들어왔을때 라이트박스
+		var on = $("#onsite").val()
+		
+		if(on != 1){
+			document.getElementById("btnon").click();
+		}
+		
+		$("#imgsell").click(function(){
+			if(needToLogin == 'plz'){
+				document.getElementById("btnlogin").click();
+			}else{
+				$.ajax({url:"onsite.do", success:function(data){
+					location.href="sellWrite.do"
+				}})
+			}
+		})
+		
+		$("#imgrent").click(function(){
+			$.ajax({url:"onsite.do", success:function(data){
+				location.href="index.do"
+			}})
+		})
 		
 	});
 </script>
 </head>
 <body>
 <input type="text" value="${sessionScope.on }" id="onsite">
+<input type="text" value="${sessionScope.needToLogin }" id="needToLogin">
+
+	
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
 			<div class="logo-area"><img src="resources/img/m/logo.png" class="logo-img"></div>
+			
 		</div>
 		
 		<div data-role="content">
@@ -138,7 +159,7 @@
 				</c:if>
 				<c:if test="${empty sessionScope.name}">
 					<div>로그인
-						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop">
+						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
 							<img id="login_img" src="resources/img/login.png" class="log-img">
 						</a>
 					</div>
@@ -214,7 +235,16 @@
 				</div>
 			</div>
 			<!-- End login popup -->
-		
+			
+			<!-- lightBox Popup -->
+			<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
+				 <a href="#" data-rel="back" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<img src="resources/img/sell2.jpg" id="imgsell">
+				<img src="resources/img/rent.jpg" id="imgrent">
+			</div>
+			<!--for trigger lightBox-->
+			<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
+			
 		
 	</div>
 </body>

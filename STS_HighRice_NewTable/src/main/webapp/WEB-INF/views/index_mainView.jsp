@@ -74,12 +74,15 @@
 			$(".category_img").css("height", $("#product_box").width() * 0.225)
 		})
 		
-		
+	
 
 	});
 </script>
 <script type="text/javascript">
 	// 이미지 슬라이드 함수.
+	
+		
+	
 	$(function() {
 		var auto_slide;
 		var auto_time = 1000; // 슬라이드 시간 1000 = 1초
@@ -116,12 +119,17 @@
 		});
 		
 		
+	
+		
 
 	});
 </script>
+<c:if test="">
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+</c:if>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Multi slider -->
 <script type="text/javascript">
@@ -142,6 +150,8 @@
 	    
 	    $("#min").val($( "#slider-range" ).slider( "values", 0 ));
         $("#max").val($( "#slider-range" ).slider( "values", 1 ));
+        
+    	
 	    
 	  });
 </script>
@@ -154,6 +164,8 @@
 		$("#cancel_btn").click(function(){
 			location.href="index.do";
 		});
+		
+		
 		
 		
 	});

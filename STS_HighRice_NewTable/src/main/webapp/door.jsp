@@ -32,13 +32,13 @@ $(function(){
 		
 		
 		<%
-			String needToLogin = (String)session.getAttribute("needToLogin");
+			String id = (String)session.getAttribute("id");
 		%>
 	
-		var needToLogin = '<%= needToLogin%>'
+		var id = '<%= id%>'
 		
 		$("#sellbtn").click(function(){
-			if(needToLogin != 'plz'){
+			if(id == 'null'){
 				$("#popupLogin").popup("open")
 			}else{
 				location.href="sellWrite.do"
