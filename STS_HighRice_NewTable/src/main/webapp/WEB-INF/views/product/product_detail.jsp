@@ -29,13 +29,10 @@ p{
    font-size: 1.8vw;
 }
 
-.ui-block-a{
+.ui-block-a .ui-block-b{
    padding: 0px 0px 7px 0px;
 }
 
-.ui-block-b{
-   padding: 0px 0px 7px 0px;
-}
 .product_img{
    padding: 3px 3px 0px 3px;
 }
@@ -162,7 +159,7 @@ $(function(){
             <p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : <span id="pp"></span>원</p>
             <div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
                <div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
-                  대여 기간 :
+                	  대여 기간 :
                </div>
                <div class="ui-block-b">
                   <select id="rentMonth" style="margin: 0 0 0 0; padding: 0 0 0 0;" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
@@ -180,7 +177,7 @@ $(function(){
             <hr>
             <div class="ui-grid-a">
                <div class="ui-block-a" style="width: 70%">
-                  <p class="tot_p" style="font-size: 18px; font-weight: bold;">선택 기간 총 대여 금액</p>
+                  <p class="tot_p" style="font-size: 18px; font-weight: bold;">총 대여 금액</p>
                </div>
                <div class="ui-block-b" style="width: 25%;">
                   <p class="tot_p" id="tot_p" style="font-size: 18px; font-weight: bold; text-align: right; color: red;">0</p>
@@ -192,12 +189,13 @@ $(function(){
             <div class="ui-grid-a">
                <div class="ui-block-a" data-corners="false">
 
-                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
-
+                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY<br>NOW<br><hr>구매하기</a>
+		       
                </div>
+		    
                <div class="ui-block-b" data-corners="false">
 
-                  <a id="goToCart" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+                  <a id="goToCart" data-role="button" data-corners="false">ADD TO<br>CART<br><hr>장바구니</a>
 
                </div>
             </div>
@@ -212,29 +210,37 @@ $(function(){
    <div style="background-color: grey;">
       <img src="resources/img/product/${vo.sub_img}" style="width: 100%;">
    </div>
-   
-   <div id="qna" class="ui-grid-a" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-      <div class="ui-block-a" style="width: 30%; margin: 0 0 0 0; padding: 0 0 0 0;">
-         <select id="rentMonth"  data-inline="true" data-mini="true" data-inline="true" data-corners="false">
-            <option selected="selected">문의 분류</option>
-            <option value="물품문의">물품문의</option>
-            <option value="주문/결제문의">주문/결제문의</option>
-            <option value="배송문의">배송문의</option>
-            <option value="취소/환불문의">취소/환불문의</option>
-            <option value="기타문의">기타문의</option>
-         </select>
-      </div>
-      <div class="ui-block-b" style="width: 70%; margin: 0 0 0 0; padding: 0 0 0 0;">
-         <input type="text" data-mini="true" style="width: 80%; margin: 0 0 0 0; padding: 0 0 0 5%;" placeholder="제목을 입력하세요.">
-      </div>
-   </div>
-   <textarea placeholder="문의 내용을 입력하세요."></textarea>
+   <form>
+	   <div id="qna" class="ui-grid-a" style="margin: .5em 0 0 0; padding: 0 0 0 0;">
+	      <div class="ui-block-a" style="width: 37%">
+	         <select id="rentMonth"  data-inline="true" data-mini="true"  data-inset="false" data-inline="true" data-corners="false">
+	            <option selected="selected">문의 분류</option>
+	            <option value="물품문의">물품문의</option>
+	            <option value="주문/결제문의">주문/결제문의</option>
+	            <option value="배송문의">배송문의</option>
+	            <option value="취소/환불문의">취소/환불문의</option>
+	            <option value="기타문의">기타문의</option>
+	         </select>
+	      </div>
+	      <div class="ui-block-b" style="width: 62.5%;">
+	         <input type="text" data-mini="true" style="width: 100%; margin: 0 0 0 0; padding: .7em 0 0 5%;" placeholder="제목을 입력하세요.">
+	      </div>
+	   </div>
+	   <div class="ui-grid-a" style="text-overflow: clip; margin-right: 0;">
+	        <div class="ui-block-a" style="width: 82%" data-corners="false">
+	             <textarea style="width:100%;" placeholder="문의 내용을 입력하세요."></textarea>
+	        </div>
+ 	        <div class="ui-block-b" style="width: 17%; padding-top: .7em; text-align: right" data-corners="false">
+	             <a href="#" data-role="button" data-corners="false" data-mini="true" data-inline="true">등록</a>
+	        </div>
+       </div>
+   </form>
    <hr>
-   <div id="productReplyList" style="float:center">
+   <div id="productReplyList" style="float:center" width="100%">
    		<c:forEach var="list" items="${list }" varStatus="cnt" >
    			<c:if test="${list.product_id==product_id&&list.b_level!=3 }">
-   				<div style="width:95%; background-color:#E5E5E1; margin:0 5% 5% 5%; padding:2% 2% 2% 2%;">
-                   <div id="reple${cnt.count }">
+   				<div id="reple${cnt.count }" style="width:94%; background-color:#E5E5E1; margin:2%; padding: 1%;">
+                   <div>
 	                   <div style="width:100%; display:inline-block;">
 	                   		<div style="width:49.5%; float:left; font-size:11px;">
 	                   			문의 분류: ${list.post_type}<br><c:if test="${list.b_level==0}"><b>제목: </c:if><c:if test="${list.b_level==1}">[답변완료] </c:if>${list.title}</b>
@@ -257,8 +263,8 @@ $(function(){
 	                   </c:if>
 	                   
 	                   <c:if test="${list.b_level==1}">
-		                   <div style="width:95%; background-color:#EEEEEE; margin:5% 5% 5% 5%; padding-bottom:1%;">
-		                   		<div style="width:90%;">
+		                   <div style="width:85%; background-color:#EEEEEE; margin:2% 2% 2% 12.5%;">
+		                   		<div style="width:100%;">
 		                   			답글내용<br>관리자입니다.<br>BITFR을 이용해 주셔서 감사합니다.
 		                   		</div>		
 		                   </div>
