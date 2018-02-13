@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <script type="text/javascript">
 
 </script>
@@ -75,17 +74,6 @@
 				</ul>
 			</div>
 		</div>
-
-=======
-<style type="text/css">
-</style>
-<script type="text/javascript">
-</script>
-</head>
-<body>
-	<div data-role="content">
-		test..
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 	</div>
 </body>
 </html>
