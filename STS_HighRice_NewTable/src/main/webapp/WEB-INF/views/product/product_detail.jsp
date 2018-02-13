@@ -102,8 +102,8 @@ $(function(){
       })
       
       $("#gotopayment").click(function(){
-         
-         if($("#rentMonth").val() != 0){
+         alert($("#rentMonth").val())
+         if($("#rentMonth").val() != "0"){
             location.href = "goPaymentInfo.do?product_id="+product_id+"&rentMonth="+$("#rentMonth").val()
          }else{
             alert("6개월 이상 선택해주세요")
@@ -111,6 +111,7 @@ $(function(){
       })
       
       $("#goToCart").click(function(){
+    	  
          var data = {"rent_month":$("#rentMonth").val(),"product_id":product_id};
             
             $.ajax({
@@ -122,9 +123,15 @@ $(function(){
                          location.href="cartList.do";
                       }                   
                    }else{
-                      if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
-                          location.href="cartList.do";
-                      }
+                	   
+                	   if($("#rentMonth").val() != "0"){
+                		   if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
+                               location.href="cartList.do";
+                           }
+                       }else{
+                          alert("6개월 이상 선택해주세요")
+                       }
+                      
                    }
                 }    
            	})
