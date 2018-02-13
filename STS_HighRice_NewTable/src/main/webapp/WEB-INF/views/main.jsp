@@ -97,6 +97,9 @@
 		
 		if(needToLogin == 'plz'){
 			document.getElementById("btnlogin").click();
+			$.ajax({url:"deleteSession.do", success:function(data){
+				
+			}})
 		}
 		
 		
@@ -118,6 +121,12 @@
 		})
 		
 		$("#imgrent").click(function(){
+			$.ajax({url:"onsite.do", success:function(data){
+				location.href="index.do"
+			}})
+		})
+		
+		$("#clobtn").click(function(){
 			$.ajax({url:"onsite.do", success:function(data){
 				location.href="index.do"
 			}})
@@ -238,7 +247,7 @@
 			
 			<!-- lightBox Popup -->
 			<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
-				 <a href="#" data-rel="back" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				 <a href="#" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="clobtn">Close</a>
 				<img src="resources/img/sell2.jpg" id="imgsell">
 				<img src="resources/img/rent.jpg" id="imgrent">
 			</div>

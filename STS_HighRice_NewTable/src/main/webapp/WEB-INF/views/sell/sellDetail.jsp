@@ -28,10 +28,6 @@
 	
 </style>
 <script type="text/javascript">
-$(document).bind("mobileinit", function(){
-	 $("select[name=category]").find("option[value='"+$("#pp").val()+"']").attr("selected", "selected");	  
-	   $("input[value="+$("#qq").val()+"]").attr("checked","checked")
-})
 </script>
 <script type="text/javascript">
 $(function(){
@@ -161,8 +157,8 @@ $(function(){
 				</div>
 			</div>
 			<div class="ui-grid-a" style="padding: 10px" align="center">
-				<div class="ui-block-a"><input id="update" type="button" value="수정"></div>
-				<div class="ui-block-b"><input id="cancel" type="button" value="취소"></div>
+				<div class="ui-block-a"><input id="update" type="button"  data-theme="a" data-corners="false" value="수정"></div>
+				<div class="ui-block-b"><input id="cancel" type="button"  data-theme="b" data-corners="false" value="취소"></div>
 			</div>
 		</form>
 		</div>

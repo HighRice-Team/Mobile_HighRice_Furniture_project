@@ -145,7 +145,8 @@ public class ProductController {
 			price_with.add(comma.format(price) + "");
 		}
 		
-
+		
+		
 		mav.addObject("list", list);
 		mav.addObject("category", category);
 		mav.addObject("min", min);
@@ -261,8 +262,8 @@ public class ProductController {
 	public ModelAndView sellList(HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page) {
 		ModelAndView mav = new ModelAndView();
 
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
+		
 	
 
 		int count = dao.getMySellCount_product(member_id);

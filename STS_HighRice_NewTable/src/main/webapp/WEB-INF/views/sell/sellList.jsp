@@ -17,6 +17,10 @@
    color: black;
    font-size: 2.5vw;
 }
+
+#sellprice{
+	color: red;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -30,6 +34,17 @@ $(function(){
 			}
 			
 		})
+	
+		$(".sell").each(function(index, item){
+			if($(this).find(".condition").html() != "등록"){
+				$(this).addClass("ui-disabled")
+				$(this).button();
+				
+			}
+		})
+		
+		
+		
 	  		   
 	})
 </script>
@@ -40,12 +55,10 @@ $(function(){
 			<h2 style="text-align: center;">${member_id }님의 가구</h2>
 			<br>
 			<c:forEach var="p" items="${list }">
-				<a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" data-corners="false">
-					<h3 style="text-align: center;">${p.product_name }</h3>
-					<input type="hidden" value="${p.product_id }" id="product_id">
-					<table style="width:100%;">
+				<div style="border: 1px solid; border-color:gray;  margin-bottom: 5px;">
+					<h3 style="text-align: center; padding-top: -50%; padding-bottom: -50%;">${p.product_name }</h3>
+					<table style="width:100%; background-color: white;" >
 						<tr>
-							
 							<td rowspan="3">
 								<c:if test="${not empty p.main_img}">
 									<img src="resources/img/product/${p.main_img }" class="img">
@@ -56,17 +69,17 @@ $(function(){
 								</c:if>
 							</td>
 							
-							
-							<td>${p.category }</td>
+							<td style="text-align: center;">${p.category }</td>
 						</tr>
 						<tr style="text-align: center;">
-							<td>${p.quality }&nbsp;/&nbsp;${p.price }&nbsp;원</td>
+							<td>${p.quality }&nbsp;/&nbsp;<span id="sellprice">${p.price }&nbsp;</span>원</td>
 						</tr>
 						<tr style="text-align: center;">
-							<td>상태 : <span class="condition">${p.condition }</span></td>
+						
+							<td><a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" >상태 : <span class="condition">${p.condition }</span><input type="hidden" value="${p.product_id }" id="product_id"></a></td>
 						</tr>				
 					</table>
-			</a>
+				</div>
 			</c:forEach>
 			<div style="text-align: center;">
 				<c:forEach var="i"  begin="1" end="${totalPage }">

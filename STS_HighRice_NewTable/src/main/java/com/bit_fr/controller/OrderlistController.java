@@ -66,8 +66,8 @@ public class OrderlistController {
 	public ModelAndView goPayment(HttpSession session, int rentMonth, int product_id) {
 		ModelAndView mav = new ModelAndView("main");
 
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
+
 
 		ProductVo pv = productDao.getOne_product(product_id);
 		int price = pv.getPrice();
@@ -90,8 +90,8 @@ public class OrderlistController {
 	public ModelAndView goPaymentInfo(HttpSession session, int product_id, int rentMonth) {
 		ModelAndView mav = new ModelAndView("main");
 
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
+		
 
 		ProductVo productVo = productDao.getOne_product(product_id);
 		MemberVo memberVo = memberDao.getOne_member(member_id);
@@ -114,8 +114,8 @@ public class OrderlistController {
 		int endNUM = pageNUM * orderlistMAX;
 		int startNUM = endNUM - (orderlistMAX - 1);
 
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
+
 
 		String sql = "select * from (" + "select rownum rnum,product_name,main_img,price,rent_month,pr,con "
 				+ "from ( select product_name,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
@@ -159,8 +159,7 @@ public class OrderlistController {
 	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne) {
 		String str = "";
 
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
 		
 
 		int re = -1;
@@ -216,8 +215,8 @@ public class OrderlistController {
 	@ResponseBody
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
-//		String member_id = (String) session.getAttribute("id");
-		String member_id = "a1";
+		String member_id = (String) session.getAttribute("id");
+		
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);

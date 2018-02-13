@@ -89,9 +89,12 @@ public class HomeController {
 		return str;
 	}
 	
-	@RequestMapping("/door.do")
-	public void door() {
-		
+	//로그인 필터에서 적용된 세션을 지워줘야함 안그러면 어떤 페이지를 들어가도 로그인 창이 계속 뜸
+	@RequestMapping(value="deleteSession.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public void deleteSession(HttpSession session) {
+		String str = "";
+		session.removeAttribute("needToLogin");
 	}
 	
 	
