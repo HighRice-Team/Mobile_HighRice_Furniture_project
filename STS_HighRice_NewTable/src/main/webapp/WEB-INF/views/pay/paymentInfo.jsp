@@ -87,22 +87,22 @@ $(function(){
 		
 })
 	function goPopup(){
-			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		    var pop = window.open("search.do","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-		    
-			// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-		    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-			}
-			/** API 서비스 제공항목 확대 (2017.02) **/
-	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
-								, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
-			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-			document.form.roadAddrPart1.value = roadAddrPart1;
-			document.form.roadAddrPart2.value = roadAddrPart2;
-			document.form.addrDetail.value = addrDetail;
-			document.form.zipNo.value = zipNo;
-		}
-	
+      // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+//        var pop = window.open("search.do","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+       
+      // 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+       var pop = window.open("search.do","pop","scrollbars=yes, resizable=yes"); 
+      }
+      /** API 서비스 제공항목 확대 (2017.02) **/
+   function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+                     , detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+      // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+      document.addressForm.roadAddrPart1.value = roadAddrPart1;
+      document.addressForm.roadAddrPart2.value = roadAddrPart2;
+      document.addressForm.addrDetail.value = addrDetail;
+      document.addressForm.zipNo.value = zipNo;
+   }
+      
 </script>
 </head>
 <body>
@@ -134,6 +134,8 @@ $(function(){
 			</div>
 			<hr>
 			<div id="pay"></div>
+
+			<form id="addressForm" name="addressForm">
 				<h3>배송지 정보 입력</h3>	
 				<div class="first">
 					<table style="width:100%" class="addrinput">
@@ -188,6 +190,11 @@ $(function(){
 						<input type="button" id="cancel2" value="취소" data-inline="true" data-icon="delete">
 					</div>
 				</div>
+
+				<input type="hidden" id="roadAddrPart2"  value="">
+				<input type="hidden" id="confmKey" name="confmKey" value=""  >
+				<input type="hidden" id="zipNo" name="zipNo" >
+			</form>
 		</div>
 
 

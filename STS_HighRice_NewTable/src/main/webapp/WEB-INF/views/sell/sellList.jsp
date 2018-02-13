@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
 .img{
 	width:80%;
 /* 	height: 30%; */
@@ -21,6 +22,7 @@
 #sellprice{
 	color: red;
 }
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -61,11 +63,15 @@ $(function(){
 						<tr>
 							<td rowspan="3">
 								<c:if test="${not empty p.main_img}">
+
 									<img src="resources/img/product/${p.main_img }" class="img">
+
 								</c:if>
 								
 								<c:if test="${empty p.main_img}">
+
 									<img src="resources/img/noImage.png" class="img">
+
 								</c:if>
 							</td>
 							

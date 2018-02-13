@@ -23,7 +23,6 @@
 			<p>가입하신 정보로 로그인하여 주시기 바랍니다.</p>
 			<div data-role="controlgroup" data-type="horizontal" data-corners="false" class="fr-button">
 				<input type="button" value="메인으로" data-inline="true" id="goMain">
-				<input type="button" value="로그인" id="loginBtn">
 			</div>
 		</div>
 	</div>
