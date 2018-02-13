@@ -46,7 +46,6 @@ public class OrderlistController {
 	@RequestMapping(value = "/getMyOrderlist.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String getMyOrderlist(HttpSession session, OrderlistVo v) {
-		System.out.println(v.toString());
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
 		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, v);

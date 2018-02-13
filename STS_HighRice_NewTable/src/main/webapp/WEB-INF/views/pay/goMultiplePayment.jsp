@@ -26,7 +26,7 @@ $(function(){
 	<div>
 		<ul data-role="listview" data-inset="true">
 			<li style="padding-left: 5%; ">
-				<a href="#memberDialog" data-rel="dialog">
+				<a href="resources/dialog/Edit_Profile.jsp?pageName=ct&order_id=${order_id },&paymentPrice=${paymentPrice}&cntProduct=${cntProduct}" data-rel="dialog">
 					<h2>회원정보</h2>
 					<span>이름 : ${member.name }</span><br>
 					<span>주소 : ${member.address }${member.address_detail }</span>

@@ -131,7 +131,7 @@ public class HomeController {
 	}
 	
 
-	@RequestMapping("/aboutUs.do")
+	@RequestMapping("/aboutus.do")
 	public ModelAndView aboutUs() {
 		ModelAndView mav = new ModelAndView("main");
 		mav.addObject("viewPage", "board/aboutUs.jsp");
