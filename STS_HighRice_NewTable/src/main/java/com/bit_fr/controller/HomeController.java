@@ -130,25 +130,16 @@ public class HomeController {
 		return mav;
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(value = "/aboutus.do")
-	public ModelAndView goAboutus() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("viewPage","board/aboutUs.jsp" );
-		mav.setViewName("main");
-		
-=======
+
 	@RequestMapping("/aboutUs.do")
 	public ModelAndView aboutUs() {
 		ModelAndView mav = new ModelAndView("main");
 		mav.addObject("viewPage", "board/aboutUs.jsp");
 
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		return mav;
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping(value = "/faq.do")
 	public ModelAndView goFAQ() {
 		ModelAndView mav = new ModelAndView();
@@ -156,13 +147,6 @@ public class HomeController {
 		mav.addObject("viewPage","board/faq.jsp" );
 		mav.setViewName("main");
 		
-=======
-	@RequestMapping("/faq.do")
-	public ModelAndView faq() {
-		ModelAndView mav = new ModelAndView("main");
-		mav.addObject("viewPage", "board/faq.jsp");
-
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		return mav;
 	}
 	
