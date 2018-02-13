@@ -9,10 +9,7 @@
 		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <title>Insert title here</title>
 <style type="text/css">
-img{
-	width:100px;
-	height: 100px;
-}
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -46,11 +43,11 @@ $(function(){
 							
 							<td rowspan="3">
 								<c:if test="${not empty p.main_img}">
-									<img src="resources/img/product/${p.main_img }">
+									<img src="resources/img/product/${p.main_img }" width="100px" height="100px">
 								</c:if>
 								
 								<c:if test="${empty p.main_img}">
-									<img src="resources/img/noImage.png">
+									<img src="resources/img/noImage.png" width="100px" height="100px">
 								</c:if>
 							</td>
 							

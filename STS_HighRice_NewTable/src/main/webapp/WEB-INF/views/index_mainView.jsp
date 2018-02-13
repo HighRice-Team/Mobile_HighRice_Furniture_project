@@ -150,7 +150,6 @@
 			location.href="index.do";
 		});
 	});
-
 </script>
 
 </head>

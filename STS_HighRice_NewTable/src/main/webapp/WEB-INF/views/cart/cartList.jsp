@@ -20,8 +20,65 @@
 <title>Insert title</title>
 <script type="text/javascript">
 	$(function(){
+		//선택된 상품을 담을 변수, 주문 or 삭제를 위한 작업.
+		var selectedOrder = "";
+		//선택항목 삭제
 		
-		var selectedProduct = "";
+		$("#deleteSelectedOrder").click(function(){
+			
+			var data = {"order_id":selectedOrder}
+			$.ajax({
+				url:"deleteOrders_orderlist.do",
+				data:data,
+				success:function(data){
+					location.href="";
+				}
+			})
+		})
+		
+		$("#buyAllProduct").click(function(){
+			var paymentPrice = 0;
+			$("input[type='checkbox']").each(function(){
+				var cnt = $(this).attr("cnt")
+				paymentPrice += eval($("#totalPrice"+cnt).html())
+				selectedOrder += $(this).attr("order_id")+","
+			})
+			
+			$("#paymentPrice").html(paymentPrice)
+			$("#selectedProducts").html($("input[type='checkbox']").size())
+			
+			$("input[type='checkbox']").each(function(index,item){
+				var rent_month = $(item).attr("rent_month")
+				var order_id = $(item).attr("order_id")
+				var data = {"rent_month":rent_month,"order_id":order_id}
+				$.ajax({
+					url:"updateRentPeriodOrderListAjax.do",
+					data:data
+				})
+			})
+			
+			location.href="goMultiplePayment.do?order_id="+selectedOrder+"&paymentPrice="+$("#paymentPrice").html()+"&cntProduct="+$("input[type='checkbox']").length;
+		})
+		
+		$("#buySelectProduct").click(function(){
+			if($("input[checked='checked']").length>0){
+				$("input[checked='checked']").each(function(index,item){
+					var rent_month = $(item).attr("rent_month")
+					var order_id = $(item).attr("order_id")
+					var data = {"rent_month":rent_month,"order_id":order_id}
+					$.ajax({
+						url:"updateRentPeriodOrderListAjax.do",
+						data:data
+					})
+				})
+				
+				location.href="goMultiplePayment.do?order_id="+selectedOrder+"&paymentPrice="+$("#paymentPrice").html()+"&cntProduct="+$("input[checked='checked']").length;
+			}else{
+				alert("선택 된 상품이 없습니다.")
+			}
+		})
+		
+		//전체선택
 		$("#checkAllBtn").click(function(){
 			var listSize = eval( $("#listSize").val() )
 			var chkSize = $("input[checked='checked']").size()
@@ -30,12 +87,12 @@
 				$("input[type='checkbox']").each(function(index,item){
 					if($(item).attr("checked")==null){
 						$(this).attr("checked","checked")
+						selectedOrder += $(this).attr("order_id")+","
 					}
 					$("label").removeClass("ui-checkbox-off")
 					$("label").addClass("ui-checkbox-on")
 					$(".ui-icon-checkbox-off").addClass("ui-icon-checkbox-on")
 					$(".ui-icon-checkbox-off").removeClass("ui-icon-checkbox-off")
-					
 				})
 			}else{
 				$("input[type='checkbox']").each(function(index,item){
@@ -45,31 +102,33 @@
 				$("label").addClass("ui-checkbox-off")
 				$(".ui-icon-checkbox-on").addClass("ui-icon-checkbox-off")
 				$(".ui-icon-checkbox-on").removeClass("ui-icon-checkbox-on")
-					
+				selectedOrder=""
 			}
 			
 			var paymentPrice = 0
 			
-			selectedProduct =""
+			selectedOrder =""
 			
 			$("input[checked='checked']").each(function(){
 				var cnt = $(this).attr("cnt")
 				paymentPrice += eval($("#totalPrice"+cnt).html())
-				selectedProduct += $(this).attr("product_id")+" "
+				selectedOrder += $(this).attr("order_id")+","
 			})
 			
 			$("#paymentPrice").html(paymentPrice)
 			$("#selectedProducts").html($("input[checked='checked']").size())
 		})
 		
+		//개월수 감소
 		$(".reduceRentMonthBtn").click(function(){
 			var cnt = $(this).attr("cnt")
 			var price = eval( $("#price"+cnt).html() )
 			var rent_month = eval( $("#rent_month"+cnt).val() ) -1
 			
-			if(rent_month>=0){
+			if(rent_month>=6){
 				$("#rent_month"+cnt).val(rent_month)
 				$("#totalPrice"+cnt).html(price*rent_month)
+				$("#chkbox"+cnt).attr("rent_month",rent_month)
 				
 				var paymentPrice = 0
 			
@@ -80,10 +139,11 @@
 				
 				$("#paymentPrice").html(paymentPrice)
 			}else{
-				alert("0보다 작을 수 없습니다.")
+				alert("6보다 작을 수 없습니다.")
 			}
 		})
 		
+		//개월수 증가
 		$(".increaseRentMonthBtn").click(function(){
 			var cnt = $(this).attr("cnt")
 			var price = eval( $("#price"+cnt).html() )
@@ -91,6 +151,7 @@
 			
 			$("#rent_month"+cnt).val(rent_month)
 			$("#totalPrice"+cnt).html(price*rent_month)
+			$("#chkbox"+cnt).attr("rent_month",rent_month)
 			
 			var paymentPrice = 0
 			
@@ -102,6 +163,7 @@
 			$("#paymentPrice").html(paymentPrice)
 		})
 		
+		//체크박스 선택
 		$("input[type='checkbox']").click(function(){
 			if($(this).attr("checked")==null){
 				$(this).attr("checked","checked")
@@ -110,11 +172,13 @@
 			}
 			
 			var paymentPrice = 0
-			selectedProduct = ""
+			selectedOrder = ""
 			$("input[checked='checked']").each(function(){
 				var cnt = $(this).attr("cnt")
 				paymentPrice += eval($("#totalPrice"+cnt).html())
-				selectedProduct += $(this).attr("product_id")+" "
+				selectedOrder += $(this).attr("order_id")+","
+				
+				
 			})
 			$("#paymentPrice").html(paymentPrice)
 			$("#selectedProducts").html($("input[checked='checked']").size())
@@ -129,7 +193,7 @@
 					<input id="checkAllBtn" type="button" value="전체 선택 " data-inline="true" data-mini="true" data-corners="false" style="text-align: center;">
 				</div>
 				<div class="ui-block-b">
-					<input type="button" value="선택 삭제" data-mini="true" data-inline="true" data-corners="false" style="text-align: center;">
+					<input id="deleteSelectedOrder" type="button" value="선택 삭제" data-mini="true" data-inline="true" data-corners="false" style="text-align: center;">
 				</div>
 			</div>
 		
@@ -138,7 +202,7 @@
 <!-- 			---------------------------------------------------------------------------------- -->
 			<c:forEach var="list" items="${list }" varStatus="cnt">
 				<div class="products" style="background-color: white; margin: 2%;" data-corners="true">
-					<input type="checkbox" name="chkbox${cnt.count}" id="chkbox${cnt.count }" cnt="${cnt.count }" product_id="${list.pr }" data-theme="c">
+					<input type="checkbox" name="chkbox${cnt.count}" id="chkbox${cnt.count }" cnt="${cnt.count }" order_id="${list.order_id }" data-theme="c" rent_month="${list.rent_month }">
 					<label for="chkbox${cnt.count }" data-corners="false">&nbsp;</label>
 
 					<div class="ui-grid-a">
@@ -191,10 +255,10 @@
 			</div>
 			<div class="ui-grid-a" style="margin-bottom: 10%; margin-top: 5%;">
 				<div class="ui-block-a">
-					<a data-role="button" style="text-align: center;" data-theme="a">선택상품주문</a>
+					<a data-role="button" style="text-align: center;" data-theme="a" id="buySelectProduct">선택상품주문</a>
 				</div>
 				<div class="ui-block-b">
-					<a data-role="button" style="text-align: center;" data-theme="a">전체상품주문</a>
+					<a data-role="button" style="text-align: center;" data-theme="a" id="buyAllProduct">전체상품주문</a>
 				</div>
 			</div>
 </body>

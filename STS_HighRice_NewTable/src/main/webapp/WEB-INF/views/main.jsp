@@ -9,10 +9,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <link rel="stylesheet" href="resources/css/bitfr_style.css">
+	
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -54,17 +56,20 @@
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
+<<<<<<< HEAD
 			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
 		</div>
+=======
+			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
+		</div>
+>>>>>>> branch 'Isung2' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		
 		<div data-role="content">
+
 			<jsp:include page="${viewPage }" />
 		</div><!-- end content -->
 		
-		<div data-role="footer" data-position="fixed" class="fr-footer">
-			<img src="resources/img/m/menu.png" class="menu-img">
-		</div>
-
+		
 		<!-- Start panel -->
 		<div data-role="panel" data-position="left" data-position-fixed="true"
 			data-display="overlay" id="menu" class="menu-panel">
@@ -168,14 +173,13 @@
 			</form>
 			<div class="login-div">
 				<a data-role="button" data-inline="true" data-mini="true"
-					href="joinAccess.do">회원가입</a> <a data-role="button"
+					href="joinAccess.do" data-ajax="false">회원가입</a> <a data-ajax="false" data-role="button"
 					data-inline="true" data-mini="true" href="findMember.do">id/pw
 					찾기</a> <a data-role="button" data-inline="true" data-mini="true"
 					href="#" id="loginBtn">로그인</a>
 			</div>
 		</div>
 		<!-- End login popup -->
-
 	</div>
 </body>
 </html>
