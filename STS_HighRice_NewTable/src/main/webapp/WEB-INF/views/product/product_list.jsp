@@ -53,7 +53,7 @@ $(function(){
 <body>
 	
 	<div data-role="content" style="text-align: center; position: relative;">
-		<a href="product_list.do?category=${category}"><h3 id="category">${category}</h3></a>
+		<a href="product_list.do?category=${category}" style="text-decoration: none; color:black;"><h3 id="category">${category}</h3></a>
 		<div data-role="fieldcontain" style="width: 100%; display: inline-block;">
 			<div style="float: right;">
 				<form>
@@ -88,7 +88,7 @@ $(function(){
 		</div>
 		<div id="page">		
 			<c:forEach var="pageNum" begin="1" end="${pageMax }">
-				<a href="product_list.do?pageNum=${pageNum }&category=${category}&sort=${sort}">${pageNum}&nbsp;&nbsp;&nbsp;</a>
+				<a href="product_list.do?pageNum=${pageNum }&category=${category}&sort=${sort}" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
 			</c:forEach>
 		</div>
 	</div>
