@@ -1,5 +1,10 @@
 package com.bit_fr.controller;
 
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,6 +34,7 @@ import com.bit_fr.dao.ProductDao;
 import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
+import com.bit_fr.vo.QnaBoardVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -59,23 +65,6 @@ public class HomeController {
 
 	public void setOrderlistDao(OrderlistDao orderlistDao) {
 		this.orderlistDao = orderlistDao;
-	}
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return "home";
 	}
 	
 	@RequestMapping("/myPage.do")
@@ -121,24 +110,60 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/aboutus.do")
-	public ModelAndView goAboutus() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("viewPage","aboutUs.jsp" );
-		mav.setViewName("main");
-		
+	@RequestMapping("/aboutUs.do")
+	public ModelAndView aboutUs() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "board/aboutUs.jsp");
+
 		return mav;
 	}
 	
-	@RequestMapping(value = "/faq.do")
-	public ModelAndView goFAQ() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("viewPage","faq.jsp" );
-		mav.setViewName("main");
-		
+	@RequestMapping("/faq.do")
+	public ModelAndView faq() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "board/faq.jsp");
+
 		return mav;
+	}
+	
+	@RequestMapping("/todoList.do")
+	public ModelAndView todoList() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoList.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping("/todoRent.do")
+	public ModelAndView todoRent() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoRent.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping("/todoPickup.do")
+	public ModelAndView todoPickup() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoPickup.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping(value ="/signSave.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String signSave(HttpServletRequest request) {
+		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
+		String fileName = System.currentTimeMillis()+".png";
+		//ex) fileName = member_id+"_"+product_id+".png" =>a1_4.png
+		try {
+			FileUtils.writeByteArrayToFile(new File("d:\\sign"+fileName), Base64.decodeBase64(sign));
+			ObjectMapper om = new ObjectMapper();
+			fileName = om.writeValueAsString(fileName);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return fileName;
 	}
 
 	@RequestMapping(value = "/sellWrite.do")
@@ -159,228 +184,6 @@ public class HomeController {
 		mav.addObject("viewPage", "orderlist/orderlistByCondition.jsp");
 		mav.setViewName("main");
 
-		return mav;
-	}
-
-	@RequestMapping("/admin.do")
-	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
-		mav.addObject("viewPage", "admin/adminPage.jsp");
-
-		return mav;
-	}
-
-	//어드민에서 프로덕트 리스트를 불러오기 위한 ajax
-	@RequestMapping(value = "/admin_product.do", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String admin_product(ProductVo v) {
-		String str = "";
-		
-		List<ProductVo> list = productDao.getAll_productAdmin(v);
-
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-
-	//어드민에서 오더리스트를 불러오기 위한 ajax
-	@RequestMapping(value = "/admin_orderlist.do", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String admin_orderlist(OrderlistVo v) {
-		String str = "";
-		
-		List<OrderlistVo> list = orderlistDao.getAll_orderlist(v);
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-
-	@RequestMapping(value = "/admin_member.do", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String admin_member(MemberVo m) {
-				
-		String str = "";
-		List<MemberVo> list = memberDao.getAll_member(m);
-		ObjectMapper mapper = new ObjectMapper();
-			
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-
-	//어드민에서 editing을 바로 하기 위한 ajax
-	@RequestMapping(value = "/adminUpdate_product.do", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String adminUpdate_product(ProductVo p) {
-		String str = "";
-
-		int re = productDao.updateAdmin_product(p);
-
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(re);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-
-	//맴버 업데이트를 위한 ajax
-	@RequestMapping(value = "/adminUpdate_member.do", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String adminUpdate_member(MemberVo m) {
-		String str = "";
-
-		int re = memberDao.updateInfo_member(m);
-
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(re);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-	
-	//비밀번호 리셋을 위한 ajax
-	@RequestMapping(value = "/updateResetPwd_member.do", produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public String updateResetPwd_member(String member_id) {
-		String str = "";
-		ObjectMapper om = new ObjectMapper();
-		int re = memberDao.updateResetPwd_member(member_id);
-
-		try {
-			 str = om.writeValueAsString(re);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return str;
-	}
-	
-	//입금완료 된 상품을 배송하기 위한 ajax
-	@RequestMapping(value = "sellCompliate_product.do", produces="text/plain; charset=UTF-8")
-	@ResponseBody
-	public String sellCompliate_product(int order_id, int price, String member_id) {
-		
-		
-		String str = "";	
-		
-		int rent_month = orderlistDao.getRentMonth_orderlist(order_id);
-	
-		if(rent_month == -1) {
-			str = rent_month+"";
-			return str;
-		}
-		int payback = (price*rent_month)/10;
-		
-		int re = memberDao.updatePayback_member(member_id, payback);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-//			str = mapper.writeValueAsString(re);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-		
-		return str;
-	}
-	
-	//검수가 된 물품을 실제로 게시하기 위한 메소드
-	@RequestMapping("adminSell_product.do")
-	public ModelAndView adminSell_product(HttpServletRequest request, ProductVo p) {
-		ModelAndView mav = new ModelAndView();
-	
-		String main_img = "";
-		String sub_img = "";
-		
-		String path = request.getRealPath("/resources/img/product");
-		String oldMain_img = p.getMain_img();
-		String oldSub_img = p.getSub_img();
-		int mainFsize = 0;
-		int subFsize = 0;
-		
-		MultipartFile mainIMG = p.getMainIMG();
-		MultipartFile subIMG = p.getSubIMG();
-		
-		if(mainIMG != null) {
-			try {
-				byte[] mainbyte = mainIMG.getBytes();
-			
-				main_img = mainIMG.getOriginalFilename();
-				mainFsize = mainbyte.length;
-				
-				FileOutputStream mainfos = new FileOutputStream(path+"/"+main_img);
-				mainfos.write(mainbyte);
-				
-				mainfos.close();
-				
-				if(!main_img.equals(oldMain_img)) {
-					
-					p.setMain_img(main_img);
-					
-					File file = new File(path+"/"+oldMain_img);
-					file.delete();
-				}
-			
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		if(subIMG != null) {
-			try {
-				byte[] subbyte = subIMG.getBytes();
-				sub_img = subIMG.getOriginalFilename();
-				
-				subFsize = subbyte.length;
-				FileOutputStream subfos = new FileOutputStream(path+"/"+sub_img);
-				
-				subfos.write(subbyte);
-				subfos.close();
-				
-				if(!sub_img.equals(oldSub_img)) {
-					p.setSub_img(sub_img);
-					
-					File file = new File(path+"/"+oldSub_img);
-					file.delete();
-				}
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println(e);
-			}
-		}
-		
-		productDao.updateAdmin_product(p);
-		mav.setViewName("redirect:/admin.do");
-		
 		return mav;
 	}
 }
