@@ -206,8 +206,6 @@ public class HomeController {
 
 		return mav;
 	}
-<<<<<<< HEAD
-=======
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
@@ -440,5 +438,4 @@ public class HomeController {
 		
 		return mav;
 	}
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 }
