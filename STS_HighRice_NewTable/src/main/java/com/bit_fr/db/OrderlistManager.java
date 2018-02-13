@@ -29,6 +29,16 @@ public class OrderlistManager {
 		}
 	}
 	
+	public static List<OrderlistVo> getOrders_orderlist(String order_id){
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("order_id",order_id);
+		List<OrderlistVo> list = session.selectList("orderlist.getOrders_orderlist",map);
+		session.close();
+		
+		return list;
+	}
+	
 	public static List<OrderlistVo> getMyRecentlyOrder_orderlist(String member_id){
 		SqlSession session = factory.openSession();
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -223,13 +233,13 @@ public class OrderlistManager {
 		return re;
 	}
 
-	public static int updateRentMonth_orderlist(String member_id, int product_id, int rent_month) {
+	public static int updateRentMonth_orderlist(int order_id,int rent_month) {
 		int re = -1;
 		SqlSession session = factory.openSession(true);
 
 		HashMap map = new HashMap();
-		map.put("member_id", member_id);
-		map.put("product_id", product_id);
+
+		map.put("order_id", order_id);
 		map.put("rent_month", rent_month);
 
 		re = session.update("orderlist.updateRentMonth_orderlist", map);
@@ -264,15 +274,29 @@ public class OrderlistManager {
 
 		return re;
 	}
+	
+	public static int updatePaydate_orderlist(String order_id) {
+		int re = -1;
+		
+		SqlSession session = factory.openSession(true);
+		
+		HashMap map = new HashMap();
+		map.put("order_id", order_id);
+		
+		re = session.update("orderlist.updatePaydate_orderlist",map);
+		session.close();
 
-	public static int updateRentalDateFromCartlistPayment_orderlist(String member_id, int product_id, int rent_month) {
+		
+		return re;
+	}
+
+	public static int updateRentalDateFromCartlistPayment_orderlist(int order_id, int rent_month) {
 		int re = -1;
 		SqlSession session = factory.openSession(true);
 
 		HashMap map = new HashMap();
-		map.put("member_id", member_id);
-		map.put("product_id", product_id);
 		map.put("rent_month", rent_month);
+		map.put("order_id", order_id);
 
 		re = session.update("orderlist.updateRentalDateFromCartlistPayment_orderlist", map);
 		session.close();

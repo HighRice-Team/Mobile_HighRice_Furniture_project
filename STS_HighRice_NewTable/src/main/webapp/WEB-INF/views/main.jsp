@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <style type="text/css">
 	/* menu bar 스타일 시트*/
-	.fr-header {height: 60px ; background: #aaa; border: 0;display: inline-block; width: 100%}
+	.fr-header {height: 60px ; background: #aaa; border: 0;display: inline-block; width: 100%;}
 	.fr-header .menu {background: none; border:0; margin: 4px 0 0 0}
 	.fr-header .logo-area {width: 60%; padding:10px; float: right}
 	.fr-header .logo-area .logo-img {height: 40px; float: right}
@@ -56,20 +56,14 @@
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$(document).find("div[data-role='popupss']").each(function(index,item){
+// 			$(this).parent().attr("class","ui-popup-container pop in ui-popup-active")
+// 			$(this).parent().attr("style","max-width: 368px; top: 192.997px; left: 28px;")
+// 			$(this).parent().attr("tabindex","0")
+			
+// 			$(document).find("#popupLogin-screen").attr("class","ui-popup-screen in")
+		})
 		
-// 		$(".menu").click(function(){
-// 			$("body").addClass("ui-mobile-viewport-transitioning")
-// 		})
-		
-// 		$("#close_menu").click(function(){
-// 			$("body").removeClass("ui-mobile-viewport-transitioning")
-// 		})
-		
-// 		$("div[data-panelid='menu']").click(function(){
-// 			alert("a")
-// 		})
-
-
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -117,14 +111,9 @@
 		<div data-role="content">
 
 			<jsp:include page="${viewPage }" />
-
 		</div><!-- end content -->
 		
-
-		<div data-role="footer" data-position="fixed" class="fr-footer">
-			<img src="resources/img/m/menu.png" class="menu-img">
-		</div>
-
+		
 		<!-- Start panel -->
 		<div data-role="panel" data-position="left" data-position-fixed="true"
 			data-display="overlay" id="menu" class="menu-panel">
@@ -228,14 +217,13 @@
 			</form>
 			<div class="login-div">
 				<a data-role="button" data-inline="true" data-mini="true"
-					href="joinAccess.do">회원가입</a> <a data-role="button"
+					href="joinAccess.do" data-ajax="false">회원가입</a> <a data-ajax="false" data-role="button"
 					data-inline="true" data-mini="true" href="findMember.do">id/pw
 					찾기</a> <a data-role="button" data-inline="true" data-mini="true"
 					href="#" id="loginBtn">로그인</a>
 			</div>
 		</div>
 		<!-- End login popup -->
-
 	</div>
 </body>
 </html>

@@ -83,7 +83,7 @@
          var input_confirmText = $("#input_confirmText").val()
          if(input_confirmText==ranNum&&timer>-2){
             $("#confirmText_join").empty()
-            $("#emailIcon").append("<img src='resources/img/icon/checked.png' class='check-img'>")
+            $("#emailIcon").html("<img src='resources/img/icon/checked.png' class='check-img' style='overflow:visible'>")
             $("#memberIdForDb").val($("#member_id").val())
             $("#chkArea").addClass("hidden")
             $("#input_confirmText").val(null)
@@ -165,8 +165,8 @@
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-1row">아이디</p></div>
 		   		<div class="ui-block-b rate-5"><input type="email" id="member_id" required="required" placeholder="email 형식"></div>
-		    	<div class="ui-block-c rate-1"><input type="button" id="chk_idBtn" value="중복확인" data-mini="true" data-inline="true" data-corners="false" style="margin-top: 10px;"></div>
-		    	<div class="ui-block-d rate-1" id="emailIcon"></div>
+		    	<div class="ui-block-c rate-1"><input type="button" id="chk_idBtn" value="중복확인" data-mini="true" data-inline="true" data-corners="false" style="margin-top: 10px; overflow: visible;"></div>
+		    	<div class="ui-block-d rate-1" id="emailIcon" style="overflow: visible;"></div>
 			</div>
 			
 			<div class="ui-grid-a join-row">

@@ -212,6 +212,7 @@ public class ProductManager {
 		HashMap map = new HashMap();
 		map.put("product_id", product_id);
 		map.put("condition", condition);
+		
 		int re = session.update("product.updateCondition_product", map);
 		session.close();
 		return re;

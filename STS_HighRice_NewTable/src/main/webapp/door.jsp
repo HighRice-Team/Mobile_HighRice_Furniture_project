@@ -43,15 +43,16 @@ $(function(){
 						
 				</div>
 			</div>
+			
 			<div class="ui-grid-a" style="background-color: white;">
 				<div class="ui-block-a" style="text-align: center">
 					<img src="resources/img/sell2.jpg" id="sellbtn" style="cursor: pointer; width:100%;">
 				</div>
 				<div class="ui-block-b" style="text-align: center">
 					<a href="index.do" data-ajax="false"><img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;"></a>
-					<img src="resources/img/rent.jpg" id="rentbtn" style="cursor: pointer; width:100%;">
 				</div>
 			</div>
+			
 		</div>
 
 </body>

@@ -81,8 +81,57 @@ public class OrderlistController {
 		mav.addObject("paymentOne", paymentOne);
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/payment.jsp");
-
 		return mav;
+	}
+	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
+	public ModelAndView goMultiplePayment(HttpSession session,String order_id,int paymentPrice,int cntProduct) {
+		ModelAndView mav = new ModelAndView("main");
+		String member_id=(String)session.getAttribute("id");
+		order_id = order_id.substring(0, order_id.length()-1);
+		
+		String sql = "select * from (select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"+member_id+"' and o.order_id in ("+order_id+") and p.condition='물품게시' order by order_id desc))";
+
+		List<OrderlistVo>list = orderlistDao.getMyCartList_orderlist(sql);
+		MemberVo memberVo = memberDao.getOne_member(member_id);
+		
+		mav.addObject("list",list);
+		mav.addObject("member",memberVo);
+		mav.addObject("paymentPrice",paymentPrice);
+		mav.addObject("order_id",order_id);
+		mav.addObject("cntProduct",cntProduct);
+		mav.addObject("viewPage","pay/goMultiplePayment.jsp");
+		
+		
+		return mav;
+	}
+	@RequestMapping(value = "/MultiplePayment.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String MultiplePayment(HttpSession session,String order_id,int paymentPrice) {
+		String str ="";
+		String member_id = (String)session.getAttribute("id");
+		MemberVo memverVo =  memberDao.getOne_member(member_id);
+		long member_balance = memverVo.getBalance();
+		if(member_balance-paymentPrice>=0) {
+			
+			List<OrderlistVo>list = orderlistDao.getOrders_orderlist(order_id);
+			for(OrderlistVo order : list) {
+				productDao.updateCondition_product(order.getProduct_id(),"입금완료");
+				orderlistDao.updateRentalDateFromCartlistPayment_orderlist(order.getOrder_id(), order.getRent_month());
+			}
+			orderlistDao.updateDepositToMaster_orderlist(paymentPrice);
+			orderlistDao.updatePaydate_orderlist(order_id);
+			memverVo.setBalance(member_balance-paymentPrice);
+			memberDao.updateInfo_member(memverVo);
+			
+			str = "결제완료";
+			
+		}else {
+			str = "결제오류 : 잔액 부족";
+			
+			return str;
+		}
+		
+		return str;
 	}
 
 	@RequestMapping(value = "/goPaymentInfo.do", produces = "text/plain;charset=utf-8")
@@ -263,72 +312,13 @@ public class OrderlistController {
 		return str;
 	}
 
-	// CartList.jsp 에서의 결제.
-	@RequestMapping(value = "/updateConditionOderlistAjax.do", produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public String updateOderlistAjax(HttpSession session, int product_id, long paymentOne) {
-		String member_id = (String) session.getAttribute("id");
-		String str = "";
-		int re = -1;
-
-		// 멤버의 잔고 & 결제하기.
-		MemberVo mv = memberDao.getOne_member(member_id);
-		long balance = mv.getBalance();
-
-		// 결제하기.
-		if ((balance - paymentOne) >= 0) {
-			// 결제하기위한 잔액이 충분할 때.
-			re = orderlistDao.updatePaymentProduct_orderlist(member_id, paymentOne);
-
-			// 관리자 통장에 입금되기.
-			re = orderlistDao.updateDepositToMaster_orderlist(paymentOne);
-
-			// 잔액차감 성공.
-			if (re == 1) {
-				String condition = "입금완료";
-				re = productDao.updateCondition_product(product_id, condition);
-
-				// 대여날짜 수정하기.
-				int rent_month = orderlistDao.getMyRentMonth_orderlist(member_id, product_id);
-				re = orderlistDao.updateRentalDateFromCartlistPayment_orderlist(member_id, product_id, rent_month);
-			}
-		} else {
-			// 잔액부족.
-			re = -10;
-		}
-
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-
-			str = mapper.writeValueAsString(re);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
-
-		return str;
-	}
-
 	@RequestMapping(value = "/updateRentPeriodOrderListAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String updateRentPeriodOrderListAjax(HttpSession session, int rent_month, int product_id) {
+	public String updateRentPeriodOrderListAjax(int order_id,int rent_month) {
 		String str = "";
-		String member_id = (String) session.getAttribute("id");
+		
+		orderlistDao.updateRentMonth_orderlist(order_id, rent_month);
 
-		int re = orderlistDao.updateRentMonth_orderlist(member_id, product_id, rent_month);
-
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-
-			str = mapper.writeValueAsString(re);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
 		return str;
 	}
 	

@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderlist">
 
+	<select id="getOrders_orderlist" resultType="orderlistVo">
+		select * from orderlist where order_id in (${order_id})
+	</select>
+
 	<select id="getMyRecentlyOrder_orderlist" resultType="orderlistVo">
 		select order_id, pay_date,main_img,product_name,price,rent_month,condition con from orderlist o,product p where o.product_id = p.product_id and o.member_id = '${member_id}' and o.pay_date >= '${today}'
 	</select>
@@ -75,9 +79,9 @@
 	</insert>
 
 	<update id="updateRentMonth_orderlist">
-		update orderlist set rent_month = #{rent_month}
+		update orderlist set rent_month = ${rent_month}
 		where
-		member_id = #{member_id} and product_id = #{product_id}
+		order_id = ${order_id}
 	</update>
 	
 	<update id="updatePaymentProduct_orderlist">
@@ -85,9 +89,14 @@
 		where member_id = #{member_id}
 	</update>
 	
+	<!-- 장바구니에 담긴 상품이 다른사람에게 팔렸을 경우, 다른 orderlist 의 paydate을 1111년 11월 11로 변경 -->
+	<update id="updatePaydate_orderlist">
+		update orderlist set pay_date = '1111-11-11' where order_id in (${order_id})
+	</update>
+	
 	<update id="updateRentalDateFromCartlistPayment_orderlist">
-		update orderlist set pay_date = sysdate , rent_start = (sysdate + 3) , rent_end = ADD_MONTHS((sysdate + 3) , #{rent_month} )
-		where member_id = #{member_id} and product_id = #{product_id}
+		update orderlist set pay_date = sysdate , rent_start = (sysdate + 3) , rent_end = ADD_MONTHS((sysdate + 3) , ${rent_month} )
+		where order_id=${order_id}
 	</update>
 	
 	<update id="updateDepositToMaster_orderlist">
