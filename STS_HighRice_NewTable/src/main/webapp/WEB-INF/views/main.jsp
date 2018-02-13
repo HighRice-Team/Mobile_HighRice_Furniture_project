@@ -96,8 +96,8 @@
 </script>
 </head>
 <body>
-<input type="text" value="${sessionScope.on }" id="onsite">
-<input type="text" value="${sessionScope.needToLogin }" id="needToLogin">
+<input type="hidden" value="${sessionScope.on }" id="onsite">
+<input type="hidden" value="${sessionScope.needToLogin }" id="needToLogin">
 
 	
 	<div data-role="page">
@@ -111,9 +111,6 @@
 		<div data-role="content">
 			<jsp:include page="${viewPage }" />
 
-		</div>
-		<div data-role="footer" data-position="fixed" class="fr-footer">
-			<img src="resources/img/m/menu.png" class="menu-img">
 		</div>
 		
 		
@@ -137,7 +134,7 @@
 				<div class="penel-div">
 					<div data-role="navbar" data-position="inline">
 						<ul>
-							<li><a href="#" data-ajax="false">My Page</a></li>
+							<li><a href="myPage.do?selectedMyPage=mP" data-ajax="false">My Page</a></li>
 							<li><a href="#" data-ajax="false">SELL</a></li>
 							<li><a href="cartList.do" data-ajax="false">CART</a></li>
 						</ul>
