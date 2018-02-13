@@ -188,23 +188,15 @@ $(function(){
          <c:if test="${vo.member_id != sessionScope.id}">
             <div class="ui-grid-a">
                <div class="ui-block-a" data-corners="false">
-<<<<<<< HEAD
-                  <a href="#" id="fontsmall" data-role="button" data-theme="a" data-corners="false">BUY<br>NOW<br><hr>구매하기</a>
-=======
 
-                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
-
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY<br>NOW<br><hr>구매하기</a>
+		       
                </div>
-<<<<<<< HEAD
-               <div class="ui-block-b" data-corners="false" style="overflow: auto; white-space:nowrap; text-overflow: clip;">
-                  <a href="#" id="fontsmall" data-role="button" data-corners="false">ADD TO<br>CART<br><hr>장바구니</a>
-=======
+		    
                <div class="ui-block-b" data-corners="false">
 
-                  <a id="goToCart" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+                  <a id="goToCart" data-role="button" data-corners="false">ADD TO<br>CART<br><hr>장바구니</a>
 
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
                </div>
             </div>
          </c:if>
