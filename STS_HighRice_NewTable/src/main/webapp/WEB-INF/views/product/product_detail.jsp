@@ -101,7 +101,6 @@ $(function(){
       })
       
       $("#gotopayment").click(function(){
-         alert($("#rentMonth").val())
          if($("#rentMonth").val() != "0"){
             location.href = "goPaymentInfo.do?product_id="+product_id+"&rentMonth="+$("#rentMonth").val()
          }else{
