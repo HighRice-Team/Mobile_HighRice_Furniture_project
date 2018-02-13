@@ -1,3 +1,4 @@
+<%@page import="com.bit_fr.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,23 +6,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, 
-		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<title>Insert title here</title>
-<style type="text/css">
-	
-</style>
+
 <script type="text/javascript">
 $(function(){
 		var price = eval($("#price").html())
 		var month = eval($("#month").html())
-		
-		
-		$("#totalPrice").html(price * month).css("color","red")
+		var product_id = $("#product_id").val()
+	
+		$("#totalPrice").html(Intl.NumberFormat().format(month * price)).css("color","red")
 		$(".second").hide()
 		$(".first").show()
 		
 		$("#btnmem").click(function(){
+			
+			var name = $("#name").val()
+			var roadAddrPart1 = $("#roadAddrPart1").val()
+			var addrDetail = $("#addrDetail").val()
+			var tel = $("#tel").val()
+			
+			$("#tdname").html(name)
+			$("#tdaddress").html(roadAddrPart1+"&nbsp;"+addrDetail)
+			$("#tdtel").html(tel)
 			
 			 $(".second").show()
 			 $(".first").hide()
@@ -29,8 +34,55 @@ $(function(){
 			 
 		})
 		
+		$("#cancel").click(function(){
+			location.href="product_detail.do?product_id="+product_id
+		})
+		
 		$("#btnpay").click(function(){
-			alert("결제완료")
+			var payPwd = $("#payPwd").val()
+			var orignPwd = $("#orignPwd").val()
+			var member_id = $("#member_id_pay").val()
+			
+			var roadAddrPart1 = $("#roadAddrPart1").val()
+			var addrDetail = $("#addrDetail").val()
+			var tel = $("#tel").val()
+			
+			if(payPwd == orignPwd){
+				$.ajax({url:"updateAddr_member.do", data:{address:roadAddrPart1, address_detail:addrDetail, tel:tel, member_id:member_id}, success:function(data){
+				}})
+				
+				$.ajax({url : "paymentOkAjax.do", data : {rentMonth:month, product_id:product_id, paymentOne:price*month}, success : function(data) {
+						if( data == '1'){
+            					paymentOk_msg = "결제가 성공적으로 완료되었습니다.";
+            					alert(paymentOk_msg);
+            					if(confirm("마이페이지로 이동하시겠습니까?") == true){
+            						location.href="myPage.do";
+            					}else{
+            						location.href="index.do";
+            					}
+            					
+            					
+                			}else if( data == '-10'){
+                				paymentOk_msg = "잔액이 부족합니다.";
+                				alert(paymentOk_msg);
+                				location.href="";
+                			}else{
+            					paymentOk_msg = "결제에 실패하였습니다.";
+            					alert(paymentOk_msg);
+            					location.href="";
+            				}
+					}
+					
+				});
+				
+			}else{
+				alert("비밀번호가 틀렸습니다.")
+			}
+		})
+		
+		$("#cancel2").click(function(){
+			 $(".second").hide()
+			 $(".first").show()
 		})
 		
 })
@@ -58,9 +110,10 @@ $(function(){
 
 		<div data-role="content">
 			<div style="text-align: center;">
-				<h2>결제</h2>
+				<h2 style="margin-top: -1px;">결제</h2>
 			</div>
 			<hr>
+			
 			<div class="ui-grid-a">
 				<div class="ui-block-a" style="width:45%; margin-top: 20px;">
 					<img src="resources/img/product/${productVo.main_img }" style="width: 100%;">
@@ -81,13 +134,14 @@ $(function(){
 			</div>
 			<hr>
 			<div id="pay"></div>
+
 			<form id="addressForm" name="addressForm">
 				<h3>배송지 정보 입력</h3>	
 				<div class="first">
 					<table style="width:100%" class="addrinput">
 						<tr>
 							<td style="width:20%;">이름</td>
-							<td width="90%" colspan="2"><input type="text" name="name" id="name" value="${memberVo.name }" data-mini="true" data-inline="true"></td>
+							<td width="90%" colspan="2"><input type="text" name="name" id="name" value="${memberVo.name }" data-mini="true" data-inline="true" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td width="20%">주소</td>
@@ -112,26 +166,31 @@ $(function(){
 					<table style="width:100%" class="addrinput">
 						<tr>
 							<td style="width:20%;">이름</td>
-							<td width="90%">${memberVo.name }</td>
+							<td width="90%" id="tdname"></td>
 						</tr>
 						<tr>
 							<td width="20%">주소</td>
-							<td width="65%">${memberVo.address }&nbsp;${memberVo.address_detail }</td>
+							<td width="65%" id="tdaddress"></td>
 							
 						</tr>
 						<tr>
 							<td width="20%">연락처</td>
-							<td width="65%">${memberVo.tel }</td>
+							<td width="65%" id="tdtel"></td>
 						</tr>
 					</table>
 					<hr>
 					<h3>결제확인 비밀번호</h3>
-					<input type="password" name = "pwd" id="pwd">
+					<input type="password" name = "payPwd" id="payPwd">
+					<input type="hidden" id="orignPwd" value=${memberVo.pwd }>
+					<input type="hidden" id="member_id_pay" value=${memberVo.member_id }>
+					<input type="hidden" id="product_id" value="${productVo.product_id }">
 					<div style="text-align: center;">
+						
 						<input type="button" id="btnpay" value="결제" data-inline="true" data-icon="check">
 						<input type="button" id="cancel2" value="취소" data-inline="true" data-icon="delete">
 					</div>
 				</div>
+
 				<input type="hidden" id="roadAddrPart2"  value="">
 				<input type="hidden" id="confmKey" name="confmKey" value=""  >
 				<input type="hidden" id="zipNo" name="zipNo" >

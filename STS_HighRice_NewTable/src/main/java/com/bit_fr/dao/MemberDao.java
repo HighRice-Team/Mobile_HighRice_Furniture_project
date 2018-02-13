@@ -45,6 +45,10 @@ public class MemberDao {
 		return MemberManager.updateInfo_member(v);
 	}
 	
+	public int updateAddr_member(MemberVo v) {
+		return MemberManager.updateAddr_member(v);
+	}
+	
 	public int updatePayback_member(String member_id, int payback) {
 		return MemberManager.updatePayback_member(member_id, payback);
 	}

@@ -68,6 +68,7 @@ public class OrderlistController {
 
 		String member_id = (String) session.getAttribute("id");
 
+
 		ProductVo pv = productDao.getOne_product(product_id);
 		int price = pv.getPrice();
 
@@ -139,6 +140,7 @@ public class OrderlistController {
 		ModelAndView mav = new ModelAndView("main");
 
 		String member_id = (String) session.getAttribute("id");
+		
 
 		ProductVo productVo = productDao.getOne_product(product_id);
 		MemberVo memberVo = memberDao.getOne_member(member_id);
@@ -147,6 +149,8 @@ public class OrderlistController {
 		mav.addObject("memberVo", memberVo);
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/paymentInfo.jsp");
+		mav.setViewName("main");
+
 
 		return mav;
 	}
@@ -173,6 +177,9 @@ public class OrderlistController {
 		if (list.size() % orderlistMAX != 0) {
 			pageMAX++;
 		}
+		
+		
+		
 
 		sql += "where rnum >= " + startNUM + " and rnum <= " + endNUM;
 
@@ -200,7 +207,9 @@ public class OrderlistController {
 	@ResponseBody
 	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne) {
 		String str = "";
+
 		String member_id = (String) session.getAttribute("id");
+		
 
 		int re = -1;
 
@@ -256,6 +265,7 @@ public class OrderlistController {
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
+		
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);

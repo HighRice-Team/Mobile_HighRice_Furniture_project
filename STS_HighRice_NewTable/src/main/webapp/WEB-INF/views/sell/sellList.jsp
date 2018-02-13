@@ -5,16 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, 
-		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <title>Insert title here</title>
 <style type="text/css">
+
+.img{
+	width:80%;
+/* 	height: 30%; */
+}
+
+#page a{
+   text-decoration: none;
+   color: black;
+   font-size: 2.5vw;
+}
+
+#sellprice{
+	color: red;
+}
 
 </style>
 <script type="text/javascript">
 $(function(){
 		
-	
 		$(".sell").click(function(){
 			if($(this).find(".condition").html() == "등록"){
 				location.href="sellDetail.do?product_id="+$(this).find("#product_id").val();
@@ -24,48 +36,60 @@ $(function(){
 			}
 			
 		})
+	
+		$(".sell").each(function(index, item){
+			if($(this).find(".condition").html() != "등록"){
+				$(this).addClass("ui-disabled")
+				$(this).button();
+				
+			}
+		})
+		
+		
+		
 	  		   
 	})
 </script>
 </head>
 <body>
 
-
 		<div data-role="content">
 			<h2 style="text-align: center;">${member_id }님의 가구</h2>
 			<br>
 			<c:forEach var="p" items="${list }">
-				<a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" data-corners="false">
-					<h3 style="text-align: center;">${p.product_name }</h3>
-					<input type="hidden" value="${p.product_id }" id="product_id">
-					<table style="width:100%;">
+				<div style="border: 1px solid; border-color:gray;  margin-bottom: 5px;">
+					<h3 style="text-align: center; padding-top: -50%; padding-bottom: -50%;">${p.product_name }</h3>
+					<table style="width:100%; background-color: white;" >
 						<tr>
-							
 							<td rowspan="3">
 								<c:if test="${not empty p.main_img}">
-									<img src="resources/img/product/${p.main_img }" width="100px" height="100px">
+
+									<img src="resources/img/product/${p.main_img }" class="img">
+
 								</c:if>
 								
 								<c:if test="${empty p.main_img}">
-									<img src="resources/img/noImage.png" width="100px" height="100px">
+
+									<img src="resources/img/noImage.png" class="img">
+
 								</c:if>
 							</td>
 							
-							
-							<td>${p.category }</td>
+							<td style="text-align: center;">${p.category }</td>
 						</tr>
 						<tr style="text-align: center;">
-							<td>${p.quality }</td>
+							<td>${p.quality }&nbsp;/&nbsp;<span id="sellprice">${p.price }&nbsp;</span>원</td>
 						</tr>
 						<tr style="text-align: center;">
-							<td>상태 : <span class="condition">${p.condition }</span></td>
+						
+							<td><a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" >상태 : <span class="condition">${p.condition }</span><input type="hidden" value="${p.product_id }" id="product_id"></a></td>
 						</tr>				
 					</table>
-			</a>
+				</div>
 			</c:forEach>
 			<div style="text-align: center;">
 				<c:forEach var="i"  begin="1" end="${totalPage }">
-					<span style="font-size: 20px;"><a href="sellList.do?page=${i }" data-ajax="false">${i }</a></span>&nbsp;&nbsp;
+					<span id="page" style="font-size: 20px;"><a href="sellList.do?page=${i }" data-ajax="false">${i }</a></span>&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 				

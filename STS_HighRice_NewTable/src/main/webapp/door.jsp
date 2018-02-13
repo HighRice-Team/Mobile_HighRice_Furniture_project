@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <title>Insert title here</title>
+
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -20,17 +21,61 @@
 #white{
 	background-color: white;
 }
+
+.close-img {height: 30px; float: right}
+.login-row .left {width: 30%; padding: 15px 0 0 0}
+.login-row .right {width: 70%}
+.login-popup {width: 300px; padding: 20px}
+.login-popup .login-div {width: 100%; display: inline-block; text-align: center}
 </style>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 $(function(){
-		$("#sellbtn").click(function(){
-			location.href="sellWrite.do";
-		});
+		
 		$("#rentbtn").click(function(){
-			location.href="index.do";
+			location.href="index.do"
+		})
+		
+		
+		<%
+			String id = (String)session.getAttribute("id");
+		%>
+	
+		var id = '<%= id%>'
+		
+		$("#sellbtn").click(function(){
+			if(id == 'null'){
+				$("#popupLogin").popup("open")
+			}else{
+				location.href="sellWrite.do"
+			}
+				
+		})
+	
+		
+		$("#btnclose").click(function(){
+			$("#popupLogin").popup("close")
+		})
+		
+		
+		$("#loginBtn").click(function() {
+			var loginId = $("#loginId").val();
+			var loginPwd = $("#loginPwd").val();
+			var data = { "member_id" : loginId, "pwd" : loginPwd }
+			$.ajax({ url : "login.do", data : data, success : function(data) {
+				if (data == 1) {
+					location.href = "";
+					$(".ui-block-a").css("visibility", "visible");
+					$("#login_img").attr("src", "resources/logout.png");
+				} else if (data == 0) {
+					$("#loginCheck").html("비밀번호를 잘못 입력하셨습니다.")
+				} else {
+					$("#loginCheck").html("존재하지 않는 아이디입니다.")
+				}
+			}});
 		});
+	
 	})
 </script>
 </head>
@@ -58,6 +103,34 @@ $(function(){
 			</div>
 			
 		</div>
+		
+		<!-- Start login popup -->
+			<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
+				<div class="login-div">
+					<a href="#" id="btnclose" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
+				</div>
+				<form id="loginForm" >
+				   	<div class="ui-grid-a login-row">
+				    	<div class="ui-block-a left">아이디</div>
+				   		<div class="ui-block-b right">
+				   			<input type="text" id="loginId" name="loginId" placeholder="username">
+				   		</div>
+					</div>
+					<div class="ui-grid-a login-row">
+				    	<div class="ui-block-a left">비밀번호</div>
+				   		<div class="ui-block-b right">
+				   			<input type="password" id="loginPwd" name="loginPwd" placeholder="password">
+				   		</div>
+					</div>
+					<div id="loginCheck"></div> 
+				</form>
+				<div class="login-div">
+					<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do">회원가입</a>
+					<a data-role="button" data-inline="true" data-mini="true" href="findMember.do">id/pw 찾기</a>
+					<a data-role="button" data-inline="true" data-mini="true" href="#" id="loginBtn">로그인</a>
+				</div>
+			</div>
+			<!-- End login popup -->
 
 </body>
 </html>

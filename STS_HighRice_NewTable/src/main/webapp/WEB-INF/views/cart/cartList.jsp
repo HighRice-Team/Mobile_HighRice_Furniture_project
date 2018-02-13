@@ -7,18 +7,19 @@
 <head>
 <style type="text/css">
 .price_cart{
-	font-size: 3.5vw;
-	color: #95200C;
-	font:bold;
+   font-size: 3.5vw;
+   color: #95200C;
+   font:bold;
 }
 .productName_cart{
-	font-size:4.0vw;
+   font-size:4.0vw;
 }
 </style>
 <meta charset="UTF-8">
 
 <title>Insert title</title>
 <script type="text/javascript">
+
 	$(function(){
 		//선택된 상품을 담을 변수, 주문 or 삭제를 위한 작업.
 		var selectedOrder = "";
@@ -184,9 +185,11 @@
 			$("#selectedProducts").html($("input[checked='checked']").size())
 		})
 	})
+
 </script>
 </head>
 <body id="cart_body">
+
 		
 			<div class="ui-grid-c" style="padding-top: 2%;">
 				<div class="ui-block-a" style="margin-left: 5%;">
@@ -261,5 +264,6 @@
 					<a data-role="button" style="text-align: center;" data-theme="a" id="buyAllProduct">전체상품주문</a>
 				</div>
 			</div>
+
 </body>
 </html>
