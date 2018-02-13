@@ -119,7 +119,9 @@ public class HomeController {
 		int rent2 = orderlistDao.getCountToMyCondition_orderlist(member_id, "대여중");
 		int rent3 = orderlistDao.getCountToMyCondition_orderlist(member_id, "배송중");
 		int rent4 = orderlistDao.getCountToMyCondition_orderlist(member_id, "반납");
-
+		
+		int cart_cnt = orderlistDao.getCountToMyCondition_orderlist(member_id, "물품게시");
+		
 		int total = productDao.getMySellCount_product(member_id);
 		List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
 
@@ -128,6 +130,7 @@ public class HomeController {
 		mav.addObject("rent2", rent2);
 		mav.addObject("rent3", rent3);
 		mav.addObject("rent4", rent4);
+		mav.addObject("cart_cnt", cart_cnt);
 		mav.addObject("total", total);
 		mav.addObject("list", list);
 		
@@ -187,6 +190,16 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
 		mav.addObject("viewPage", "admin/adminPage.jsp");
+
+		return mav;
+	}
+	
+	//회원정보 변경 다이얼로그
+	@RequestMapping("/edit_Profile.do")
+	public ModelAndView edit_Profile() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main");
+		mav.addObject("viewPage", "Edit_Profile.jsp");
 
 		return mav;
 	}

@@ -143,8 +143,7 @@
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
-			<div class="logo-area"><img src="resources/img/m/logo.png" class="logo-img"></div>
-			
+			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
 		</div>
 		
 		<div data-role="content">

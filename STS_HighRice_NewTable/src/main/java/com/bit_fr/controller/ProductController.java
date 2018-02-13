@@ -263,8 +263,6 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 
 		String member_id = (String) session.getAttribute("id");
-		
-	
 
 		int count = dao.getMySellCount_product(member_id);
 		int max = 5;
