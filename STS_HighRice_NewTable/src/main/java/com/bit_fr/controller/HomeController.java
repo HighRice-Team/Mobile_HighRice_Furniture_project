@@ -1,10 +1,13 @@
 package com.bit_fr.controller;
 
 
+<<<<<<< HEAD
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+=======
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,6 +70,25 @@ public class HomeController {
 		this.orderlistDao = orderlistDao;
 	}
 	
+//	처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
+	@RequestMapping(value="/onsite.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String onsite(HttpSession session) {
+		String str = "";
+		session.setAttribute("on", 1);
+		
+		return str;
+	}
+	
+	//로그인 필터에서 적용된 세션을 지워줘야함 안그러면 어떤 페이지를 들어가도 로그인 창이 계속 뜸
+	@RequestMapping(value="deleteSession.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public void deleteSession(HttpSession session) {
+		String str = "";
+		session.removeAttribute("needToLogin");
+	}
+	
+	
 	@RequestMapping("/myPage.do")
 	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min,String selectedMyPage) {
 		ModelAndView mav = new ModelAndView();
@@ -88,7 +110,9 @@ public class HomeController {
 		int rent2 = orderlistDao.getCountToMyCondition_orderlist(member_id, "대여중");
 		int rent3 = orderlistDao.getCountToMyCondition_orderlist(member_id, "배송중");
 		int rent4 = orderlistDao.getCountToMyCondition_orderlist(member_id, "반납");
-
+		
+		int cart_cnt = orderlistDao.getCountToMyCondition_orderlist(member_id, "물품게시");
+		
 		int total = productDao.getMySellCount_product(member_id);
 		List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
 
@@ -97,6 +121,7 @@ public class HomeController {
 		mav.addObject("rent2", rent2);
 		mav.addObject("rent3", rent3);
 		mav.addObject("rent4", rent4);
+		mav.addObject("cart_cnt", cart_cnt);
 		mav.addObject("total", total);
 		mav.addObject("list", list);
 		
@@ -186,4 +211,239 @@ public class HomeController {
 
 		return mav;
 	}
+<<<<<<< HEAD
+=======
+
+	@RequestMapping("/admin.do")
+	public ModelAndView admin() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main");
+		mav.addObject("viewPage", "admin/adminPage.jsp");
+
+		return mav;
+	}
+	
+	//회원정보 변경 다이얼로그
+	@RequestMapping("/edit_Profile.do")
+	public ModelAndView edit_Profile() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main");
+		mav.addObject("viewPage", "Edit_Profile.jsp");
+
+		return mav;
+	}
+
+	//어드민에서 프로덕트 리스트를 불러오기 위한 ajax
+	@RequestMapping(value = "/admin_product.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String admin_product(ProductVo v) {
+		String str = "";
+		
+		List<ProductVo> list = productDao.getAll_productAdmin(v);
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	//어드민에서 오더리스트를 불러오기 위한 ajax
+	@RequestMapping(value = "/admin_orderlist.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String admin_orderlist(OrderlistVo v) {
+		String str = "";
+		
+		List<OrderlistVo> list = orderlistDao.getAll_orderlist(v);
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	@RequestMapping(value = "/admin_member.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String admin_member(MemberVo m) {
+				
+		String str = "";
+		List<MemberVo> list = memberDao.getAll_member(m);
+		ObjectMapper mapper = new ObjectMapper();
+			
+		try {
+			str = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	//어드민에서 editing을 바로 하기 위한 ajax
+	@RequestMapping(value = "/adminUpdate_product.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String adminUpdate_product(ProductVo p) {
+		String str = "";
+
+		int re = productDao.updateAdmin_product(p);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	//맴버 업데이트를 위한 ajax
+	@RequestMapping(value = "/adminUpdate_member.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String adminUpdate_member(MemberVo m) {
+		String str = "";
+
+		int re = memberDao.updateInfo_member(m);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+	
+	//비밀번호 리셋을 위한 ajax
+	@RequestMapping(value = "/updateResetPwd_member.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateResetPwd_member(String member_id) {
+		String str = "";
+		ObjectMapper om = new ObjectMapper();
+		int re = memberDao.updateResetPwd_member(member_id);
+
+		try {
+			 str = om.writeValueAsString(re);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return str;
+	}
+	
+	//입금완료 된 상품을 배송하기 위한 ajax
+	@RequestMapping(value = "sellCompliate_product.do", produces="text/plain; charset=UTF-8")
+	@ResponseBody
+	public String sellCompliate_product(int order_id, int price, String member_id) {
+		
+		
+		String str = "";	
+		
+		int rent_month = orderlistDao.getRentMonth_orderlist(order_id);
+	
+		if(rent_month == -1) {
+			str = rent_month+"";
+			return str;
+		}
+		int payback = (price*rent_month)/10;
+		
+		int re = memberDao.updatePayback_member(member_id, payback);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
+	//검수가 된 물품을 실제로 게시하기 위한 메소드
+	@RequestMapping("adminSell_product.do")
+	public ModelAndView adminSell_product(HttpServletRequest request, ProductVo p) {
+		ModelAndView mav = new ModelAndView();
+	
+		String main_img = "";
+		String sub_img = "";
+		
+		String path = request.getRealPath("/resources/img/product");
+		String oldMain_img = p.getMain_img();
+		String oldSub_img = p.getSub_img();
+		int mainFsize = 0;
+		int subFsize = 0;
+		
+		MultipartFile mainIMG = p.getMainIMG();
+		MultipartFile subIMG = p.getSubIMG();
+		
+		if(mainIMG != null) {
+			try {
+				byte[] mainbyte = mainIMG.getBytes();
+			
+				main_img = mainIMG.getOriginalFilename();
+				mainFsize = mainbyte.length;
+				
+				FileOutputStream mainfos = new FileOutputStream(path+"/"+main_img);
+				mainfos.write(mainbyte);
+				
+				mainfos.close();
+				
+				if(!main_img.equals(oldMain_img)) {
+					
+					p.setMain_img(main_img);
+					
+					File file = new File(path+"/"+oldMain_img);
+					file.delete();
+				}
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(subIMG != null) {
+			try {
+				byte[] subbyte = subIMG.getBytes();
+				sub_img = subIMG.getOriginalFilename();
+				
+				subFsize = subbyte.length;
+				FileOutputStream subfos = new FileOutputStream(path+"/"+sub_img);
+				
+				subfos.write(subbyte);
+				subfos.close();
+				
+				if(!sub_img.equals(oldSub_img)) {
+					p.setSub_img(sub_img);
+					
+					File file = new File(path+"/"+oldSub_img);
+					file.delete();
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e);
+			}
+		}
+		
+		productDao.updateAdmin_product(p);
+		mav.setViewName("redirect:/admin.do");
+		
+		return mav;
+	}
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 }

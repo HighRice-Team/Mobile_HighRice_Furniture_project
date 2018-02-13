@@ -48,7 +48,7 @@
 		    <div class="ui-block-d step"><p>완료</p></div>
 		</div>
 		
-		<form id="F" action="joinCheck.do" method="post" data-ajax="false">
+		<form id="F" action="joinInsert.do" method="post" data-ajax="false">
 			<label>주민번호</label>
 			<div class="ui-grid-b frjmin">
 			    <div class="ui-block-a juminform">
