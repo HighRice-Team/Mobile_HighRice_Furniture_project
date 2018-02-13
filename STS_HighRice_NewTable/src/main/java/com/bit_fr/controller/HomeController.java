@@ -1,6 +1,8 @@
 package com.bit_fr.controller;
 
-
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +32,7 @@ import com.bit_fr.dao.ProductDao;
 import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
+import com.bit_fr.vo.QnaBoardVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -60,23 +63,6 @@ public class HomeController {
 
 	public void setOrderlistDao(OrderlistDao orderlistDao) {
 		this.orderlistDao = orderlistDao;
-	}
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return "home";
 	}
 	
 //	처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
@@ -144,24 +130,60 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/aboutus.do")
-	public ModelAndView goAboutus() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("viewPage","aboutUs.jsp" );
-		mav.setViewName("main");
-		
+	@RequestMapping("/aboutUs.do")
+	public ModelAndView aboutUs() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "board/aboutUs.jsp");
+
 		return mav;
 	}
 	
-	@RequestMapping(value = "/faq.do")
-	public ModelAndView goFAQ() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("viewPage","faq.jsp" );
-		mav.setViewName("main");
-		
+	@RequestMapping("/faq.do")
+	public ModelAndView faq() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "board/faq.jsp");
+
 		return mav;
+	}
+	
+	@RequestMapping("/todoList.do")
+	public ModelAndView todoList() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoList.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping("/todoRent.do")
+	public ModelAndView todoRent() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoRent.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping("/todoPickup.do")
+	public ModelAndView todoPickup() {
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "admin/todoPickup.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping(value ="/signSave.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String signSave(HttpServletRequest request) {
+		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
+		String fileName = System.currentTimeMillis()+".png";
+		//ex) fileName = member_id+"_"+product_id+".png" =>a1_4.png
+		try {
+			FileUtils.writeByteArrayToFile(new File("d:\\sign"+fileName), Base64.decodeBase64(sign));
+			ObjectMapper om = new ObjectMapper();
+			fileName = om.writeValueAsString(fileName);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return fileName;
 	}
 
 	@RequestMapping(value = "/sellWrite.do")
