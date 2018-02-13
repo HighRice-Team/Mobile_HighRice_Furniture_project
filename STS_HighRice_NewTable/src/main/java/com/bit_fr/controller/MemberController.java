@@ -100,6 +100,7 @@ public class MemberController {
 
 		return str;
 	}
+	
 
 	@RequestMapping(value = "/login.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
