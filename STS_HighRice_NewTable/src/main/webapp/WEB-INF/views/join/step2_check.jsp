@@ -3,7 +3,7 @@
 <html>
 <head>
 <script type="text/javascript">
-
+	$(function(){
 		$("#joinChkBtn").click(function(){
 			if($("#jumin1").val()!="" && $("#jumin2").val()!=""){
 				var jumin = $("#jumin1").val()+"-"+$("#jumin2").val()
