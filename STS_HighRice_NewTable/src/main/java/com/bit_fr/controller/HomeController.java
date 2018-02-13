@@ -125,7 +125,7 @@ public class HomeController {
 	public ModelAndView goAboutus() {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("viewPage","aboutUs.jsp" );
+		mav.addObject("viewPage","board/aboutUs.jsp" );
 		mav.setViewName("main");
 		
 		return mav;
@@ -135,7 +135,7 @@ public class HomeController {
 	public ModelAndView goFAQ() {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("viewPage","faq.jsp" );
+		mav.addObject("viewPage","board/faq.jsp" );
 		mav.setViewName("main");
 		
 		return mav;
