@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
-	
+	$("#qnaBack").click(function(){
+		history.back()
+	})
 })
 </script>
 </head>
@@ -44,7 +46,7 @@ $(function(){
 			<br>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
-					<input type="button" value="뒤로">
+					<input type="button" value="뒤로" id="qnaBack">
 				</div>
 				<div class="ui-block-b">
 					<input type="submit" value="등록" >
