@@ -14,13 +14,6 @@
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$(document).find("div[data-role='popupss']").each(function(index,item){
-// 			$(this).parent().attr("class","ui-popup-container pop in ui-popup-active")
-// 			$(this).parent().attr("style","max-width: 368px; top: 192.997px; left: 28px;")
-// 			$(this).parent().attr("tabindex","0")
-			
-// 			$(document).find("#popupLogin-screen").attr("class","ui-popup-screen in")
-		})
 		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
