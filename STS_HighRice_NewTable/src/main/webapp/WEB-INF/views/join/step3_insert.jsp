@@ -153,7 +153,6 @@
 </script>
 </head>
 <body>    
-
 	<div data-role="content">
 		<div class="ui-grid-c join-process">
 		    <div class="ui-block-a step"><p>약관동의</p></div>
