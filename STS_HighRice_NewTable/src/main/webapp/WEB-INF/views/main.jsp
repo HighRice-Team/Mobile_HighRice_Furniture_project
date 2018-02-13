@@ -8,48 +8,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-<style type="text/css">
-	/* menu bar 스타일 시트*/
-	.fr-header {height: 60px ; background: #aaa; border: 0;display: inline-block; width: 100%}
-	.fr-header .menu {background: none; border:0; margin: 4px 0 0 0}
-	.fr-header .logo-area {width: 60%; padding:10px; float: right}
-	.fr-header .logo-area .logo-img {height: 40px; float: right}
-	.fr-header .menu-img {height: 30px}
-	.close-img {height: 30px; float: right}
-	.menu-panel {width: 300px}
-	.menu-panel .log-img {height: 20px}
-	.penel-div {margin: 30px 0 20px 0}
-	.penel-div .tabs {width: 300px; text-align: center; display: inline-block; margin: -15px}
-	.penel-div .tabs .tab1 {width: 150px; height:50px; float: left; background: #ddd}
-	.penel-div .tabs .tab2 {width: 150px; height:50px; float: right; background: #ddd}
-	.penel-div .tabs .active {background: #aaa; color: #fff}	
-	.fr-footer {background: #aaa; border: 0; display: inline-block; width: 100%}
-	.fr-footer .menu-img {height:40px}
-	.login-row .left {width: 30%; padding: 15px 0 0 0}
-	.login-row .right {width: 70%}
-	.login-popup {width: 300px; padding: 20px}
-	.login-popup .login-div {width: 100%; display: inline-block; text-align: center}
-	
-	/* join 스타일 시트*/
-	.p-1row {font-size: 12px; margin: 20px 0 0 0}
-	.p-2row {font-size: 12px; margin: 12px 0 0 0}
-	.fr-button {text-align: center}
-	.join-row .rate-2 {width: 20%}
-	.join-row .rate-4 {width: 40%}
-	.join-row .rate-6 {width: 60%}
-	.join-row .rate-8 {width: 80%} 
-	.frjmin .juminform {width: 47%}
-	.frjmin .juminhyphen {width: 6%}
-	.frjmin .juminhyphen .p {margin-top: 15px; text-align: center}
-	.join-process {margin: 0 0 20px 0}
-	.join-process .step {height: 50px; text-align: center; background-color: #ddd}
-	.join-process .point {background-color: #ccc}
-	.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; margin: 5px 10px 0 0}
-</style>
+<link rel="stylesheet" href="resources/css/bitfr_style.css">
+
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		
+		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -84,18 +51,73 @@
 				}})
 			}
 		});
+		
+		//로그인시 필터 적용
+		var needToLogin = $("#needToLogin").val()
+		
+		if(needToLogin == 'plz'){
+			document.getElementById("btnlogin").click();
+			$.ajax({url:"deleteSession.do", success:function(data){
+				
+			}})
+		}
+		
+		
+		//처음 들어왔을때 라이트박스
+		var on = $("#onsite").val()
+		
+		if(on != 1){
+			document.getElementById("btnon").click();
+		}
+		
+		$("#imgsell").click(function(){
+			if(needToLogin == 'plz'){
+				document.getElementById("btnlogin").click();
+			}else{
+				$.ajax({url:"onsite.do", success:function(data){
+					location.href="sellWrite.do"
+				}})
+			}
+		})
+		
+		$("#imgrent").click(function(){
+			$.ajax({url:"onsite.do", success:function(data){
+				location.href="index.do"
+			}})
+		})
+		
+		$("#clobtn").click(function(){
+			$.ajax({url:"onsite.do", success:function(data){
+				location.href="index.do"
+			}})
+		})
+		
 	});
 </script>
 </head>
 <body>
+<input type="text" value="${sessionScope.on }" id="onsite">
+<input type="text" value="${sessionScope.needToLogin }" id="needToLogin">
+
+	
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
-			<div class="logo-area"><img src="resources/img/m/logo.png" class="logo-img"></div>
+
+			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
+
 		</div>
+		
 		<div data-role="content">
 			<jsp:include page="${viewPage }" />
-			<!-- Start panel -->
+
+		</div>
+		<div data-role="footer" data-position="fixed" class="fr-footer">
+			<img src="resources/img/m/menu.png" class="menu-img">
+		</div>
+		
+		
+		<!-- Start panel -->
 			<div data-role="panel" data-position="left" data-display="overlay" id="menu" class="menu-panel">
 				<a href="#" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>	
  				<c:if test="${not empty sessionScope.name}">
@@ -107,7 +129,7 @@
 				</c:if>
 				<c:if test="${empty sessionScope.name}">
 					<div>로그인
-						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop">
+						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
 							<img id="login_img" src="resources/img/login.png" class="log-img">
 						</a>
 					</div>
@@ -135,10 +157,12 @@
 					<div class="penel-div">
 						<div id="tab1" class="tab_content" >
 							<ul data-role="listview">
-								<li><p><a href="#">DESK</a></p></li>
-								<li><p><a href="#">SOFA</a></p></li>
-								<li><p><a href="#">BED</a></p></li>
-								<li><p><a href="#">CLOSET</a></p></li>
+
+								<li><p><a href="product_list.do?category=DESK" data-ajax="false">DESK</a></p></li>
+								<li><p><a href="product_list.do?category=SOFA" data-ajax="false">SOFA</a></p></li>
+								<li><p><a href="product_list.do?category=BED" data-ajax="false">BED</a></p></li>
+								<li><p><a href="product_list.do?category=CLOSET" data-ajax="false">CLOSET</a></p></li>
+
 							</ul>
 						</div>
 						<div id="tab2" class="tab_content">
@@ -152,6 +176,8 @@
 				</div>
 			</div>
 			<!-- End panel -->
+			
+			
 			<!-- Start login popup -->
 			<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
 				<div class="login-div">
@@ -179,10 +205,17 @@
 				</div>
 			</div>
 			<!-- End login popup -->
-		</div>
-		<div data-role="footer" data-position="fixed" class="fr-footer">
-			<img src="resources/img/m/menu.png" class="menu-img">
-		</div>
+			
+			<!-- lightBox Popup -->
+			<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
+				 <a href="#" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="clobtn">Close</a>
+				<img src="resources/img/sell2.jpg" id="imgsell">
+				<img src="resources/img/rent.jpg" id="imgrent">
+			</div>
+			<!--for trigger lightBox-->
+			<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
+			
+		
 	</div>
 </body>
 </html>

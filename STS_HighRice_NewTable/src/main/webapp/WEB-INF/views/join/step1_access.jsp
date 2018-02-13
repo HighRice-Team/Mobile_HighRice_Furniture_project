@@ -3,7 +3,6 @@
 <html>
 <head>
 <script type="text/javascript">
-
 	function agree() {
 		var chk1 = document.form.chk1.checked;
 		var chk2 = document.form.chk2.checked;

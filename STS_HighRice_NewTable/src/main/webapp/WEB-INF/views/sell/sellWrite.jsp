@@ -69,7 +69,7 @@ $(function(){
 						<input type="text" name="product_name" id="product_name" style="width:90%">
 					</div>
 				</div>
-				<input type="hidden" name="member_id" value="${member_id}" id="member_id">
+				<input type="hidden" name="member_id" value="${member_id}">
 			</div>
 			
 			
@@ -124,8 +124,9 @@ $(function(){
 				</div>
 			</div>
 			<div class="ui-grid-a" style="padding: 10px" align="center">
-				<div class="ui-block-a"><input id="insert" type="button" value="등록"></div>
-				<div class="ui-block-b"><input id="cancel" type="button" value="취소"></div>
+			
+				<div class="ui-block-a"><input id="insert" type="button" data-theme="a" data-corners="false" value="등록"></div>
+				<div class="ui-block-b"><input id="cancel" type="button" data-theme="c" data-corners="false" value="취소"></div>
 			</div>
 		</form>
 		</div>

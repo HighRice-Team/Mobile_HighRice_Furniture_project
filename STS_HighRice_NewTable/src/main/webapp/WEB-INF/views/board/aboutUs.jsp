@@ -2,8 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 <script type="text/javascript">
 
+=======
+<style type="text/css">
+</style>
+<script type="text/javascript">
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </script>
 </head>
 <body>
