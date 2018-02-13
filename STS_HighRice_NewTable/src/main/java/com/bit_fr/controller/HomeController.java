@@ -130,6 +130,7 @@ public class HomeController {
 		return mav;
 	}
 	
+
 	@RequestMapping("/aboutUs.do")
 	public ModelAndView aboutUs() {
 		ModelAndView mav = new ModelAndView("main");
@@ -138,11 +139,14 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping("/faq.do")
-	public ModelAndView faq() {
-		ModelAndView mav = new ModelAndView("main");
-		mav.addObject("viewPage", "board/faq.jsp");
 
+	@RequestMapping(value = "/faq.do")
+	public ModelAndView goFAQ() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("viewPage","board/faq.jsp" );
+		mav.setViewName("main");
+		
 		return mav;
 	}
 	
