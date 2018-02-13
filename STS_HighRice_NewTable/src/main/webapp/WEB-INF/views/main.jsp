@@ -8,50 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-<style type="text/css">
-	/* menu bar 스타일 시트*/
-	.fr-header {height: 60px ; background: #aaa; border: 0;display: inline-block; width: 100%;}
-	.fr-header .menu {background: none; border:0; margin: 4px 0 0 0}
-	.fr-header .logo-area {width: 60%; padding:10px; float: right}
-	.fr-header .logo-area .logo-img {height: 40px; float: right}
-	.fr-header .menu-img {height: 30px}
-	.close-img {height: 30px; float: right}
-	.check-img {height: 20px; float: right}
-	.menu-panel {width: 300px}
-	.menu-panel .log-img {height: 20px}
-	.penel-div {margin: 30px 0 20px 0}
-	.penel-div .tabs {width: 300px; text-align: center; display: inline-block; margin: -15px}
-	.penel-div .tabs .tab1 {width: 150px; height:50px; float: left; background: #ddd}
-	.penel-div .tabs .tab2 {width: 150px; height:50px; float: right; background: #ddd}
-	.penel-div .tabs .active {background: #aaa; color: #fff}	
-	.fr-footer {background: #aaa; border: 0; display: inline-block; width: 100%}
-	.fr-footer .menu-img {height:40px}
-	.login-row .left {width: 30%; padding: 15px 0 0 0}
-	.login-row .right {width: 70%}
-	.login-popup {width: 300px; padding: 20px}
-	.login-popup .login-div {width: 100%; display: inline-block; text-align: center}
-	
-	/* join 스타일 시트*/
-	.p-1row {font-size: 12px; margin: 20px 0 0 0}
-	.p-2row {font-size: 12px; margin: 12px 0 0 0}
-	.fr-button {text-align: center}
-	.join-row .rate-1 {width: 10%}
-	.join-row .rate-2 {width: 20%}
-	.join-row .rate-4 {width: 40%}
-	.join-row .rate-5 {width: 50%}
-	.join-row .rate-6 {width: 60%}
-	.join-row .rate-8 {width: 80%} 
-	.frjmin .juminform {width: 47%}
-	.frjmin .juminhyphen {width: 6%}
-	.frjmin .juminhyphen .p {margin-top: 15px; text-align: center}
-	.join-process {margin: 0 0 20px 0}
-	.join-process .step {height: 50px; text-align: center; background-color: #ddd}
-	.join-process .point {background-color: #ccc}
-	.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; margin: 5px 10px 0 0}
-	
-</style>
-
 <link rel="stylesheet" href="resources/css/bitfr_style.css">
+	
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
@@ -98,8 +56,13 @@
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
 			<a href="#menu" class="menu"><img src="resources/img/m/menu.png" class="menu-img"></a>
+<<<<<<< HEAD
 			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
 		</div>
+=======
+			<div class="logo-area"><a href="index.do" data-ajax="false"><img src="resources/img/m/logo.png" class="logo-img"></a></div>
+		</div>
+>>>>>>> branch 'Isung2' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		
 		<div data-role="content">
 
