@@ -8,6 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, 
 		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
 <style type="text/css">
 #white{
 	background-color: white;
@@ -16,11 +20,11 @@
 <script type="text/javascript">
 $(function(){
 		$("#sellbtn").click(function(){
-			location.href="sellWrite.do"
-		})
+			location.href="sellWrite.do";
+		});
 		$("#rentbtn").click(function(){
-			location.href="index.do"
-		})
+			location.href="index.do";
+		});
 	})
 </script>
 </head>

@@ -260,7 +260,7 @@ public class ProductController {
 	public ModelAndView sellList(HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page) {
 		ModelAndView mav = new ModelAndView();
 
-		String member_id = (String) session.getAttribute("member_id");
+		String member_id = (String) session.getAttribute("id");
 
 		int count = dao.getMySellCount_product(member_id);
 		int max = 5;

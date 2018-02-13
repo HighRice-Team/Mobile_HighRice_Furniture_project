@@ -164,6 +164,24 @@ public class MemberController {
 
 		return str;
 	}
+	
+	//회원정보 수정용.
+	@RequestMapping(value = "/getMember_ajax.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String getOne_member_ajax(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		String str = "";
+		MemberVo m = member_dao.getOne_member(id);
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			str = mapper.writeValueAsString(m);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
 
 	@RequestMapping(value = "/getId_member.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -220,12 +238,15 @@ public class MemberController {
 
 	@RequestMapping(value = "/updatePwd_member.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String updatePwd_member(MemberVo v) {
+	public String updatePwd_member(MemberVo v, HttpSession session) {
 		String str = "";
 		// ObjectMapper om = new ObjectMapper();
 
 		int re = member_dao.updatePwd_member(v);
-
+		if(re==1) {
+			session.removeAttribute("pwd");
+			session.setAttribute("pwd", v.getPwd() );
+		}
 		try {
 			// str = om.writeValueAsString(re);
 		} catch (Exception e) {

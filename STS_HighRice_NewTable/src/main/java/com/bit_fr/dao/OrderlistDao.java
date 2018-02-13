@@ -1,6 +1,5 @@
 package com.bit_fr.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
