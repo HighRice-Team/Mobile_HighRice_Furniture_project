@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,7 +29,7 @@ public class QnaBoardController {
 		return view;
 	}
 
-	@RequestMapping("detail.do")
+	@RequestMapping("detailQna.do")
 	public ModelAndView detail(int board_id) {
 		ModelAndView view = new ModelAndView("main");
 		view.addObject("qnaboard", dao.getOne_qnaBoard(board_id));
@@ -37,8 +38,15 @@ public class QnaBoardController {
 		return view;
 	}
 
-	@RequestMapping("insert.do")
-	public ModelAndView insert() {
+	@RequestMapping(value = "insertQna.do", method=RequestMethod.GET)
+	public ModelAndView insert_form() {
+		ModelAndView view = new ModelAndView("main");
+		view.addObject("viewPage", "qnaBoard/insert.jsp");
+		return view;
+	}
+	
+	@RequestMapping(value = "insertQna.do", method=RequestMethod.POST)
+	public ModelAndView insert_submit() {
 		ModelAndView view = new ModelAndView("main");
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
 		return view;

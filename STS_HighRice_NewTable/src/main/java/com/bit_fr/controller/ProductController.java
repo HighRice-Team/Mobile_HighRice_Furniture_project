@@ -96,7 +96,7 @@ public class ProductController {
 
 	@RequestMapping("/index.do")
 	public ModelAndView main(@RequestParam(defaultValue = "1") int pageNum, String category, String quality,
-			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max) {
+			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max, HttpSession session) {
 		ModelAndView mav = new ModelAndView("main");
 		int productMax = 8;
 		int endNum = pageNum * productMax;
@@ -144,7 +144,9 @@ public class ProductController {
 			int price = list.get(i).getPrice();
 			price_with.add(comma.format(price) + "");
 		}
-
+		
+		
+		
 		mav.addObject("list", list);
 		mav.addObject("category", category);
 		mav.addObject("min", min);
@@ -275,12 +277,16 @@ public class ProductController {
 		if (count % max != 0) {
 			totalPage++;
 		}
+		
+		
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"
 				+ member_id + "' order by product_id desc) order by rownum) r where r.rnum>=" + start + "and r.rnum<="
 				+ end;
 		mav.addObject("list", dao.getMySell_product(sql));
 		mav.addObject("member_id", member_id);
+
+
 
 		mav.addObject("totalPage", totalPage);
 		mav.addObject("viewPage", "sell/sellList.jsp");
@@ -294,7 +300,8 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView("main");
 		mav.addObject("p", dao.getOne_product(product_id));
 
-		mav.addObject("viewPage", "sell/sellDetail.jsp");
+		mav.setViewName("main");
+		mav.addObject("viewPage" ,"sell/sellDetail.jsp");
 
 		return mav;
 	}
@@ -377,6 +384,21 @@ public class ProductController {
 		return str;
 	}
 
+
+//	      int product_id = dao.getNextId_product();
+//	      p.setProduct_id(product_id);
+//	      p.setCondition("등록");
+//	      
+//	      ModelAndView view = new ModelAndView();
+//	      
+//	      
+//	      dao.insert_product(p);
+//
+//	      view.addObject("member_id", p.getMember_id());
+//	      view.setViewName("redirect:/sellList.do");
+//	      return view;
+//	   }
+
 	@RequestMapping("/sellInsert.do")
 	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");
@@ -388,6 +410,7 @@ public class ProductController {
 		int fsize2 = 0;
 		MultipartFile mainIMG = p.getMainIMG();
 		MultipartFile subIMG = p.getSubIMG();
+
 
 		if (mainIMG.getSize() != 0 && subIMG.getSize() != 0) {
 			try {

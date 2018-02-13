@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 <style type="text/css">
 
@@ -47,6 +48,7 @@ p{
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script type="text/javascript">
 $(function(){
+
 	$(".updateBtn_product").click(function(){
 		var board_id = $(this).attr("board_id")
 		var cnt = $(this).attr("cnt")
@@ -135,6 +137,7 @@ $(function(){
                    }
                 }    
            	})
+
       })
 })
 
@@ -142,6 +145,7 @@ $(function(){
 </head>
 <body>
    <div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
+
       <h3 id="category">${vo.category}</h3>
       <br>
       <div>
@@ -187,10 +191,14 @@ $(function(){
          <c:if test="${vo.member_id != sessionScope.id}">
             <div class="ui-grid-a">
                <div class="ui-block-a" data-corners="false">
+
                   <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY NOW<br><hr>구매하기</a>
+
                </div>
                <div class="ui-block-b" data-corners="false">
+
                   <a id="goToCart" data-role="button" data-corners="false">ADD TO CART<br><hr>장바구니</a>
+
                </div>
             </div>
          </c:if>
