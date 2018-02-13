@@ -9,7 +9,11 @@ import com.bit_fr.vo.OrderlistVo;
 
 @Repository
 public class OrderlistDao {
-
+	
+	public List<OrderlistVo> getOrders_orderlist(String order_id){
+		return OrderlistManager.getOrders_orderlist(order_id);
+	}
+	
 	public int getCheckExist_orderlist(String member_id, int product_id) {
 		return OrderlistManager.getCheckExist_orderlist(member_id, product_id);
 	}
@@ -50,8 +54,8 @@ public class OrderlistDao {
 		return OrderlistManager.insertCartlist_orderlist(v);
 	}
 
-	public int updateRentMonth_orderlist(String member_id, int product_id, int rent_month) {
-		return OrderlistManager.updateRentMonth_orderlist(member_id, product_id, rent_month);
+	public int updateRentMonth_orderlist(int order_id,int rent_month) {
+		return OrderlistManager.updateRentMonth_orderlist(order_id, rent_month);
 	}
 
 	// Controller 에서 order_id 가 dao.getNUM_NextOrderID 으로 받아와짐.
@@ -67,12 +71,16 @@ public class OrderlistDao {
 		return OrderlistManager.updatePaymentProduct_orderlist(member_id, paymentOne);
 	}
 
-	public int updateRentalDateFromCartlistPayment_orderlist(String member_id, int product_id, int rent_month) {
-		return OrderlistManager.updateRentalDateFromCartlistPayment_orderlist(member_id, product_id, rent_month);
+	public int updateRentalDateFromCartlistPayment_orderlist(int order_id, int rent_month) {
+		return OrderlistManager.updateRentalDateFromCartlistPayment_orderlist(order_id, rent_month);
 	}
 
 	public int getMyRentMonth_orderlist(String member_id, int product_id) {
 		return OrderlistManager.getMyRentMonth_orderlist(member_id, product_id);
+	}
+	
+	public int updatePaydate_orderlist(String order_id) {
+		return OrderlistManager.updatePaydate_orderlist(order_id);
 	}
 
 	public int updateDepositToMaster_orderlist(long paymentOne) {
@@ -82,5 +90,10 @@ public class OrderlistDao {
 	public int insertPayment_orderlist(OrderlistVo v) {
 		return OrderlistManager.insertPayment_orderlist(v);
 	}
+	
+	public int deleteOrders_orderlist(String order_id) {
+		return OrderlistManager.deleteOrders_orderlist(order_id);
+	}
+	
 
 }

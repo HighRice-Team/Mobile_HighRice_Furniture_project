@@ -1,3 +1,4 @@
+
 package com.bit_fr.db;
 
 import java.io.Reader;
@@ -167,6 +168,14 @@ public class MemberManager {
 		return re;
 	}
 	
+	public static int updateAddr_member(MemberVo v) {
+		SqlSession session = factory.openSession(true);
+		int re = session.update("member.updateAddr_member", v);
+		session.close();
+		
+		return re;
+	}
+	
 	public static List<String> getPwd_q(){
 		SqlSession session = factory.openSession();
 		List<String> list = session.selectList("member.getPwd_q");
@@ -182,3 +191,4 @@ public class MemberManager {
 	// Delete
 
 }
+

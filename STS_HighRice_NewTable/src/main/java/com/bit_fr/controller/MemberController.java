@@ -62,7 +62,7 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
 	public ModelAndView goToInsertMember(MemberVo v, int jumin1) {
 		ModelAndView mav = new ModelAndView("main");
 		mav.addObject("viewPage", "join/step3_insert.jsp");
@@ -100,6 +100,7 @@ public class MemberController {
 
 		return str;
 	}
+	
 
 	@RequestMapping(value = "/login.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -272,7 +273,27 @@ public class MemberController {
 		return str;
 	}
 
-	@RequestMapping(value = "sendMail.do", produces = "text/plain;charset=utf-8")
+	
+	@RequestMapping(value="updateAddr_member.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateAddr_member(MemberVo v) {
+		String str = "";
+		ObjectMapper mapper = new ObjectMapper();
+		int re = member_dao.updateAddr_member(v);
+		
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
+	
+	@RequestMapping(value="sendMail.do",produces="text/plain;charset=utf-8")
+
 	@ResponseBody
 	public String mail(String member_id, String confirmText) {
 		String str = "";
@@ -284,6 +305,20 @@ public class MemberController {
 
 		if (v != null) {
 			mailMessage.setSubject("[BIT FR]비밀번호 안내.");
+			
+			String tempPwd ="";
+			for(int i=0;i<6;i++) {
+				int textCase = (int)(Math.random()*3);
+				switch(textCase) {
+					case 0: tempPwd += (int)(Math.random()*10); break;
+					case 1: tempPwd += (char)((int)(Math.random()*26)+65); break;
+					case 2: tempPwd += (char)((int)(Math.random()*26)+97); break;
+				}
+			}
+			
+			v.setPwd(tempPwd);
+			member_dao.updatePwd_member(v);
+			
 			mailMessage.setText("귀하의 비밀번호는 < " + v.getPwd() + " > 입니다.");
 		} else {
 			mailMessage.setSubject("[BIT FR]인증번호 메일 발송.");

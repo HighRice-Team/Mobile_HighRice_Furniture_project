@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="resources/css/addrlinkMobileSample.css" />
 <title>Insert title here</title>
 <% 
 	request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
@@ -42,7 +43,7 @@
 
 function init(){
 	var url = location.href;
-	var confmKey = "U01TX0FVVEgyMDE4MDExMjAwNTk0MDEwNzYwNzM=";
+	var confmKey = "U01TX0FVVEgyMDE4MDIxMTE4NDgyOTEwNzY2Nzc=";//승인키
 	// resultType항목 추가(2016.10.06)
 	var resultType = "4"; // 도로명주소 검색결과 화면 출력유형, 1 : 도로명, 2 : 도로명+지번, 3 : 도로명+상세건물명, 4 : 도로명+지번+상세건물명
 	var inputYn= "<%=inputYn%>";
@@ -50,8 +51,7 @@ function init(){
 		document.form.confmKey.value = confmKey;
 		document.form.returnUrl.value = url;
 		document.form.resultType.value = resultType; // resultType항목 추가(2016.10.06)
-		document.form.action="http://www.juso.go.kr/addrlink/addrLinkUrl.do"; // 인터넷망
-		//document.form.action="http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
+		document.form.action="http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; // 모바일 웹인 경우, 인터넷망
 		document.form.submit();
 	}else{
 		/** API 서비스 제공항목 확대 (2017.02) **/
@@ -76,4 +76,3 @@ function init(){
 	</form>
 </body>
 </html>
-	
