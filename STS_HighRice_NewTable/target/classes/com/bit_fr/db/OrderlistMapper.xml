@@ -105,12 +105,12 @@
 		update member set balance = ( balance + #{paymentOne} ) 
 		where member_id = 'master'
 	</update>
-	
-<<<<<<< HEAD
+
 	<update id="updateOrderCondition_changeRequest">
 		update orderlist set orderlist_condition = #{changeRequest}
 		where member_id = #{member_id} and order_id = #{order_id}
-=======
+	</update>
+	
 	<update id="updateAll_orderlist">
 		update orderlist set
 		<trim suffixOverrides=",">
@@ -124,7 +124,7 @@
 		</trim>
 		
 		where order_id=#{order_id}
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+		
 	</update>
 	
 	<delete id="delete_orderlist">
