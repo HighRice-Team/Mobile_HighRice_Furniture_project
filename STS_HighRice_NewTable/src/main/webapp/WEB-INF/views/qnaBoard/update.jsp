@@ -14,16 +14,16 @@ $(function(){
 	$("#qnaBack").click(function(){
 		history.back()
 	})
-	
-	
-	
+
 })
 </script>
 </head>
 <body>
-<input type="hidden" value="${qb.post_type }" id="post_type">
+
+<input type="hidden" id="post_type" value="${qb.post_type }">
+	
 	<div data-role="content">
-		<form id="qnaform" method="POST" data-ajax="false">
+		<form id="qnaform" action="update_qnaBoard.do" method="POST" data-ajax="false">
 			<table style="width: 100%">
 				<tr>
 					<td width="25%">질문분류 </td>

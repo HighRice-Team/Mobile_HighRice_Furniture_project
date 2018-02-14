@@ -17,10 +17,12 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
+	//디테일로 보내는 함수
 	$(".boardli").click(function(){
 		location.href="detailQna.do?board_id="+$(this).find(".board_id").html()
 	})
 	
+	//댓글이 달렸는지 안달렸는지 판별하는 함수
 	$(".boardli").each(function(index, item){
 		var b_ref = $(this).find("#ref").val()
 		$.ajax({url:"getCountRef_qnaboard.do", data:{"b_ref":b_ref},success:function(data){

@@ -12,10 +12,11 @@
 <script type="text/javascript">
 $(function(){
 	var id = $("#sessionid").val()
+	var id_qna = $("#id_qna").html()
+	var b_ref = $("#ref").val()
 	
+	//수정
 	$("#updateComent").click(function(){
-		var id_qna = $("#id_qna").html()
-		
 		if(id = id_qna){
 			location.href="update_qnaBoard.do?board_id="+$("#board_id").html()
 		}else{
@@ -23,15 +24,29 @@ $(function(){
 		}
 		
 	})
-	
+	//삭제
 	$("#delComment").click(function(){
-		alert("삭제완료")
+		if(id = id_qna){
+			location.href="delete_qnaBoard.do?board_id="+$("#board_id").html()
+		}else{
+			alert("본인만 수정 가능합니다.")
+		}
 	})
+	
+	//수정, 삭제버튼 지우는 함수
+	$.ajax({url:"getCountRef_qnaboard.do", data:{"b_ref":b_ref}, success:function(data){
+		if(data > 1){
+			$("#updateComent").css("visibility","hidden")
+			$("#delComment").css("visibility","hidden")
+			
+		}
+	}})
 })
 </script>
 </head>
 <body>
 <input type="hidden" value="${sessionScope.id }" id="sessionid">
+<input type="hidden" value="${qnaboard.b_ref }" id="ref">
 	<div data-role="content">
 		<h2>QNA DETAIL</h2>
 		<div style="border: solid 1px; border-color: gray;">
@@ -47,12 +62,14 @@ $(function(){
 			<br>
 			<p style="margin-left: 2%; margin-right: 3%">${qnaboard.content }</p>
 			<div style="text-align: right;">
-				<button data-inline="true" id="updateComent">수정</button>
-				<button data-inline="true" id="delComment">삭제</button>
+				<a data-role="button" data-inline="true" id="updateComent">수정</a>
+				<a data-role="button" data-inline="true" id="delComment">삭제</a>
 			</div>
 		</div>
 		<br>
-		<div id="comment"></div>
+		<div id="comment">
+			
+		</div>
 		<form id="commentform">
 		<div style="border: solid 1px; border-color: gray;">
 			<h3 style="text-align: center;">답글 쓰기</h3>

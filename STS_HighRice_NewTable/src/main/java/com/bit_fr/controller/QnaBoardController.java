@@ -136,8 +136,10 @@ public class QnaBoardController {
 	public ModelAndView update_form(int board_id) {
 		
 		ModelAndView mav = new ModelAndView("main");
+		QnaBoardVo qb = dao.getOne_qnaBoard(board_id);
+		
 		mav.addObject("viewPage", "qnaBoard/update.jsp");
-		mav.addObject("qb", dao.getDetail_qnaBoard(board_id));
+		mav.addObject("qb", qb);
 		return mav;
 	}
 	
@@ -150,9 +152,13 @@ public class QnaBoardController {
 	}
 
 	@RequestMapping("/delete_qnaBoard.do")
-	@ResponseBody
-	public void delete_qnaBoard(int board_id) {
-		dao.delete_qnaBoard(board_id);
+	public ModelAndView delete_qnaBoard(int board_id) {
+		ModelAndView mav = new ModelAndView();			
+		int re = dao.delete_qnaBoard(board_id);
+		
+		mav.setViewName("redirect:/qnaBoard.do");
+		
+		return mav;
 	}
 
 	@RequestMapping("/hidden_qnaBoard.do")
