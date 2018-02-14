@@ -51,10 +51,12 @@
 	</select>
 
 	<select id="getAllMyOrder_orderlist" resultType="orderlistVo">
-		select pay_date,order_id,main_img,rent_month,product_name,price,condition con from product p,orderlist o where p.product_id=o.product_id and o.member_id = #{member_id}
+		select pay_date,order_id,main_img,rent_month,product_name,price,condition con,p.product_id,p.price,p.category,p.quality,o.member_id,rent_start,rent_end,orderlist_condition from product p,orderlist o where p.product_id=o.product_id and o.member_id = #{member_id}
 			<if test="product_name != null">AND product_name= '${product_name}'</if>
+			<if test="category != null">AND category= '${category}'</if>
 			<if test="price != null">AND price = ${price}</if>
-			<if test="condition != null">AND condition = '${condition}'</if>
+			<if test="condition != null">AND orderlist_condition = '${condition}'</if>
+		order by o.pay_date desc
 	</select>
 
 	<select id="getMyCartList_orderlist" resultType="orderlistVo">
@@ -102,6 +104,11 @@
 	<update id="updateDepositToMaster_orderlist">
 		update member set balance = ( balance + #{paymentOne} ) 
 		where member_id = 'master'
+	</update>
+	
+	<update id="updateOrderCondition_changeRequest">
+		update orderlist set orderlist_condition = #{changeRequest}
+		where member_id = #{member_id} and order_id = #{order_id}
 	</update>
 	
 	<delete id="delete_orderlist">

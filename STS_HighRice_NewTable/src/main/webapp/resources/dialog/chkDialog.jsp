@@ -17,7 +17,7 @@ function chkPwd(){
 			data:data,
 			success:function(data){
 				if(data=="결제완료"){
-					location.href="myPage.do"
+					location.href="../../myPage.do"
 				}else{
 					$("#msg").html("*"+data)
 					$("#msg").css("visibility","")

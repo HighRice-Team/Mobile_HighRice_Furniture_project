@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.mail.Session;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -138,17 +140,17 @@ public class OrderlistManager {
 		return list;
 	}
 
-	public static List<OrderlistVo> getAllMyOrder_orderlist(String member_id,OrderlistVo v) {
-		HashMap map = new HashMap();
+	public static List<OrderlistVo> getAllMyOrder_orderlist(String member_id, HashMap map) {
+		
 		map.put("member_id", member_id);
 		
-		if(!v.getProduct_name().equals("")) {
-			map.put("product_name","%"+v.getProduct_name()+"%");
-		}if(!v.getPrice().equals("")) {
-			map.put("price", v.getPrice());
-		}if(!v.getCon().equals("")) {
-			map.put("condition",v.getCon());
-		}
+//		if(!v.getProduct_name().equals("")) {
+//			map.put("product_name","%"+v.getProduct_name()+"%");
+//		}if(!v.getPrice().equals("")) {
+//			map.put("price", v.getPrice());
+//		}if(!v.getCon().equals("")) {
+//			map.put("condition",v.getCon());
+//		}
 
 		SqlSession session = factory.openSession();
 
@@ -337,6 +339,18 @@ public class OrderlistManager {
 		map.put("order_id", order_id);
 		SqlSession session = factory.openSession(true);
 		re = session.delete("orderlist.deleteOrders_orderlist",map);
+		return re;
+	}
+
+	public static int updateOrderCondition_changeRequest(String member_id, int order_id, String changeRequest) {
+		int re = -1;
+		HashMap map = new HashMap();
+		map.put("member_id", member_id);
+		map.put("order_id", order_id);
+		map.put("changeRequest", changeRequest);
+		
+		SqlSession session = factory.openSession(true);
+		re = session.update("orderlist.updateOrderCondition_changeRequest", map);
 		return re;
 	}
 

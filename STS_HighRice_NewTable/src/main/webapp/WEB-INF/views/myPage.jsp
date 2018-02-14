@@ -33,7 +33,7 @@
 	});
 </script>
 <script type="text/javascript">
-
+	
 </script>
 
 </head>
@@ -46,9 +46,9 @@
 	
 	<fieldset class="ui-grid-c">	
 		<div class="ui-block-a"><a href="myPage.do?selectedMyPage=mP" id="mP" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn1.png" width="100%"></a></div>
-		<div class="ui-block-b"><a href="myPage.do?selectedMyPage=oL" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
-		<div class="ui-block-c"><a href="myPage.do?selectedMyPage=sL" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
-		<div class="ui-block-d"><a href="myPage.do?selectedMyPage=s" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
+		<div class="ui-block-b"><a href="myOrderList.do" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
+		<div class="ui-block-c"><a href="sellList.do" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
+		<div class="ui-block-d"><a href="sellWrite.do" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
 	</fieldset>
 	<hr>
 	<fieldset class="ui-grid-d">	
@@ -56,7 +56,7 @@
 		<div class="ui-block-b" align="center" style="border-right: 5px solid grey">배송중<br>${rent2 }건</div>
 		<div class="ui-block-c" align="center" style="border-right: 5px solid grey">대여중<br>${rent3 }건</div>
 		<div class="ui-block-d" align="center" style="border-right: 5px solid grey">반납<br>${rent4 }건</div>
-		<div class="ui-block-e" align="center" >나의 물건<br>${rent4 }건</div>		
+		<div class="ui-block-e" align="center" >나의 물건<br>${sell_total }건</div>		
 	</fieldset>
 
 	<!-- head -->
@@ -126,8 +126,11 @@
 		<div style="background-color: #EEEEEE">
 		<p style="text-align: left: ;">Year/Month/Date</p>
 		<c:if test="${chkRecentList==null }">
-			<h3>주문 내역이 없습니다.</h3>
+			<h3>최근 주문 내역이 없습니다.</h3>
 		</c:if>
+		<div id="test"></div>
+		
+		
 		<c:if test="${chkRecentList!=null }">
 			<c:forEach items="${recentList }" var="recentList">
 				<a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" data-corners="false">
@@ -188,6 +191,8 @@
 	
 	</c:if>
 	<!-- // -->
+	
+	
 	
 </body>
 </html>

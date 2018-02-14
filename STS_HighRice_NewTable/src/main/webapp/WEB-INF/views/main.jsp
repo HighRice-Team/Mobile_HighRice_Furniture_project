@@ -135,7 +135,7 @@
 					<div data-role="navbar" data-position="inline">
 						<ul>
 							<li><a href="myPage.do?selectedMyPage=mP" data-ajax="false">My Page</a></li>
-							<li><a href="#" data-ajax="false">SELL</a></li>
+							<li><a href="sellList.do" data-ajax="false">SELL</a></li>
 							<li><a href="cartList.do" data-ajax="false">CART</a></li>
 						</ul>
 						<c:if test="${not empty sessionScope.name}">
