@@ -104,6 +104,21 @@
 		where member_id = 'master'
 	</update>
 	
+	<update id="updateAll_orderlist">
+		update orderlist set
+		<trim suffixOverrides=",">
+				<if test="member_id != null">member_id like '${member_id}',</if>
+				<if test="product_id!=null">product_id = #{product_id},</if>
+				<if test = "pay_date != null">pay_date = '${pay_date}',</if>
+				<if test = "rent_start != null">rent_start='${rent_start}',</if>
+				<if test = "rent_end != null">rent_end='${rent_end}',</if>
+				<if test = "rent_month != null">rent_month=#{rent_month},</if>
+				<if test = "rent_month != null">order_condition='${order_condition}',</if>
+		</trim>
+		
+		where order_id=#{order_id}
+	</update>
+	
 	<delete id="delete_orderlist">
 		delete orderlist
 		where member_id = #{member_id} and

@@ -303,6 +303,15 @@ public class OrderlistManager {
 
 		return re;
 	}
+	
+	public static int updateAll_orderlist(OrderlistVo v) {
+		int re = -1;
+		SqlSession session = factory.openSession(true);
+		re = session.update("orderlist.updateAll_orderlist", v);
+		session.close();
+
+		return re;
+	}
 
 	public static int updateDepositToMaster_orderlist(long paymentOne) {
 		int re = -1;

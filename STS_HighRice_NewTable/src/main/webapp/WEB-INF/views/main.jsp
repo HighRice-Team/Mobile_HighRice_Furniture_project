@@ -14,9 +14,6 @@
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		
-		
-		
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 		$(".tabs div").click(function() {
@@ -29,6 +26,7 @@
 			}
 		});
 		$("#loginBtn").click(function() {
+			$("#loginCheck").html("")
 			var loginId = $("#loginId").val();
 			var loginPwd = $("#loginPwd").val();
 			var data = { "member_id" : loginId, "pwd" : loginPwd }
@@ -56,7 +54,7 @@
 		var needToLogin = $("#needToLogin").val()
 		
 		if(needToLogin == 'plz'){
-			document.getElementById("btnlogin").click();
+			document.getElementById("btnlogin2").click();
 			$.ajax({url:"deleteSession.do", success:function(data){
 				
 			}})
@@ -72,7 +70,7 @@
 		
 		$("#imgsell").click(function(){
 			if(needToLogin == 'plz'){
-				document.getElementById("btnlogin").click();
+				document.getElementById("btnlogin2").click();
 			}else{
 				$.ajax({url:"onsite.do", success:function(data){
 					location.href="sellWrite.do"
@@ -93,6 +91,10 @@
 		})
 		
 	});
+	
+	function clearMsg(){
+		$("#loginCheck").html("")
+	}
 </script>
 </head>
 <body>
@@ -110,7 +112,6 @@
 		
 		<div data-role="content">
 			<jsp:include page="${viewPage }" />
-
 		</div>
 		
 		
@@ -126,16 +127,17 @@
 				</c:if>
 				<c:if test="${empty sessionScope.name}">
 					<div>로그인
-						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
+						<a onclick="clearMsg()" data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
 							<img id="login_img" src="resources/img/login.png" class="log-img">
 						</a>
+						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
 					</div>
 				</c:if>
 				<div class="penel-div">
 					<div data-role="navbar" data-position="inline">
 						<ul>
 							<li><a href="myPage.do?selectedMyPage=mP" data-ajax="false">My Page</a></li>
-							<li><a href="#" data-ajax="false">SELL</a></li>
+							<li><a href="sellList.do" data-ajax="false">SELL</a></li>
 							<li><a href="cartList.do" data-ajax="false">CART</a></li>
 						</ul>
 						<c:if test="${not empty sessionScope.name}">
@@ -154,19 +156,17 @@
 					<div class="penel-div">
 						<div id="tab1" class="tab_content" >
 							<ul data-role="listview">
-
 								<li><p><a href="product_list.do?category=DESK" data-ajax="false">DESK</a></p></li>
 								<li><p><a href="product_list.do?category=SOFA" data-ajax="false">SOFA</a></p></li>
 								<li><p><a href="product_list.do?category=BED" data-ajax="false">BED</a></p></li>
 								<li><p><a href="product_list.do?category=CLOSET" data-ajax="false">CLOSET</a></p></li>
-
 							</ul>
 						</div>
 						<div id="tab2" class="tab_content">
 							<ul data-role="listview">
-								<li><p><a href="#">QnA</a></p></li>
-								<li><p><a href="#">FAQ</a></p></li>
-								<li><p><a href="#">ABOUT US</a></p></li>
+								<li><p><a href="qna.do" data-ajax="false">QnA</a></p></li>
+								<li><p><a href="faq.do" data-ajax="false">FAQ</a></p></li>
+								<li><p><a href="aboutus.do" data-ajax="false">ABOUT US</a></p></li>
 							</ul>
 						</div>
 					</div>
@@ -193,7 +193,7 @@
 				   			<input type="password" id="loginPwd" name="loginPwd" placeholder="password">
 				   		</div>
 					</div>
-					<div id="loginCheck"></div> 
+					<div id="loginCheck">${needLoginMsg }</div> 
 				</form>
 				<div class="login-div">
 					<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do">회원가입</a>

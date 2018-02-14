@@ -112,14 +112,14 @@ public class OrderlistController {
 		MemberVo memverVo =  memberDao.getOne_member(member_id);
 		long member_balance = memverVo.getBalance();
 		if(member_balance-paymentPrice>=0) {
-			
+			orderlistDao.updatePaydate_orderlist(order_id);
 			List<OrderlistVo>list = orderlistDao.getOrders_orderlist(order_id);
 			for(OrderlistVo order : list) {
 				productDao.updateCondition_product(order.getProduct_id(),"입금완료");
+				
 				orderlistDao.updateRentalDateFromCartlistPayment_orderlist(order.getOrder_id(), order.getRent_month());
 			}
 			orderlistDao.updateDepositToMaster_orderlist(paymentPrice);
-			orderlistDao.updatePaydate_orderlist(order_id);
 			memverVo.setBalance(member_balance-paymentPrice);
 			memberDao.updateInfo_member(memverVo);
 			
@@ -258,17 +258,19 @@ public class OrderlistController {
 
 		return str;
 	}
-
+	
 	@RequestMapping(value = "/insertOrderListAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		
+		if(rent_month==0) {
+			rent_month = 6;
+		}
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);
-
+		
 		if (chk_exist < 1) {
 			OrderlistVo v = new OrderlistVo();
 

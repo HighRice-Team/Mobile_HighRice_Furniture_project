@@ -40,6 +40,7 @@ public class LoginFilter implements Filter {
 
 		if (id == null) {
 			(((HttpServletRequest)request).getSession()).setAttribute("needToLogin", "plz");
+			(((HttpServletRequest)request).getSession()).setAttribute("needLoginMsg", "<center><b style='color:red; font-size:1.7vw;'>해당 서비스는 로그인 후 이용이 가능합니다.</b></center>");
 			((HttpServletResponse) response).sendRedirect("index.do");
 		} else {
 			chain.doFilter(request, response);

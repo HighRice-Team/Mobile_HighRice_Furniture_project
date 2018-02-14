@@ -82,6 +82,10 @@ public class OrderlistDao {
 	public int updatePaydate_orderlist(String order_id) {
 		return OrderlistManager.updatePaydate_orderlist(order_id);
 	}
+	
+	public int updateAll_orderlist(OrderlistVo v) {
+		return OrderlistManager.updateAll_orderlist(v);
+	}
 
 	public int updateDepositToMaster_orderlist(long paymentOne) {
 		return OrderlistManager.updateDepositToMaster_orderlist(paymentOne);
