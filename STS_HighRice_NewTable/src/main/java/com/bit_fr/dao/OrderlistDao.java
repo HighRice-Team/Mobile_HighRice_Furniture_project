@@ -79,8 +79,8 @@ public class OrderlistDao {
 		return OrderlistManager.getMyRentMonth_orderlist(member_id, product_id);
 	}
 	
-	public int updatePaydate_orderlist(String order_id) {
-		return OrderlistManager.updatePaydate_orderlist(order_id);
+	public int updatePaydate_orderlist(int product_id) {
+		return OrderlistManager.updatePaydate_orderlist(product_id);
 	}
 	
 	public int updateAll_orderlist(OrderlistVo v) {

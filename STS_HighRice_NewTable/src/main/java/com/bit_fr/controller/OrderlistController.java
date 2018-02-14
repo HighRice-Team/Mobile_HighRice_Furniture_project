@@ -83,6 +83,7 @@ public class OrderlistController {
 		mav.addObject("viewPage", "pay/payment.jsp");
 		return mav;
 	}
+	
 	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goMultiplePayment(HttpSession session,String order_id,int paymentPrice,int cntProduct) {
 		ModelAndView mav = new ModelAndView("main");
@@ -112,11 +113,12 @@ public class OrderlistController {
 		MemberVo memverVo =  memberDao.getOne_member(member_id);
 		long member_balance = memverVo.getBalance();
 		if(member_balance-paymentPrice>=0) {
-			orderlistDao.updatePaydate_orderlist(order_id);
 			List<OrderlistVo>list = orderlistDao.getOrders_orderlist(order_id);
 			for(OrderlistVo order : list) {
+				orderlistDao.updatePaydate_orderlist(order.getProduct_id());
 				productDao.updateCondition_product(order.getProduct_id(),"입금완료");
-				
+				order.setOrderlist_condition("입금완료");
+				orderlistDao.updateAll_orderlist(order);
 				orderlistDao.updateRentalDateFromCartlistPayment_orderlist(order.getOrder_id(), order.getRent_month());
 			}
 			orderlistDao.updateDepositToMaster_orderlist(paymentPrice);
@@ -228,17 +230,23 @@ public class OrderlistController {
 			if (re == 1) {
 				String condition = "입금완료";
 				re = productDao.updateCondition_product(product_id, condition);
-
+				
+				orderlistDao.updatePaydate_orderlist(product_id);
+				
 				// Orderlist 생성하기.
 				int nextOreder_id = orderlistDao.getCountNextOrderId_orderlist();
-
+				
 				OrderlistVo v = new OrderlistVo();
+				v.setOrderlist_condition(condition);
+				System.out.println(v.getOrderlist_condition());
 				v.setOrder_id(nextOreder_id);
 				v.setMember_id(member_id);
 				v.setProduct_id(product_id);
 				v.setRent_month(rentMonth);
+				v.toString();
 				// 결제한 Orderlist 생성.
 				re = orderlistDao.insertPayment_orderlist(v);
+				
 			}
 		} else {
 			// 잔액부족.
