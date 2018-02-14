@@ -44,11 +44,10 @@
 		<p style="text-align: center;">저희 BIT FR 가구점을 이용해 주셔서 감사합니다.<br>${member.name } 님은 <c:if test="${grade==1 }">[일반]</c:if><c:if test="${grade==0 }">[관리자]</c:if> 회원이십니다.<br><br>무통장입금으로 50,000원 이상 구매시 1%을 추가적립 받으실 수 있습니다.</p>
 	<hr>
 	
-	<fieldset class="ui-grid-c">	
-		<div class="ui-block-a"><a href="myPage.do?selectedMyPage=mP" id="mP" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn1.png" width="100%"></a></div>
-		<div class="ui-block-b"><a href="myOrderList.do" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
-		<div class="ui-block-c"><a href="sellList.do" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
-		<div class="ui-block-d"><a href="sellWrite.do" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
+	<fieldset class="ui-grid-b">	
+		<div class="ui-block-a" style="padding: 5px;"><a href="myOrderList.do" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
+		<div class="ui-block-b" style="padding: 5px;"><a href="sellList.do" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
+		<div class="ui-block-c" style="padding: 5px;"><a href="sellWrite.do" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
 	</fieldset>
 	<hr>
 	<fieldset class="ui-grid-d">	
