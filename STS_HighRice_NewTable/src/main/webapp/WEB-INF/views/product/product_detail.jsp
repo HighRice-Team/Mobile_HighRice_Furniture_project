@@ -117,23 +117,16 @@ $(function(){
                 data:data,
                 success:function(data){
                    if(data >= 1){
-                      if(confirm("이미 등록한 상품입니다. 장바구니로 이동하시겠습니까?")){
-                         location.href="cartList.do";
-                      }                   
-                   }else{
-                	   
-                	   if($("#rentMonth").val() != "0"){
-                		   if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
-                               location.href="cartList.do";
-                           }
-                       }else{
-                          alert("6개월 이상 선택해주세요")
-                       }
-                      
+                      	if(confirm("이미 등록한 상품입니다. 장바구니로 이동하시겠습니까?")){
+                         	location.href="cartList.do";
+                      	}                   
+                   }else{ 
+                		if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
+                            location.href="cartList.do";
+                        }    
                    }
                 }    
            	})
-
       })
 })
 

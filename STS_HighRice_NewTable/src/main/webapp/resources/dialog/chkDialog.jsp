@@ -16,8 +16,10 @@ function chkPwd(){
 			url:"../../MultiplePayment.do",
 			data:data,
 			success:function(data){
+				alert(data)
 				if(data=="결제완료"){
-					location.href="myPage.do"
+					alert("결제 완료")
+					location.href="../../myPage.do"
 				}else{
 					$("#msg").html("*"+data)
 					$("#msg").css("visibility","")

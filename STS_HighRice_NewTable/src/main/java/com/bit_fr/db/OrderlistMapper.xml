@@ -71,11 +71,11 @@
 	</select>
 	
 	<insert id="insertCartlist_orderlist">
-		insert into orderlist values( #{order_id} , #{member_id} , #{product_id} , null , null , null , #{rent_month} )
+		insert into orderlist values( #{order_id} , #{member_id} , #{product_id} , null , null , null , #{rent_month},null )
 	</insert>
 	
 	<insert id="insertPayment_orderlist">
-		insert into orderlist values( #{order_id} , #{member_id} , #{product_id} , sysdate , (sysdate + 3) , ADD_MONTHS((sysdate + 3) , #{rent_month} ) , #{rent_month} )
+		insert into orderlist values( ${order_id} , '${member_id}' , ${product_id} , sysdate , (sysdate + 3) , ADD_MONTHS((sysdate + 3) , ${rent_month} ) , ${rent_month} , '${orderlist_condition}')
 	</insert>
 
 	<update id="updateRentMonth_orderlist">
@@ -91,7 +91,7 @@
 	
 	<!-- 장바구니에 담긴 상품이 다른사람에게 팔렸을 경우, 다른 orderlist 의 paydate을 1111년 11월 11로 변경 -->
 	<update id="updatePaydate_orderlist">
-		update orderlist set pay_date = '1111-11-11' where order_id in (${order_id})
+		update orderlist set pay_date = '1111-11-11' where product_id = ${product_id} and orderlist_condition is null
 	</update>
 	
 	<update id="updateRentalDateFromCartlistPayment_orderlist">
@@ -102,6 +102,21 @@
 	<update id="updateDepositToMaster_orderlist">
 		update member set balance = ( balance + #{paymentOne} ) 
 		where member_id = 'master'
+	</update>
+	
+	<update id="updateAll_orderlist">
+		update orderlist set
+		<trim suffixOverrides=",">
+				<if test="member_id != null">member_id = #{member_id},</if>
+				<if test="product_id!=null">product_id = #{product_id},</if>
+				<if test = "pay_date != null">pay_date = #{pay_date},</if>
+				<if test = "rent_start != null">rent_start=#{rent_start},</if>
+				<if test = "rent_end != null">rent_end= #{rent_end},</if>
+				<if test = "rent_month != null">rent_month= #{rent_month},</if>
+				<if test = "orderlist_condition != null">orderlist_condition= #{orderlist_condition},</if>
+		</trim>
+		
+		where order_id=#{order_id}
 	</update>
 	
 	<delete id="delete_orderlist">
