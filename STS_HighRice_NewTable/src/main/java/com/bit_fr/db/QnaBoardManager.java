@@ -1,6 +1,7 @@
 package com.bit_fr.db;
 
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -47,6 +48,17 @@ public class QnaBoardManager {
 		session.close();
 		return nextId;
 	}
+	
+	public static int getCountRef_qnaboard(int b_ref) {
+		SqlSession session = factory.openSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("b_ref", b_ref);
+		int re = session.selectOne("qnaBoard.getCountRef_qnaboard", map);
+		session.close();
+		
+		return re;
+	}
+	
 	public static int insert_qnaBoard(QnaBoardVo qnaboard){
 		SqlSession session = factory.openSession();
 		int re = session.insert("qnaBoard.insert_qnaBoard", qnaboard);

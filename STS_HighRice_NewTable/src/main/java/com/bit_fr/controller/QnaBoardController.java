@@ -1,6 +1,9 @@
 package com.bit_fr.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,10 @@ public class QnaBoardController {
 	@RequestMapping("qnaBoard.do")
 	public ModelAndView qnaBoard() {
 		ModelAndView view = new ModelAndView("main");
+		
+		view.addObject("list", dao.getAll_qnaBoard()); 
+		
+		
 		view.addObject("viewPage", "qnaBoard/qnaBoard.jsp");
 		return view;
 	}
@@ -37,6 +44,22 @@ public class QnaBoardController {
 
 		return view;
 	}
+	
+	@RequestMapping(value="getCountRef_qnaboard.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String getCountRef_qnaboard(int b_ref) {
+		String str = "";
+		int re = dao.getCountRef_qnaboard(b_ref);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
 
 	@RequestMapping(value = "insertQna.do", method=RequestMethod.GET)
 	public ModelAndView insert_form() {
@@ -46,11 +69,25 @@ public class QnaBoardController {
 	}
 	
 	@RequestMapping(value = "insertQna.do", method=RequestMethod.POST)
-	public ModelAndView insert_submit() {
+	public ModelAndView insert_submit(QnaBoardVo qb, HttpSession session) {
 		ModelAndView view = new ModelAndView("main");
+		String member_id = (String) session.getAttribute("id");
+		
+		int board_id = dao.getNextId_qnaBoard();
+		qb.setMember_id(member_id);
+		qb.setBoard_id(board_id);
+		qb.setPost_type("일반 문의");
+		qb.setB_ref(board_id);
+		qb.setB_level(0);
+		
+		int re = dao.insert_qnaBoard(qb);
+		
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
+		view.setViewName("redirect:/qnaBoard.do");
 		return view;
 	}
+	
+	
 
 	@RequestMapping("reply.do")
 	public ModelAndView reply() {
@@ -59,31 +96,7 @@ public class QnaBoardController {
 		return view;
 	}
 
-	@RequestMapping(value = "/getAll_qnaBoard.do", produces="text/plain;charset=utf-8")
-	@ResponseBody
-	public String getAll_qnaBoard() {
-		List<QnaBoardVo> list = dao.getAll_qnaBoard();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return str;
-	}
 
-	@RequestMapping(value="/getDetail_qnaBoard.do", produces="text/plain;charset=utf-8")
-	@ResponseBody
-	public String getDetail_qnaBoard(int board_id) {
-		List<QnaBoardVo> list = dao.getDetail_qnaBoard(board_id);
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			str = mapper.writeValueAsString(list);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return str;
-	}
 
 	@RequestMapping("/insert_qnaBoard.do")
 	@ResponseBody
@@ -119,10 +132,21 @@ public class QnaBoardController {
 		return str;
 	}
 
-	@RequestMapping("/update_qnaBoard.do")
-	@ResponseBody
-	public void update_qnaBoard(QnaBoardVo qnaboard) {
-		dao.update_qnaBoard(qnaboard);
+	@RequestMapping(value="/update_qnaBoard.do", method=RequestMethod.GET)
+	public ModelAndView update_form(int board_id) {
+		
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "qnaBoard/update.jsp");
+		mav.addObject("qb", dao.getDetail_qnaBoard(board_id));
+		return mav;
+	}
+	
+	@RequestMapping(value="/update_qnaBoard.do", method=RequestMethod.POST)
+	public ModelAndView update_submit() {
+		
+		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("viewPage", "qnaBoard/update.jsp");
+		return mav;
 	}
 
 	@RequestMapping("/delete_qnaBoard.do")

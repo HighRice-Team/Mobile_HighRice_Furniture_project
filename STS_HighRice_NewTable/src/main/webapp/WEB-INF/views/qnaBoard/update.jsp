@@ -14,10 +14,14 @@ $(function(){
 	$("#qnaBack").click(function(){
 		history.back()
 	})
+	
+	
+	
 })
 </script>
 </head>
 <body>
+<input type="hidden" value="${qb.post_type }" id="post_type">
 	<div data-role="content">
 		<form id="qnaform" method="POST" data-ajax="false">
 			<table style="width: 100%">
@@ -36,13 +40,13 @@ $(function(){
 				<tr>
 					<td width="25%">제&nbsp;&nbsp;목 </td>
 					<td width="*">
-						<input type="text" data-mini="true" name="title">
+						<input type="text" data-mini="true" name="title" value="${qb.title }">
 					</td>
 				</tr>
 			</table>
 			<br>
 			 내&nbsp;&nbsp;용
-				<textarea name="content" style="height: 200px;" ></textarea>
+				<textarea name="content" style="height: 200px;" >${qb.content }</textarea>
 			<br>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">

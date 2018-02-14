@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +9,28 @@
 	content="width=device-width, initial-scale=1.0,
 			maximum-scale=1.0, minimum-scale=1.0,
 			user-scalable=no"/>
+<style type="text/css">
+.boardli{
+	cursor: pointer;
+}
+</style>
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
-	$("li").click(function(){
+	$(".boardli").click(function(){
 		location.href="detailQna.do?board_id="+$(this).find(".board_id").html()
 	})
+	
+	$(".boardli").each(function(index, item){
+		var b_ref = $(this).find("#ref").val()
+		$.ajax({url:"getCountRef_qnaboard.do", data:{"b_ref":b_ref},success:function(data){
+			if(data > 1){
+				$(item).find("#comment").html("답변완료").css("color", "red")
+			}
+		}})
+	})
+	
+	
 })
 </script>
 </head>
@@ -22,34 +39,19 @@ $(function(){
 		<h3 style="text-align: center">QNA</h3>
 		<a href="insertQna.do" data-role="button" data-icon="forward" data-iconpos="right" data-ajax="false" data-corners="false" style="text-align: center;">글쓰기</a>
 		<br>
-		<ul data-role="listview" style="width: ">
-			<li>
-				<span class="board_id">1120</span><span style="margin-left: 10% ">배송문의</span>
+		<ul data-role="listview">
+			<c:forEach items="${list }" var="qb">
+			<li class="boardli" style="font-size: 3.3vw;">
+				<span class="board_id">${qb.board_id }</span><span style="margin-left: 10% ">${qb.title }</span>&nbsp;&nbsp;<span id="comment"></span>
+					<input type="hidden" id="ref" value="${qb.b_ref }">
 					<div style="float: right; margin-top: -3%;">
 						<div class="ui-grid-a">
-							aaa1
+							${qb.member_id }
 						</div>
-						<div class="ui-grid-a">2018-01-26</div>
+						<div class="ui-grid-a">${qb.regdate }</div>
 					</div>
 			</li>
-			<li>
-				<span class="board_id">1120</span><span style="margin-left: 10% ">배송문의</span>
-					<div style="float: right; margin-top: -3%;">
-						<div class="ui-grid-a">
-							aaa1
-						</div>
-						<div class="ui-grid-a">2018-01-26</div>
-					</div>
-			</li>
-			<li>
-				<span class="board_id">1120</span><span style="margin-left: 10% ">배송문의</span>
-					<div style="float: right; margin-top: -3%;">
-						<div class="ui-grid-a">
-							aaa1
-						</div>
-						<div class="ui-grid-a">2018-01-26</div>
-					</div>
-			</li>
+			</c:forEach>
 			
 		</ul>
 	</div>
