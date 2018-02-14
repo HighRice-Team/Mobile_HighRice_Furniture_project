@@ -86,7 +86,7 @@
 	</update>
 	
 	<update id="updateCondition_product">
-		update product set condition=#{condition} where product_id=#{product_id}
+		update product set condition= #{condition} where product_id= ${product_id}
 	</update>
 	
 	<update id="updateAdmin_product">
