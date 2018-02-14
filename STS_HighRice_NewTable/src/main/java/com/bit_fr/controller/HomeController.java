@@ -91,13 +91,13 @@ public class HomeController {
 		String member_id = (String) session.getAttribute("id");
 		MemberVo member = memberDao.getOne_member(member_id);
 		
-		List<OrderlistVo>recentList = orderlistDao.getMyRecentlyOrder_orderlist(member_id);
-		if(recentList.size()!=0) {
-			mav.addObject("recentList", recentList);
-			mav.addObject("chkRecentList", "ok");
-		}else {
-			mav.addObject("chkRecentList", null);
-		}
+//		List<OrderlistVo>recentList = orderlistDao.getMyRecentlyOrder_orderlist(member_id);
+//		if(recentList.size()!=0) {
+//			mav.addObject("recentList", recentList);
+//			mav.addObject("chkRecentList", "ok");
+//		}else {
+//			mav.addObject("chkRecentList", null);
+//		}
 
 		int max = min + 3;
 
@@ -108,8 +108,10 @@ public class HomeController {
 		
 		int cart_cnt = orderlistDao.getCountToMyCondition_orderlist(member_id, "물품게시");
 		
-		int total = productDao.getMySellCount_product(member_id);
-		List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
+		int sell_total = productDao.getMySellCount_product(member_id);
+		
+		//판매리스트
+		//List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
 
 		mav.addObject("member", member);
 		mav.addObject("rent1", rent1);
@@ -117,11 +119,11 @@ public class HomeController {
 		mav.addObject("rent3", rent3);
 		mav.addObject("rent4", rent4);
 		mav.addObject("cart_cnt", cart_cnt);
-		mav.addObject("total", total);
-		mav.addObject("list", list);
+		mav.addObject("sell_total", sell_total);
+		//mav.addObject("list", list);
 		
 		mav.addObject("selectedMyPage", selectedMyPage);
-		mav.addObject("len", list.size());
+		//mav.addObject("len", list.size());
 
 		mav.addObject("viewPage", "myPage.jsp");
 
