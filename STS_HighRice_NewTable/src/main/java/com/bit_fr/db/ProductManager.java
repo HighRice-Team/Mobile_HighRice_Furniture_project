@@ -209,8 +209,9 @@ public class ProductManager {
 	public static int updateCondition_product(int product_id, String condition) {
 		SqlSession session = factory.openSession(true);
 		HashMap map = new HashMap();
-		map.put("product_id", product_id);
-		map.put("condition", condition);
+		map.put("product_id",product_id);
+		map.put("condition",condition);
+		System.out.println(product_id);
 		
 		int re = session.update("product.updateCondition_product", map);
 		session.close();

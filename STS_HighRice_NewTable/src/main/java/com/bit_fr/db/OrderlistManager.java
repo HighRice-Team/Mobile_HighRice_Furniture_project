@@ -228,6 +228,7 @@ public class OrderlistManager {
 		map.put("member_id", v.getMember_id());
 		map.put("product_id", v.getProduct_id());
 		map.put("rent_month", v.getRent_month());
+		map.put("orderlist_condition", v.getOrderlist_condition());
 
 		re = session.insert("orderlist.insertPayment_orderlist", map);
 		session.close();
@@ -277,13 +278,13 @@ public class OrderlistManager {
 		return re;
 	}
 	
-	public static int updatePaydate_orderlist(String order_id) {
+	public static int updatePaydate_orderlist(int product_id) {
 		int re = -1;
 		
 		SqlSession session = factory.openSession(true);
 		
 		HashMap map = new HashMap();
-		map.put("order_id", order_id);
+		map.put("product_id", product_id);
 		
 		re = session.update("orderlist.updatePaydate_orderlist",map);
 		session.close();
@@ -301,6 +302,15 @@ public class OrderlistManager {
 		map.put("order_id", order_id);
 
 		re = session.update("orderlist.updateRentalDateFromCartlistPayment_orderlist", map);
+		session.close();
+
+		return re;
+	}
+	
+	public static int updateAll_orderlist(OrderlistVo v) {
+		int re = -1;
+		SqlSession session = factory.openSession(true);
+		re = session.update("orderlist.updateAll_orderlist", v);
 		session.close();
 
 		return re;

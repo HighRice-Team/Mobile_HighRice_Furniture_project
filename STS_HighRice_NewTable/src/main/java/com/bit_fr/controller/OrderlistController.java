@@ -157,14 +157,15 @@ public class OrderlistController {
 		MemberVo memverVo =  memberDao.getOne_member(member_id);
 		long member_balance = memverVo.getBalance();
 		if(member_balance-paymentPrice>=0) {
-			
 			List<OrderlistVo>list = orderlistDao.getOrders_orderlist(order_id);
 			for(OrderlistVo order : list) {
+				orderlistDao.updatePaydate_orderlist(order.getProduct_id());
 				productDao.updateCondition_product(order.getProduct_id(),"입금완료");
+				order.setOrderlist_condition("입금완료");
+				orderlistDao.updateAll_orderlist(order);
 				orderlistDao.updateRentalDateFromCartlistPayment_orderlist(order.getOrder_id(), order.getRent_month());
 			}
 			orderlistDao.updateDepositToMaster_orderlist(paymentPrice);
-			orderlistDao.updatePaydate_orderlist(order_id);
 			memverVo.setBalance(member_balance-paymentPrice);
 			memberDao.updateInfo_member(memverVo);
 			
@@ -273,17 +274,23 @@ public class OrderlistController {
 			if (re == 1) {
 				String condition = "입금완료";
 				re = productDao.updateCondition_product(product_id, condition);
-
+				
+				orderlistDao.updatePaydate_orderlist(product_id);
+				
 				// Orderlist 생성하기.
 				int nextOreder_id = orderlistDao.getCountNextOrderId_orderlist();
-
+				
 				OrderlistVo v = new OrderlistVo();
+				v.setOrderlist_condition(condition);
+				System.out.println(v.getOrderlist_condition());
 				v.setOrder_id(nextOreder_id);
 				v.setMember_id(member_id);
 				v.setProduct_id(product_id);
 				v.setRent_month(rentMonth);
+				v.toString();
 				// 결제한 Orderlist 생성.
 				re = orderlistDao.insertPayment_orderlist(v);
+				
 			}
 		} else {
 			// 잔액부족.
@@ -303,17 +310,19 @@ public class OrderlistController {
 
 		return str;
 	}
-
+	
 	@RequestMapping(value = "/insertOrderListAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		
+		if(rent_month==0) {
+			rent_month = 6;
+		}
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);
-
+		
 		if (chk_exist < 1) {
 			OrderlistVo v = new OrderlistVo();
 
