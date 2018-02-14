@@ -403,7 +403,7 @@ public class ProductController {
 	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");
 		System.out.println(path);
-		String member_id = (String) session.getAttribute("member_id");
+		String member_id = (String) session.getAttribute("id");
 		String main_img = "";
 		String sub_img = "";
 		int fsize1 = 0;
@@ -444,9 +444,7 @@ public class ProductController {
 		ModelAndView view = new ModelAndView();
 		
 		dao.insert_product(p);
-		// view.setViewName("main");
 		view.addObject("member_id", p.getMember_id());
-		// view.addObject("viewPage", "sell/sellList");
 		view.setViewName("redirect:/sellList.do");
 		return view;
 	}
