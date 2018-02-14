@@ -32,7 +32,15 @@
 					if(data==1)
 					{
 						alert("회원정보 수정에 성공하였습니다.");
-						location.href="../../myPage.do?selectedMyPage=mP";
+						if($("#pageName").val()=="mp"){
+							location.href="../../myPage.do?selectedMyPage=mP";
+						}else if($("#pageName").val()=="ct"){
+							var order_id = $("#order_id").val()
+							var paymentPrice = $("#paymentPrice").val()
+							var cntProduct = $("#cntProduct").val()
+							location.href="../../goMultiplePayment.do?order_id="+order_id+"&paymentPrice="+paymentPrice+"&cntProduct="+cntProduct;
+						}
+						
 						
 					}
 					else{
@@ -149,7 +157,10 @@
 				</div>
 			</div>
 		</form>
-
+		<input type="hidden" id="pageName" value="<%=request.getParameter("pageName") %>">
+		<input type="hidden" id="order_id" value="<%=request.getParameter("order_id") %>">
+		<input type="hidden" id="paymentPrice" value="<%=request.getParameter("paymentPrice") %>">
+		<input type="hidden" id="cntProduct" value="<%=request.getParameter("cntProduct") %>">
 	</div>
 </div>
 

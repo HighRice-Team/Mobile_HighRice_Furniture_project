@@ -26,7 +26,6 @@ public class ProductDao {
 	}
 
 	public int getNextId_product() {
-		System.out.println("과정2");
 		return ProductManager.getNextId_product();
 	}
 

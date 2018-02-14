@@ -215,7 +215,6 @@ public class ProductController {
 		}
 
 		sql += "product_id desc))";
-
 		List<ProductVo> list = dao.getAll_product(sql);
 		view.addObject("len", list.size());
 
@@ -315,7 +314,6 @@ public class ProductController {
 		int productMax = 10;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
-		System.out.println("member_id: " + member_id);
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where member_id='"
 				+ member_id + "' order by product_id))";
 
@@ -410,7 +408,7 @@ public class ProductController {
 		int fsize2 = 0;
 		MultipartFile mainIMG = p.getMainIMG();
 		MultipartFile subIMG = p.getSubIMG();
-
+		
 
 		if (mainIMG.getSize() != 0 && subIMG.getSize() != 0) {
 			try {

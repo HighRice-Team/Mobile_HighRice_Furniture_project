@@ -104,7 +104,7 @@
 				<a id="edit_profile" href="#" data-rel="dialog" data-role="button" data-inline="true">회원정보 수정</a>
 				<a id="change_pwd" href="#" data-rel="dialog" data-role="button" data-inline="true">비밀번호 변경하기</a>
 				<!-- hidden a tag -->
-				<a id="go_edit_profile" style="visibility: hidden;" href="resources/dialog/Edit_Profile.jsp" data-rel="dialog"></a>
+				<a id="go_edit_profile" style="visibility: hidden;" href="resources/dialog/Edit_Profile.jsp?pageName=mp" data-rel="dialog"></a>
 				<a id="go_change_pwd" style="visibility: hidden;" href="resources/dialog/Change_pwd.jsp" data-rel="dialog"></a>
 			</td></tr>
 			

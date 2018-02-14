@@ -94,10 +94,9 @@ public class ProductManager {
 	
 
 	public static int getNextId_product() {
-		System.out.println("과정3");
+
 		SqlSession session = factory.openSession();
 		int n = session.selectOne("product.getNextId_product");
-		System.out.println("과정4"+n);
 		session.close();
 		return n;
 	}

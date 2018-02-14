@@ -38,27 +38,32 @@
 		})
 		
 		$("#buyAllProduct").click(function(){
-			var paymentPrice = 0;
-			$("input[type='checkbox']").each(function(){
-				var cnt = $(this).attr("cnt")
-				paymentPrice += eval($("#totalPrice"+cnt).html())
-				selectedOrder += $(this).attr("order_id")+","
-			})
-			
-			$("#paymentPrice").html(paymentPrice)
-			$("#selectedProducts").html($("input[type='checkbox']").size())
-			
-			$("input[type='checkbox']").each(function(index,item){
-				var rent_month = $(item).attr("rent_month")
-				var order_id = $(item).attr("order_id")
-				var data = {"rent_month":rent_month,"order_id":order_id}
-				$.ajax({
-					url:"updateRentPeriodOrderListAjax.do",
-					data:data
+			if($("input[type='checkbox']").length>0){
+				var paymentPrice = 0;
+				$("input[type='checkbox']").each(function(){
+					var cnt = $(this).attr("cnt")
+					paymentPrice += eval($("#totalPrice"+cnt).html())
+					selectedOrder += $(this).attr("order_id")+","
 				})
-			})
+				
+				$("#paymentPrice").html(paymentPrice)
+				$("#selectedProducts").html($("input[type='checkbox']").size())
+				
+				$("input[type='checkbox']").each(function(index,item){
+					var rent_month = $(item).attr("rent_month")
+					var order_id = $(item).attr("order_id")
+					var data = {"rent_month":rent_month,"order_id":order_id}
+					$.ajax({
+						url:"updateRentPeriodOrderListAjax.do",
+						data:data
+					})
+				})
+				
+				location.href="goMultiplePayment.do?order_id="+selectedOrder+"&paymentPrice="+$("#paymentPrice").html()+"&cntProduct="+$("input[type='checkbox']").length;
+			}else{
+				alert("주문 할 상품이 존재하지 않습니다.")
+			}
 			
-			location.href="goMultiplePayment.do?order_id="+selectedOrder+"&paymentPrice="+$("#paymentPrice").html()+"&cntProduct="+$("input[type='checkbox']").length;
 		})
 		
 		$("#buySelectProduct").click(function(){
