@@ -1,7 +1,5 @@
 package com.bit_fr.vo;
 
-import java.util.Date;
-
 public class OrderlistVo {
 	private int order_id;
 	private String member_id;
@@ -11,14 +9,6 @@ public class OrderlistVo {
 	private String rent_end;
 	private int rent_month;
 
-	//toString for yours
-	@Override
-	public String toString() {
-		return "OrderlistVo [order_id=" + order_id + ", member_id=" + member_id + ", product_id=" + product_id
-				+ ", pay_date=" + pay_date + ", rent_start=" + rent_start + ", rent_end=" + rent_end + ", rent_month="
-				+ rent_month + ", rnum=" + rnum + ", product_name=" + product_name + ", main_img=" + main_img
-				+ ", price=" + price + ", pr=" + pr + ", con=" + con + "]";
-	}
 	// page Vo
 	private int rnum;
 
@@ -28,8 +18,13 @@ public class OrderlistVo {
 	private String price;
 	// product_id
 	private int pr;
-	// condition
+	// condition - product condition과 연동
 	private String con;
+	// orderlist만의 condition
+	private String orderlist_condition;
+	private String category;
+	private String quality;
+	
 	public int getOrder_id() {
 		return order_id;
 	}
@@ -108,9 +103,27 @@ public class OrderlistVo {
 	public void setCon(String con) {
 		this.con = con;
 	}
+	public String getOrderlist_condition() {
+		return orderlist_condition;
+	}
+	public void setOrderlist_condition(String orderlist_condition) {
+		this.orderlist_condition = orderlist_condition;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getQuality() {
+		return quality;
+	}
+	public void setQuality(String quality) {
+		this.quality = quality;
+	}
 	public OrderlistVo(int order_id, String member_id, int product_id, String pay_date, String rent_start,
 			String rent_end, int rent_month, int rnum, String product_name, String main_img, String price, int pr,
-			String con) {
+			String con, String orderlist_condition, String category, String quality) {
 		super();
 		this.order_id = order_id;
 		this.member_id = member_id;
@@ -125,11 +138,24 @@ public class OrderlistVo {
 		this.price = price;
 		this.pr = pr;
 		this.con = con;
+		this.orderlist_condition = orderlist_condition;
+		this.category = category;
+		this.quality = quality;
 	}
 	public OrderlistVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public String toString() {
+		return "OrderlistVo [order_id=" + order_id + ", member_id=" + member_id + ", product_id=" + product_id
+				+ ", pay_date=" + pay_date + ", rent_start=" + rent_start + ", rent_end=" + rent_end + ", rent_month="
+				+ rent_month + ", rnum=" + rnum + ", product_name=" + product_name + ", main_img=" + main_img
+				+ ", price=" + price + ", pr=" + pr + ", con=" + con + ", orderlist_condition=" + orderlist_condition
+				+ ", category=" + category + ", quality=" + quality + "]";
+	}
+	
+	
 
 	
 }
