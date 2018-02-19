@@ -15,8 +15,22 @@
 				$("#" + activeTab).fadeIn()
 			}
 		});
+		
+		//bitmanList
+		$.ajax({
+			url:"todoListAjax_bitmanList.do",
+			success:function(data){
+				data = eval("("+data+")");
+				$(data).each(function(index , bitman){
+					alert(bitman.productInfo.quality)
+				});
+				
+			}
+		});
+		
 	})
 </script>
+
 <style type="text/css">
 	.todo-category {width:calc(100% + 30px); margin:-15px;}
 	.todo-category .tab_rent {width:50%; float:left; text-align: center; background: #ddd}

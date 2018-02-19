@@ -1,26 +1,25 @@
 package com.bit_fr.controller;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,6 @@ import com.bit_fr.dao.ProductDao;
 import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
-import com.bit_fr.vo.QnaBoardVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -151,10 +149,40 @@ public class HomeController {
 		
 		return mav;
 	}
+
+	//bitmanList : 비트맨의 배송목록 ajax통신
+	@RequestMapping(value ="/todoListAjax_bitmanList.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String todoListAjax(HttpServletRequest request) {
+		String str = "";
+		
+		try {
+	         URL url = new URL("http://203.236.209.226:52273/bitmanList");
+	         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+	         
+	         InputStream is = conn.getInputStream();
+	         ByteArrayOutputStream out = new ByteArrayOutputStream();
+	         byte[] buf = new byte[1024*8];
+	         int length = 0;
+	         while((length = is.read(buf))!= -1) {
+	            out.write(buf,0,length);
+	         }
+	         
+	          str = new String(out.toByteArray(), "UTF-8"); 
+
+	         
+	      } catch (Exception e) {
+	         // TODO: handle exception
+	      }
+		
+		return str;
+	}
+	
 	
 	@RequestMapping("/todoList.do")
 	public ModelAndView todoList() {
 		ModelAndView mav = new ModelAndView("main");
+		 
 		mav.addObject("viewPage", "admin/todoList.jsp");
 
 		return mav;
