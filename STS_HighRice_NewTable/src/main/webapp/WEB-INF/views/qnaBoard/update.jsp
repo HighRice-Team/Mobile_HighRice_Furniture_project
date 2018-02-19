@@ -14,48 +14,44 @@ $(function(){
 	$("#qnaBack").click(function(){
 		history.back()
 	})
+	
+	$("#updatebtn").click(function(){
+		var data = $("#qnaform").serializeArray();
+		$.ajax({url:"updateAjax_qnaBoard.do",data:data, success:function(data){
+			if(data == 1){
+				alert("수정 완료")
+				location.href="detailQna.do?board_id="+$("#board_id").val();
+			}
+		}})
+	})
+
 })
 </script>
 </head>
 <body>
 	<div data-role="content">
-		<form id="qnaform" method="POST" data-ajax="false">
+		<form id="qnaform">
+			<input type="hidden" value="${qb.board_id }" id="board_id" name="board_id">
 			<table style="width: 100%">
-				<tr>
-					<td width="25%">질문분류 </td>
-					<td width="*">
-						<select name="post_type" data-mini="true">
-							<option value="물품문의">물품문의</option>
-							<option value="배송문의">배송문의</option>
-							<option value="주문/결제문의">주문/결제문의</option>
-							<option value="취소/환불문의">취소/환불문의</option>
-							<option value="기타">기타</option>
-						</select>
-					</td>
-				</tr>
 				<tr>
 					<td width="25%">제&nbsp;&nbsp;목 </td>
 					<td width="*">
-						<input type="text" data-mini="true" name="title">
+						<input type="text" data-mini="true" name="title" value="${qb.title }">
 					</td>
 				</tr>
 			</table>
 			<br>
 			 내&nbsp;&nbsp;용
-				<textarea name="content" style="height: 200px;" ></textarea>
+				<textarea name="content" style="height: 200px;" >${qb.content }</textarea>
 			<br>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
 					<input type="button" value="뒤로" id="qnaBack">
 				</div>
 				<div class="ui-block-b">
-					<input type="submit" value="등록">
+					<input type="button" value="등록" id="updatebtn">
 				</div>
-				
-			</div>
-			
-			
-			
+			</div>	
 		</form>
 	</div>
 </body>
