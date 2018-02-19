@@ -90,7 +90,7 @@ $(function(){
 			<div class="center">
 			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<input type="radio" id="q1" name="quality" value="A">
+					<input type="radio" id="q1" name="quality" value="A" checked="checked">
 					<label for="q1">A</label>
 				</div>
 				<div class="ui-block-b">

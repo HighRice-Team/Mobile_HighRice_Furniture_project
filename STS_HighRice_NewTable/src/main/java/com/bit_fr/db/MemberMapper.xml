@@ -50,6 +50,11 @@
 	<select id="getPwd_q" resultType="java.lang.String">
 		select distinct pwd_q from member where grade = 1
 	</select>
+	
+	<!-- 내가 관리자인가를 판별 -->
+	<select id="getGrade_member" resultType="java.lang.Integer">
+		select grade from member where member_id = #{member_id}
+	</select>
 
 
 <!-- Insert -->

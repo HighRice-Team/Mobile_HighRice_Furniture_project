@@ -95,13 +95,16 @@
 	function clearMsg(){
 		$("#loginCheck").html("")
 	}
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </script>
 </head>
 <body>
 <input type="hidden" value="${sessionScope.on }" id="onsite">
 <input type="hidden" value="${sessionScope.needToLogin }" id="needToLogin">
-
 	
 	<div data-role="page">
 		<div data-role="header" class="fr-header">
@@ -165,7 +168,7 @@
 						</div>
 						<div id="tab2" class="tab_content">
 							<ul data-role="listview">
-								<li><p><a href="qna.do" data-ajax="false">QnA</a></p></li>
+								<li><p><a href="qnaBoard.do" data-ajax="false">QnA</a></p></li>
 								<li><p><a href="faq.do" data-ajax="false">FAQ</a></p></li>
 								<li><p><a href="aboutus.do" data-ajax="false">ABOUT US</a></p></li>
 							</ul>
