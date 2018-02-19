@@ -86,7 +86,7 @@ public class OrderlistController {
 	//나의 주문정보 페이지
 	@RequestMapping(value = "/myOrderList.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView myOrderList(HttpSession session, String condition, String category) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 		HashMap map = new HashMap();
@@ -107,7 +107,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/goPayment.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goPayment(HttpSession session, int rentMonth, int product_id) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 
@@ -130,7 +130,7 @@ public class OrderlistController {
 	
 	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goMultiplePayment(HttpSession session,String order_id,int paymentPrice,int cntProduct) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		String member_id=(String)session.getAttribute("id");
 		order_id = order_id.substring(0, order_id.length()-1);
 		
@@ -182,7 +182,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/goPaymentInfo.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goPaymentInfo(HttpSession session, int product_id, int rentMonth) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 		
@@ -194,7 +194,7 @@ public class OrderlistController {
 		mav.addObject("memberVo", memberVo);
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/paymentInfo.jsp");
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 
 		return mav;
@@ -202,7 +202,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/cartList.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goCartList(HttpSession session, @RequestParam(defaultValue = "1") int pageNUM) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		int orderlistMAX = 10;
 		int endNUM = pageNUM * orderlistMAX;

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.p-1row {font-size: 12px; margin: 20px 0 0 0}
+.p-2row {font-size: 12px; margin: 12px 0 0 0}
+
+.fr-button {text-align: center}
+
+.join-row .rate-2 {width: 20%}
+.join-row .rate-4 {width: 40%}
+.join-row .rate-6 {width: 60%}
+.join-row .rate-8 {width: 80%}
+
+.frjmin .juminform {width: 47%}
+.frjmin .juminhyphen {width: 6%}
+.frjmin .juminhyphen .p {margin-top: 15px; text-align: center}
+
+.join-process {margin: 0 0 20px 0}
+.join-process .step {height: 50px; text-align: center; background-color: #ddd}
+.join-process .point {background-color: #ccc}
+
+.join-complete {background-color: #EAEAEA; text-align: center; font-size: 18px; margin: 5px 10px 0 0}
+
+.hidden{display: none;}
