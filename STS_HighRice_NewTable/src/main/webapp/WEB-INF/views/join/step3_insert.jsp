@@ -2,11 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-.hidden{
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
    $(function(){
       var intervalObject   // Timer역할을 할 Interval객체
@@ -148,6 +144,9 @@
     	}
 
    }
+	function back() {
+		location.href="main.do"
+	}
       
    
 </script>
@@ -247,12 +246,10 @@
 			<input type="hidden" name="member_id" id="memberIdForDb">
 			<input type="hidden" name="jumin" value="${v.jumin }">
 			<div data-role="controlgroup" data-type="horizontal" data-corners="false" class="fr-button">
-				<input type="button" value="취소" id="resetInsertBtn">
+				<input type="button" value="취소" onclick="back()">
 				<input type="submit" value="가입" id="insert_memberBtn">
 			</div>
-			
-			
-			
+
 		</form>
 	</div>
 </body>

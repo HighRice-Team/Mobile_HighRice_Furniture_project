@@ -41,7 +41,7 @@ public class MemberController {
 
 	@RequestMapping("findMember.do")
 	public ModelAndView gotofindMemberPage() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/findMember.jsp");
 
 		return mav;
@@ -49,7 +49,7 @@ public class MemberController {
 
 	@RequestMapping("/joinAccess.do")
 	public ModelAndView gotoJoinAccess() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step1_access.jsp");
 
 		return mav;
@@ -57,7 +57,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
 	public ModelAndView gotoJoinCheck() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step2_check.jsp");
 
 		return mav;
@@ -87,7 +87,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
 	public ModelAndView goToInsertMember(MemberVo v, int jumin1) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step3_insert.jsp");
 
 		String jumin = v.getJumin();
@@ -99,7 +99,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/insert_member.do", method = RequestMethod.POST)
 	public ModelAndView insert_member(MemberVo v) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step4_complete.jsp");
 
 		member_dao.insert_member(v);
@@ -108,7 +108,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/test_joinStep4.do")
 	public ModelAndView test(MemberVo v) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step4_complete.jsp");
 		return mav;
 	}

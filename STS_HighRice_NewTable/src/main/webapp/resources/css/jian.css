@@ -10,7 +10,6 @@ body {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAY
 	background-color: #fff;
 	border-radius: 4px;
 }
-
 .m-signature-pad:before, .m-signature-pad:after {
 	position: absolute;
 	z-index: -1;
@@ -26,7 +25,6 @@ body {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAY
 	-o-transform: skew(-3deg) rotate(-3deg);
 	transform: skew(-3deg) rotate(-3deg);
 }
-
 .m-signature-pad:after {
 	left: auto;
 	right: 20px;
@@ -36,7 +34,6 @@ body {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAY
 	-o-transform: skew(3deg) rotate(3deg);
 	transform: skew(3deg) rotate(3deg);
 }
-
 .m-signature-pad--body {
   position: absolute;
   left: 0;
@@ -55,7 +52,6 @@ body {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAY
     height: 100%;
     border-radius: 4px;
   }
-
-.sign-pad-footer {position: absolute; right:5px; left:5px; bottom: 5px;}
-.sign-pad-footer .clear {float: left;}
-.sign-pad-footer .save {float: right;}
+.sign-pad-footer {position: absolute; right:5px; left:5px; bottom: 5px}
+.sign-pad-footer .clear {float: left}
+.sign-pad-footer .save {float: right}
