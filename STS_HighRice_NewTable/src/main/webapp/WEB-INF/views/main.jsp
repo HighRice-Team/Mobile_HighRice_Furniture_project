@@ -7,15 +7,55 @@
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
-#name {font-size: 1.15vw;}
-#product_box a {text-decoration: none; color: black; font-weight: normal;}
-#page a {text-decoration: none; color: black; font-size: 2.5vw;}
-#product_box {font-size: 3vw;}
-.small {font-size: 1.8vw;}
-.product_img {padding: 3px 3px 0px 3px;}
-.slide-box {width: 100%; height: 150px; margin: 0; overflow: hidden; position: relative; }
-.slide-box img {width: 100%; height: 100%; display: block; position: absolute; top: 0px; left: -100%;}
-.list-title {font-size: 20px; font-weight: bold;}
+#name {
+	font-size: 1.15vw;
+}
+
+#product_box a {
+	text-decoration: none;
+	color: black;
+	font-weight: normal;
+}
+
+#page a {
+	text-decoration: none;
+	color: black;
+	font-size: 2.5vw;
+}
+
+#product_box {
+	font-size: 3vw;
+}
+
+.small {
+	font-size: 1.8vw;
+}
+
+.product_img {
+	padding: 3px 3px 0px 3px;
+}
+
+.slide-box {
+	width: 100%;
+	height: 150px;
+	margin: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+.slide-box img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: -100%;
+}
+
+.list-title {
+	font-size: 20px;
+	font-weight: bold;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -173,4 +213,3 @@
 	</div>
 </body>
 </html>
-
