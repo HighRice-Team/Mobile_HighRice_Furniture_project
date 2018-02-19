@@ -1,247 +1,295 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-<link rel="stylesheet" href="resources/css/bitfr_style.css">
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$(".tab_content").hide();
-		$(".tab_content:first").show();
-		$(".tabs div").click(function() {
-			if ($(".tabs div").hasClass("active")) {
-				$(".tabs div").removeClass("active")
-				$(this).addClass("active")
-				$(".tab_content").hide()
-				var activeTab = $(this).attr("rel");
-				$("#" + activeTab).fadeIn()
-			}
-		})
-		$("#loginBtn").click(function() {
-			$("#loginCheck").html("")
-			var loginId = $("#loginId").val();
-			var loginPwd = $("#loginPwd").val();
-			var data = { "member_id" : loginId, "pwd" : loginPwd }
-			$.ajax({ url : "login.do", data : data, success : function(data) {
-				if (data == 1) {
-					location.href = "";
-					$(".ui-block-a").css("visibility", "visible");
-					$("#login_img").attr("src", "resources/logout.png");
-				} else if (data == 0) {
-					$("#loginCheck").html("비밀번호를 잘못 입력하셨습니다.")
-				} else {
-					$("#loginCheck").html("존재하지 않는 아이디입니다.")
-				}
-			}})
-		})
-		$("#logout_img").click(function() {
-			if (confirm("로그아웃 하시겠습니까?")) {
-				$.ajax({ url : "logout.do", success : function() {
-					location.href = "";
-				}})
-			}
-		})
-		//로그인시 필터 적용
-		var needToLogin = $("#needToLogin").val()
-		if(needToLogin == 'plz'){
-			document.getElementById("btnlogin2").click();
-			$.ajax({url:"deleteSession.do", success:function(data){
-			}})
-		}
-		//처음 들어왔을때 라이트박스
-		var on = $("#onsite").val()
-		if(on != 1){
-			document.getElementById("btnon").click();
-		}
-		$("#imgsell").click(function(){
-			if(needToLogin == 'plz'){
-				document.getElementById("btnlogin2").click();
-			}else{
-				$.ajax({url:"onsite.do", success:function(data){
-					location.href="sellWrite.do"
-				}})
-			}
-		})
-		$("#imgrent").click(function(){
-			$.ajax({url:"onsite.do", success:function(data){
-				location.href="index.do"
-			}})
-		})
-		$("#clobtn").click(function(){
-			$.ajax({url:"onsite.do", success:function(data){
-				location.href="index.do"
-			}})
-		})
-	})
-	function clearMsg(){
-		$("#loginCheck").html("")
-	}
-</script>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, 
+		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<title>Untitled Document</title>
+<!-- 상품 Style -->
 <style type="text/css">
-
-/* .menu-panel {
-	width: 80%;  display: inline-block;
+#name {
+	font-size: 1.15vw;
+}
+#product_box a{
+   text-decoration: none;
+   color: black;
+   font-weight: normal;
 }
 
-.menu-panel .log-img {
-	height: 20px
+#page a{
+   text-decoration: none;
+   color: black;
+   font-size: 2.5vw;
 }
 
-.penel-div {
-	margin: 30px 0 20px 0
+#product_box{
+   font-size: 3vw;
 }
 
-.penel-div .tabs {
-	width: 300px;
-	text-align: center;
-	display: inline-block;
-	margin: -15px
+.small{
+   font-size: 1.8vw;
 }
 
-.penel-div .tabs .tab1 {
-	width: 150px;
-	height: 50px;
-	float: left;
-	background: #ddd
+.product_img{
+   padding: 3px 3px 0px 3px;
 }
-
-.penel-div .tabs .tab2 {
-	width: 150px;
-	height: 50px;
-	float: right;
-	background: #ddd
-}
-
-.penel-div .tab_content {
-	width: 300px;
-	height: 50px;
-	float: left;
-	background: #ddd;
-	margin: -15px
-}
-
-.penel-div .tabs .active {
-	background: #aaa;
-	color: #fff
-} */
-
 
 </style>
+<!-- 이미지슬라이드 Style -->
+<style type="text/css">
+.slide-box {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.slide-box img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: -100%;
+}
+</style>
+
+<script type="text/javascript">
+	//product
+	$(function() {
+		//창을 띄울 때 상품들의 이미지 크기를 조정.
+		$(".category_img").css("width", $("#product_box").width() * 0.225)
+		$(".category_img").css("height", $("#product_box").width() * 0.225)
+
+		//창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
+		$(window).resize(function() {
+			$(".category_img").css("width", $("#product_box").width() * 0.225)
+			$(".category_img").css("height", $("#product_box").width() * 0.225)
+		})
+		
+	
+
+	});
+</script>
+<script type="text/javascript">
+	// 이미지 슬라이드 함수.
+	
+		
+	
+	$(function() {
+		var auto_slide;
+		var auto_time = 1000; // 슬라이드 시간 1000 = 1초
+		var auto_num = 0;
+
+		$(".slide-box img").eq(auto_num).css({
+			"left" : "0%"
+		}); // 처음로드시 첫이미지 보이기
+		auto_slide = setInterval(function() {
+			slide_start()
+		}, auto_time);
+
+		function slide_start() { // 슬라이드 구현
+			var no = auto_num + 1;
+			if (no >= $(".slide-box img").length) {
+				no = 0;
+			}
+			$(".slide-box img").eq(no).css({
+				"left" : "-100%"
+			}).stop().animate({
+				"left" : "0%"
+			});
+			$(".slide-box img").eq(auto_num).stop().animate({
+				"left" : "100%"
+			});
+			auto_num = no;
+		}
+		$(".slide-box").hover(function() { // 마우스 오버시 슬라이드 멈춤
+			clearInterval(auto_slide);
+		}, function() { // 마우스 아웃시 다시 시작
+			auto_slide = setInterval(function() {
+				slide_start()
+			}, auto_time);
+		});
+		
+		
+	
+		
+
+	});
+</script>
+<c:if test="">
+
+</c:if>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Multi slider -->
+<script type="text/javascript">
+	$( function() {
+	    $( "#slider-range" ).slider({
+	      range: true,
+	      min: 0,
+	      max: 10000,
+	      values: [ 3000, 6000 ],
+	      slide: function( event, ui ) {
+	        $( "#amount" ).val( ui.values[ 0 ] + " 원 - " + ui.values[ 1 ] + " 원");
+	        $("#min").val(ui.values[ 0 ]);
+	        $("#max").val(ui.values[ 1 ]);
+	      }
+	    });
+	    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+	      " 원 - " + $( "#slider-range" ).slider( "values", 1 ) + " 원");
+	    
+	    $("#min").val($( "#slider-range" ).slider( "values", 0 ));
+        $("#max").val($( "#slider-range" ).slider( "values", 1 ));
+        
+    	
+	    
+	  });
+</script>
+<script type="text/javascript">
+//filter button
+	$(function(){
+		$("#submit_btn").click(function(){
+			$("#filter_form").submit();
+		});
+		$("#cancel_btn").click(function(){
+			location.href="main.do";
+		});
+		
+		
+		
+		
+	});
+</script>
+
 </head>
+
 <body>
-<input type="hidden" value="${sessionScope.on }" id="onsite">
-<input type="hidden" value="${sessionScope.needToLogin }" id="needToLogin">
-	<div data-role="page">
-		<div data-role="header" class="fr-header">
-			<a href="#menu" class="menu">
-				<img src="resources/img/m/menu.png" class="menu-img">
-			</a>
-			<div class="logo-area">
-				<a href="index.do" data-ajax="false">
-					<img src="resources/img/m/logo.png" class="logo-img">
-				</a>
-			</div>
+	<div data-role="content">
+		<!-- 이미지 슬라이드 -->
+		<div class="slide-box"
+			style="width: 100%; height: 150px; position: relative;">
+			<a href="#"><img src="resources/img/slide1.jpg" alt="slide"></a>
+			<a href="#"><img src="resources/img/slide2.jpg" alt="slide"></a>
+			<a href="#"><img src="resources/img/slide3.jpg" alt="slide"></a>
+			<a href="#"><img src="resources/img/slide4.jpg" alt="slide"></a>
 		</div>
-		<div data-role="content">
-			<jsp:include page="${viewPage }" />
+
+		<div style="text-align: center">
+			<c:if test="${category == null}">
+				<p><div><h3>전체 가구 목록</h3></div>
+			</c:if>
+			<c:if test="${category != null}">
+				<p><div><h3>${category} 목록</h3></div>
+			</c:if>
+			
 		</div>
-		
-		<!-- Start panel -->
-		<div data-role="panel" data-position="left" data-display="overlay" id="menu" class="menu-panel">
-			<a href="#" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>
-			<c:if test="${empty sessionScope.name}">
-				<div>로그인asdasd
-					<a onclick="clearMsg()" data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
-						<img id="login_img" src="resources/img/login.png" class="log-img"  style="height: 20px">
-					</a>
-					<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
-				</div>
-			</c:if>
-				<c:if test="${not empty sessionScope.name}">
-				<div>${sessionScope.name}님 환영합니다.
-					<a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
-						<img id="logout_img" src="resources/img/logout.png" class="log-img" style="height: 20px">
-					</a>
-				</div>
-			</c:if>
-			<div data-role="navbar" data-position="inline" style=" width:100%; display : inline-block; margin: 15px 0 15px 0">
-				<ul>
-					<li><a data-ajax="false" href="myPage.do?selectedMyPage=mP">My Page</a></li>
-					<li><a data-ajax="false" href="sellList.do">SELL</a></li>
-					<li><a data-ajax="false" href="cartList.do">CART</a></li>
+		<!-- filter category -->
+		<div data-role="navbar" data-position="inline">
+			<ul>
+				<li><a href="main.do?category=SOFA" data-ajax="false">SOFA</a></li>
+				<li><a href="main.do?category=BED" data-ajax="false">BED</a></li>
+				<li><a href="main.do?category=CLOSET" data-ajax="false">CLOSET</a></li>
+				<li><a href="main.do?category=DESK" data-ajax="false">DESK</a></li>
+			</ul>
+		</div>
+		<br>
+
+		<!-- filter form -->
+		<div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
+			<h3>Filter</h3>
+			<form action="main.do" id="filter_form" method="post" data-ajax="false">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="fieldcontain">
+						<label>상품 품질 :</label>
+						<div class="ui-grid-b">
+							<div class="ui-block-a">
+								<input type="radio" id="quality_a" name="quality" value="A">
+								<label for="quality_a">A</label>
+							</div>
+							<div class="ui-block-b">
+								<input type="radio" id="quality_b" name="quality" value="B">
+								<label for="quality_b">B</label>
+							</div>
+							<div class="ui-block-c">
+								<input type="radio" id="quality_c" name="quality" value="C">
+								<label for="quality_c">C</label>
+							</div>
+						</div>
+					</li>
+
+					<li data-role="fieldcontain">
+						<label>월 대여가격 :</label><br><br>
+						<p>
+							<input type="text"
+								id="amount" readonly="readonly"
+								style="border: 0; color: #f6931f; font-weight: bold;">
+						</p>
+
+						<div id="slider-range"></div>
+						<br>
+
+
+					</li>
+					
+					<li data-role="fieldcontain">
+						<input type="hidden" name="category" id="category" value="${category}" >
+						<input type="hidden" name="min" id="min">
+						<input type="hidden" name="max" id="max">
+						
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<input type="button" id="submit_btn" value="정렬하기" data-theme="b" >
+							</div>
+							<div class="ui-block-b">
+								<input type="button" id="cancel_btn" value="취소하기" data-theme="b">
+							</div>
+						</div>
+					</li>
+					
 				</ul>
-			</div>
-			<div style="width: calc(100% + 30); margin: 0 -15px 0 -15px;">
-				<div class="tabs" style="display: inline-block; width: 100%; text-align:  center;">
-					<div rel="tab1" class="tab1 active"  style="width: 50%;	height: 50px;	float: left;	background: #ddd">
-						<P>Furniture</p>
-					</div>
-					<div rel="tab2" class="tab2" style="width: 50%;	height: 50px; float: right;	background: #ccc">
-						<p>Community</p>
-					</div>
-				</div>
-				<div id="tab1" class="tab_content">
-					<ul data-role="listview" data-icon="false">
-						<li><a data-ajax="false" href="product_list.do?category=DESK">DESK</a></li>
-						<li><a data-ajax="false" href="product_list.do?category=SOFA">SOFA</a></li>
-						<li><a data-ajax="false" href="product_list.do?category=BED">BED</a></li>
-						<li><a data-ajax="false" href="product_list.do?category=CLOSET">CLOSET</a></li>
-					</ul>
-				</div>
-				<div id="tab2" class="tab_content">
-					<ul data-role="listview" data-icon="false">
-						<li><a data-ajax="false" href="qna.do">QnA</a></li>
-						<li><a data-ajax="false" href="faq.do">FAQ</a></li>
-						<li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- End panel -->
-		
-		<!-- Start login popup -->
-		<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
-			<div class="login-div">
-				<a href="#" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
-			</div>
-			<form id="loginForm" >
-			   	<div class="ui-grid-a login-row">
-			    	<div class="ui-block-a left">아이디</div>
-			   		<div class="ui-block-b right">
-			   			<input type="text" id="loginId" name="loginId" placeholder="username">
-			   		</div>
-				</div>
-				<div class="ui-grid-a login-row">
-			    	<div class="ui-block-a left">비밀번호</div>
-			   		<div class="ui-block-b right">
-			   			<input type="password" id="loginPwd" name="loginPwd" placeholder="password">
-			   		</div>
-				</div>
-				<div id="loginCheck">${needLoginMsg }</div> 
+				
 			</form>
-			<div class="login-div">
-				<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do">회원가입</a>
-				<a data-role="button" data-inline="true" data-mini="true" href="findMember.do">id/pw 찾기</a>
-				<a data-role="button" data-inline="true" data-mini="true" href="#" id="loginBtn">로그인</a>
-			</div>
 		</div>
-		<!-- End login popup -->
-		
-		<!-- lightBox Popup -->
-		<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
-			 <a href="#" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="clobtn">Close</a>
-			<img src="resources/img/sell2.jpg" id="imgsell">
-			<img src="resources/img/rent.jpg" id="imgrent">
-		</div>
-		<!--for trigger lightBox-->
-		<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
+
+		<!--상품목록 -->
+		<div style="width: 100%; display: inline-block;" id="product_box" >
+            <c:forEach items="${list}" var="list" varStatus="status">
+            <a href="product_detail.do?product_id=${list.product_id}" data-ajax="false">
+            <div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center; padding-bottom: 10px;">
+               <div>
+                  <div class="product_img">
+                     <img src="resources/img/product/${list.main_img}" width="100%"><br>
+                  </div>
+                  <p>${list.product_name}</p>
+                  <p>Category: ${list.category }</p>
+                  QUALITY: ${list.quality}<br>
+                  PRICE: ${price_with[status.index]}<font class="small">WON</font>/<font class="small">MONTH</font><br>
+               </div>
+            </div>
+            </a>
+            </c:forEach>
+         </div>
+         
+         <!--페이징처리 부분 -->
+         <div id="page" style="text-align: center">
+            <c:forEach var="pageNum" begin="1" end="${pageMax }">
+               <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
+            </c:forEach>
+         </div>
 	</div>
+	<!-- content end -->
+
+
 </body>
 </html>
+

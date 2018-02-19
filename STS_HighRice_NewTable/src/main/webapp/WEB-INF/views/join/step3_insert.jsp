@@ -2,11 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-.hidden{
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
    $(function(){
       var intervalObject   // Timer역할을 할 Interval객체

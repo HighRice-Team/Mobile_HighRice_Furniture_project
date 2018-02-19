@@ -2,16 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
 	$(function(){
 		$(".findInfo").click(function(){
-	       if($("#name").val()!=""&&$("#jumin").val()!=""){
-	          var name = $("#name").val()
+	       if($("#myname").val()!=""&&$("#jumin").val()!=""){
+	          var myname = $("#myname").val()
 	          var jumin = $("#jumin1").val()+"-"+$("#jumin2").val()
 	          //올바른 주민등록번호 인지 검사.
 	          var chkJumin = Number(jumin.substr(13,1)) == 11-((2*Number(jumin.substr(0,1))+3*Number(jumin.substr(1,1))+4*Number(jumin.substr(2,1))+5*Number(jumin.substr(3,1))+6*Number(jumin.substr(4,1))+7*Number(jumin.substr(5,1))+8*Number(jumin.substr(7,1))+9*Number(jumin.substr(8,1))+2*Number(jumin.substr(9,1))+3*Number(jumin.substr(10,1))+4*Number(jumin.substr(11,1))+5*Number(jumin.substr(12,1)))%11)
 	          if(chkJumin){
-	             data = {"name":name,"jumin":jumin}
+	             data = {"name":myname,"jumin":jumin}
 	             $.ajax({
 	                url:"getId_member.do",
 	                type:"POST",
@@ -51,8 +52,8 @@
 	<div data-role="content">
 		<h1>회원정보 입력</h1>
 		<div data-role="fieldcontain">
-			<label for="name">이름 </label>
-			<input type="text" id="name" required="required">
+			<label for="myname">이름 </label>
+			<input type="text" id="myname" required="required">
 		</div>
 		<label>주민번호</label>
 		<div class="ui-grid-b frjmin">

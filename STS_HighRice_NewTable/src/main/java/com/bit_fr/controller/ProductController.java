@@ -43,7 +43,7 @@ public class ProductController {
 	@RequestMapping("/customize.do")
 	public ModelAndView gotoCustomize(@RequestParam(defaultValue = "1") int pageNum, String category, String quality,
 			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		int productMax = 16;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
@@ -94,10 +94,10 @@ public class ProductController {
 		return mav;
 	}
 
-	@RequestMapping("/index.do")
+	@RequestMapping("/main.do")
 	public ModelAndView main(@RequestParam(defaultValue = "1") int pageNum, String category, String quality,
 			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max, HttpSession session) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		int productMax = 8;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
@@ -154,7 +154,7 @@ public class ProductController {
 		mav.addObject("quality", quality);
 		mav.addObject("pageMax", pageMax);
 		mav.addObject("price_with", price_with);
-		mav.addObject("viewPage", "index_mainView.jsp");
+		mav.addObject("viewPage", "main.jsp");
 
 		return mav;
 	}
@@ -187,7 +187,7 @@ public class ProductController {
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
 
-		view.setViewName("main");
+		view.setViewName("template");
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
@@ -246,7 +246,7 @@ public class ProductController {
 
 	@RequestMapping("/product_detail.do")
 	public ModelAndView getProductDetail(int product_id) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		ProductVo p = dao.getOne_product(product_id);
 		List<QnaBoardVo> list = qdao.getAll_qnaBoard();
 		mav.addObject("product_id",product_id);
@@ -290,16 +290,16 @@ public class ProductController {
 		mav.addObject("totalPage", totalPage);
 		mav.addObject("viewPage", "sell/sellList.jsp");
 
-		mav.setViewName("main");
+		mav.setViewName("template");
 		return mav;
 	}
 
 	@RequestMapping("/sellDetail.do")
 	public ModelAndView sellDetail(int product_id) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("p", dao.getOne_product(product_id));
 
-		mav.setViewName("main");
+		mav.setViewName("template");
 		mav.addObject("viewPage" ,"sell/sellDetail.jsp");
 
 		return mav;

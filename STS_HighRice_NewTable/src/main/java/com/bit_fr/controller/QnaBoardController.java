@@ -24,14 +24,14 @@ public class QnaBoardController {
 
 	@RequestMapping("qnaBoard.do")
 	public ModelAndView qnaBoard() {
-		ModelAndView view = new ModelAndView("main");
+		ModelAndView view = new ModelAndView("template");
 		view.addObject("viewPage", "qnaBoard/qnaBoard.jsp");
 		return view;
 	}
 
 	@RequestMapping("detailQna.do")
 	public ModelAndView detail(int board_id) {
-		ModelAndView view = new ModelAndView("main");
+		ModelAndView view = new ModelAndView("template");
 		view.addObject("qnaboard", dao.getOne_qnaBoard(board_id));
 		view.addObject("viewPage", "qnaBoard/detail.jsp");
 
@@ -40,21 +40,21 @@ public class QnaBoardController {
 
 	@RequestMapping(value = "insertQna.do", method=RequestMethod.GET)
 	public ModelAndView insert_form() {
-		ModelAndView view = new ModelAndView("main");
+		ModelAndView view = new ModelAndView("template");
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
 		return view;
 	}
 	
 	@RequestMapping(value = "insertQna.do", method=RequestMethod.POST)
 	public ModelAndView insert_submit() {
-		ModelAndView view = new ModelAndView("main");
+		ModelAndView view = new ModelAndView("template");
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
 		return view;
 	}
 
 	@RequestMapping("reply.do")
 	public ModelAndView reply() {
-		ModelAndView view = new ModelAndView("main");
+		ModelAndView view = new ModelAndView("template");
 		view.addObject("viewPage", "qnaBoard/reply.jsp");
 		return view;
 	}
