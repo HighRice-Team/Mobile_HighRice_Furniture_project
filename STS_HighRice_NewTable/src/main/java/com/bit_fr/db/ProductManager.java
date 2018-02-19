@@ -3,7 +3,6 @@ package com.bit_fr.db;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -36,7 +35,6 @@ public class ProductManager {
 		return list;
 	}
 
-
 	public static List<ProductVo> getAll_product(String sql) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("sql", sql);
@@ -45,43 +43,41 @@ public class ProductManager {
 		session.close();
 		return list;
 	}
-	
 
-	public static List<ProductVo> getAll_productAdmin(ProductVo v){
-		HashMap<String, String>map = new HashMap<String, String>();
-		
-		if(v.getProduct_id()!=0) {
+	public static List<ProductVo> getAll_productAdmin(ProductVo v) {
+		HashMap<String, String> map = new HashMap<String, String>();
 
-			map.put("product_id", v.getProduct_id()+"");
+		if (v.getProduct_id() != 0) {
+
+			map.put("product_id", v.getProduct_id() + "");
 		}
-		
-		if(!v.getCategory().equals("")) {
-//			map.put("category",v.getCategory().toUpperCase());
-			map.put("category",v.getCategory());
+
+		if (!v.getCategory().equals("")) {
+			// map.put("category",v.getCategory().toUpperCase());
+			map.put("category", v.getCategory());
 		}
-		if(!v.getProduct_name().equals("")) {
-			map.put("product_name","%"+v.getProduct_name()+"%");
+		if (!v.getProduct_name().equals("")) {
+			map.put("product_name", "%" + v.getProduct_name() + "%");
 		}
-		if(!v.getMember_id().equals("")) {
-			map.put("member_id",v.getMember_id());
+		if (!v.getMember_id().equals("")) {
+			map.put("member_id", v.getMember_id());
 		}
-		if(!v.getQuality().equals("")) {
-			map.put("quality",v.getQuality().toUpperCase());
+		if (!v.getQuality().equals("")) {
+			map.put("quality", v.getQuality().toUpperCase());
 		}
-		if(v.getPrice()!=0) {
-			map.put("price",v.getPrice()+"");
+		if (v.getPrice() != 0) {
+			map.put("price", v.getPrice() + "");
 		}
-		if(!v.getCondition().equals("")) {
-			map.put("condition",v.getCondition());
+		if (!v.getCondition().equals("")) {
+			map.put("condition", v.getCondition());
 		}
-		
 
 		SqlSession session = factory.openSession();
 
-		List<ProductVo> list = session.selectList("getAll_productAdmin",map);
-		
+		List<ProductVo> list = session.selectList("getAll_productAdmin", map);
+
 		session.close();
-		
+
 		return list;
 	}
 
@@ -91,7 +87,6 @@ public class ProductManager {
 		session.close();
 		return p;
 	}
-	
 
 	public static int getNextId_product() {
 
@@ -169,7 +164,7 @@ public class ProductManager {
 		session.close();
 		return re;
 	}
-	
+
 	public static String getCondition_product(int product_id) {
 		SqlSession session = factory.openSession();
 		String condition = session.selectOne("product.getCondition_product", product_id);
@@ -209,10 +204,10 @@ public class ProductManager {
 	public static int updateCondition_product(int product_id, String condition) {
 		SqlSession session = factory.openSession(true);
 		HashMap map = new HashMap();
-		map.put("product_id",product_id);
-		map.put("condition",condition);
+		map.put("product_id", product_id);
+		map.put("condition", condition);
 		System.out.println(product_id);
-		
+
 		int re = session.update("product.updateCondition_product", map);
 		session.close();
 		return re;
@@ -220,7 +215,7 @@ public class ProductManager {
 
 	public static int updateAdmin_product(ProductVo p) {
 		SqlSession session = factory.openSession();
-		
+
 		int re = session.update("product.updateAdmin_product", p);
 		session.commit();
 		session.close();
