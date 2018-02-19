@@ -12,6 +12,6 @@ $(function(){
 </script>
 </head>
 <body>
-	
+	<input type="text" id="" value="">
 </body>
 </html>

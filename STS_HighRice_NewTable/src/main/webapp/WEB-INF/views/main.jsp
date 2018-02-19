@@ -95,6 +95,7 @@
 	function clearMsg(){
 		$("#loginCheck").html("")
 	}
+
 </script>
 </head>
 <body>
@@ -178,7 +179,7 @@
 			<!-- Start login popup -->
 			<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
 				<div class="login-div">
-					<a href="#" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
+					<a href="index.do" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>
 				</div>
 				<form id="loginForm" >
 				   	<div class="ui-grid-a login-row">
@@ -209,7 +210,7 @@
 				<img src="resources/img/sell2.jpg" id="imgsell">
 				<img src="resources/img/rent.jpg" id="imgrent">
 			</div>
-			<!--for trigger lightBox-->
+			<!--for trigger lightBox -->
 			<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
 			
 		

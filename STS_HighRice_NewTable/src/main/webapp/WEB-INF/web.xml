@@ -45,5 +45,6 @@
     <url-pattern>/goPayment.do</url-pattern>
     <url-pattern>/admin.do</url-pattern>
     <url-pattern>/sellWrite.do</url-pattern>
+    <url-pattern>/sellList.do</url-pattern>
   </filter-mapping>
 </web-app>
