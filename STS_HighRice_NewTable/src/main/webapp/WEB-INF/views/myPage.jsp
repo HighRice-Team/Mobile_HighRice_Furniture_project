@@ -33,7 +33,7 @@
 	});
 </script>
 <script type="text/javascript">
-
+	
 </script>
 
 </head>
@@ -44,11 +44,10 @@
 		<p style="text-align: center;">저희 BIT FR 가구점을 이용해 주셔서 감사합니다.<br>${member.name } 님은 <c:if test="${grade==1 }">[일반]</c:if><c:if test="${grade==0 }">[관리자]</c:if> 회원이십니다.<br><br>무통장입금으로 50,000원 이상 구매시 1%을 추가적립 받으실 수 있습니다.</p>
 	<hr>
 	
-	<fieldset class="ui-grid-c">	
-		<div class="ui-block-a"><a href="myPage.do?selectedMyPage=mP" id="mP" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn1.png" width="100%"></a></div>
-		<div class="ui-block-b"><a href="myPage.do?selectedMyPage=oL" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
-		<div class="ui-block-c"><a href="myPage.do?selectedMyPage=sL" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
-		<div class="ui-block-d"><a href="myPage.do?selectedMyPage=s" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
+	<fieldset class="ui-grid-b">	
+		<div class="ui-block-a" style="padding: 5px;"><a href="myOrderList.do" id="oL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn2.png" width="100%"></a></div>
+		<div class="ui-block-b" style="padding: 5px;"><a href="sellList.do" id="sL" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn3.png" width="100%"></a></div>
+		<div class="ui-block-c" style="padding: 5px;"><a href="sellWrite.do" id="s" data-ajax="false"><img src="resources/img/Mypage_img/MyPage_btn5.png" width="100%"></a></div>
 	</fieldset>
 	<hr>
 	<fieldset class="ui-grid-d">	
@@ -56,7 +55,7 @@
 		<div class="ui-block-b" align="center" style="border-right: 5px solid grey">배송중<br>${rent2 }건</div>
 		<div class="ui-block-c" align="center" style="border-right: 5px solid grey">대여중<br>${rent3 }건</div>
 		<div class="ui-block-d" align="center" style="border-right: 5px solid grey">반납<br>${rent4 }건</div>
-		<div class="ui-block-e" align="center" >나의 물건<br>${rent4 }건</div>		
+		<div class="ui-block-e" align="center" >나의 물건<br>${sell_total }건</div>		
 	</fieldset>
 
 	<!-- head -->
@@ -118,76 +117,7 @@
 	<!-- // -->
 	
 	
-	<!-- 주문내역 -->
-	<c:if test="${selectedMyPage=='oL' }">
-	<hr>
-	<p style="text-align: center; font-size: large;">${member.name } 님의 주문내역</p>
-	<br>
-		<div style="background-color: #EEEEEE">
-		<p style="text-align: left: ;">Year/Month/Date</p>
-		<c:if test="${chkRecentList==null }">
-			<h3>주문 내역이 없습니다.</h3>
-		</c:if>
-		<c:if test="${chkRecentList!=null }">
-			<c:forEach items="${recentList }" var="recentList">
-				<a href="#" data-role="button" data-icon="forward" data-iconpos="right" class="sell" data-corners="false">
-					<c:if test="${not empty p.main_img}">
-						<img src="resources/img/product/${recentList.main_img }">
-					</c:if> 
-					<c:if test="${empty p.main_img}">
-						<img src="resources/img/noImage.png">
-					</c:if>
-				
-				</a>
-			
-				<tr>
-				<td>${recentList.pay_date }<b>[${recentList.order_id }]</b></td>
-						<td>${recentList.main_img }</td>
-						<td>${recentList.product_name }</td>
-						<td>${recentList.rent_month * recentList.price}</td>
-						<td>${recentList.con}</td>
-						<td><c:if test="${recentList.con=='입금완료'}">
-								<input type="button" value="취소">
-							</c:if> <input type="button" value="교환"> <input type="button"
-							value="반품"></td>
-					</tr>
-				</c:forEach>
-			</c:if>
-			<tr>
-				<td colspan="6" style="background-color: #EEEEEE"></td>
-			</tr>
-
-		</div>
-		<c:forEach var="p" items="${list }">
-			<a href="#" data-role="button" data-icon="forward"
-				data-iconpos="right" class="sell" data-corners="false">
-				<h3 style="text-align: center;">${p.product_name }</h3> <input
-				type="hidden" value="${p.product_id }" id="product_id">
-				<table style="width: 100%;">
-					<tr>
-
-						<td rowspan="3"><c:if test="${not empty p.main_img}">
-								<img src="resources/img/product/${p.main_img }">
-							</c:if> <c:if test="${empty p.main_img}">
-								<img src="resources/img/noImage.png">
-							</c:if></td>
-
-
-						<td>${p.category }</td>
-					</tr>
-					<tr style="text-align: center;">
-						<td>${p.quality }</td>
-					</tr>
-					<tr style="text-align: center;">
-						<td>상태 : <span class="condition">${p.condition }</span></td>
-					</tr>
-				</table>
-			</a>
-		</c:forEach>
 	
-	
-	</c:if>
-	<!-- // -->
 	
 </body>
 </html>
