@@ -18,7 +18,7 @@
 		}
 	}
 	function back() {
-		location.href="testMain.do"
+		location.href="main.do"
 	}
 </script>
 </head>

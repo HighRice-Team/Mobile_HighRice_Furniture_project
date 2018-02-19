@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,6 +61,28 @@ public class MemberController {
 		mav.addObject("viewPage", "join/step2_check.jsp");
 
 		return mav;
+	}
+	
+	//관리자인지 아닌지 판별하는 식
+	@RequestMapping(value = "/getGrade.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String getGrade(String member_id) {
+		String str = "";
+		int re = 1;
+		
+		if(!member_id.equals("") && member_id!= null) {
+			re = member_dao.getGrade_member(member_id);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
 	}
 
 	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)

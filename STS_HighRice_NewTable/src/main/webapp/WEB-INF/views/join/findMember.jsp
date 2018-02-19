@@ -42,9 +42,6 @@
 	       }
 	    })
 	})
-	function login() {
-		location.href="testMain.do"
-	}
 </script>
 </head>
 <body>
@@ -68,10 +65,11 @@
 		    </div>
 		</div>		
 		<label id="msg_joinCheck" style="color: red;"></label>
-		<div data-role="controlgroup" data-type="horizontal" data-corners="false" class="fr-button">
-			<input type="button" value="로그인" onclick="login()">
-			<input type="button" value="ID/PW 찾기" id="findId" class="findInfo">
-		</div>
+		
+		<a onclick="clearMsg()" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin" data-corners="false" >		
+			<input type="button" value="로그인">
+		</a>
+		<input type="button" value="ID/PW 찾기" id="findId" class="findInfo">
 	</div>
 </body>
 </html>

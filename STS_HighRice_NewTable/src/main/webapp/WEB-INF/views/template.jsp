@@ -130,7 +130,7 @@
 					<li><a data-ajax="false" href="cartList.do">CART</a></li>
 				</ul>
 			</div>
-			<div class="tab-content">
+			<div class="select-menu">
 				<div class="tabs">
 					<div rel="tab1" class="tab1 active">
 						<P>Furniture</p>
@@ -139,6 +139,7 @@
 						<p>Community</p>
 					</div>
 				</div>
+				
 				<div id="tab1" class="tab_content">
 					<ul data-role="listview" data-icon="false">
 						<li><a data-ajax="false" href="product_list.do?category=DESK">DESK</a></li>
@@ -147,6 +148,7 @@
 						<li><a data-ajax="false" href="product_list.do?category=CLOSET">CLOSET</a></li>
 					</ul>
 				</div>
+				
 				<div id="tab2" class="tab_content">
 					<ul data-role="listview" data-icon="false">
 						<li><a data-ajax="false" href="qna.do">QnA</a></li>
