@@ -125,7 +125,7 @@ public class HomeController {
 
 		mav.addObject("viewPage", "myPage.jsp");
 
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -133,7 +133,7 @@ public class HomeController {
 
 	@RequestMapping("/aboutus.do")
 	public ModelAndView aboutUs() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "board/aboutUs.jsp");
 
 		return mav;
@@ -145,7 +145,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("viewPage","board/faq.jsp" );
-		mav.setViewName("main");
+		mav.setViewName("template");
 		
 		return mav;
 	}
@@ -181,8 +181,12 @@ public class HomeController {
 	
 	@RequestMapping("/todoList.do")
 	public ModelAndView todoList() {
+<<<<<<< HEAD
 		ModelAndView mav = new ModelAndView("main");
 		 
+=======
+		ModelAndView mav = new ModelAndView("template");
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		mav.addObject("viewPage", "admin/todoList.jsp");
 
 		return mav;
@@ -190,7 +194,7 @@ public class HomeController {
 	
 	@RequestMapping("/todoRent.do")
 	public ModelAndView todoRent() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/todoRent.jsp");
 
 		return mav;
@@ -198,7 +202,7 @@ public class HomeController {
 	
 	@RequestMapping("/todoPickup.do")
 	public ModelAndView todoPickup() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/todoPickup.jsp");
 
 		return mav;
@@ -226,7 +230,7 @@ public class HomeController {
 		String member_id = (String)session.getAttribute("id");
 		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -236,7 +240,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("viewPage", "orderlist/orderlistByCondition.jsp");
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -244,7 +248,7 @@ public class HomeController {
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.setViewName("template");
 		mav.addObject("viewPage", "admin/adminPage.jsp");
 
 		return mav;
@@ -254,7 +258,7 @@ public class HomeController {
 	@RequestMapping("/edit_Profile.do")
 	public ModelAndView edit_Profile() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.setViewName("template");
 		mav.addObject("viewPage", "Edit_Profile.jsp");
 
 		return mav;
