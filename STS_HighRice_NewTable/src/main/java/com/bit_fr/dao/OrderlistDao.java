@@ -1,5 +1,6 @@
 package com.bit_fr.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -38,8 +39,8 @@ public class OrderlistDao {
 		return OrderlistManager.getMyOrderlistToCondition_orderlist(member_id, condition);
 	}
 
-	public List<OrderlistVo> getAllMyOrder_orderlist(String member_id,OrderlistVo v) {
-		return OrderlistManager.getAllMyOrder_orderlist(member_id,v);
+	public List<OrderlistVo> getAllMyOrder_orderlist(String member_id,HashMap map) {
+		return OrderlistManager.getAllMyOrder_orderlist(member_id, map);
 	}
 
 	public List<OrderlistVo> getMyCartList_orderlist(String sql) {
@@ -97,6 +98,10 @@ public class OrderlistDao {
 	
 	public int deleteOrders_orderlist(String order_id) {
 		return OrderlistManager.deleteOrders_orderlist(order_id);
+	}
+
+	public int updateOrderCondition_changeRequest(String member_id, int order_id, String changeRequest) {
+		return OrderlistManager.updateOrderCondition_changeRequest(member_id , order_id, changeRequest);
 	}
 	
 
