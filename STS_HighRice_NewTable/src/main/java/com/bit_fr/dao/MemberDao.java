@@ -28,6 +28,10 @@ public class MemberDao {
 	public List<String> getPwd_q(){
 		return MemberManager.getPwd_q();
 	}
+	
+	public int getGrade_member(String member_id) {
+		return MemberManager.getGrade_member(member_id);
+	}
 
 	public int insert_member(MemberVo v) {
 		return MemberManager.insert_member(v);
@@ -52,6 +56,8 @@ public class MemberDao {
 	public int updatePayback_member(String member_id, int payback) {
 		return MemberManager.updatePayback_member(member_id, payback);
 	}
+	
+	
 	
 	
 }

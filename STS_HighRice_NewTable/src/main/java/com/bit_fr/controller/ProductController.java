@@ -442,9 +442,7 @@ public class ProductController {
 		ModelAndView view = new ModelAndView();
 		
 		dao.insert_product(p);
-		// view.setViewName("main");
 		view.addObject("member_id", p.getMember_id());
-		// view.addObject("viewPage", "sell/sellList");
 		view.setViewName("redirect:/sellList.do");
 		return view;
 	}
