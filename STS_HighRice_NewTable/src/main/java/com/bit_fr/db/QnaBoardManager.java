@@ -42,6 +42,13 @@ public class QnaBoardManager {
 		return qnaboard;
 	}
 	
+	public static QnaBoardVo getComment_qnaBoard(int b_ref) {
+		SqlSession session = factory.openSession();
+		QnaBoardVo qnaboard = session.selectOne("qnaBoard.getComment_qnaBoard", b_ref);
+		session.close();
+		return qnaboard;
+	}
+	
 	public static int getNextId_qnaBoard(){
 		SqlSession session = factory.openSession();
 		int nextId = session.selectOne("qnaBoard.getNextId_qnaBoard");

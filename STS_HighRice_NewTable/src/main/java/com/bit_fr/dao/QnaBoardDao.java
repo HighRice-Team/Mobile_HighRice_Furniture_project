@@ -26,6 +26,10 @@ public class QnaBoardDao {
 	public int getCountRef_qnaboard(int b_ref) {
 		return QnaBoardManager.getCountRef_qnaboard(b_ref);
 	}
+	
+	public QnaBoardVo getComment_qnaBoard(int b_ref) {
+		return QnaBoardManager.getComment_qnaBoard(b_ref);
+	}
 
 	public int insert_qnaBoard(QnaBoardVo qnaboard) {
 		return QnaBoardManager.insert_qnaBoard(qnaboard);

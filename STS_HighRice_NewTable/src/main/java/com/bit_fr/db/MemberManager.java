@@ -110,6 +110,17 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	public static int getGrade_member(String member_id) {
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member_id", member_id);
+		int re = session.selectOne("member.getGrade_member", map);
+		
+		session.close();
+		
+		return re;
+	}
 
 	
 	

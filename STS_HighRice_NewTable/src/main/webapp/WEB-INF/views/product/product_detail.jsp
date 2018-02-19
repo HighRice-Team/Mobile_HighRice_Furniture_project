@@ -79,8 +79,6 @@ $(function(){
    $("#insert").click(function(){
       var data = $("#insertForm").serializeArray();
       $.ajax({url:"insert_qnaBoard.do",data:data,success:function(data){
-         $("#title").val("");
-         $("#content").val("");
          location.reload();
       }});
    });

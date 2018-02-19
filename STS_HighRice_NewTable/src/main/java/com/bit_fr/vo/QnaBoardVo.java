@@ -14,6 +14,17 @@ public class QnaBoardVo {
 	public QnaBoardVo() {
 		super();
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "QnaBoardVo [board_id=" + board_id + ", post_type=" + post_type + ", title=" + title + ", member_id="
+				+ member_id + ", product_id=" + product_id + ", regdate=" + regdate + ", content=" + content
+				+ ", b_ref=" + b_ref + ", b_level=" + b_level + "]";
+	}
+
+
 
 	public QnaBoardVo(int board_id, String post_type, String title, String member_id, int product_id, String regdate, String content, int b_ref, int b_level) {
 		super();
