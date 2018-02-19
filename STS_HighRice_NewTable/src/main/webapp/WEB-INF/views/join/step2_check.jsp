@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
 	$(function(){
 		$("#joinChkBtn").click(function(){
