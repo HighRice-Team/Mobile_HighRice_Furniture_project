@@ -133,21 +133,21 @@
 				<ul data-role="listview" data-inset="true">
 					<li data-role="fieldcontain">
 						<br><label>상태 분류 :</label><br>
-						<div class="ui-grid-c">
+						<div class="ui-grid-a">
 							<div class="ui-block-a">
-								<input type="radio" id="condition_pay" name="condition" value="입금완료">
+								<input type="radio" id="condition_pay" name="condition" value="입금완료" data-mini="true">
 								<label for="condition_pay">입금완료</label>
 							</div>
 							<div class="ui-block-b">
-								<input type="radio" id="condition_rent" name="condition" value="대여중">
+								<input type="radio" id="condition_rent" name="condition" value="대여중" data-mini="true">
 								<label for="condition_rent">대여중</label>
 							</div>
-							<div class="ui-block-c">
-								<input type="radio" id="condition_ing" name="condition" value="배송중">
+							<div class="ui-block-a">
+								<input type="radio" id="condition_ing" name="condition" value="배송중" data-mini="true">
 								<label for="condition_ing">배송중</label>
 							</div>
-							<div class="ui-block-d">
-								<input type="radio" id="condition_complete" name="condition" value="반납">
+							<div class="ui-block-b">
+								<input type="radio" id="condition_complete" name="condition" value="반납" data-mini="true">
 								<label for="condition_complete">반납</label>
 							</div>
 						</div>
@@ -155,21 +155,21 @@
 
 					<li data-role="fieldcontain">
 						<br><label>가구분류 :</label><br>
-						<div class="ui-grid-c">
+						<div class="ui-grid-a">
 							<div class="ui-block-a">
-								<input type="radio" id="DESK" name="category" value="DESK">
+								<input type="radio" id="DESK" name="category" value="DESK" data-mini="true">
 								<label for="DESK">DESK</label>
 							</div>
 							<div class="ui-block-b">
-								<input type="radio" id="SOFA" name="category" value="SOFA">
+								<input type="radio" id="SOFA" name="category" value="SOFA" data-mini="true">
 								<label for="SOFA">SOFA</label>
 							</div>
-							<div class="ui-block-c">
-								<input type="radio" id="BED" name="category" value="BED">
+							<div class="ui-block-a">
+								<input type="radio" id="BED" name="category" value="BED" data-mini="true">
 								<label for=BED>BED</label>
 							</div>
-							<div class="ui-block-d">
-								<input type="radio" id="CLOSET" name="category" value="CLOSET">
+							<div class="ui-block-b">
+								<input type="radio" id="CLOSET" name="category" value="CLOSET" data-mini="true">
 								<label for="CLOSET">CLOSET</label>
 							</div>
 						</div>
