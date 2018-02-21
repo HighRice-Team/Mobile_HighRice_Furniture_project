@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,7 +41,7 @@ public class MemberController {
 
 	@RequestMapping("findMember.do")
 	public ModelAndView gotofindMemberPage() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/findMember.jsp");
 
 		return mav;
@@ -48,7 +49,7 @@ public class MemberController {
 
 	@RequestMapping("/joinAccess.do")
 	public ModelAndView gotoJoinAccess() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step1_access.jsp");
 
 		return mav;
@@ -56,15 +57,37 @@ public class MemberController {
 
 	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
 	public ModelAndView gotoJoinCheck() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step2_check.jsp");
 
 		return mav;
 	}
+	
+	//관리자인지 아닌지 판별하는 식
+	@RequestMapping(value = "/getGrade.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String getGrade(String member_id) {
+		String str = "";
+		int re = 1;
+		
+		if(!member_id.equals("") && member_id!= null) {
+			re = member_dao.getGrade_member(member_id);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
 
 	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
 	public ModelAndView goToInsertMember(MemberVo v, int jumin1) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step3_insert.jsp");
 
 		String jumin = v.getJumin();
@@ -76,7 +99,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/insert_member.do", method = RequestMethod.POST)
 	public ModelAndView insert_member(MemberVo v) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step4_complete.jsp");
 
 		member_dao.insert_member(v);
@@ -85,7 +108,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/test_joinStep4.do")
 	public ModelAndView test(MemberVo v) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step4_complete.jsp");
 		return mav;
 	}

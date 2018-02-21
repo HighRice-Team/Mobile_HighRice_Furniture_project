@@ -1,5 +1,6 @@
 package com.bit_fr.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -45,11 +46,10 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/getMyOrderlist.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String getMyOrderlist(HttpSession session, OrderlistVo v) {
+	public String getMyOrderlist(HttpSession session) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, v);
-
+		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, null);
 		try {
 			ObjectMapper om = new ObjectMapper();
 			str = om.writeValueAsString(list);
@@ -60,10 +60,54 @@ public class OrderlistController {
 		return str;
 
 	}
+	
+	@RequestMapping(value = "/order_condition_changeRequest.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String order_condition_changeRequest(HttpSession session, int order_id, String changeRequest) {
+		String str = "";
+		String member_id = (String) session.getAttribute("id");
+		int result = -1;
+		
+		if(changeRequest != null && order_id != 0) {
+			result = orderlistDao.updateOrderCondition_changeRequest(member_id ,order_id, changeRequest);
+		}
+		 		
+		try {
+			ObjectMapper om = new ObjectMapper();
+			str = om.writeValueAsString(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return str;
+		
+	}
+	
+	//나의 주문정보 페이지
+	@RequestMapping(value = "/myOrderList.do", produces = "text/plain;charset=utf-8")
+	public ModelAndView myOrderList(HttpSession session, String condition, String category) {
+		ModelAndView mav = new ModelAndView("template");
+
+		String member_id = (String) session.getAttribute("id");
+		HashMap map = new HashMap();
+		if(condition != null) {
+			map.put("condition", condition);
+		}
+		if(category != null) {
+			map.put("category", category);
+		}
+		
+		
+		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, map);
+		mav.addObject("member", memberDao.getOne_member(member_id));
+		mav.addObject("list", list);
+		mav.addObject("viewPage", "order/myOrderList.jsp");
+		return mav;
+	}
 
 	@RequestMapping(value = "/goPayment.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goPayment(HttpSession session, int rentMonth, int product_id) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 
@@ -86,7 +130,7 @@ public class OrderlistController {
 	
 	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goMultiplePayment(HttpSession session,String order_id,int paymentPrice,int cntProduct) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		String member_id=(String)session.getAttribute("id");
 		order_id = order_id.substring(0, order_id.length()-1);
 		
@@ -138,7 +182,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/goPaymentInfo.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goPaymentInfo(HttpSession session, int product_id, int rentMonth) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 		
@@ -150,7 +194,7 @@ public class OrderlistController {
 		mav.addObject("memberVo", memberVo);
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/paymentInfo.jsp");
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 
 		return mav;
@@ -158,7 +202,7 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/cartList.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView goCartList(HttpSession session, @RequestParam(defaultValue = "1") int pageNUM) {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 
 		int orderlistMAX = 10;
 		int endNUM = pageNUM * orderlistMAX;

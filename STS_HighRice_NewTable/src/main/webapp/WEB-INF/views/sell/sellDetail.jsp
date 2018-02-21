@@ -20,11 +20,7 @@
 	.btnImg{
 		background-image: url("resources/img/cross.png");
 	}
-	
-	img{
-		width:50px;
-		
-	}
+
 	
 </style>
 <script type="text/javascript">
@@ -115,7 +111,7 @@ $(function(){
 			<div class="center">
 			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<input type="radio" id="q1" name="quality" value="A" >
+					<input type="radio" id="q1" name="quality" value="A">
 					<label for="q1">A</label>
 				</div>
 				<div class="ui-block-b">
@@ -123,7 +119,7 @@ $(function(){
 					<label for="q2">B</label>
 				</div>	
 				<div class="ui-block-c">
-					<input type="radio" id="q3" name="quality" value="C">
+					<input type="radio" id="q3" name="quality" value="C" checked="checked">
 					<label for="q3">C</label>
 				</div>
 			</div>
@@ -139,7 +135,7 @@ $(function(){
 					</label>
 					<div id="main">
 						<c:if test="${not empty p.main_img}">
-							<img src="resources/img/product/${p.main_img }">
+							<img src="resources/img/product/${p.main_img }" style="width: 50px">
 						</c:if>
 					</div>
 				</div>
@@ -151,7 +147,7 @@ $(function(){
 					 </label>
 					 <div id="sub">
 					 	<c:if test="${not empty p.sub_img}">
-							<img src="resources/img/product/${p.sub_img }">
+							<img src="resources/img/product/${p.sub_img }" style="width: 50px">
 						</c:if>
 					 </div>
 				</div>

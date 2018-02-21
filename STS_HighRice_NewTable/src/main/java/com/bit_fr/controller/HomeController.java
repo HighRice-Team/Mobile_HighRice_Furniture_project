@@ -91,13 +91,13 @@ public class HomeController {
 		String member_id = (String) session.getAttribute("id");
 		MemberVo member = memberDao.getOne_member(member_id);
 		
-		List<OrderlistVo>recentList = orderlistDao.getMyRecentlyOrder_orderlist(member_id);
-		if(recentList.size()!=0) {
-			mav.addObject("recentList", recentList);
-			mav.addObject("chkRecentList", "ok");
-		}else {
-			mav.addObject("chkRecentList", null);
-		}
+//		List<OrderlistVo>recentList = orderlistDao.getMyRecentlyOrder_orderlist(member_id);
+//		if(recentList.size()!=0) {
+//			mav.addObject("recentList", recentList);
+//			mav.addObject("chkRecentList", "ok");
+//		}else {
+//			mav.addObject("chkRecentList", null);
+//		}
 
 		int max = min + 3;
 
@@ -108,8 +108,10 @@ public class HomeController {
 		
 		int cart_cnt = orderlistDao.getCountToMyCondition_orderlist(member_id, "물품게시");
 		
-		int total = productDao.getMySellCount_product(member_id);
-		List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
+		int sell_total = productDao.getMySellCount_product(member_id);
+		
+		//판매리스트
+		//List<ProductVo> list = productDao.getMySellForPaging_product(member_id);
 
 		mav.addObject("member", member);
 		mav.addObject("rent1", rent1);
@@ -117,15 +119,15 @@ public class HomeController {
 		mav.addObject("rent3", rent3);
 		mav.addObject("rent4", rent4);
 		mav.addObject("cart_cnt", cart_cnt);
-		mav.addObject("total", total);
-		mav.addObject("list", list);
+		mav.addObject("sell_total", sell_total);
+		//mav.addObject("list", list);
 		
 		mav.addObject("selectedMyPage", selectedMyPage);
-		mav.addObject("len", list.size());
+		//mav.addObject("len", list.size());
 
 		mav.addObject("viewPage", "myPage.jsp");
 
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -133,7 +135,7 @@ public class HomeController {
 
 	@RequestMapping("/aboutus.do")
 	public ModelAndView aboutUs() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "board/aboutUs.jsp");
 
 		return mav;
@@ -145,14 +147,14 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("viewPage","board/faq.jsp" );
-		mav.setViewName("main");
+		mav.setViewName("template");
 		
 		return mav;
 	}
 	
 	@RequestMapping("/todoList.do")
 	public ModelAndView todoList() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/todoList.jsp");
 
 		return mav;
@@ -160,7 +162,7 @@ public class HomeController {
 	
 	@RequestMapping("/todoRent.do")
 	public ModelAndView todoRent() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/todoRent.jsp");
 
 		return mav;
@@ -168,7 +170,7 @@ public class HomeController {
 	
 	@RequestMapping("/todoPickup.do")
 	public ModelAndView todoPickup() {
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/todoPickup.jsp");
 
 		return mav;
@@ -196,7 +198,7 @@ public class HomeController {
 		String member_id = (String)session.getAttribute("id");
 		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -206,7 +208,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("viewPage", "orderlist/orderlistByCondition.jsp");
-		mav.setViewName("main");
+		mav.setViewName("template");
 
 		return mav;
 	}
@@ -214,7 +216,7 @@ public class HomeController {
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.setViewName("template");
 		mav.addObject("viewPage", "admin/adminPage.jsp");
 
 		return mav;
@@ -224,7 +226,7 @@ public class HomeController {
 	@RequestMapping("/edit_Profile.do")
 	public ModelAndView edit_Profile() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.setViewName("template");
 		mav.addObject("viewPage", "Edit_Profile.jsp");
 
 		return mav;

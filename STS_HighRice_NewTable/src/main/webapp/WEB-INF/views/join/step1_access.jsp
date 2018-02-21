@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
 	function agree() {
 		var chk1 = document.form.chk1.checked;
@@ -17,7 +18,7 @@
 		}
 	}
 	function back() {
-		location.href="testMain.do"
+		location.href="main.do"
 	}
 </script>
 </head>

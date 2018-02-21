@@ -10,7 +10,7 @@ $(function(){
 		prompt("aa")
 	})
 	$("#resetBtn").click(function(){
-		history.go(-1)
+		location.href="cartList.do"
 	})
 })
 </script>

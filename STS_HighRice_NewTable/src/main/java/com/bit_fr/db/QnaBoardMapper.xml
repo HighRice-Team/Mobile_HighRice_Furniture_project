@@ -13,6 +13,14 @@
 	<select id="getNextId_qnaBoard" resultType="java.lang.Integer">
 		select nvl(max(board_id),0)+1 from qnaboard
 	</select>
+	<select id="getCountRef_qnaboard" resultType="java.lang.Integer">
+		select count(b_ref) from qnaboard where b_ref = #{b_ref}
+	</select>
+	
+	<select id="getComment_qnaBoard" resultType="qnaBoardVo">
+		select * from qnaboard where b_level = 2 and b_ref=#{b_ref}
+	</select>
+	
 	<insert id="insert_qnaBoard">
 		<if test="product_id == 0">
 			insert into qnaboard values(#{board_id}, #{post_type}, #{title}, #{member_id}, null, sysdate, #{content}, #{b_ref}, #{b_level})

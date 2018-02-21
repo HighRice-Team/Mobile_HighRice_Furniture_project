@@ -24,9 +24,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	   $("#insert").click(function(){
-	      $("#sellInsertForm").submit();
-	   });
+	  
 	   
 	   $("#mainIMG").change(function(){
 		   var mainIMG = $("#mainIMG").val();
@@ -50,6 +48,17 @@ $(function(){
 		   $("#sub").html("파일명 :"+ subIMG)
 	   })
 	   
+	    $("#insert").click(function(){
+		   if(mainIMG != null)
+			{
+			   $("#sellInsertForm").submit();
+			}
+		   else{
+			   alert("이미지를 등록해 주세요");
+		   }
+	    
+	   });
+	   
 	   $("#cancel").click(function(){
 		   history.back();
 	   })
@@ -66,7 +75,7 @@ $(function(){
 				<div data-role="fieldcontain">
 					<label for="product_name">가구이름</label>
 					<div class="center">
-						<input type="text" name="product_name" id="product_name" style="width:90%">
+						<input type="text" name="product_name" id="product_name" style="width:90%" required="required">
 					</div>
 				</div>
 				<input type="hidden" name="member_id" value="${member_id}">
@@ -90,7 +99,7 @@ $(function(){
 			<div class="center">
 			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<input type="radio" id="q1" name="quality" value="A">
+					<input type="radio" id="q1" name="quality" value="A" checked="checked">
 					<label for="q1">A</label>
 				</div>
 				<div class="ui-block-b">

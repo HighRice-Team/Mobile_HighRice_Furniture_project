@@ -11,8 +11,16 @@
 			var pwd = $("#newPwd").val();
 			var pwd2 = $("#chk_newPwd").val();
 			
+			if(pwd == "") 
+			{
+				alert("변경할 비밀번호를 입력해 주세요");
+			}
+			else
+			{
+				var data ={"input_pwd":pwd,"input_pwd2":pwd2,"old_pwd":oldPwd};
+			}
 			
-			var data ={"input_pwd":pwd,"input_pwd2":pwd2,"old_pwd":oldPwd};
+			
 				
 			$.ajax({
 				url:"../../changePwdChk.do",
