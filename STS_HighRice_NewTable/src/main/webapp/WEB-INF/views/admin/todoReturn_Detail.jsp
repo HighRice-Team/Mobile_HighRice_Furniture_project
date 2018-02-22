@@ -86,8 +86,7 @@ $(function(){
 		
 		//form 태그에 실어놓기.
 		$("#quality").val(quality);
-		
-		
+	
 		// 품질상태 지수.
 		if(quality == 'A'){
 			grade_index = 1.1;
