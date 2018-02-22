@@ -222,6 +222,38 @@ public class ProductManager {
 		return re;
 	}
 
+	public static int updateCollectConfirm_product(int product_id, String category, String quality, int price,
+			String condition) {
+		SqlSession session = factory.openSession(true);
+		HashMap map = new HashMap();
+		map.put("product_id", product_id);
+		map.put("category", category);
+		map.put("quality", quality);
+		map.put("price", price);
+		map.put("condition", condition);
+
+		int re = -1;
+		re = session.update("product.updateCollectConfirm_product", map);
+
+		session.close();
+		return re;
+	}
+
+	public static int updateReturnConfirm_product(int product_id, String quality, int price, String condition) {
+		SqlSession session = factory.openSession(true);
+		HashMap map = new HashMap();
+		map.put("product_id", product_id);
+		map.put("quality", quality);
+		map.put("price", price);
+		map.put("condition", condition);
+
+		int re = -1;
+		re = session.update("product.updateReturnConfirm_product", map);
+
+		session.close();
+		return re;
+	}
+
 	public static int delete_product(int product_id) {
 
 		SqlSession session = factory.openSession();
@@ -230,4 +262,5 @@ public class ProductManager {
 		session.close();
 		return re;
 	}
+
 }
