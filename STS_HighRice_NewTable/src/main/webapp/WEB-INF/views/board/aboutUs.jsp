@@ -2,11 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-</style>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 	<div data-role="content">
