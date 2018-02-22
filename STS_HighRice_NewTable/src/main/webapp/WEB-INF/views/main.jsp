@@ -9,7 +9,7 @@
 <style type="text/css">
 #name {font-size: 1.15vw;}
 #product_box a {text-decoration: none; color: black; font-weight: normal;}
-#page a {text-decoration: none; color: black; font-size: 2.5vw;}
+#page a {text-decoration: none; color: black; font-size: 3.5vw;}
 #product_box {font-size: 3vw;}
 .small {font-size: 1.8vw;}
 .product_img {padding: 3px 3px 0px 3px;}
@@ -20,7 +20,7 @@
 <script type="text/javascript">
 	$(function() {
 		var auto_slide;
-		var auto_time = 2000; // 슬라이드 시간 1000 = 1초
+		var auto_time = 2500; // 슬라이드 시간 1000 = 1초
 		var auto_num = 0;
 
 		$(".slide-box img").eq(auto_num).css({

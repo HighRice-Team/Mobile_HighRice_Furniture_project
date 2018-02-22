@@ -39,7 +39,7 @@ $(function(){
 	
 	//수정
 	$("#updateComent").click(function(){
-		if(id = id_qna){
+		if(id == id_qna){
 			location.href="update_qnaBoard.do?board_id="+board_id
 		}else{
 			alert("본인만 수정 가능합니다.")
@@ -48,7 +48,7 @@ $(function(){
 	})
 	//삭제
 	$("#delComment").click(function(){
-		if(id = id_qna){
+		if(id == id_qna){
 			location.href="delete_qnaBoard.do?board_id="+board_id
 		}else{
 			alert("본인만 수정 가능합니다.")

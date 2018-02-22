@@ -23,7 +23,7 @@
 #page a{
 	text-decoration: none;
 	color: black;
-	font-size: 2.5vw;
+	font-size: 3.5vw;
 }
 
 #product_box{
