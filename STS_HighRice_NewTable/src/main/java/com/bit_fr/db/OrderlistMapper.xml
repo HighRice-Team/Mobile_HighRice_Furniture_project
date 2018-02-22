@@ -115,11 +115,11 @@
 		update orderlist set
 		<trim suffixOverrides=",">
 				<if test="member_id != null">member_id = #{member_id},</if>
-				<if test="product_id!=null">product_id = #{product_id},</if>
+				<if test="product_id!=null and product_id !=0">product_id = #{product_id},</if>
 				<if test = "pay_date != null">pay_date = #{pay_date},</if>
 				<if test = "rent_start != null">rent_start=#{rent_start},</if>
 				<if test = "rent_end != null">rent_end= #{rent_end},</if>
-				<if test = "rent_month != null">rent_month= #{rent_month},</if>
+				<if test = "rent_month != null and rent_month != 0">rent_month= #{rent_month},</if>
 				<if test = "orderlist_condition != null">orderlist_condition= #{orderlist_condition},</if>
 		</trim>
 		

@@ -50,114 +50,6 @@
 		$(".category_img").css("width", $("#product_box").width() * 0.225)
 		$(".category_img").css("height", $("#product_box").width() * 0.225)
 
-<<<<<<< HEAD
-		</div>
-		
-		<div data-role="content">
-			<jsp:include page="${viewPage }" />
-		</div>
-		
-		
-		<!-- Start panel -->
-			<div data-role="panel" data-position="left" data-display="overlay" id="menu" class="menu-panel">
-				<a href="#" data-rel="close"><img src="resources/img/m/close.png" class="close-img"></a>	
- 				<c:if test="${not empty sessionScope.name}">
-					<div>${sessionScope.name}님 환영합니다.
-						<a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
-							<img id="logout_img" src="resources/img/logout.png" class="log-img">
-						</a>
-					<c:if test="${sessionScope.grade == '2'}">
-						<a href="todoList.do" data-ajax="false">Bitman</a>
-					</c:if>
-				</div>
-				</c:if>
-				<c:if test="${empty sessionScope.name}">
-					<div>로그인
-						<a onclick="clearMsg()" data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
-							<img id="login_img" src="resources/img/login.png" class="log-img">
-						</a>
-						<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
-					</div>
-				</c:if>
-				<div class="penel-div">
-					<div data-role="navbar" data-position="inline">
-						<ul>
-							<li><a href="myPage.do?selectedMyPage=mP" data-ajax="false">My Page</a></li>
-							<li><a href="sellList.do" data-ajax="false">SELL</a></li>
-							<li><a href="cartList.do" data-ajax="false">CART</a></li>
-						</ul>
-						<c:if test="${not empty sessionScope.name}">
-						</c:if>
-					</div>
-				</div>
-				<div class="penel-div">
-					<div class="tabs">
-						<div rel="tab1" class="tab1 active" >
-							<P>Furniture</p>
-						</div>
-						<div rel="tab2" class="tab2">
-							<p>Community</p>
-						</div>
-					</div>
-					<div class="penel-div">
-						<div id="tab1" class="tab_content" >
-							<ul data-role="listview">
-								<li><p><a href="product_list.do?category=DESK" data-ajax="false">DESK</a></p></li>
-								<li><p><a href="product_list.do?category=SOFA" data-ajax="false">SOFA</a></p></li>
-								<li><p><a href="product_list.do?category=BED" data-ajax="false">BED</a></p></li>
-								<li><p><a href="product_list.do?category=CLOSET" data-ajax="false">CLOSET</a></p></li>
-							</ul>
-						</div>
-						<div id="tab2" class="tab_content">
-							<ul data-role="listview">
-								<li><p><a href="qnaBoard.do" data-ajax="false">QnA</a></p></li>
-								<li><p><a href="faq.do" data-ajax="false">FAQ</a></p></li>
-								<li><p><a href="aboutus.do" data-ajax="false">ABOUT US</a></p></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-		</div>
-			<!-- End panel -->
-			
-			
-			<!-- Start login popup -->
-			<div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
-				<div class="login-div">
-					<a href="#" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
-				</div>
-				<form id="loginForm" >
-				   	<div class="ui-grid-a login-row">
-				    	<div class="ui-block-a left">아이디</div>
-				   		<div class="ui-block-b right">
-				   			<input type="text" id="loginId" name="loginId" placeholder="username">
-				   		</div>
-					</div>
-					<div class="ui-grid-a login-row">
-				    	<div class="ui-block-a left">비밀번호</div>
-				   		<div class="ui-block-b right">
-				   			<input type="password" id="loginPwd" name="loginPwd" placeholder="password">
-				   		</div>
-					</div>
-					<div id="loginCheck">${needLoginMsg }</div> 
-				</form>
-				<div class="login-div">
-					<a data-role="button" data-inline="true" data-mini="true" href="joinAccess.do">회원가입</a>
-					<a data-role="button" data-inline="true" data-mini="true" href="findMember.do">id/pw 찾기</a>
-					<a data-role="button" data-inline="true" data-mini="true" href="#" id="loginBtn">로그인</a>
-				</div>
-			</div>
-			<!-- End login popup -->
-			
-			<!-- lightBox Popup -->
-			<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
-				 <a href="#" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="clobtn">Close</a>
-				<img src="resources/img/sell2.jpg" id="imgsell">
-				<img src="resources/img/rent.jpg" id="imgrent">
-			</div>
-			<!--for trigger lightBox-->
-			<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
-=======
 		//창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
 		$(window).resize(function() {
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
@@ -278,7 +170,6 @@
 			   <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
 			</c:forEach>
 		</div>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 	</div>
 </body>
 </html>
