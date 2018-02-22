@@ -152,6 +152,7 @@ public class OrderlistController {
 	@RequestMapping(value = "/MultiplePayment.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String MultiplePayment(HttpSession session,String order_id,int paymentPrice) {
+		System.out.println("a");
 		String str ="";
 		String member_id = (String)session.getAttribute("id");
 		MemberVo memverVo =  memberDao.getOne_member(member_id);
@@ -210,9 +211,9 @@ public class OrderlistController {
 
 		String member_id = (String) session.getAttribute("id");
 
-		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con "
-				+ "from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
-				+ member_id + "' and p.condition='물품게시' order by order_id desc))";
+		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con,pay_date "
+				+ "from ( select product_name,pay_date,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
+				+ member_id + "' order by order_id desc))";
 
 		// SQL
 		List<OrderlistVo> list = orderlistDao.getMyCartList_orderlist(sql);
@@ -229,6 +230,13 @@ public class OrderlistController {
 		sql += "where rnum >= " + startNUM + " and rnum <= " + endNUM;
 
 		list = orderlistDao.getMyCartList_orderlist(sql);
+		
+		for(OrderlistVo ov : list) {
+			if(ov.getPay_date()!=null) {
+				ov.setPay_date(ov.getPay_date().substring(0,10));				
+			}
+
+		}
 
 		// member_id 값에 따른 회원정보 가져오기.
 		MemberVo mv = memberDao.getOne_member(member_id);
