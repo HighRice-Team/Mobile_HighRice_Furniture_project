@@ -53,7 +53,7 @@
 			<label>주민번호</label>
 			<div class="ui-grid-b frjmin">
 			    <div class="ui-block-a juminform">
-			    	<input type="text" id="jumin1" name="jumin1" required="required" maxlength="6">
+			    	<input type="number" id="jumin1" name="jumin1" required="required" maxlength="6">
 			    </div>
 			    <div class="ui-block-b juminhyphen">
 			    	<p class="p">-</p>
