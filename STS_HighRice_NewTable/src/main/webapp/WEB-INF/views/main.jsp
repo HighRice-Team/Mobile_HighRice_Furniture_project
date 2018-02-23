@@ -113,7 +113,34 @@
 		$( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) + " 원 - " + $( "#slider-range" ).slider( "values", 1 ) + " 원");
 		$("#min").val($( "#slider-range" ).slider( "values", 0 ));
 		$("#max").val($( "#slider-range" ).slider( "values", 1 )); 
+		
+		
+		
+		//처음 들어왔을때 라이트박스
+		var on = $("#onsite").val()
+		if(on != 1){
+			document.getElementById("btnon").click();
+		}
+		$("#lightbox_sell").click(function(){
+			if(needToLogin == 'plz'){
+				document.getElementById("btnlogin2").click();
+			}else{
+				$.ajax({url:"onsite.do", success:function(data){
+					location.href="sellWrite.do"
+				}})
+			}
+		})
+		$("#lightbox_rent").click(function(){
+			$.ajax({url:"onsite.do", success:function(data){
+				location.href="main.do"
+			}})
+		})
 	});
+	function testtest() {
+		$.ajax({url:"onsite.do", success:function(data){
+				location.href="main.do"
+			}})
+	}
 </script>
 </head>
 <body>
@@ -211,5 +238,21 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+	<!--for trigger lightBox-->
+	<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon" data-inline="true"></a>
+	
+	<!-- lightBox Popup -->
+	<div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
+		<div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">	
+			<a href="#" data-rel="back" onclick="testtest()" >
+				<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px">
+			</a>
+			<div style="padding-top: 160px; text-align: center;">
+				<img src="resources/img/lightbox_rent.png" style="width: 45%;" id="lightbox_rent">	
+				<img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">	
+			</div>
+		</div>
+  	</div>
 </body>
 </html>

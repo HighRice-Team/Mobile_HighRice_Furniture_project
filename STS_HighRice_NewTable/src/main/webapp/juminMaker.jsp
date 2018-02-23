@@ -66,7 +66,7 @@ var jumin = (function(un){
 	 * 사용예) jumin({year:1990, month:3, day: 12, loop: 2})
 	 * 확인예) jumin.verify(확인할 주민번호)
 	 */
-	alert(jumin({year:1994, month:6, day: 4, loop: 1}))
+	alert(jumin({year:1998, month:6, day: 4, loop: 1}))
 })();
 </script>
 </head>

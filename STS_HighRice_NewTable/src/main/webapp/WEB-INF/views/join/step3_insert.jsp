@@ -146,10 +146,11 @@
    }
 	function back() {
 		location.href="main.do"
-	}
-      
-   
+	} 
 </script>
+<style type="text/css">
+.check-img {height: 20px; margin: 17px 0 0 10px}
+</style>
 </head>
 <body>    
 	<div data-role="content">
@@ -162,9 +163,15 @@
 		<form action="insert_member.do" name="form" id="form" method="post" data-ajax="false">
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-1row">아이디</p></div>
-		   		<div class="ui-block-b rate-5"><input type="email" id="member_id" required="required" placeholder="email 형식"></div>
-		    	<div class="ui-block-c rate-1"><input type="button" id="chk_idBtn" value="중복확인" data-mini="true" data-inline="true" data-corners="false" style="margin-top: 10px; overflow: visible;"></div>
-		    	<div class="ui-block-d rate-1" id="emailIcon" style="overflow: visible;"></div>
+		   		<div class="ui-block-b" style="width: 70%">
+		   			<div class="ui-grid-a">
+			   			<div class="ui-block-a" style="width: 75%"><input type="email" id="member_id" required="required" placeholder="email 형식"></div>
+			   			<div class="ui-block-b" style="width: 25%; margin: 5px 0 0 0 ; float: right;">
+			   				<input type="button" id="chk_idBtn" value="확인" data-mini="true" data-inline="true" data-corners="false" style="overflow: visible;">
+			   			</div>
+		   			</div>
+		   		</div>
+		    	<div class="ui-block-d" id="emailIcon" style="align-content: left; width: 10%"></div>
 			</div>
 			
 			<div class="ui-grid-a join-row">
@@ -172,10 +179,10 @@
 		   		<div class="ui-block-b rate-8">
 		   			<div id="confirmIdArea_join" style="color: red;">
 						<span id="confirmText_join" style="font-size: 2.9vw;"></span>
-						<div class="ui-grid-b join-row hidden" id="chkArea">
-							<div class="ui-block-a rate-4"><input type="password" id="input_confirmText"></div>
-							<div class="ui-block-b rate-2"><input type="button" data-mini="true" data-inline="true" value="인증" data-corners="false" id="chk_confirmTextBtn"></div>
-							<div class="ui-block-c rate-4"><span id="timerView" style="font-size: 2.9vw;"></span><span id="msg_join2"/></div>
+						<div class="ui-grid-a hidden"  style="width: 100%" id="chkArea">
+							<div class="ui-block-a" style="width: 78%"><input type="number" id="input_confirmText"></div>
+							<div class="ui-block-b" style="width: 22%; margin: 5px 0 0 0 ; float: right;"><input type="button" data-mini="true" data-inline="true" value="인증" data-corners="false" id="chk_confirmTextBtn"></div>
+							<div class="ui-block-a"><span id="timerView" style="font-size: 2.9vw;"></span><span id="msg_join2"/></div>
 						</div>
 					</div>
 		   		</div>
@@ -183,13 +190,13 @@
 			
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-1row">비밀번호</p></div>
-		   		<div class="ui-block-b rate-6"><input type="password" id="inputPwd"required="required" oninput="chkPwd()"></div>
-		   		<div class="ui-block-c rate-2" id="chkPwdIcon1" style="align-content: left;"></div>
+		   		<div class="ui-block-b "style="width: 70%"><input type="password" id="inputPwd"required="required" oninput="chkPwd()"></div>
+		   		<div class="ui-block-c rate-2" id="chkPwdIcon1" style="align-content: left; width:  10% "></div>
 			</div>
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>확인</p></div>
-		   		<div class="ui-block-b rate-6"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()"></div>
-		   		<div class="ui-block-c rate-2" id="chkPwdIcon2" style="align-content: left;" ></div>
+		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()"></div>
+		   		<div class="ui-block-c" id="chkPwdIcon2" style="align-content: left;width:  10% " ></div>
 			</div>
 			
 			
@@ -207,7 +214,7 @@
 			</div>	
 		    <p class="p-2row">계좌번호</p>
 			<div class="ui-grid-a join-row">
-		    	<div class="ui-block-a rate-4">
+		    	<div class="ui-block-a rate-4" style=" margin: 5px 5px 0 -5px ; ">
 					<select name="bank" id="bank" data-corners="false" data-mini="true">
 						<option>신한은행</option>
 						<option>기업은행</option>
@@ -221,14 +228,14 @@
 			<p class="p-2row">주소</p>
 			<div class="ui-grid-a join-row">
 		    	<div class="ui-block-a rate-8"><input type="text" id="roadAddrPart1" name="address" readonly="readonly" required="required"></div>
-		   		<div class="ui-block-b rate-2"><a data-role="button" data-ajax="false" data-mini="true"  data-corners="false" data-inline="true" onclick="goPopup()">검색</a></div>
+		   		<div class="ui-block-b rate-2" style=" margin: 5px -10px 0 0 ; float: right;"><a data-role="button" data-ajax="false" data-mini="true"  data-corners="false" data-inline="true" onclick="goPopup()">검색</a></div>
 			</div>
 			
 			<input type="text" id="addrDetail" name="address_detail" readonly="readonly" required="required">
 			<div class="ui-grid-a join-row">
 		   		<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>힌트</p></div>
-		    	<div class="ui-block-b rate-8">
-					<select name="pwd_q" id="pwd_q">
+		    	<div class="ui-block-b rate-8" >
+					<select name="pwd_q" id="pwd_q"  data-corners="false">
 						<option>가장 기억에 남는 선물은?</option>
 						<option>자신의 보물 제1호는?</option>
 						<option>인상 깊게 읽은 책 이름은?</option>
@@ -249,7 +256,6 @@
 				<input type="button" value="취소" onclick="back()">
 				<input type="submit" value="가입" id="insert_memberBtn">
 			</div>
-
 		</form>
 	</div>
 </body>
