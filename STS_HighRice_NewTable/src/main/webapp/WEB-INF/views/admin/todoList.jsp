@@ -160,4 +160,3 @@
    
 </body>
 </html>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
