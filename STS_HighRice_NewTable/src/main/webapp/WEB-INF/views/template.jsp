@@ -28,19 +28,29 @@
 			$("#loginCheck").html("")
 			var loginId = $("#loginId").val();
 			var loginPwd = $("#loginPwd").val();
-			var data = { "member_id" : loginId, "pwd" : loginPwd }
+			var gotoPage
+			var data = { "member_id" : loginId, "pwd" : loginPwd}
 			$.ajax({ url : "login.do", data : data, success : function(data) {
 				if (data == 1) {
-					location.href = "";
 					$(".ui-block-a").css("visibility", "visible");
 					$("#login_img").attr("src", "resources/logout.png");
+					var gotoPage = "<%=session.getAttribute("gotoPage")%>"
+					if(gotoPage.length==4){
+						location.href=""
+					}else if(gotoPage="myPage.do"){
+						location.href=gotoPage+"?gotoPage="+gotoPage+"&&selectedMyPage=mP"
+					}else{
+						location.href=gotoPage+"?gotoPage="+gotoPage
+					}
+					
 				} else if (data == 0) {
 					$("#loginCheck").html("비밀번호를 잘못 입력하셨습니다.")
-				} else {
+				} else{
 					$("#loginCheck").html("존재하지 않는 아이디입니다.")
 				}
 			}})
 		})
+		
 		$("#logout_img").click(function() {
 			if (confirm("로그아웃 하시겠습니까?")) {
 				$.ajax({ url : "logout.do", success : function() {
@@ -92,18 +102,21 @@
 					<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
 				</div>
 			</c:if>
-				<c:if test="${not empty sessionScope.name}">
+			<c:if test="${not empty sessionScope.name}">
 				<div>${sessionScope.name}님 환영합니다.
 					<a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
 						<img id="logout_img" src="resources/img/logout.png" class="log-img">
 					</a>
+					<c:if test="${sessionScope.grade == '2'}">
+						<a data-ajax="false" href="todoList.do">Bitman</a>
+					</c:if>
 				</div>
 			</c:if>
 			<div data-role="navbar" data-position="inline" class="navbaraa">
 				<ul>
-					<li><a data-ajax="false" href="myPage.do?selectedMyPage=mP">My Page</a></li>
-					<li><a data-ajax="false" href="sellList.do">SELL</a></li>
-					<li><a data-ajax="false" href="cartList.do">CART</a></li>
+					<li><a data-ajax="false" href="myPage.do?selectedMyPage=mP&&gotoPage=myPage.do">My Page</a></li>
+					<li><a data-ajax="false" href="sellWrite.do?gotoPage=sellWrite.do">SELL</a></li>
+					<li><a data-ajax="false" href="cartList.do?gotoPage=cartList.do">CART</a></li>
 				</ul>
 			</div>
 			<div class="select-menu">
@@ -127,7 +140,7 @@
 				
 				<div id="tab2" class="tab_content">
 					<ul data-role="listview" data-icon="false">
-						<li><a data-ajax="false" href="qna.do">QnA</a></li>
+						<li><a data-ajax="false" href="qnaBoard.do">QnA</a></li>
 						<li><a data-ajax="false" href="faq.do">FAQ</a></li>
 						<li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
 					</ul>

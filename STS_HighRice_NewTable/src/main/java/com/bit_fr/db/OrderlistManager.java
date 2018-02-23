@@ -355,6 +355,7 @@ public class OrderlistManager {
 		map.put("changeRequest", changeRequest);
 
 		SqlSession session = factory.openSession(true);
+		System.out.println("changeRequest매니저: "+changeRequest);
 		re = session.update("orderlist.updateOrderCondition_changeRequest", map);
 		return re;
 	}

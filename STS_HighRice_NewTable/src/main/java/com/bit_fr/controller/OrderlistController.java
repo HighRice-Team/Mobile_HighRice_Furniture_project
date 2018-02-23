@@ -60,44 +60,43 @@ public class OrderlistController {
 		return str;
 
 	}
-	
+
 	@RequestMapping(value = "/order_condition_changeRequest.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String order_condition_changeRequest(HttpSession session, int order_id, String changeRequest) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
 		int result = -1;
-		
-		if(changeRequest != null && order_id != 0) {
-			result = orderlistDao.updateOrderCondition_changeRequest(member_id ,order_id, changeRequest);
+
+
+		if (changeRequest != null && order_id != 0) {
+			result = orderlistDao.updateOrderCondition_changeRequest(member_id, order_id, changeRequest);
 		}
-		 		
+
 		try {
 			ObjectMapper om = new ObjectMapper();
 			str = om.writeValueAsString(result);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 		return str;
-		
+
 	}
-	
-	//나의 주문정보 페이지
+
+	// 나의 주문정보 페이지
 	@RequestMapping(value = "/myOrderList.do", produces = "text/plain;charset=utf-8")
 	public ModelAndView myOrderList(HttpSession session, String condition, String category) {
 		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
 		HashMap map = new HashMap();
-		if(condition != null) {
+		if (condition != null) {
 			map.put("condition", condition);
 		}
-		if(category != null) {
+		if (category != null) {
 			map.put("category", category);
 		}
-		
-		
+
 		List<OrderlistVo> list = orderlistDao.getAllMyOrder_orderlist(member_id, map);
 		mav.addObject("member", memberDao.getOne_member(member_id));
 		mav.addObject("list", list);
@@ -110,7 +109,6 @@ public class OrderlistController {
 		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
-
 
 		ProductVo pv = productDao.getOne_product(product_id);
 		int price = pv.getPrice();
@@ -127,56 +125,58 @@ public class OrderlistController {
 		mav.addObject("viewPage", "pay/payment.jsp");
 		return mav;
 	}
-	
-	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
-	public ModelAndView goMultiplePayment(HttpSession session,String order_id,int paymentPrice,int cntProduct) {
-		ModelAndView mav = new ModelAndView("template");
-		String member_id=(String)session.getAttribute("id");
-		order_id = order_id.substring(0, order_id.length()-1);
-		
-		String sql = "select * from (select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"+member_id+"' and o.order_id in ("+order_id+") and p.condition='물품게시' order by order_id desc))";
 
-		List<OrderlistVo>list = orderlistDao.getMyCartList_orderlist(sql);
+	@RequestMapping(value = "/goMultiplePayment.do", produces = "text/plain;charset=utf-8")
+	public ModelAndView goMultiplePayment(HttpSession session, String order_id, int paymentPrice, int cntProduct) {
+		ModelAndView mav = new ModelAndView("template");
+		String member_id = (String) session.getAttribute("id");
+		order_id = order_id.substring(0, order_id.length() - 1);
+
+		String sql = "select * from (select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
+				+ member_id + "' and o.order_id in (" + order_id + ") and p.condition='물품게시' order by order_id desc))";
+
+		List<OrderlistVo> list = orderlistDao.getMyCartList_orderlist(sql);
 		MemberVo memberVo = memberDao.getOne_member(member_id);
-		
-		mav.addObject("list",list);
-		mav.addObject("member",memberVo);
-		mav.addObject("paymentPrice",paymentPrice);
-		mav.addObject("order_id",order_id);
-		mav.addObject("cntProduct",cntProduct);
-		mav.addObject("viewPage","pay/goMultiplePayment.jsp");
-		
-		
+
+		mav.addObject("list", list);
+		mav.addObject("member", memberVo);
+		mav.addObject("paymentPrice", paymentPrice);
+		mav.addObject("order_id", order_id);
+		mav.addObject("cntProduct", cntProduct);
+		mav.addObject("viewPage", "pay/goMultiplePayment.jsp");
+
 		return mav;
 	}
+
 	@RequestMapping(value = "/MultiplePayment.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String MultiplePayment(HttpSession session,String order_id,int paymentPrice) {
+		System.out.println("a");
 		String str ="";
 		String member_id = (String)session.getAttribute("id");
 		MemberVo memverVo =  memberDao.getOne_member(member_id);
 		long member_balance = memverVo.getBalance();
-		if(member_balance-paymentPrice>=0) {
-			List<OrderlistVo>list = orderlistDao.getOrders_orderlist(order_id);
-			for(OrderlistVo order : list) {
+		if (member_balance - paymentPrice >= 0) {
+			List<OrderlistVo> list = orderlistDao.getOrders_orderlist(order_id);
+			for (OrderlistVo order : list) {
 				orderlistDao.updatePaydate_orderlist(order.getProduct_id());
-				productDao.updateCondition_product(order.getProduct_id(),"입금완료");
+				productDao.updateCondition_product(order.getProduct_id(), "입금완료");
 				order.setOrderlist_condition("입금완료");
 				orderlistDao.updateAll_orderlist(order);
 				orderlistDao.updateRentalDateFromCartlistPayment_orderlist(order.getOrder_id(), order.getRent_month());
 			}
 			orderlistDao.updateDepositToMaster_orderlist(paymentPrice);
-			memverVo.setBalance(member_balance-paymentPrice);
+			memverVo.setBalance(member_balance - paymentPrice);
 			memberDao.updateInfo_member(memverVo);
-			
+
 			str = "결제완료";
-			
-		}else {
+
+		} else {
 			str = "결제오류 : 잔액 부족";
-			
+
 			return str;
 		}
-		
+
 		return str;
 	}
 
@@ -185,7 +185,6 @@ public class OrderlistController {
 		ModelAndView mav = new ModelAndView("template");
 
 		String member_id = (String) session.getAttribute("id");
-		
 
 		ProductVo productVo = productDao.getOne_product(product_id);
 		MemberVo memberVo = memberDao.getOne_member(member_id);
@@ -195,7 +194,6 @@ public class OrderlistController {
 		mav.addObject("rentMonth", rentMonth);
 		mav.addObject("viewPage", "pay/paymentInfo.jsp");
 		mav.setViewName("template");
-
 
 		return mav;
 	}
@@ -210,9 +208,9 @@ public class OrderlistController {
 
 		String member_id = (String) session.getAttribute("id");
 
-		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con "
-				+ "from ( select product_name,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
-				+ member_id + "' and p.condition='물품게시' order by order_id desc))";
+		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con,pay_date "
+				+ "from ( select product_name,pay_date,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where (pay_date ='1111-11-11' or pay_date is null) and  o.product_id=p.product_id and o.member_id='"
+				+ member_id + "' order by order_id desc))";
 
 		// SQL
 		List<OrderlistVo> list = orderlistDao.getMyCartList_orderlist(sql);
@@ -222,13 +220,17 @@ public class OrderlistController {
 		if (list.size() % orderlistMAX != 0) {
 			pageMAX++;
 		}
-		
-		
-		
 
 		sql += "where rnum >= " + startNUM + " and rnum <= " + endNUM;
 
 		list = orderlistDao.getMyCartList_orderlist(sql);
+		
+		for(OrderlistVo ov : list) {
+			if(ov.getPay_date()!=null) {
+				ov.setPay_date(ov.getPay_date().substring(0,10));				
+			}
+
+		}
 
 		// member_id 값에 따른 회원정보 가져오기.
 		MemberVo mv = memberDao.getOne_member(member_id);
@@ -248,13 +250,103 @@ public class OrderlistController {
 		return mav;
 	}
 
+	// 비트맨 배송완료 , 수취확인 Ajax
+	@RequestMapping(value = "/deliveryConfirmAjax.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String deliveryConfirmAjax(int product_id, int order_id, String condition) {
+		String str = "";
+
+		int re = -1;
+
+		// 오더리스트의 상태변경.
+		OrderlistVo v = new OrderlistVo();
+
+		v.setOrder_id(order_id);
+		v.setOrderlist_condition("수취확인");
+
+		re = orderlistDao.updateAll_orderlist(v);
+
+		// 프로덕트의 상태변경.
+		re = productDao.updateCondition_product(product_id, condition);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			str = mapper.writeValueAsString(re);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	// 비트맨 수거완료 , 수취확인 Ajax
+	@RequestMapping(value = "/collectConfirmAjax.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String collectConfirmAjax(int product_id, String category, String quality, int price, String condition) {
+		String str = "";
+
+		int re = -1;
+
+		// 프로덕트의 상태변경.
+		re = productDao.updateCollectConfirm_product(product_id, category, quality, price, condition);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			str = mapper.writeValueAsString(re);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
+	// 비트맨 반납완료 , 수취확인 Ajax
+	@RequestMapping(value = "/returnConfirmAjax.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String returnConfirmAjax(int product_id, int order_id, String quality, int price, String condition) {
+		String str = "";
+
+		int re = -1;
+
+		// 오더리스트의 상태변경.
+		OrderlistVo v = new OrderlistVo();
+
+		v.setOrder_id(order_id);
+		v.setOrderlist_condition("반납");
+
+		re = orderlistDao.updateAll_orderlist(v);
+
+		// 프로덕트의 상태변경.
+		re = productDao.updateReturnConfirm_product(product_id, quality, price, condition);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			str = mapper.writeValueAsString(re);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
+	}
+
 	@RequestMapping(value = "paymentOkAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String paymentOkAjax(HttpSession session, int rentMonth, int product_id, long paymentOne) {
 		String str = "";
 
 		String member_id = (String) session.getAttribute("id");
-		
 
 		int re = -1;
 
@@ -274,15 +366,14 @@ public class OrderlistController {
 			if (re == 1) {
 				String condition = "입금완료";
 				re = productDao.updateCondition_product(product_id, condition);
-				
+
 				orderlistDao.updatePaydate_orderlist(product_id);
-				
+
 				// Orderlist 생성하기.
 				int nextOreder_id = orderlistDao.getCountNextOrderId_orderlist();
-				
+
 				OrderlistVo v = new OrderlistVo();
 				v.setOrderlist_condition(condition);
-				System.out.println(v.getOrderlist_condition());
 				v.setOrder_id(nextOreder_id);
 				v.setMember_id(member_id);
 				v.setProduct_id(product_id);
@@ -290,7 +381,7 @@ public class OrderlistController {
 				v.toString();
 				// 결제한 Orderlist 생성.
 				re = orderlistDao.insertPayment_orderlist(v);
-				
+
 			}
 		} else {
 			// 잔액부족.
@@ -310,19 +401,19 @@ public class OrderlistController {
 
 		return str;
 	}
-	
+
 	@RequestMapping(value = "/insertOrderListAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String insertOrderListAjax(HttpSession session, int rent_month, int product_id) {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
-		if(rent_month==0) {
+		if (rent_month == 0) {
 			rent_month = 6;
 		}
 
 		int re = -1;
 		int chk_exist = orderlistDao.getCheckExist_orderlist(member_id, product_id);
-		
+
 		if (chk_exist < 1) {
 			OrderlistVo v = new OrderlistVo();
 
@@ -377,21 +468,22 @@ public class OrderlistController {
 
 	@RequestMapping(value = "/updateRentPeriodOrderListAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String updateRentPeriodOrderListAjax(int order_id,int rent_month) {
+	public String updateRentPeriodOrderListAjax(int order_id, int rent_month) {
 		String str = "";
-		
+
 		orderlistDao.updateRentMonth_orderlist(order_id, rent_month);
 
 		return str;
 	}
+
 	
-	@RequestMapping(value="deleteOrders_orderlist.do",produces="text/plain;charset=utf-8")
+	@RequestMapping(value = "deleteOrders_orderlist.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String deleteOrders_orderlist(String order_id) {
-		String str ="";
-		order_id = order_id.substring(0, order_id.length()-1);
-		str = orderlistDao.deleteOrders_orderlist(order_id)+"";
-		
+		String str = "";
+		order_id = order_id.substring(0, order_id.length() - 1);
+		str = orderlistDao.deleteOrders_orderlist(order_id) + "";
+
 		return str;
 	}
 

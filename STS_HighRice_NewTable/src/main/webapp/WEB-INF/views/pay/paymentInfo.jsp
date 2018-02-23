@@ -58,7 +58,7 @@ $(function(){
             					if(confirm("마이페이지로 이동하시겠습니까?") == true){
             						location.href="myPage.do";
             					}else{
-            						location.href="index.do";
+            						location.href="main.do";
             					}
             					
             					
