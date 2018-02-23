@@ -24,7 +24,6 @@
       //선택된 상품을 담을 변수, 주문 or 삭제를 위한 작업.
       var selectedOrder = "";
       //선택항목 삭제
-      
       $("#deleteSelectedOrder").click(function(){
          
          var data = {"order_id":selectedOrder}
@@ -239,7 +238,7 @@
                   <span class="productName_cart" ><b>${list.product_name }</b></span>
                </div>
                <div style="padding-left: 20%;">
-                  <p class="price_cart">가격 : <span id="price${cnt.count }">${list.price}</span> / Month</p>
+                  <p class="price_cart">가격 : <span id="price${cnt.count }" class="priceFormat">${list.price}</span> / Month</p>
                </div>
                <div>
                   <span style="padding-left: 20%; font-size: 3.5vw; float: left;"><br>대여 기간 : </span>
@@ -255,7 +254,7 @@
                </div>
                      
                <div style="margin-top: 0; padding-top: 0; padding-left: 20%">
-                  <h4 style="margin-top: 0; padding-top: 0;">합계 : <span id="totalPrice${cnt.count }">${list.price * list.rent_month }</span>원</h4>
+                  <h4 style="margin-top: 0; padding-top: 0;">합계 : <span id="totalPrice${cnt.count }" class="priceFormat">${list.price * list.rent_month }</span>원</h4>
                </div>
             </div>
             <c:if test="${list.pay_date == '1111-11-11' }">

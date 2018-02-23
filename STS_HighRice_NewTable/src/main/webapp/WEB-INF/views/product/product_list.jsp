@@ -59,7 +59,6 @@ $(function(){
 				<form>
 				<select id="sort" name="sort" onchange="window.open(value,'_self')" data-mini="true" data-inline="true">
 					<option data-placeholder="true">How to sort</option>
-					<%-- <option value="product_list.do?pageNum=${pageNum}&category=${category}&sort=${quality}">품질등급순</option> --%>
 					<option value="product_list.do?category=${category}&sort=quality">품질등급순</option>				
 					<option value="product_list.do?category=${category}&sort=price_max">높은가격순</option>
 					<option value="product_list.do?category=${category}&sort=price_min">낮은가격순</option>

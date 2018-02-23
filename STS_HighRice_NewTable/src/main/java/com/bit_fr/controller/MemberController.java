@@ -127,13 +127,12 @@ public class MemberController {
 
 	@RequestMapping(value = "/login.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String login(MemberVo v, HttpSession session) {
+	public String login(MemberVo v, HttpSession session, @RequestParam(defaultValue="") String gotoPage) {
 		String str = "";
-
+		
 		MemberVo v2 = member_dao.getOne_member(v.getMember_id());
 
 		String input_pwd = v.getPwd();
-
 		if (v2 != null && !v2.equals("")) {
 
 			String pwd = v2.getPwd();

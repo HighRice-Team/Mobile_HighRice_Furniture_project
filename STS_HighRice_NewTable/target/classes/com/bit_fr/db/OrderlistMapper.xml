@@ -19,7 +19,7 @@
 	</select>
 
 	<select id="getCountNextOrderId_orderlist" resultType="java.lang.Integer">
-		select nvl( max(order_id)+1, 0 ) from orderlist
+		select nvl( max(order_id), 0 )+1 from orderlist
 	</select>
 
 	<select id="getCountToMyCondition_orderlist" resultType="java.lang.Integer">

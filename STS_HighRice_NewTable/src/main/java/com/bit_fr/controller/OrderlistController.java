@@ -67,8 +67,8 @@ public class OrderlistController {
 		String str = "";
 		String member_id = (String) session.getAttribute("id");
 		int result = -1;
-		
 		if(changeRequest != null && order_id != 0) {
+
 			result = orderlistDao.updateOrderCondition_changeRequest(member_id ,order_id, changeRequest);
 		}
 		 		
@@ -78,7 +78,6 @@ public class OrderlistController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 		return str;
 		
 	}
@@ -212,7 +211,7 @@ public class OrderlistController {
 		String member_id = (String) session.getAttribute("id");
 
 		String sql = "select * from (" + "select rownum rnum,order_id,product_name,main_img,price,rent_month,pr,con,pay_date "
-				+ "from ( select product_name,pay_date,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where o.product_id=p.product_id and o.member_id='"
+				+ "from ( select product_name,pay_date,order_id,main_img,price,rent_month,o.product_id pr,p.condition con from orderlist o,product p where (pay_date ='1111-11-11' or pay_date is null) and  o.product_id=p.product_id and o.member_id='"
 				+ member_id + "' order by order_id desc))";
 
 		// SQL
@@ -290,7 +289,6 @@ public class OrderlistController {
 				
 				OrderlistVo v = new OrderlistVo();
 				v.setOrderlist_condition(condition);
-				System.out.println(v.getOrderlist_condition());
 				v.setOrder_id(nextOreder_id);
 				v.setMember_id(member_id);
 				v.setProduct_id(product_id);

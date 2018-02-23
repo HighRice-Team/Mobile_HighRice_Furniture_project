@@ -126,7 +126,7 @@
       </div>
       <div style="text-align: center">
          <c:if test="${category == null}">
-            <p class="list-title">전체 가구 목록s
+            <p class="list-title">전체 가구 목록
          </c:if>
          <c:if test="${category != null}">
             <p class="list-title">${category} 목록
