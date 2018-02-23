@@ -46,7 +46,9 @@
     <url-pattern>/admin.do</url-pattern>
     <url-pattern>/sellList.do</url-pattern>
     <url-pattern>/sellWrite.do</url-pattern>
+    <url-pattern>/goMultiplePayment.do</url-pattern>
     <url-pattern>/myOrderList.do</url-pattern>
     <url-pattern>/insertQna.do</url-pattern>
   </filter-mapping>
+  
 </web-app>

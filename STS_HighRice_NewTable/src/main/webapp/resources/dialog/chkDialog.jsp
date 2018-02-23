@@ -16,9 +16,15 @@ function chkPwd(){
 			url:"../../MultiplePayment.do",
 			data:data,
 			success:function(data){
+<<<<<<< HEAD
 					if(data=="결제완료"){
 					alert("결제 완료")
 					location.href="../../myPage.do"
+=======
+				alert(data)
+				if(data=="결제완료"){
+					location.href="../../myPage.do?selectedMyPage=mP"
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 				}else{
 					$("#msg").html("*"+data)
 					$("#msg").css("visibility","")
