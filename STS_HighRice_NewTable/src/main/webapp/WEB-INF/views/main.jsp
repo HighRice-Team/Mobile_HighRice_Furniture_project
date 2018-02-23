@@ -7,7 +7,6 @@
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
-<<<<<<< HEAD
 #name {font-size: 1.15vw;}
 #product_box a {text-decoration: none; color: black; font-weight: normal;}
 #page a {text-decoration: none; color: black; font-size: 3.5vw;}
@@ -17,71 +16,12 @@
 .slide-box {width: 100%; height: 150px; margin: 0; overflow: hidden; position: relative; }
 .slide-box img {width: 100%; height: 100%; display: block; position: absolute; top: 0px; left: -100%;}
 .list-title {font-size: 20px; font-weight: bold;}
-=======
-#name {
-   font-size: 1.15vw;
-}
-
-#product_box a {
-   text-decoration: none;
-   color: black;
-   font-weight: normal;
-}
-
-#page a {
-   text-decoration: none;
-   color: black;
-   font-size: 2.5vw;
-}
-
-#product_box {
-   font-size: 3vw;
-}
-
-.small {
-   font-size: 1.8vw;
-}
-
-.product_img {
-   padding: 3px 3px 0px 3px;
-}
-
-.slide-box {
-   width: 100%;
-   height: 150px;
-   margin: 0;
-   overflow: hidden;
-   position: relative;
-}
-
-.slide-box img {
-   width: 100%;
-   height: 100%;
-   display: block;
-   position: absolute;
-   top: 0px;
-   left: -100%;
-}
-
-.list-title {
-   font-size: 20px;
-   font-weight: bold;
-}
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </style>
 <script type="text/javascript">
-<<<<<<< HEAD
 	$(function() {
 		var auto_slide;
 		var auto_time = 2500; // 슬라이드 시간 1000 = 1초
 		var auto_num = 0;
-=======
-   $(function() {
-      var auto_slide;
-      var auto_time = 2000; // 슬라이드 시간 1000 = 1초
-      var auto_num = 0;
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
-
       $(".slide-box img").eq(auto_num).css({
          "left" : "0%"
       }); // 처음로드시 첫이미지 보이기
@@ -136,77 +76,6 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-	<div data-role="content">
-		<div class="slide-box">
-			<a href="#"><img src="resources/img/slide1.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide2.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide3.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide4.jpg" alt="slide"></a>
-		</div>
-		<div style="text-align: center">
-			<c:if test="${category == null}">
-				<p class="list-title">전체 가구 목록
-			</c:if>
-			<c:if test="${category != null}">
-				<p class="list-title">${category} 목록
-			</c:if>
-		</div>
-		<!-- filter category -->
-		<div data-role="navbar" data-position="inline">
-			<ul>
-				<li><a data-ajax="false" href="main.do?category=SOFA">SOFA</a></li>
-				<li><a data-ajax="false" href="main.do?category=BED">BED</a></li>
-				<li><a data-ajax="false" href="main.do?category=CLOSET">CLOSET</a></li>
-				<li><a data-ajax="false" href="main.do?category=DESK">DESK</a></li>
-			</ul>
-		</div>
-		<!-- filter form -->
-		<div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
-			<h3>Filter</h3>
-			<form action="main.do" id="filter_form" method="post" data-ajax="false">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain">
-						<label>상품 품질 :</label>
-						<div class="ui-grid-b">
-							<div class="ui-block-a">
-								<input type="radio" id="quality_a" name="quality" value="A">
-								<label for="quality_a">A</label>
-							</div>
-							<div class="ui-block-b">
-								<input type="radio" id="quality_b" name="quality" value="B">
-								<label for="quality_b">B</label>
-							</div>
-							<div class="ui-block-c">
-								<input type="radio" id="quality_c" name="quality" value="C">
-								<label for="quality_c">C</label>
-							</div>
-						</div>
-					</li>
-					<li data-role="fieldcontain">
-						<label>월 대여가격 :</label><br><br>
-						<p><input type="text" id="amount" readonly="readonly" style="border: 0; color: #f6931f; font-weight: bold;"></p>
-						<div id="slider-range"></div>
-					</li>
-					
-					<li data-role="fieldcontain">
-						<input type="hidden" name="category" id="category" value="${category}" >
-						<input type="hidden" name="min" id="min">
-						<input type="hidden" name="max" id="max">
-						
-						<div class="ui-grid-a">
-							<div class="ui-block-a">
-								<input type="button" id="submit_btn" value="정렬하기" data-theme="b" >
-							</div>
-							<div class="ui-block-b">
-								<input type="button" id="cancel_btn" value="취소하기" data-theme="b">
-							</div>
-						</div>
-					</li>
-				</ul>
-			</form>
-		</div>
-=======
    <div data-role="content">
       <div class="slide-box">
          <a href="#"><img src="resources/img/slide1.jpg" alt="slide"></a>
@@ -276,7 +145,6 @@
             </ul>
          </form>
       </div>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 
       <!--상품목록 -->
       <div style="width: 100%; display: inline-block;" id="product_box" >
