@@ -176,7 +176,6 @@
 					</li>
 					
 					<li data-role="fieldcontain">
-						<!-- <input type="hidden" name="max" id="max"> -->
 						
 						<div class="ui-grid-a">
 							<div class="ui-block-a">

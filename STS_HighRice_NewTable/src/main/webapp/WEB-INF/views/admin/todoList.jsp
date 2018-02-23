@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -157,18 +158,6 @@
          </ul>
       </div>
    </div>
+   
 </body>
 </html>
-<!-- 
-	<ul data-role="listview" data-icon="false">
-		<li style="width: calc(100% - 45px); height: 81px; float: left; border: none; background: #fff; border-bottom : 10px solid #ddd;">
-			<a href="todoDetail.do" data-icon="info">이러한 저러한 이런저런 가구
-				<img src="resources/img/product/b1.jpg" />
-			</a> 
-		</li>
-		<li style="width: 45px; height: 51px; float: right; border: none; background: #fff; margin : 0; padding : 30px 0 0 0; border-bottom : 10px solid #ddd;">
-			<input type="checkbox" id="checkbox" style="width:30px; height:30px;  margin: -15px; ">
-			<p style="margin: 20px 0 0 5px">김지안</p>
-		</li>
-	</ul>
- -->

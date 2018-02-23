@@ -24,7 +24,6 @@
       //선택된 상품을 담을 변수, 주문 or 삭제를 위한 작업.
       var selectedOrder = "";
       //선택항목 삭제
-      
       $("#deleteSelectedOrder").click(function(){
          
          var data = {"order_id":selectedOrder}
@@ -183,11 +182,27 @@
             var cnt = $(this).attr("cnt")
             paymentPrice += eval($("#totalPrice"+cnt).html())
             selectedOrder += $(this).attr("order_id")+","
-            
-            
+       
          })
+         
          $("#paymentPrice").html(paymentPrice)
          $("#selectedProducts").html($("input[checked='checked']").size())
+      })
+      
+      $("#removeSaledItemBtn").click(function(){
+    	  selectedOrder = ""
+    	  $(".saled").each(function(){
+    		  selectedOrder += $(this).attr("order_id")+","
+    	  })
+    	  
+    	 var data = {"order_id":selectedOrder}
+         $.ajax({
+            url:"deleteOrders_orderlist.do",
+            data:data,
+            success:function(data){
+               location.href="";
+            }
+         })
       })
    })
 
@@ -197,35 +212,33 @@
    <div style="margin-left: 1%; float: left;">
       <input id="checkAllBtn" type="button" value="전체 선택 " data-inline="true" data-mini="true" data-corners="false" style="text-align: center;">
    </div>
-   <div>
+   <div style="margin-left: 1%; float: left;">
       <input id="deleteSelectedOrder" type="button" value="선택 삭제" data-mini="true" data-inline="true" data-corners="false" style="text-align: center;">
-   </div>         
+   </div>
+   <div>
+      <input id="removeSaledItemBtn" type="button" value="완료 물품 삭제 " data-inline="true" data-mini="true" data-corners="false" style="text-align: center;">
+   </div>      
 
-<!--          <div class="ui-grid-c" style="padding-top: 2%;">
-            <div class="ui-block-a" style="margin-left: 1%;">
-               <input id="checkAllBtn" type="button" value="전체 선택 " data-inline="true" data-mini="true" data-corners="false" style="text-align: center;">
-            </div>
-            <div class="ui-block-b">
-               <input id="deleteSelectedOrder" type="button" value="선택 삭제" data-mini="true" data-inline="true" data-corners="false" style="text-align: center;">
-            </div>
-         </div> -->
-         
-<!--          ---------------------------------------------------------------------------------- -->
    <c:forEach var="list" items="${list }" varStatus="cnt">
+   
       <div class="products" style=" background-color: white; margin: 2%;" data-inline="true" data-mini="true" data-corners="true">
-         <input type="checkbox" name="chkbox${cnt.count}" id="chkbox${cnt.count }" cnt="${cnt.count }" order_id="${list.order_id }" data-theme="c" rent_month="${list.rent_month }">
+      	 
+         <c:if test="${list.pay_date != '1111-11-11' }"><input type="checkbox" name="chkbox${cnt.count}" id="chkbox${cnt.count }" cnt="${cnt.count }" order_id="${list.order_id }" data-theme="c" rent_month="${list.rent_month }"></c:if>
+         <c:if test="${list.pay_date == '1111-11-11' }"><span class="saled" id="chkbox${cnt.count }" order_id="${list.order_id }"></span></c:if>
          <label for="chkbox${cnt.count }" data-corners="false">&nbsp;</label>
+         
 
          <div class="ui-grid-a">
-            <div class="ui-block-a" style="width: 31%; padding-left: 5%; padding-top: 5%;">
+         	
+            <div class="ui-block-a" style="width: 31%; padding-left: 5%; padding-top: 5%; <c:if test="${list.pay_date == '1111-11-11' }">opacity: .20;</c:if>">
                <img src="resources/img/product/${list.main_img }" width="100%">
             </div>
-            <div class="ui-block-b" style="width: 64%; padding-top: 5%;">
+            <div class="ui-block-b" style="width: 64%; padding-top: 5%;<c:if test="${list.pay_date == '1111-11-11' }">opacity: .20; </c:if>">
                <div style="padding-left: 20%;">
                   <span class="productName_cart" ><b>${list.product_name }</b></span>
                </div>
                <div style="padding-left: 20%;">
-                  <p class="price_cart">가격 : <span id="price${cnt.count }">${list.price}</span> / Month</p>
+                  <p class="price_cart">가격 : <span id="price${cnt.count }" class="priceFormat">${list.price}</span> / Month</p>
                </div>
                <div>
                   <span style="padding-left: 20%; font-size: 3.5vw; float: left;"><br>대여 기간 : </span>
@@ -240,24 +253,15 @@
                   </table>
                </div>
                      
-<%--                      <div class="ui-grid-c">
-                        <div class="ui-block-a" style="width: 31%;">
-                           <span>대여 기간</span>
-                        </div>
-                        <div class="ui-block-b" style="width: 23%">
-                           <center><input type="button" class="reduceRentMonthBtn" value="-" data-mini="true" data-inline="true" data-corners="false" cnt="${cnt.count }"></center>
-                        </div>
-                        <div class="ui-block-c" style="width: 23%">
-                           <center><input type="number" id="rent_month${cnt.count }" value="${list.rent_month }" data-mini="true" data-inline="true" style="text-align: center; align-content: center;" readonly="readonly"></center>
-                        </div>
-                        <div class="ui-block-d" style="width: 23%">
-                           <center><input type="button" class="increaseRentMonthBtn" value="+" data-mini="true" data-inline="true" data-corners="false" cnt="${cnt.count }"></center>
-                        </div>
-                     </div> --%>
                <div style="margin-top: 0; padding-top: 0; padding-left: 20%">
-                  <h4 style="margin-top: 0; padding-top: 0;">합계 : <span id="totalPrice${cnt.count }">${list.price * list.rent_month }</span>원</h4>
+                  <h4 style="margin-top: 0; padding-top: 0;">합계 : <span id="totalPrice${cnt.count }" class="priceFormat">${list.price * list.rent_month }</span>원</h4>
                </div>
             </div>
+            <c:if test="${list.pay_date == '1111-11-11' }">
+					<div style="width: 60%; height: 60px; background-color: #888888; position: fixed; margin-left: 15%; margin-top:10%;">
+						<br><center><span style="font-size:3.5vw;  color: white; text-shadow: none; font-weight: 700; ">이미 판매 완료된 상품 입니다.</span></center>
+					</div>
+   		    </c:if>
          </div>
       </div>
    </c:forEach>

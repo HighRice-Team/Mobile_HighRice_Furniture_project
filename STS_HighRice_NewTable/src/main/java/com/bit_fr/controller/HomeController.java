@@ -1,5 +1,6 @@
 package com.bit_fr.controller;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +43,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class HomeController {
 
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
