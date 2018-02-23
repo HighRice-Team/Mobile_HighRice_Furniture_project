@@ -13,9 +13,8 @@ public class ProductDao {
 	public List<ProductVo> getAll_product(String sql) {
 		return ProductManager.getAll_product(sql);
 	}
-	
 
-	public List<ProductVo> getAll_productAdmin(ProductVo v){
+	public List<ProductVo> getAll_productAdmin(ProductVo v) {
 		return ProductManager.getAll_productAdmin(v);
 
 	}
@@ -67,7 +66,7 @@ public class ProductDao {
 	public ProductVo getForAdmin_product() {
 		return ProductManager.getForAdmin_product();
 	}
-	
+
 	public String getCondition_product(int product_id) {
 		return ProductManager.getCondition_product(product_id);
 	}
@@ -76,7 +75,8 @@ public class ProductDao {
 		return ProductManager.insert_product(p);
 	}
 
-	public int update_product(String product_name, String category, String quality, String main_img, String sub_img, int product_id) {
+	public int update_product(String product_name, String category, String quality, String main_img, String sub_img,
+			int product_id) {
 		return ProductManager.update_product(product_name, category, quality, main_img, sub_img, product_id);
 	}
 
@@ -88,10 +88,17 @@ public class ProductDao {
 		return ProductManager.updateAdmin_product(p);
 	}
 
-	
+	public int updateCollectConfirm_product(int product_id, String category, String quality, int price,
+			String condition) {
+		return ProductManager.updateCollectConfirm_product(product_id, category, quality, price, condition);
+	}
+
+	public int updateReturnConfirm_product(int product_id, String quality, int price, String condition) {
+		return ProductManager.updateReturnConfirm_product(product_id, quality, price, condition);
+	}
+
 	public int delete_product(int product_id) {
 		return ProductManager.delete_product(product_id);
-
 
 	}
 
