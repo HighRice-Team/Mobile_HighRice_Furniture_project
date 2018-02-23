@@ -2,15 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-</style>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
-	<div data-role="content">
-		<img src="resources/img/aboutus.jpg" width="100%">
+	<div data-role="content" style="width: calc(100% + 30px); margin: -15px; padding: 0">
+		<img src="resources/img/aboutus.png" style="width: 100%">
 	</div>
 </body>
 </html>
