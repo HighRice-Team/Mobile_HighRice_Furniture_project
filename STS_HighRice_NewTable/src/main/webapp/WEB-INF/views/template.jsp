@@ -65,30 +65,6 @@
 			$.ajax({url:"deleteSession.do", success:function(data){
 			}})
 		}
-		//처음 들어왔을때 라이트박스
-		var on = $("#onsite").val()
-		if(on != 1){
-			document.getElementById("btnon").click();
-		}
-		$("#imgsell").click(function(){
-			if(needToLogin == 'plz'){
-				document.getElementById("btnlogin2").click();
-			}else{
-				$.ajax({url:"onsite.do", success:function(data){
-					location.href="sellWrite.do"
-				}})
-			}
-		})
-		$("#imgrent").click(function(){
-			$.ajax({url:"onsite.do", success:function(data){
-				location.href="main.do"
-			}})
-		})
-		$("#clobtn").click(function(){
-			$.ajax({url:"onsite.do", success:function(data){
-				location.href="main.do"
-			}})
-		})
 	})
 	function clearMsg(){
 		$("#loginCheck").html("")
@@ -200,15 +176,6 @@
 			</div>
 		</div>
 		<!-- End login popup -->
-		
-		<!-- lightBox Popup -->
-		<div data-role="popup" id="light" data-icon="delete" data-overlay-theme="a">
-			 <a href="#" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="clobtn">Close</a>
-			<img src="resources/img/sell2.jpg" id="imgsell">
-			<img src="resources/img/rent.jpg" id="imgrent">
-		</div>
-		<!--for trigger lightBox-->
-		<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon"></a>
 	</div>
 </body>
 </html>

@@ -28,6 +28,15 @@ public class QnaBoardManager {
 		return list;
 	}
 	
+	public static List<QnaBoardVo> getProduct_qnaBoard(int product_id){
+		SqlSession session = factory.openSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("product_id", product_id);
+		List<QnaBoardVo> list = session.selectList("qnaBoard.getProduct_qnaBoard", map);
+		session.close();
+		return list;
+	}
+	
 	public static List<QnaBoardVo> getDetail_qnaBoard(int board_id) {
 		SqlSession session = factory.openSession();
 		List<QnaBoardVo> list = session.selectList("qnaBoard.getDetail_qnaBoard", board_id);

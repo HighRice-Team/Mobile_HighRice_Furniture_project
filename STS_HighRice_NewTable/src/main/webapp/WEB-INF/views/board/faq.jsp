@@ -2,9 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 	<div data-role="content"  style="margin: 0px; padding: 0 -15 0 -15; clear: both;" >
