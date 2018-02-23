@@ -25,7 +25,11 @@
 <script type="text/javascript">
 $(function(){
 	   $("#insert").click(function(){
-	      $("#sellInsertForm").submit();
+		   if($("#mainIMG").val()!=null && $("#mainIMG").val()!=""){
+			   $("#sellInsertForm").submit(); 
+		   }else{
+			   alert("이미지를 등록해주세요")
+		   }     
 	   });
 	   
 	   $("#mainIMG").change(function(){
@@ -34,7 +38,7 @@ $(function(){
 			   mainIMG = mainIMG.substring(0, 10)+"..."
 		   }
 		   
-		   $("#main").html("파일명 :"+ mainIMG)
+		   $("#main").html("파일명 :"+ mainIMG)  
 	   })
 	   $("#subIMG").change(function(){
 		   var subIMG = $("#subIMG").val();

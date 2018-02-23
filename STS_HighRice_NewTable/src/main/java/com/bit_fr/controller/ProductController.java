@@ -101,6 +101,8 @@ public class ProductController {
 		int productMax = 8;
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
+		
+		
 
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
@@ -133,7 +135,23 @@ public class ProductController {
 		int pageMax = list.size() / productMax;
 		if (list.size() % productMax != 0)
 			pageMax++;
-
+		
+		int page = 5;
+		
+		int re = pageNum/page; // 0, 1, 2, 3 ....
+		if(pageNum%page != 0)
+			re++; // 1, 2, 3, 4...
+		
+		int pageEnd = re * page; // 5, 10, 15 ...
+		
+		int pageStart = pageEnd-page+1; // 1, 6, 11 ...
+		if(pageStart <= 1)
+			pageStart = 1;
+		
+		if(pageEnd >= pageMax)
+			pageEnd = pageMax;
+		
+		
 		sql += "where rnum>=" + startNum + " and rnum<=" + endNum;
 		list = dao.getCust(sql);
 
@@ -148,7 +166,11 @@ public class ProductController {
 		
 		
 		mav.addObject("list", list);
+		mav.addObject("pageNum", pageNum);
 		mav.addObject("category", category);
+		mav.addObject("pageStart", pageStart);
+		mav.addObject("page", page);
+		mav.addObject("pageEnd", pageEnd);
 		mav.addObject("min", min);
 		mav.addObject("max", max);
 		mav.addObject("quality", quality);
@@ -248,7 +270,7 @@ public class ProductController {
 	public ModelAndView getProductDetail(int product_id) {
 		ModelAndView mav = new ModelAndView("template");
 		ProductVo p = dao.getOne_product(product_id);
-		List<QnaBoardVo> list = qdao.getAll_qnaBoard();
+		List<QnaBoardVo> list = qdao.getProduct_qnaBoard(product_id);
 		mav.addObject("product_id",product_id);
 		mav.addObject("vo",p);
 		mav.addObject("list",list);

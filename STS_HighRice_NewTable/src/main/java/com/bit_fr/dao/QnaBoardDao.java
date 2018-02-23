@@ -10,6 +10,10 @@ public class QnaBoardDao {
 	public List<QnaBoardVo> getAll_qnaBoard() {
 		return QnaBoardManager.getAll_qnaBoard();
 	}
+	
+	public List<QnaBoardVo> getProduct_qnaBoard(int product_id){
+		return QnaBoardManager.getProduct_qnaBoard(product_id);
+	}
 
 	public List<QnaBoardVo> getDetail_qnaBoard(int board_id) {
 		return QnaBoardManager.getDetail_qnaBoard(board_id);

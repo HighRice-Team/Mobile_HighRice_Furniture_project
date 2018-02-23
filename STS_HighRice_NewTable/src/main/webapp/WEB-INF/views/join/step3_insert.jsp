@@ -161,10 +161,10 @@
 		</div>
 		<form action="insert_member.do" name="form" id="form" method="post" data-ajax="false">
 			<div class="ui-grid-c join-row">
-		    	<div class="ui-block-a rate-2"><p class="p-1row">아이디</p></div>
-		   		<div class="ui-block-b rate-5"><input type="email" id="member_id" required="required" placeholder="email 형식"></div>
-		    	<div class="ui-block-c rate-1"><input type="button" id="chk_idBtn" value="중복확인" data-mini="true" data-inline="true" data-corners="false" style="margin-top: 10px; overflow: visible;"></div>
-		    	<div class="ui-block-d rate-1" id="emailIcon" style="overflow: visible;"></div>
+		    	<div class="ui-block-a"><p class="p-1row">아이디</p></div>
+		   		<div class="ui-block-b" style="width:40%"><input type="email" id="member_id" required="required" placeholder="email 형식"></div>
+		    	<div class="ui-block-c"><input type="button" id="chk_idBtn" value="중복확인" data-mini="true" data-inline="true" data-corners="false" style="margin-top: 10px; overflow: visible;"></div>
+		    	<div class="ui-block-d" id="emailIcon" style="overflow: visible;"></div>
 			</div>
 			
 			<div class="ui-grid-a join-row">

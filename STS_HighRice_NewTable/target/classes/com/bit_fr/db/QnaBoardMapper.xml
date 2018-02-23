@@ -4,6 +4,11 @@
 	<select id="getAll_qnaBoard" resultType="qnaBoardVo">
 		<![CDATA[select * from qnaboard where board_id > 0 and b_level < 3 order by board_id desc]]>
 	</select>
+		
+	<select id="getProduct_qnaBoard" resultType="qnaBoardVo">
+		<![CDATA[select * from qnaboard where product_id = #{product_id} and b_level < 2 order by board_id desc]]>
+	</select>
+	
 	<select id="getOne_qnaBoard" resultType="qnaBoardVo">
 		select * from qnaboard where board_id = #{board_id}
 	</select>

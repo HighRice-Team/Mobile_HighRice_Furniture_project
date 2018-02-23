@@ -45,6 +45,7 @@ p{
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script type="text/javascript">
 $(function(){
+	
 
 	$(".updateBtn_product").click(function(){
 		var board_id = $(this).attr("board_id")
@@ -59,6 +60,7 @@ $(function(){
 				selectBox = data		
 			}
 		})
+		
 		$.ajax({
 			url:"getDetail_qnaBoard.do",
 			data:data,
@@ -76,10 +78,10 @@ $(function(){
 		})
 		
 	})	
-   $("#insert").click(function(){
+   $("#insertBoard").click(function(){
       var data = $("#insertForm").serializeArray();
       $.ajax({url:"insert_qnaBoard.do",data:data,success:function(data){
-         location.reload();
+         location.href=""
       }});
    });
    
@@ -126,11 +128,53 @@ $(function(){
                 }    
            	})
       })
+      
+      //관리자일때만 댓글폼이 나타나게 하는 ajax
+	$.ajax({url:"getGrade.do", data:{"member_id":$("#sessionId").val()}, success:function(data){
+		if(data == 0){
+			$(".commentform").css("display","")
+		
+		}
+	}})
+	// 댓글 등록
+	$(".commentbtn").click(function(){
+		var data = $(this).parent().parent().serializeArray()
+		$.ajax({url:"insertAdminReply.do", data:data, success:function(data){
+			alert("댓글작성 완료")
+			location.href=""
+		}})
+	})
+	
+	//댓글 보여주기
+	$(".ref").each(function(index, item){
+		
+		$.ajax({url:"getCountRef_qnaboard.do", data:{"b_ref":$(item).val()}, success:function(data){
+			if(data > 1){
+				$.ajax({url:"getComment.do", data:{"b_ref":$(item).val()}, success:function(data){
+					data = eval("("+data+")")
+	 				var div = $("<div id='comment'></div>")
+	 				var h3 = $("<h3></h3>").html(data.title)
+	 				var date = $("<div id='regdate'></div>").html(data.regdate)
+	 				var content = $("<p></p>").html(data.content)
+	 				$(item).parent().parent().parent().find("#detail_reply").append(div)
+	 				$(div).append(h3, date, content)
+					$(item).parent().empty()
+							
+				}})
+			}
+			
+		}})
+		
+	})
+	
+	
 })
 
 </script>
 </head>
 <body>
+	<input type="hidden" id="sessionId" value="${sessionScope.id }">
+	
    <div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
 
       <h3 id="category">${vo.category}</h3>
@@ -200,10 +244,11 @@ $(function(){
    <div style="background-color: grey;">
       <img src="resources/img/product/${vo.sub_img}" style="width: 100%;">
    </div>
-   <form>
+   <form id="insertForm">
+   		<input type="hidden" name = "product_id" value="${vo.product_id }">
 	   <div id="qna" class="ui-grid-a" style="margin: .5em 0 0 0; padding: 0 0 0 0;">
 	      <div class="ui-block-a" style="width: 37%">
-	         <select id="rentMonth"  data-inline="true" data-mini="true"  data-inset="false" data-inline="true" data-corners="false">
+	         <select name="post_type"  data-inline="true" data-mini="true"  data-inset="false" data-inline="true" data-corners="false">
 	            <option selected="selected">문의 분류</option>
 	            <option value="물품문의">물품문의</option>
 	            <option value="주문/결제문의">주문/결제문의</option>
@@ -213,27 +258,27 @@ $(function(){
 	         </select>
 	      </div>
 	      <div class="ui-block-b" style="width: 62.5%;">
-	         <input type="text" data-mini="true" style="width: 100%; margin: 0 0 0 0; padding: .7em 0 0 5%;" placeholder="제목을 입력하세요.">
+	         <input type="text" name="title" data-mini="true" style="width: 100%; margin: 0 0 0 0; padding: .7em 0 0 5%;" placeholder="제목을 입력하세요.">
 	      </div>
 	   </div>
 	   <div class="ui-grid-a" style="text-overflow: clip; margin-right: 0;">
 	        <div class="ui-block-a" style="width: 82%" data-corners="false">
-	             <textarea style="width:100%;" placeholder="문의 내용을 입력하세요."></textarea>
+	             <textarea style="width:100%;" name="content" placeholder="문의 내용을 입력하세요."></textarea>
 	        </div>
  	        <div class="ui-block-b" style="width: 17%; padding-top: .7em; text-align: right" data-corners="false">
-	             <a href="#" data-role="button" data-corners="false" data-mini="true" data-inline="true">등록</a>
+	             <a href="#" data-role="button" data-corners="false" data-mini="true" data-inline="true" id="insertBoard">등록</a>
 	        </div>
        </div>
    </form>
    <hr>
    <div id="productReplyList" style="float:center" width="100%">
-   		<c:forEach var="list" items="${list }" varStatus="cnt" >
-   			<c:if test="${list.product_id==product_id&&list.b_level!=3 }">
+   		<c:forEach var="list" items="${list }" varStatus="cnt" >	
    				<div id="reple${cnt.count }" style="width:94%; background-color:#E5E5E1; margin:2%; padding: 1%;">
                    <div>
 	                   <div style="width:100%; display:inline-block;">
 	                   		<div style="width:49.5%; float:left; font-size:11px;">
-	                   			문의 분류: ${list.post_type}<br><c:if test="${list.b_level==0}"><b>제목: </c:if><c:if test="${list.b_level==1}">[답변완료] </c:if>${list.title}</b>
+	                   			문의 분류: ${list.post_type}<br>
+	                   			<c:if test="${list.b_level==0}"><b>제목: </c:if><c:if test="${list.b_level==1}">[답변완료] </c:if>${list.title}</b>
 	                   		</div>
 	                   		<div style="width:49%; float:right; text-align:right; font-size:11px;">
 	                   			작성자: ${list.member_id}<br>등록일: ${list.regdate}
@@ -250,18 +295,33 @@ $(function(){
 		                   		<input type="button" value="수정" class="updateBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
 		                   		<input type="button" value="삭제" class="deleteBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
 		                   </div>
+		                   
 	                   </c:if>
-	                   
-	                   <c:if test="${list.b_level==1}">
-		                   <div style="width:85%; background-color:#EEEEEE; margin:2% 2% 2% 12.5%;">
-		                   		<div style="width:100%;">
-		                   			답글내용<br>관리자입니다.<br>BITFR을 이용해 주셔서 감사합니다.
-		                   		</div>		
-		                   </div>
-	                   </c:if>
+	                   <div style="border: solid 1px; border-color: gray;">
+	                   <form class="commentform" style="display: none;">
+	                   	<input type="hidden" value="${list.b_ref }" class="ref">
+							<h3 style="text-align: center;">답글 쓰기</h3>
+							<input type="hidden" value="${list.board_id }" name="board_id">
+							<input type="hidden" value="${list.product_id }">
+							<table style="width: 100%">
+								<tr>
+									<td width="25%" style="text-align: center;">제목</td>
+									<td width="*"><input type="text" data-mini="true" name="title"></td>
+								</tr>
+								<tr>
+									<td width="25%" style="text-align: center;">내용</td>
+									<td width="*"><textarea name="content"></textarea></td>
+								</tr>
+							</table>
+							<br>
+							<input type="button" class="commentbtn" data-mini="true" value="답글 등록" data-inline="true">					
+						</form>
+						</div>
+		                <div id="detail_reply" style="width:85%; background-color:#EEEEEE; margin:2% 2% 2% 12.5%;">
+		                		
+		                </div>
                    </div>
                 </div>
-   			</c:if>
    		</c:forEach>
    </div>
 </body>
