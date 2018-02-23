@@ -74,11 +74,11 @@
 				} 
 				
 			} else if ($(this).find(".condition").text() == "수취확인") {
-
+			// 수취확인 기능은 비트맨으로 이동.
 				var result_alert = confirm("수취확인을 하시겠습니까?");
 
 				if (result_alert == true) {
-					order_condition_changeRequest(order_id,'수취확인');
+					order_condition_changeRequest(order_id,'대여중');
 				} 
 				
 			}
@@ -86,7 +86,7 @@
 		});
 
 		$(".state").each(function(index, item) {
-			if ($(this).find(".condition").text() == "반납") {
+			if ($(this).find(".condition").text() == "반납" || $(this).find(".condition").text() == "취소") {
 				$(this).addClass("ui-disabled")
 				$(this).button();
 
@@ -233,11 +233,11 @@
 									data-iconpos="right" class="state_fn" data-mini="true"><span class="condition">반납요청</span><input type="hidden"
 										value="${p.order_id }" id="order_id"></a>	
 								</c:if>	
-								<c:if test="${p.orderlist_condition == '배송중'}">
+								<%-- <c:if test="${p.orderlist_condition == '배송중'}">
 									<a href="#" data-role="button" data-icon="alert"
 									data-iconpos="right" class="state_fn" data-mini="true"><span class="condition">수취확인</span><input type="hidden"
 										value="${p.order_id }" id="order_id"></a>	
-								</c:if>	
+								</c:if>	 --%>
 							</td>
 						</tr>
 					</table>

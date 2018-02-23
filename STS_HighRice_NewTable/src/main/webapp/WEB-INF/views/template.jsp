@@ -125,11 +125,14 @@
 					<a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
 				</div>
 			</c:if>
-				<c:if test="${not empty sessionScope.name}">
+			<c:if test="${not empty sessionScope.name}">
 				<div>${sessionScope.name}님 환영합니다.
 					<a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
 						<img id="logout_img" src="resources/img/logout.png" class="log-img">
 					</a>
+					<c:if test="${sessionScope.grade == '2'}">
+						<a data-ajax="false" href="todoList.do">Bitman</a>
+					</c:if>
 				</div>
 			</c:if>
 			<div data-role="navbar" data-position="inline" class="navbaraa">
