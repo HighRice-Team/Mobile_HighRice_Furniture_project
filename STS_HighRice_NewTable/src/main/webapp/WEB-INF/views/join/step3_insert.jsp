@@ -182,7 +182,7 @@
 						<div class="ui-grid-a hidden"  style="width: 100%" id="chkArea">
 							<div class="ui-block-a" style="width: 78%"><input type="number" id="input_confirmText"></div>
 							<div class="ui-block-b" style="width: 22%; margin: 5px 0 0 0 ; float: right;"><input type="button" data-mini="true" data-inline="true" value="인증" data-corners="false" id="chk_confirmTextBtn"></div>
-							<div class="ui-block-a"><span id="timerView" style="font-size: 2.9vw;"></span><span id="msg_join2"/></span></div>
+							<div class="ui-block-a"><span id="timerView" style="font-size: 2.9vw;"></span><span id="msg_join2"/></div>
 						</div>
 					</div>
 		   		</div>
