@@ -37,7 +37,7 @@
 					var gotoPage = "<%=session.getAttribute("gotoPage")%>"
 					if(gotoPage.length==4){
 						location.href=""
-					}else if(gotoPage="myPage.do"){
+					}else if(gotoPage=="myPage.do"){
 						location.href=gotoPage+"?gotoPage="+gotoPage+"&&selectedMyPage=mP"
 					}else{
 						location.href=gotoPage+"?gotoPage="+gotoPage

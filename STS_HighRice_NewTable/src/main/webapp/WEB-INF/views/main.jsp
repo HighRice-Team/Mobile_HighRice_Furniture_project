@@ -126,7 +126,7 @@
 				document.getElementById("btnlogin2").click();
 			}else{
 				$.ajax({url:"onsite.do", success:function(data){
-					location.href="sellWrite.do"
+					location.href="sellWrite.do?gotoPage=sellWrite.do"
 				}})
 			}
 		})

@@ -35,12 +35,12 @@ public class LoginFilter implements Filter {
 		String id = null;
 		
 		String gotoPage="";
-		if(gotoPage.equals("")||gotoPage.equals(null)) {
+		
+		if(request.getParameter("gotoPage")==null||request.getParameter("gotoPage").equals("")) {
 			gotoPage="";
 		}else {
-			gotoPage = request.getParameter("gotoPage");
+			gotoPage=request.getParameter("gotoPage");
 		}
-		
 		if (((HttpServletRequest) request).getSession().getAttribute("id") != null) {
 			id = (String) ((HttpServletRequest) request).getSession().getAttribute("id");
 		}
