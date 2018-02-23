@@ -39,7 +39,8 @@ $(function(){
 	
 	//수정
 	$("#updateComent").click(function(){
-		if(id = id_qna){
+		alert(id +"|"+ id_qna)
+		if(id == id_qna){
 			location.href="update_qnaBoard.do?board_id="+board_id
 		}else{
 			alert("본인만 수정 가능합니다.")
@@ -48,7 +49,7 @@ $(function(){
 	})
 	//삭제
 	$("#delComment").click(function(){
-		if(id = id_qna){
+		if(id == id_qna){
 			location.href="delete_qnaBoard.do?board_id="+board_id
 		}else{
 			alert("본인만 수정 가능합니다.")
@@ -61,6 +62,7 @@ $(function(){
 			$("#updateComent").css("visibility","hidden")
 			$("#delComment").css("visibility","hidden")
 			$("#commentbtn").css("visibility","hidden")
+			$("#commentform").empty()
 			
 			$.ajax({url:"getComment.do", data:{"b_ref":b_ref}, success:function(data){
 				data = eval("("+data+")")
@@ -101,6 +103,7 @@ $(function(){
 			
 		}
 	}})
+	
 	
 	
 	

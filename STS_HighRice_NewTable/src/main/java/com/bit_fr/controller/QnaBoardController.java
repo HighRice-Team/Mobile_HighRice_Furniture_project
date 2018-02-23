@@ -159,7 +159,7 @@ public class QnaBoardController {
 	@RequestMapping("/update_qnaBoard.do")
 	public ModelAndView update_form(int board_id) {
 		
-		ModelAndView mav = new ModelAndView("main");
+		ModelAndView mav = new ModelAndView("template");
 		QnaBoardVo qb = dao.getOne_qnaBoard(board_id);
 		
 		mav.addObject("viewPage", "qnaBoard/update.jsp");

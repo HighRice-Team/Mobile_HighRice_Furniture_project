@@ -135,16 +135,26 @@
 				location.href="main.do"
 			}})
 		})
+		//페이징 처리 전용
+		 $(".spanNum").each(function(index, item){
+    	  if($(item).html() == $("#inNum").val()){
+    		  $(item).css("color","red")
+    		  $(item).parent().removeAttr("href")
+    	  }
+      	})
 	});
 	function testtest() {
 		$.ajax({url:"onsite.do", success:function(data){
 				location.href="main.do"
 			}})
+			
+			
 	}
 
 </script>
 </head>
 <body>
+<input type="hidden" id="inNum" value="${pageNum }">
    <div data-role="content">
       <div class="slide-box">
          <a href="#"><img src="resources/img/slide1.jpg" alt="slide"></a>
@@ -232,12 +242,18 @@
             </c:forEach>
          </div>
          
-         <!--페이징처리 부분 -->
-		<div id="page" style="text-align: center">
-			<c:forEach var="pageNum" begin="1" end="${pageMax }">
-			   <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
-			</c:forEach>
-		</div>
+          <!--페이징처리 부분 -->
+      <div id="page" style="text-align: center">
+      	<c:if test="${pageNum > page}">
+         	<a href="main.do?pageNum=${pageEnd-page}&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">◀ &nbsp;&nbsp;&nbsp;</a>
+         </c:if>
+         <c:forEach var="pageNum" begin="${pageStart }" end="${pageEnd }">
+            <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false"><span class="spanNum">${pageNum}</span>&nbsp;&nbsp;&nbsp;</a>
+         </c:forEach>
+         <c:if test="${pageEnd < pageMax}">
+         	<a href="main.do?pageNum=${pageEnd+1 }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">▶</a>
+         </c:if>
+      </div>
 	</div>
 	
 	<!--for trigger lightBox-->
