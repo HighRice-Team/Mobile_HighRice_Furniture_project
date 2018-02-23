@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
 #name {
-<<<<<<< HEAD
 	font-size: 1.15vw;
 }
 
@@ -56,55 +55,6 @@
 .list-title {
 	font-size: 20px;
 	font-weight: bold;
-=======
-   font-size: 1.15vw;
-}
-
-#product_box a {
-   text-decoration: none;
-   color: black;
-   font-weight: normal;
-}
-
-#page a {
-   text-decoration: none;
-   color: black;
-   font-size: 2.5vw;
-}
-
-#product_box {
-   font-size: 3vw;
-}
-
-.small {
-   font-size: 1.8vw;
-}
-
-.product_img {
-   padding: 3px 3px 0px 3px;
-}
-
-.slide-box {
-   width: 100%;
-   height: 150px;
-   margin: 0;
-   overflow: hidden;
-   position: relative;
-}
-
-.slide-box img {
-   width: 100%;
-   height: 100%;
-   display: block;
-   position: absolute;
-   top: 0px;
-   left: -100%;
-}
-
-.list-title {
-   font-size: 20px;
-   font-weight: bold;
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 }
 </style>
 <script type="text/javascript">
@@ -140,7 +90,6 @@
       $(".category_img").css("width", $("#product_box").width() * 0.225)
       $(".category_img").css("height", $("#product_box").width() * 0.225)
 
-<<<<<<< HEAD
 		//창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
 		$(window).resize(function() {
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
@@ -192,32 +141,7 @@
 				location.href="main.do"
 			}})
 	}
-=======
-      //창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
-      $(window).resize(function() {
-         $(".category_img").css("width", $("#product_box").width() * 0.225)
-         $(".category_img").css("height", $("#product_box").width() * 0.225)
-      })
-      
-      
-      $("#submit_btn").click(function(){
-         $("#filter_form").submit();
-      });
-      $("#cancel_btn").click(function(){
-         location.href="main.do";
-      });
-      
-      
-       $( "#slider-range" ).slider({range: true, min: 0, max: 10000, values: [ 3000, 6000 ], slide: function( event, ui ) {
-         $("#amount").val( ui.values[ 0 ] + " 원 - " + ui.values[ 1 ] + " 원");
-         $("#min").val(ui.values[ 0 ]);
-         $("#max").val(ui.values[ 1 ]);
-      }});
-      $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) + " 원 - " + $( "#slider-range" ).slider( "values", 1 ) + " 원");
-      $("#min").val($( "#slider-range" ).slider( "values", 0 ));
-      $("#max").val($( "#slider-range" ).slider( "values", 1 )); 
-   });
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+
 </script>
 </head>
 <body>
@@ -309,7 +233,6 @@
          </div>
          
          <!--페이징처리 부분 -->
-<<<<<<< HEAD
 		<div id="page" style="text-align: center">
 			<c:forEach var="pageNum" begin="1" end="${pageMax }">
 			   <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
@@ -332,17 +255,5 @@
 			</div>
 		</div>
   	</div>
-=======
-      <div id="page" style="text-align: center">
-         <c:forEach var="pageNum" begin="1" end="${pageMax }">
-            <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">${pageNum}&nbsp;&nbsp;&nbsp;</a>
-         </c:forEach>
-      </div>
-   </div>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
