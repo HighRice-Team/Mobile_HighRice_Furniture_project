@@ -476,6 +476,7 @@ public class OrderlistController {
 		return str;
 	}
 
+	
 	@RequestMapping(value = "deleteOrders_orderlist.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String deleteOrders_orderlist(String order_id) {
