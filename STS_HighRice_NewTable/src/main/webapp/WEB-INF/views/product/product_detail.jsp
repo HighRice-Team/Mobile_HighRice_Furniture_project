@@ -288,16 +288,15 @@ $(function(){
 	                   		<div style="width:90%;">
 	                   			${list.content}
 	                   		</div>
+	                   		<c:if test="${list.member_id==sessionScope.id&&list.b_level==0}">
+							   	<div style="width:100%; float: right; text-align: right; display: inline-block;">
+			                   		<input type="button" value="수정" class="updateBtn_product" board_id="${list.board_id }" cnt=${cnt.count } data-mini="true" data-inline="true" data-corners="false">
+			                   		<input type="button" value="삭제" class="deleteBtn_product" board_id="${list.board_id }" cnt=${cnt.count } data-mini="true" data-inline="true" data-corners="false">
+			                   	</div>		            
+	                   		</c:if>
 	                   </div>
-	                   
-	                   <c:if test="${list.member_id==sessionScope.id&&list.b_level==0}">
-						   <div style="width:100%; text-align:right;">
-		                   		<input type="button" value="수정" class="updateBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
-		                   		<input type="button" value="삭제" class="deleteBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
-		                   </div>
-		                   
-	                   </c:if>
-	                   <div style="border: solid 1px; border-color: gray;">
+	                  
+	                   <div style="border: solid 1px; border-color: gray; margin-top: 3%;">
 	                   <form class="commentform" style="display: none;">
 	                   	<input type="hidden" value="${list.b_ref }" class="ref">
 							<h3 style="text-align: center;">답글 쓰기</h3>
@@ -305,7 +304,7 @@ $(function(){
 							<input type="hidden" value="${list.product_id }">
 							<table style="width: 100%">
 								<tr>
-									<td width="25%" style="text-align: center;">제목</td>
+									<td width="20%" style="text-align: center;">제목</td>
 									<td width="*"><input type="text" data-mini="true" name="title"></td>
 								</tr>
 								<tr>
