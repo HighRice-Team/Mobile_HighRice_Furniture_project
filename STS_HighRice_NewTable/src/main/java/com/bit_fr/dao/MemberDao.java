@@ -9,6 +9,10 @@ import com.bit_fr.vo.MemberVo;
 
 @Repository
 public class MemberDao {
+	public List<String> getAllJumin_member(){
+		return MemberManager.getAllJumin_member();
+	}
+	
 	public List<MemberVo> getAll_member(MemberVo m) {
 		return MemberManager.getAll_member(m);
 	}

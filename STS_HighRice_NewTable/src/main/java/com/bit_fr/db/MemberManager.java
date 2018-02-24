@@ -84,6 +84,14 @@ public class MemberManager {
 
 		return list;
 	}
+	
+	public static List<String> getAllJumin_member(){
+		SqlSession session = factory.openSession();
+		List<String> list = session.selectList("member.getAllJumin_member");
+		session.close();
+		
+		return list;
+	}
 
 	public static MemberVo getOne_member(String member_id) { // member_id를 매개변수로 받아 해당 member의 정보를 Vo로 반환한다.
 		HashMap map = new HashMap();
