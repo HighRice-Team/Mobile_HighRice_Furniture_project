@@ -157,7 +157,7 @@ public class HomeController {
 	}
 
 	// Node Sever HOST 설정
-	private String node_IP = "203.236.209.226";
+	private String node_IP = "192.168.0.14";
 	private int node_PORT = 52273;
 
 	// deliveryList : 비트맨의 배송목록 ajax통신
@@ -351,8 +351,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/signSave.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String signSave(HttpServletRequest request) {
-		String path = request.getRealPath("/resources/sgin/delivery");
+	public String signSave(HttpServletRequest request , String req) {
+		String path = request.getRealPath("/resources/sign_store/"+req);
 
 		System.out.println(path);
 

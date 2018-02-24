@@ -23,7 +23,7 @@ $(function(){
 		if (sign.isEmpty()) {
 			alert("서명해 주세요.");
 		}else {
-			$.ajax({url : "signSave.do", method : "post", dataType : "json", data : {
+			$.ajax({url : "signSave.do?req=delivery", method : "post", dataType : "json", data : {
 				sign : sign.toDataURL()
 			},success : function(r){
 				

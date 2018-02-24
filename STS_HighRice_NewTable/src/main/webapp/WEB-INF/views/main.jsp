@@ -60,7 +60,7 @@
 <script type="text/javascript">
    $(function() {
       var auto_slide;
-      var auto_time = 2000; // 슬라이드 시간 1000 = 1초
+      var auto_time = 2800; // 슬라이드 시간 1000 = 1초
       var auto_num = 0;
       
 
