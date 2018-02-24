@@ -268,7 +268,16 @@ public class OrderlistController {
 
 		// 프로덕트의 상태변경.
 		re = productDao.updateCondition_product(product_id, condition);
-
+		ProductVo product_v = productDao.getOne_product(product_id);
+		int productPrice = product_v.getPrice();
+		int rentMonth_orderlist = orderlistDao.getRentMonth_orderlist(order_id);
+		
+		int payback = (int)((productPrice * rentMonth_orderlist)* 0.1);
+		
+		String paybackMember = product_v.getMember_id();
+		
+		memberDao.updatePayback_member(paybackMember, payback);
+		
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {

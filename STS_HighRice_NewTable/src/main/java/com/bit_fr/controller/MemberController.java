@@ -294,6 +294,22 @@ public class MemberController {
 		}
 		return str;
 	}
+	
+	@RequestMapping(value = "/updateBalance_member.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateBalance_member(MemberVo v, HttpSession session) {
+		String str = "";
+		ObjectMapper om = new ObjectMapper();
+		String member_id = (String) session.getAttribute("id");
+		v.setMember_id(member_id);
+		int re = member_dao.updateBalance_member(v);
+		try {
+			str = om.writeValueAsString(re);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return str;
+	}
 
 	
 	@RequestMapping(value="updateAddr_member.do", produces="text/plain;charset=utf-8")

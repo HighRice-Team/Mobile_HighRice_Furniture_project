@@ -175,6 +175,14 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	public static int updateBalance_member(MemberVo v) {
+		SqlSession session = factory.openSession(true);
+		int re = session.update("member.updateBalance_member", v);
+		session.close();
+
+		return re;
+	}
 
 	public static int updateAddr_member(MemberVo v) {
 		SqlSession session = factory.openSession(true);

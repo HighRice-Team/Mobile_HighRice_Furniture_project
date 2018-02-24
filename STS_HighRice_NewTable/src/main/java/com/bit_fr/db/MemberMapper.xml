@@ -94,19 +94,39 @@
 	<!-- 회원계정의 정보변경 -->
 	<update id="updateInfo_member">
 		update member set 
-		pwd_q = #{pwd_q},
-		pwd_a = #{pwd_a},
-		address = #{address},
-		address_detail = #{address_detail},
-		account_no = #{account_no},
-		bank = #{bank},
-		<if test="balance != null">
-		balance = #{balance},
-		</if>
-		<if test="grade != null">
-		grade = #{grade},
-		</if>
-		tel = #{tel}
+		
+		<trim suffixOverrides=",">
+			<if test="pwd_q != null">
+			pwd_q = #{pwd_q},
+			</if>
+			<if test="pwd_a != null">
+			pwd_a = #{pwd_a},
+			</if>
+			<if test="address != null">
+			address = #{address},
+			</if>
+			<if test="address_detail != null">
+			address_detail = #{address_detail},
+			</if>
+			<if test="account_no != null">
+			account_no = #{account_no},
+			</if>
+			<if test="bank != null">
+			bank = #{bank},
+			</if>
+			<if test="balance != 0">
+			balance = balance + #{balance},
+			</if>
+			<if test="payback != 0">
+			payback = #{payback},
+			</if>
+			<if test="grade != 0">
+			grade = #{grade},
+			</if>
+			<if test="tel != null">
+			tel = #{tel},
+			</if>
+		</trim>
 		 
 		where member_id = #{member_id}
 	</update>
@@ -123,6 +143,10 @@
 	<!-- payback을 입금해주는 메소드 -->
 	<update id="updatePayback_member">
 		update member set payback = payback + #{payback} where member_id = #{member_id}
+	</update>
+	
+	<update id="updateBalance_member">
+		update member set payback = 0, balance = balance + #{payback} where member_id = #{member_id}
 	</update>
 	
 	<!-- 관리자의 balance에서 payback만큼 계좌가 빠져나감 -->
