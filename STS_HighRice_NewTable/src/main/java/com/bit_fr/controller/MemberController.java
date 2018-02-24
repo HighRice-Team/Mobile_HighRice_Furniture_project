@@ -21,6 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class MemberController {
 
+	
+	
 	@Autowired
 	private JavaMailSender mailSender;
 

@@ -62,6 +62,7 @@
       var auto_slide;
       var auto_time = 2000; // 슬라이드 시간 1000 = 1초
       var auto_num = 0;
+      
 
       $(".slide-box img").eq(auto_num).css({
          "left" : "0%"
