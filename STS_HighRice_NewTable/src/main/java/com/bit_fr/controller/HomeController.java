@@ -16,9 +16,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -353,11 +353,11 @@ public class HomeController {
 
 		System.out.println(path);
 
-		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
+//		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
 		String fileName = System.currentTimeMillis() + ".png";
 		// ex) fileName = member_id+"_"+product_id+".png" =>a1_4.png
 		try {
-			FileUtils.writeByteArrayToFile(new File(path + "/" + fileName), Base64.decodeBase64(sign));
+//			FileUtils.writeByteArrayToFile(new File(path + "/" + fileName), Base64.decodeBase64(sign));
 			ObjectMapper om = new ObjectMapper();
 			fileName = om.writeValueAsString(fileName);
 		} catch (Exception e) {
