@@ -28,11 +28,11 @@ public class MemberDao {
 	public int getCount_member() {
 		return MemberManager.getCount_member();
 	}
-	
-	public List<String> getPwd_q(){
+
+	public List<String> getPwd_q() {
 		return MemberManager.getPwd_q();
 	}
-	
+
 	public int getGrade_member(String member_id) {
 		return MemberManager.getGrade_member(member_id);
 	}
@@ -52,20 +52,17 @@ public class MemberDao {
 	public int updateInfo_member(MemberVo v) {
 		return MemberManager.updateInfo_member(v);
 	}
+
 	
 	public int updateBalance_member(MemberVo v) {
 		return MemberManager.updateBalance_member(v);
 	}
-	
+
 	public int updateAddr_member(MemberVo v) {
 		return MemberManager.updateAddr_member(v);
 	}
-	
+
 	public int updatePayback_member(String member_id, int payback) {
 		return MemberManager.updatePayback_member(member_id, payback);
 	}
-	
-	
-	
-	
 }
