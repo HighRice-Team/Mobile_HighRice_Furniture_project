@@ -363,11 +363,11 @@ public class HomeController {
 
 		System.out.println(path);
 
-//		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
+		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
 		String fileName = System.currentTimeMillis() + ".png";
 		// ex) fileName = member_id+"_"+product_id+".png" =>a1_4.png
 		try {
-//			FileUtils.writeByteArrayToFile(new File(path + "/" + fileName), Base64.decodeBase64(sign));
+			FileUtils.writeByteArrayToFile(new File(path + "/" + fileName), Base64.decodeBase64(sign));
 			ObjectMapper om = new ObjectMapper();
 			fileName = om.writeValueAsString(fileName);
 		} catch (Exception e) {
