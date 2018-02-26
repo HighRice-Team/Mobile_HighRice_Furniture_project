@@ -118,7 +118,19 @@
 		
 		//처음 들어왔을때 라이트박스
 		var on = $("#onsite").val()
+		
 		if(on != 1){
+			//시세가져오기.
+			$.ajax({
+				url:"getAveragePrice_FromWebsite_AJAX.do",
+				success:function(data){
+					var price_avg = eval("("+data+")");
+					$("#BED_AveragePrice").text(price_avg.BED_AveragePrice + " 원");
+					$("#SOFA_AveragePrice").text(price_avg.SOFA_AveragePrice + " 원");
+					$("#CLOSET_AveragePrice").text(price_avg.CLOSET_AveragePrice + " 원");
+					$("#DESK_AveragePrice").text(price_avg.DESK_AveragePrice + " 원");
+				}
+			});
 			document.getElementById("btnon").click();
 		}
 		$("#lightbox_sell").click(function(){
@@ -267,9 +279,25 @@
 			</a>
 			<div style="padding-top: 160px; text-align: center;">
 				<img src="resources/img/lightbox_rent.png" style="width: 45%;" id="lightbox_rent">	
-				<img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">	
+				<img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">
 			</div>
 		</div>
-  	</div>
+		<!-- 오늘의 중고거래 시세. -->
+		<div style="background-color: black; height: 100px; color: white; opacity: 0.8; ">
+		
+			<center><table style="text-align: center; font-size: small; ">
+				<tr style="padding: 2px;">
+					<td colspan="4"><p style="font-size: medium;">오늘의 중고장터 시세</p></td>
+				</tr>
+				<tr>
+					<td>BED</td><td style="padding-left: 10px;" id="BED_AveragePrice"></td><td style="padding-left: 5px;">SOFA</td><td style="padding-left: 5px;" id="SOFA_AveragePrice"></td>
+				</tr>
+				<tr>
+					<td>CLOSET</td><td style="padding-left: 10px;" id="CLOSET_AveragePrice"></td><td style="padding-left: 5px;" >DESK</td><td style="padding-left: 5px;" id="DESK_AveragePrice"></td>
+				</tr>
+			</table>
+			</center>
+		</div>
+	</div>
 </body>
 </html>
