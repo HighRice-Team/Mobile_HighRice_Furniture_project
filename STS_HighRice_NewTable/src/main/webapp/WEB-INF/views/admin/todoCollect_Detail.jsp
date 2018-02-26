@@ -59,9 +59,41 @@ $(function(){
 		
 	});
 	
+	var BED_AveragePrice = "";
+	var SOFA_AveragePrice = "";
+	var CLOSET_AveragePrice = "";
+	var DESK_AveragePrice = "";
+	
+	//시세가져오기.
+	$.ajax({
+		url:"getAveragePrice_FromWebsite_AJAX.do",
+		success:function(data){
+			var price_avg = eval("("+data+")");
+			
+			BED_AveragePrice = "평균 중고시세 : "+ price_avg.BED_AveragePrice + " 원";
+			SOFA_AveragePrice = "평균 중고시세 : "+ price_avg.SOFA_AveragePrice + " 원";
+			CLOSET_AveragePrice = "평균 중고시세 : "+ price_avg.CLOSET_AveragePrice + " 원";
+			DESK_AveragePrice = "평균 중고시세 : "+ price_avg.DESK_AveragePrice + " 원";
+		}
+	});
+	
 	$("input[name='category_radio']").click(function(){
 		$("input[name='category_radio']").removeAttr("category");
 		$(this).attr("category", "category");
+		
+		var placeholder = "";
+		
+		if( $(this).val() == 'DESK' ){
+			placeholder = DESK_AveragePrice;
+		}else if($(this).val() == 'SOFA'){
+			placeholder = SOFA_AveragePrice;
+		}else if($(this).val() == 'BED'){
+			placeholder = BED_AveragePrice;
+		}else if($(this).val() == 'CLOSET'){
+			placeholder = CLOSET_AveragePrice;
+		}
+		
+		$("#price_input").attr("placeholder", placeholder );
 			
 	});
 	
