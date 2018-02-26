@@ -108,7 +108,12 @@
                   <img id="logout_img" src="resources/img/logout.png" class="log-img">
                </a>
                <c:if test="${sessionScope.grade == '2'}">
-                  <a data-ajax="false" href="todoList.do">Bitman</a>
+		         <div data-role="navbar" data-position="inline" class="navbaraa">
+		            <ul>
+		               <li><a data-ajax="false" href="todoList.do">Bitman</a></li>
+		               <li><a data-ajax="false" href="statistics.do">Statistics</a></li>
+		            </ul>
+		         </div>
                </c:if>
             </div>
          </c:if>

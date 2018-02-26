@@ -345,6 +345,16 @@ public class HomeController {
 
 		return mav;
 	}
+	
+	@RequestMapping("/statistics.do")
+	public ModelAndView statistics() {
+		ModelAndView mav = new ModelAndView("template");
+
+		mav.addObject("viewPage", "admin/statistics.jsp");
+
+		return mav;
+	}
+	
 
 	@RequestMapping(value = "/signSave.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody

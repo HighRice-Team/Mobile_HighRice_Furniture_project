@@ -132,7 +132,7 @@
 </head>
 <body>
 	<div data-role="content">
-      <div class="todo-category" style="display: inline-block;">
+      <div class="todo-category" style="display: inline-block; padding-bottom: 3%;">
          <div rel="tab_rent" class="tab_rent active" >
             <P>배송LIST</p>
          </div>
