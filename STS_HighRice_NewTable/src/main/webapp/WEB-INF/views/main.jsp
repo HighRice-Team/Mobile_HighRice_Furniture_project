@@ -8,53 +8,53 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
 #name {
-	font-size: 1.15vw;
+   font-size: 1.15vw;
 }
 
 #product_box a {
-	text-decoration: none;
-	color: black;
-	font-weight: normal;
+   text-decoration: none;
+   color: black;
+   font-weight: normal;
 }
 
 #page a {
-	text-decoration: none;
-	color: black;
-	font-size: 2.5vw;
+   text-decoration: none;
+   color: black;
+   font-size: 2.5vw;
 }
 
 #product_box {
-	font-size: 3vw;
+   font-size: 3vw;
 }
 
 .small {
-	font-size: 1.8vw;
+   font-size: 1.8vw;
 }
 
 .product_img {
-	padding: 3px 3px 0px 3px;
+   padding: 3px 3px 0px 3px;
 }
 
 .slide-box {
-	width: 100%;
-	height: 150px;
-	margin: 0;
-	overflow: hidden;
-	position: relative;
+   width: 100%;
+   height: 150px;
+   margin: 0;
+   overflow: hidden;
+   position: relative;
 }
 
 .slide-box img {
-	width: 100%;
-	height: 100%;
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: -100%;
+   width: 100%;
+   height: 100%;
+   display: block;
+   position: absolute;
+   top: 0px;
+   left: -100%;
 }
 
 .list-title {
-	font-size: 20px;
-	font-weight: bold;
+   font-size: 20px;
+   font-weight: bold;
 }
 </style>
 <script type="text/javascript">
@@ -90,6 +90,68 @@
       $(".category_img").css("width", $("#product_box").width() * 0.225)
       $(".category_img").css("height", $("#product_box").width() * 0.225)
 
+<<<<<<< HEAD
+      //창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
+      $(window).resize(function() {
+         $(".category_img").css("width", $("#product_box").width() * 0.225)
+         $(".category_img").css("height", $("#product_box").width() * 0.225)
+      })
+      
+      
+      $("#submit_btn").click(function(){
+         $("#filter_form").submit();
+      });
+      $("#cancel_btn").click(function(){
+         location.href="main.do";
+      });
+      
+      
+       $( "#slider-range" ).slider({range: true, min: 0, max: 10000, values: [ 3000, 6000 ], slide: function( event, ui ) {
+         $("#amount").val( ui.values[ 0 ] + " 원 - " + ui.values[ 1 ] + " 원");
+         $("#min").val(ui.values[ 0 ]);
+         $("#max").val(ui.values[ 1 ]);
+      }});
+      $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) + " 원 - " + $( "#slider-range" ).slider( "values", 1 ) + " 원");
+      $("#min").val($( "#slider-range" ).slider( "values", 0 ));
+      $("#max").val($( "#slider-range" ).slider( "values", 1 )); 
+      
+      
+      
+      //처음 들어왔을때 라이트박스
+      var on = $("#onsite").val()
+      if(on != 1){
+         document.getElementById("btnon").click();
+      }
+      $("#lightbox_sell").click(function(){
+         if(needToLogin == 'plz'){
+            document.getElementById("btnlogin2").click();
+         }else{
+            $.ajax({url:"onsite.do", success:function(data){
+               location.href="sellWrite.do?gotoPage=sellWrite.do"
+            }})
+         }
+      })
+      $("#lightbox_rent").click(function(){
+         $.ajax({url:"onsite.do", success:function(data){
+            location.href="main.do"
+         }})
+      })
+      //페이징 처리 전용
+       $(".spanNum").each(function(index, item){
+         if($(item).html() == $("#inNum").val()){
+            $(item).css("color","red")
+            $(item).parent().removeAttr("href")
+         }
+         })
+   });
+   function testtest() {
+      $.ajax({url:"onsite.do", success:function(data){
+            location.href="main.do"
+         }})
+         
+         
+   }
+=======
 		//창의 크기가 변동 될 때 상품들의 이미지 크기를 조정.
 		$(window).resize(function() {
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
@@ -162,6 +224,7 @@
 			
 			
 	}
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 
 </script>
 </head>
@@ -256,16 +319,35 @@
          
           <!--페이징처리 부분 -->
       <div id="page" style="text-align: center">
-      	<c:if test="${pageNum > page}">
-         	<a href="main.do?pageNum=${pageEnd-page}&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">◀ &nbsp;&nbsp;&nbsp;</a>
+         <c:if test="${pageNum > page}">
+            <a href="main.do?pageNum=${pageEnd-page}&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">◀ &nbsp;&nbsp;&nbsp;</a>
          </c:if>
          <c:forEach var="pageNum" begin="${pageStart }" end="${pageEnd }">
             <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false"><span class="spanNum">${pageNum}</span>&nbsp;&nbsp;&nbsp;</a>
          </c:forEach>
          <c:if test="${pageEnd < pageMax}">
-         	<a href="main.do?pageNum=${pageEnd+1 }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">▶</a>
+            <a href="main.do?pageNum=${pageEnd+1 }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">▶</a>
          </c:if>
       </div>
+<<<<<<< HEAD
+   </div>
+   
+   <!--for trigger lightBox-->
+   <a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon" data-inline="true"></a>
+   
+   <!-- lightBox Popup -->
+   <div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
+      <div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">   
+         <a href="#" data-rel="back" onclick="testtest()" >
+            <img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px">
+         </a>
+         <div style="padding-top: 160px; text-align: center;">
+            <img src="resources/img/lightbox_rent.png" style="width: 45%;" id="lightbox_rent">   
+            <img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">   
+         </div>
+      </div>
+     </div>
+=======
 	</div>
 	
 	<!--for trigger lightBox-->
@@ -299,5 +381,6 @@
 			</center>
 		</div>
 	</div>
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </body>
 </html>
