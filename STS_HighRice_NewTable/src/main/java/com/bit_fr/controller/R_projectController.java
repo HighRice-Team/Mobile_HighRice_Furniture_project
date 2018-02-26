@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit_fr.dao.MemberDao;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class R_projectController {
@@ -87,7 +90,7 @@ public class R_projectController {
 
 	@RequestMapping("/getAgeForChart.do")
 	public ModelAndView getAgeForChart(HttpServletRequest request) {
-		
+
 		String path = request.getRealPath("resources/chart_img");
 		ModelAndView view = new ModelAndView("template");
 		RConnection connection = null;
@@ -203,56 +206,136 @@ public class R_projectController {
 		// R project 차트 생성식
 		try {
 			System.out.println(path);
-			
+
 			connection = new RConnection();
-			
-			connection.eval("jpeg(filename='"+path+"/genderRate.jpg')");
-			connection.eval("p1 = c("+male.size()+","+femaile.size()+")");
+
+			connection.eval("jpeg(filename='" + path + "/genderRate.jpg')");
+			connection.eval("p1 = c(" + male.size() + "," + femaile.size() + ")");
 			connection.eval("pie(p1,label=c('남자','여자'),main='연령별 비율')");
 			connection.eval("dev.off()");
 
-			connection.eval("jpeg(filename='"+path+"/ageRate.jpg')");
-			connection.eval("p2 = c("+gen10.size()+","+gen20.size()+","+gen30.size()+","+gen40.size()+","+overGen50.size()+")");
+			connection.eval("jpeg(filename='" + path + "/ageRate.jpg')");
+			connection.eval("p2 = c(" + gen10.size() + "," + gen20.size() + "," + gen30.size() + "," + gen40.size()
+					+ "," + overGen50.size() + ")");
 			connection.eval("pie(p2,label=c('10대','20대','30대','40대','50대 이상'),main='세대 비율')");
 			connection.eval("dev.off()");
-			
+
 			connection.close();
 
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		
+
 		view.addObject("genderRate", "genderRate.jpg");
 		view.addObject("ageRate", "ageRate.jpg");
 		view.addObject("viewPage", "Rtest/age_genderRate.jsp");
-		
+
 		return view;
 	}
 
-	@RequestMapping("/Rtest.do")
-	public ModelAndView member_age(HttpServletRequest request) {
-		String path = request.getRealPath("WEB-INF/views/Rtest");
-		ModelAndView view = new ModelAndView("template");
+	// 크롤링 메소드
+	public int getAveragePrice_FromWebsite(String keyword, String website) {
+		int total = 0;
+		String encoding_keyword = "";
+		int AveragePrice = 0;
+
+		if (website == "action") {
+			try {
+
+				// [옥션 가구 중고거래 사이트 ] 판매목록의 최근 60건에 대한 가격.
+				encoding_keyword = URLEncoder.encode(keyword, "EUC-KR");
+				String URL_Category = "http://corners.auction.co.kr/corner/UsedMarketList.aspx?keyword="
+						+ encoding_keyword + "&arraycategory=27000000";
+				
+				Document doc_Category = Jsoup.connect(URL_Category).get();
+				Elements elem_Category = doc_Category.select("div.list_view");
+
+				for (Element i : elem_Category) {
+					String str_Category = i.select("div.market_info > div.present > span.now > strong").text();
+					str_Category = str_Category.replaceAll(",", "");
+					total += Integer.parseInt(str_Category);
+				}
+
+				// 평균 중고거래가격
+				// 0 에대한 예외처리하기.
+				if (elem_Category.size() != 0) {
+					AveragePrice = total / elem_Category.size();
+				}
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		} //
+
+		return AveragePrice;
+	}
+
+	// 오늘의 중고거래 시세 가져오기.
+	@RequestMapping(value = "/getAveragePrice_FromWebsite_AJAX.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String member_age(HttpServletRequest request) {
+		String str = "";
+
+		int BED_AveragePrice = 0;
+		int SOFA_AveragePrice = 0;
+		int CLOSET_AveragePrice = 0;
+		int DESK_AveragePrice = 0;
+
+		String keyword_BED = "침대";
+		String keyword_SOFA = "소파";
+		String keyword_CLOSET = "옷장";
+		String keyword_DESK = "책상";
+
 		try {
 
-			String URL = "http://corners.auction.co.kr/corner/UsedMarketList.aspx?keyword=%uCE68%uB300%20%20%20%20&arraycategory=27000000";
-			Document doc = Jsoup.connect(URL).get();
-			Elements elem = doc.select("div.list_view");
-
-			for (Element i : elem) {
-				String str = i.select("div.market_info > div.present > span.now > strong").text();
-				str = str.replaceAll(",", "");
-				System.out.println(str);
-			}
+			// [침대] 중고 판매목록 평균 중고 가격
+			BED_AveragePrice = getAveragePrice_FromWebsite(keyword_BED, "action");
+			// [소파] 중고 판매목록 평균 중고 가격
+			SOFA_AveragePrice = getAveragePrice_FromWebsite(keyword_SOFA, "action");
+			// [옷장] 중고 판매목록 평균 중고 가격
+			CLOSET_AveragePrice = getAveragePrice_FromWebsite(keyword_CLOSET, "action");
+			// [책상] 중고 판매목록 평균 중고 가격
+			DESK_AveragePrice = getAveragePrice_FromWebsite(keyword_DESK, "action");
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		HashMap map = new HashMap();
 
-		// view.addObject("viewPage", "Rtest/test01.jsp");
+		if (BED_AveragePrice != 0) {
+			map.put("BED_AveragePrice", BED_AveragePrice);
+		} else {
+			map.put("BED_AveragePrice", "-");
+		}
 
-		return view;
+		if (SOFA_AveragePrice != 0) {
+			map.put("SOFA_AveragePrice", SOFA_AveragePrice);
+		} else {
+			map.put("SOFA_AveragePrice", "-");
+		}
+
+		if (CLOSET_AveragePrice != 0) {
+			map.put("CLOSET_AveragePrice", CLOSET_AveragePrice);
+		} else {
+			map.put("CLOSET_AveragePrice", "-");
+		}
+
+		if (DESK_AveragePrice != 0) {
+			map.put("DESK_AveragePrice", DESK_AveragePrice);
+		} else {
+			map.put("DESK_AveragePrice", "-");
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			str = mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+
+		return str;
 	}
 }

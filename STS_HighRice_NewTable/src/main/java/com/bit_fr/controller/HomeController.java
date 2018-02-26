@@ -154,7 +154,7 @@ public class HomeController {
 	}
 
 	// Node Sever HOST 설정
-	private String node_IP = "192.168.0.14";
+	private String node_IP = "192.168.0.160";
 	private int node_PORT = 52273;
 
 	// deliveryList : 비트맨의 배송목록 ajax통신
