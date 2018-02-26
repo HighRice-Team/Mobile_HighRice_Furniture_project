@@ -21,9 +21,9 @@
    font-size: 2.5vw;
 }
 
-p{
+/* p{
    font-size: 13px;
-}
+} */
 
 .small{
    font-size: 1.8vw;
@@ -189,8 +189,8 @@ $(function(){
          <h2>${vo.product_name }</h2>
          <hr>
          <div style="display: inline;">
-            <p style="padding: 0; margin: 0 0 2% 1%;">상품 등급 : ${vo.quality}</p>
-            <p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : <span id="pp"></span>원</p>
+            <p style="padding: 0; margin: 0 0 2% 1%; font-size: 13px">상품 등급 : ${vo.quality}</p>
+            <p style="padding: 0; margin: 3% 0 1% 1%; font-size: 13px">대 여 비   : <span id="pp"></span>원</p>
             <div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
                <div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
                 	  대여 기간 :

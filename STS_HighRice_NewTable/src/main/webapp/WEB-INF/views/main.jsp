@@ -56,6 +56,8 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+.filter-img	{height: 20px; float: right}
+
 </style>
 <script type="text/javascript">
    $(function() {
@@ -143,12 +145,10 @@
     	  }
       	})
 	});
-	function testtest() {
+	function closelightbox() {
 		$.ajax({url:"onsite.do", success:function(data){
-				location.href="main.do"
-			}})
-			
-			
+			location.href="main.do"
+		}})
 	}
 
 </script>
@@ -180,8 +180,8 @@
          </ul>
       </div>
       <!-- filter form -->
-      <div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
-         <h3>Filter</h3>
+      <div data-role="collapsible" data-collapsed-icon="false" data-iconpos="none">
+         <h3>Filter<img src="resources/img/filter.png" class="filter-img"></h3>
          <form action="main.do" id="filter_form" method="post" data-ajax="false">
             <ul data-role="listview" data-inset="true">
                <li data-role="fieldcontain">
@@ -262,9 +262,7 @@
 	<!-- lightBox Popup -->
 	<div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
 		<div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">	
-			<a href="#" data-rel="back" onclick="testtest()" >
-				<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px">
-			</a>
+			<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px" onclick="closelightbox()">
 			<div style="padding-top: 160px; text-align: center;">
 				<img src="resources/img/lightbox_rent.png" style="width: 45%;" id="lightbox_rent">	
 				<img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">	

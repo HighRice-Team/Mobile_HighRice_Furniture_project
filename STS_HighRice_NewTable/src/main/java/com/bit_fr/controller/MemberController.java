@@ -86,7 +86,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
-	public ModelAndView goToInsertMember(MemberVo v, int jumin1) {
+	public ModelAndView goToInsertMember(MemberVo v, String jumin1) {
 		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "join/step3_insert.jsp");
 
