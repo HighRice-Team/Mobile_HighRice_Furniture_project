@@ -126,13 +126,14 @@
 
 <style type="text/css">
 	.todo-category {width:calc(100% + 30px); margin:-15px;}
+	.todo-list {width:calc(100% + 30px); margin:-15px;}
 	.todo-category .tab_rent {width:50%; float:left; text-align: center; background: #ddd}
 	.todo-category .tab_pickup {width:50%; float:right; text-align: center; background: #ddd}
 	.todo-category .active {background: #aaa; color: #fff}</style>
 </head>
 <body>
 	<div data-role="content">
-      <div class="todo-category" style="display: inline-block; padding-bottom: 3%;">
+      <div class="todo-category" style="display: inline-block; padding-bottom: 5%;">
          <div rel="tab_rent" class="tab_rent active" >
             <P>배송LIST</p>
          </div>
@@ -141,17 +142,17 @@
          </div>
       </div>
       <div id="tab_rent" class="todo-list" >
-         <ul id="deliveryList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
+         <ul id="deliveryList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px 0;">
          	<li data-role="list-divider">배송요청</li>
           	<!-- 배송LIST -->  
          </ul>
       </div>
       <div id="tab_pickup" class="todo-list">
-         <ul id="returnList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
+         <ul id="returnList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px 0;">
          	<li data-role="list-divider">반납요청</li>
             <!-- 반납LIST -->
          </ul>
-         <ul id="collectList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
+         <ul id="collectList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px 0;">
          	<li data-role="list-divider">수거요청</li>
             <!-- 수거LIST -->
          </ul>
