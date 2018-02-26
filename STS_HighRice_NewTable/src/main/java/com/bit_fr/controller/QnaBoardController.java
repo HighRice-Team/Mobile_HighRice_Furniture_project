@@ -25,7 +25,50 @@ public class QnaBoardController {
 
 	String str = "";
 
-	@RequestMapping("qnaBoard.do")
+	@RequestMapping("qnaList.do")
+	public ModelAndView qnaBoard() {
+		ModelAndView view = new ModelAndView("template");
+		view.addObject("list", dao.getAll_qnaBoard()); 
+		view.addObject("viewPage", "board/qnaList.jsp");
+		return view;
+	}
+	
+	@RequestMapping("qnaDetail.do")
+	public ModelAndView detail(int board_id) {
+		ModelAndView view = new ModelAndView("template");
+		view.addObject("qnaboard", dao.getOne_qnaBoard(board_id));
+		view.addObject("viewPage", "board/qnaDetail.jsp");
+		return view;
+	}
+	
+	@RequestMapping(value = "qnaInsert.do", method=RequestMethod.GET)
+	public ModelAndView insert_form() {
+		ModelAndView view = new ModelAndView("template");
+		view.addObject("viewPage", "board/qnaInsert.jsp");
+		return view;
+	}
+	
+	@RequestMapping(value = "qnaInsert.do", method=RequestMethod.POST)
+	public ModelAndView insert_submit(QnaBoardVo qb, HttpSession session) {
+		ModelAndView view = new ModelAndView("template");
+		String member_id = (String) session.getAttribute("id");
+		int board_id = dao.getNextId_qnaBoard();
+		
+		qb.setMember_id(member_id);
+		qb.setBoard_id(board_id);
+		qb.setB_ref(board_id);
+		qb.setB_level(0);
+		
+		if(qb.getPost_type() == null || qb.getPost_type().equals(""))
+			qb.setPost_type("일반문의");
+		
+		dao.insert_qnaBoard(qb);
+		
+		view.setViewName("redirect:/qnaList.do");
+		return view;
+	}
+	
+/*	@RequestMapping("qnaBoard.do")
 	public ModelAndView qnaBoard() {
 		ModelAndView view = new ModelAndView("template");
 		
@@ -33,16 +76,16 @@ public class QnaBoardController {
 		
 		view.addObject("viewPage", "qnaBoard/qnaBoard.jsp");
 		return view;
-	}
-
-	@RequestMapping("detailQna.do")
+	}*/
+	
+/*	@RequestMapping("detailQna.do")
 	public ModelAndView detail(int board_id) {
 		ModelAndView view = new ModelAndView("template");
 		view.addObject("qnaboard", dao.getOne_qnaBoard(board_id));
 		view.addObject("viewPage", "qnaBoard/detail.jsp");
 
 		return view;
-	}
+	}*/
 	
 	@RequestMapping(value="getCountRef_qnaboard.do", produces="text/plain; charset=utf-8")
 	@ResponseBody
@@ -76,7 +119,7 @@ public class QnaBoardController {
 		return str;
 	}
 
-	@RequestMapping(value = "insertQna.do", method=RequestMethod.GET)
+/*	@RequestMapping(value = "insertQna.do", method=RequestMethod.GET)
 	public ModelAndView insert_form() {
 		ModelAndView view = new ModelAndView("template");
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
@@ -103,7 +146,7 @@ public class QnaBoardController {
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
 		view.setViewName("redirect:/qnaBoard.do");
 		return view;
-	}
+	}*/
 	
 	
 
