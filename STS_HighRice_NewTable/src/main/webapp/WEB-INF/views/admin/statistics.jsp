@@ -38,27 +38,36 @@ $(function(){
          </div>
       </div>
       <div id="tab_statMember" class="stat_list">
-         <ul id="gender_ul" data-role="listview" data-icon="false" data-split-icon="delete" style="margin: 15px;">
+         <ul id="gender_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">회원 성비</li>
+         	<div id="graph_gender">회원 성비 그래프</div>
          </ul>
-         <ul id="age_ul" data-role="listview" data-icon="false" data-split-icon="delete" style="margin: 15px;">
+         <ul id="age_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">회원 연령대</li>
+         	<div id="graph_age">회원 연령대 그래프</div>
+         </ul>
+         <ul id="order_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
+         	<li data-role="list-divider">시간대별 주문 건수</li>
+         	<div id="graph_order">시간대별 주문 건수 그래프</div>
          </ul>
       </div>
       <div id="tab_statSearch" class="stat_list">
-         <ul id="route_ul" data-role="listview" data-icon="false" style="margin: 15px;">
+         <ul id="route_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">유입 경로</li>
+         	<div id="graph_route">유입 경로 그래프</div>
          </ul>
-         <ul id="keyword_ul" data-role="listview" data-icon="false" style="margin: 15px;">
+         <ul id="keyword_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">유입 검색어</li>
+         	<div id="text-keyword">유입 검색어 텍스트</div>
          </ul>
-         <ul id="visit_ul" data-role="listview" data-icon="false" data-split-icon="delete" style="margin: 15px;">
+         <ul id="dayVisit_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
+         	<li data-role="list-divider">요일별 방문자수</li>
+         	<div id="graph_dayVisit">요일별 방문자수 그래프</div>
+         </ul>
+         <ul id="timemVisit_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">시간대별 방문자수</li>
+         	<div id="graph_timemVisit">시간대별 방문자수 그래프</div>
          </ul>
-         <ul id="order_ul" data-role="listview" data-icon="false" data-split-icon="delete" style="margin: 15px;">
-         	<li data-role="list-divider">시간대별 주문 건수</li>
-         </ul>
-         
       </div>
    </div>
    

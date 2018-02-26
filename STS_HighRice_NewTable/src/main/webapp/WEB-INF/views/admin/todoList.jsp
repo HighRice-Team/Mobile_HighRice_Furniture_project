@@ -141,17 +141,17 @@
          </div>
       </div>
       <div id="tab_rent" class="todo-list" >
-         <ul id="deliveryList_ul" data-role="listview" data-icon="false" data-split-icon="delete" style="margin: 15px;">
+         <ul id="deliveryList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">배송요청</li>
           	<!-- 배송LIST -->  
          </ul>
       </div>
       <div id="tab_pickup" class="todo-list">
-         <ul id="returnList_ul" data-role="listview" data-icon="false" style="margin: 15px;">
+         <ul id="returnList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">반납요청</li>
             <!-- 반납LIST -->
          </ul>
-         <ul id="collectList_ul" data-role="listview" data-icon="false" style="margin: 15px;">
+         <ul id="collectList_ul" data-role="listview" data-icon="false" data-divider-theme="d" style="margin: 15px -5%;">
          	<li data-role="list-divider">수거요청</li>
             <!-- 수거LIST -->
          </ul>
