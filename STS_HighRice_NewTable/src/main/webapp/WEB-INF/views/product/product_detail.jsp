@@ -80,7 +80,7 @@ $(function(){
 	})	
    $("#insertBoard").click(function(){
       var data = $("#insertForm").serializeArray();
-      $.ajax({url:"insert_qnaBoard.do",data:data,success:function(data){
+      $.ajax({url:"qnaInsert.do",data:data,success:function(data){
          location.href=""
       }});
    });
@@ -129,21 +129,6 @@ $(function(){
            	})
       })
       
-      //관리자일때만 댓글폼이 나타나게 하는 ajax
-	$.ajax({url:"getGrade.do", data:{"member_id":$("#sessionId").val()}, success:function(data){
-		if(data == 0){
-			$(".commentform").css("display","")
-		
-		}
-	}})
-	// 댓글 등록
-	$(".commentbtn").click(function(){
-		var data = $(this).parent().parent().serializeArray()
-		$.ajax({url:"insertAdminReply.do", data:data, success:function(data){
-			alert("댓글작성 완료")
-			location.href=""
-		}})
-	})
 	
 	//댓글 보여주기
 	$(".ref").each(function(index, item){

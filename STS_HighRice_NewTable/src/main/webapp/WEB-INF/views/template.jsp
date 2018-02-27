@@ -142,7 +142,7 @@
             
             <div id="tab2" class="tab_content">
                <ul data-role="listview" data-icon="false">
-                  <li><a data-ajax="false" href="qnaBoard.do">QnA</a></li>
+                  <li><a data-ajax="false" href="qnaList.do">QnA</a></li>
                   <li><a data-ajax="false" href="faq.do">FAQ</a></li>
                   <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
                </ul>
