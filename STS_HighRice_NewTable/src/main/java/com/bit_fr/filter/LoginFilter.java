@@ -37,6 +37,8 @@ public class LoginFilter implements Filter {
       String gotoPage="";
       
       if(request.getParameter("gotoPage")==null||request.getParameter("gotoPage").equals("")) {
+         gotoPage="";
+
       }else {
          gotoPage=request.getParameter("gotoPage");
       }

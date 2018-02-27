@@ -91,7 +91,7 @@
       
       <!-- Start panel -->
       <div data-role="panel" data-position="left" data-display="overlay" id="menu" >
-         <a href="#" data-rel="close">
+		 <a href="#" data-rel="close">
             <img src="resources/img/m/close.png" class="close-img">
          </a>
          <c:if test="${empty sessionScope.name}">
@@ -108,12 +108,7 @@
                   <img id="logout_img" src="resources/img/logout.png" class="log-img">
                </a>
                <c:if test="${sessionScope.grade == '2'}">
-		         <div data-role="navbar" data-position="inline" class="navbaraa">
-		            <ul>
-		               <li><a data-ajax="false" href="todoList.do">Bitman</a></li>
-		               <li><a data-ajax="false" href="statistics.do">Statistics</a></li>
-		            </ul>
-		         </div>
+                  <a data-ajax="false" href="todoList.do">Bitman</a>
                </c:if>
             </div>
          </c:if>
@@ -145,7 +140,7 @@
             
             <div id="tab2" class="tab_content">
                <ul data-role="listview" data-icon="false">
-                  <li><a data-ajax="false" href="qnaBoard.do">QnA</a></li>
+                  <li><a data-ajax="false" href="qnaList.do">QnA</a></li>
                   <li><a data-ajax="false" href="faq.do">FAQ</a></li>
                   <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
                </ul>
@@ -157,7 +152,9 @@
       <!-- Start login popup -->
       <div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
          <div class="login-div">
-            <a href="#" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
+            <a href="#" data-rel="back" >
+            	<img src="resources/img/m/close.png" class="close-img">
+            </a>
          </div>
          <form id="loginForm" >
                <div class="ui-grid-a login-row">

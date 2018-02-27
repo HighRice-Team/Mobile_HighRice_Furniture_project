@@ -86,8 +86,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/myPage.do")
-	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min,
-			String selectedMyPage) {
+	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min, String selectedMyPage) {
 		ModelAndView mav = new ModelAndView();
 
 		String member_id = (String) session.getAttribute("id");
@@ -143,12 +142,10 @@ public class HomeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/faq.do")
+	@RequestMapping("/faq.do")
 	public ModelAndView goFAQ() {
-		ModelAndView mav = new ModelAndView();
-
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "board/faq.jsp");
-		mav.setViewName("template");
 
 		return mav;
 	}
@@ -244,7 +241,6 @@ public class HomeController {
 	@RequestMapping("/todoList.do")
 	public ModelAndView todoList() {
 		ModelAndView mav = new ModelAndView("template");
-
 		mav.addObject("viewPage", "admin/todoList.jsp");
 
 		return mav;
@@ -272,7 +268,6 @@ public class HomeController {
 			str = new String(out.toByteArray(), "UTF-8");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 
@@ -336,7 +331,6 @@ public class HomeController {
 			str = new String(out.toByteArray(), "UTF-8");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 
@@ -361,8 +355,6 @@ public class HomeController {
 	public String signSave(HttpServletRequest request , String req) {
 		String path = request.getRealPath("/resources/sign_store/"+req);
 
-		System.out.println(path);
-
 		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
 		String fileName = System.currentTimeMillis() + ".png";
 		// ex) fileName = member_id+"_"+product_id+".png" =>a1_4.png
@@ -378,29 +370,25 @@ public class HomeController {
 
 	@RequestMapping(value = "/sellWrite.do")
 	public ModelAndView sellWrite(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("template");
 		String member_id = (String) session.getAttribute("id");
 		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		mav.setViewName("template");
-
+		
 		return mav;
 	}
 
 	@RequestMapping(value = "/orderlistByCondition.do")
 	public ModelAndView orderlistByCondition() {
-		ModelAndView mav = new ModelAndView();
-
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "orderlist/orderlistByCondition.jsp");
-		mav.setViewName("template");
 
 		return mav;
 	}
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("template");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/adminPage.jsp");
 
 		return mav;

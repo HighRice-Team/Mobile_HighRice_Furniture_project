@@ -21,9 +21,9 @@
    font-size: 2.5vw;
 }
 
-p{
+/* p{
    font-size: 13px;
-}
+} */
 
 .small{
    font-size: 1.8vw;
@@ -105,7 +105,7 @@ $(function(){
 	   
    $("#insertBoard").click(function(){
       var data = $("#insertForm").serializeArray();
-      $.ajax({url:"insert_qnaBoard.do",data:data,success:function(data){
+      $.ajax({url:"qnaInsert.do",data:data,success:function(data){
          location.href=""
       }});
    });
@@ -153,21 +153,21 @@ $(function(){
            	})
       })
       
-      //관리자일때만 댓글폼이 나타나게 하는 ajax
-	$.ajax({url:"getGrade.do", data:{"member_id":$("#sessionId").val()}, success:function(data){
-		if(data == 0){
-			$(".commentform").css("display","")
+//       //관리자일때만 댓글폼이 나타나게 하는 ajax
+// 	$.ajax({url:"getGrade.do", data:{"member_id":$("#sessionId").val()}, success:function(data){
+// 		if(data == 0){
+// 			$(".commentform").css("display","")
 		
-		}
-	}})
-	// 댓글 등록
-	$(".commentbtn").click(function(){
-		var data = $(".commentform").serializeArray()
-		$.ajax({url:"insertAdminReply.do", data:data, success:function(data){
-			alert("댓글작성 완료")
-			location.href=""
-		}})
-	})
+// 		}
+// 	}})
+// 	// 댓글 등록
+// 	$(".commentbtn").click(function(){
+// 		var data = $(".commentform").serializeArray()
+// 		$.ajax({url:"insertAdminReply.do", data:data, success:function(data){
+// 			alert("댓글작성 완료")
+// 			location.href=""
+// 		}})
+// 	})
 	
 	//댓글 보여주기
 	$(".ref").each(function(index, item){
@@ -212,8 +212,8 @@ $(function(){
          <h2>${vo.product_name }</h2>
          <hr>
          <div style="display: inline;">
-            <p style="padding: 0; margin: 0 0 2% 1%;">상품 등급 : ${vo.quality}</p>
-            <p style="padding: 0; margin: 3% 0 1% 1%;">대 여 비   : <span id="pp"></span>원</p>
+            <p style="padding: 0; margin: 0 0 2% 1%; font-size: 13px">상품 등급 : ${vo.quality}</p>
+            <p style="padding: 0; margin: 3% 0 1% 1%; font-size: 13px">대 여 비   : <span id="pp"></span>원</p>
             <div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
                <div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
                 	  대여 기간 :
