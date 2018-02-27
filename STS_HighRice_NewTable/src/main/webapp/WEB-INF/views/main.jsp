@@ -274,7 +274,7 @@
 	<!-- lightBox Popup -->
 	<div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
 		<div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">	
-			<a href="#" data-rel="back" onclick="testtest()" >
+			<a href="main.do"  onclick="testtest()" >
 				<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px">
 			</a>
 			<div style="padding-top: 160px; text-align: center;">
