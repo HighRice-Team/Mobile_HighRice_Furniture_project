@@ -39,7 +39,6 @@ $(function(){
 	
 	//수정
 	$("#updateComent").click(function(){
-		alert(id +"|"+ id_qna)
 		if(id == id_qna){
 			location.href="update_qnaBoard.do?board_id="+board_id
 		}else{
@@ -79,7 +78,7 @@ $(function(){
 			
 			
 			var hidden = $("<button></button>").html("숨기기").attr("data-inline","true")
-			if(id = id_qna){
+			if(id == id_qna){
 				$("#hiddendiv").append(hidden)
 				$(hidden).button()
 				

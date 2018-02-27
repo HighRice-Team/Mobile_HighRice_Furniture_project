@@ -44,6 +44,23 @@ public class QnaBoardController {
 		return view;
 	}
 	
+	@RequestMapping(value = "getDetail_qnaBoard.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String getDetailAjax(int board_id) {
+		String str = "";
+		
+		QnaBoardVo v = dao.getOne_qnaBoard(board_id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(v);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(mapper);
+		}
+		
+		return str;
+	}
+	
 	@RequestMapping(value="getCountRef_qnaboard.do", produces="text/plain; charset=utf-8")
 	@ResponseBody
 	public String getCountRef_qnaboard(int b_ref) {
@@ -172,7 +189,7 @@ public class QnaBoardController {
 	@RequestMapping(value="/updateAjax_qnaBoard.do", produces="text/plain; charset=utf-8")
 	@ResponseBody
 	public String update_submit(QnaBoardVo qnaboard) {
-		
+		System.out.println(qnaboard);
 		String str = "";
 		int re = dao.update_qnaBoard(qnaboard);
 		ObjectMapper mapper = new ObjectMapper();
@@ -193,6 +210,23 @@ public class QnaBoardController {
 		mav.setViewName("redirect:/qnaBoard.do");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/delete_qnaBoardAjax.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String delete_qnaBoardAjax(int board_id) {
+		String str = "";		
+		int re = dao.delete_qnaBoard(board_id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+	
+		
+		return str;
 	}
 
 	@RequestMapping("/hidden_qnaBoard.do")

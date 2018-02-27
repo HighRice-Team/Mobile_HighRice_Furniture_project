@@ -118,8 +118,15 @@ public class MemberController {
 	@ResponseBody
 	public String logout(HttpSession session) {
 		String str = "";
-
-		session.invalidate();
+		
+		session.setAttribute("needToLogin", "");
+		session.removeAttribute("gotoPage");
+		session.removeAttribute("id");
+		session.removeAttribute("pwd");
+		session.removeAttribute("grade");
+		session.removeAttribute("name");
+		
+		
 
 		return str;
 	}
