@@ -69,10 +69,6 @@
    function clearMsg(){
       $("#loginCheck").html("")
    }
-<<<<<<< HEAD
-   
-=======
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 </script>
 </head>
 <body>
@@ -95,8 +91,6 @@
       
       <!-- Start panel -->
       <div data-role="panel" data-position="left" data-display="overlay" id="menu" >
-<<<<<<< HEAD
-      
 		 <a href="#" data-rel="close">
             <img src="resources/img/m/close.png" class="close-img">
          </a>
@@ -161,75 +155,6 @@
             <a href="#" data-rel="back" >
             	<img src="resources/img/m/close.png" class="close-img">
             </a>
-=======
-         <a href="#" data-rel="close">
-            <img src="resources/img/m/close.png" class="close-img">
-         </a>
-         <c:if test="${empty sessionScope.name}">
-            <div>로그인
-               <a onclick="clearMsg()" data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin">
-                  <img id="login_img" src="resources/img/login.png" class="log-img">
-               </a>
-               <a data-inline="true" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin2"></a>
-            </div>
-         </c:if>
-         <c:if test="${not empty sessionScope.name}">
-            <div>${sessionScope.name}님 환영합니다.
-               <a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
-                  <img id="logout_img" src="resources/img/logout.png" class="log-img">
-               </a>
-               <c:if test="${sessionScope.grade == '2'}">
-		         <div data-role="navbar" data-position="inline" class="navbaraa">
-		            <ul>
-		               <li><a data-ajax="false" href="todoList.do">Bitman</a></li>
-		               <li><a data-ajax="false" href="statistics.do">Statistics</a></li>
-		            </ul>
-		         </div>
-               </c:if>
-            </div>
-         </c:if>
-         <div data-role="navbar" data-position="inline" class="navbaraa">
-            <ul>
-               <li><a data-ajax="false" href="myPage.do?selectedMyPage=mP&&gotoPage=myPage.do">My Page</a></li>
-               <li><a data-ajax="false" href="sellWrite.do?gotoPage=sellWrite.do">SELL</a></li>
-               <li><a data-ajax="false" href="cartList.do?gotoPage=cartList.do">CART</a></li>
-            </ul>
-         </div>
-         <div class="select-menu">
-            <div class="tabs">
-               <div rel="tab1" class="tab1 active">
-                  <P>Furniture</p>
-               </div>
-               <div rel="tab2" class="tab2">
-                  <p>Community</p>
-               </div>
-            </div>
-            
-            <div id="tab1" class="tab_content">
-               <ul data-role="listview" data-icon="false">
-                  <li><a data-ajax="false" href="product_list.do?category=DESK">DESK</a></li>
-                  <li><a data-ajax="false" href="product_list.do?category=SOFA">SOFA</a></li>
-                  <li><a data-ajax="false" href="product_list.do?category=BED">BED</a></li>
-                  <li><a data-ajax="false" href="product_list.do?category=CLOSET">CLOSET</a></li>
-               </ul>
-            </div>
-            
-            <div id="tab2" class="tab_content">
-               <ul data-role="listview" data-icon="false">
-                  <li><a data-ajax="false" href="qnaBoard.do">QnA</a></li>
-                  <li><a data-ajax="false" href="faq.do">FAQ</a></li>
-                  <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
-               </ul>
-            </div>
-         </div>
-      </div>
-      <!-- End panel -->
-      
-      <!-- Start login popup -->
-      <div data-role="popup" id="popupLogin" data-position-to="window" class="login-popup">
-         <div class="login-div">
-            <a href="#" data-rel="back" ><img src="resources/img/m/close.png" class="close-img"></a>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
          </div>
          <form id="loginForm" >
                <div class="ui-grid-a login-row">
