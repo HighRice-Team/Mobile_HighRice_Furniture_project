@@ -238,7 +238,7 @@
                   <span class="productName_cart" ><b>${list.product_name }</b></span>
                </div>
                <div style="padding-left: 20%;">
-                  <p class="price_cart">가격 : <span id="price${cnt.count }" class="priceFormat">${list.price}</span> / Month</p>
+                  <p class="price_cart">가격 : <span id="price${cnt.count }" class="priceFormat">${list.price }</span> / Month</p>
                </div>
                <div>
                   <span style="padding-left: 20%; font-size: 3.5vw; float: left;"><br>대여 기간 : </span>
