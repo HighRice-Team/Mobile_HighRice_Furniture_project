@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -392,10 +393,7 @@ public class HomeController {
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("template");
-		mav.addObject("viewPage", "admin/adminPage.jsp");
-
+		ModelAndView mav = new ModelAndView("managementPage/adminPage.jsp");
 		return mav;
 	}
 

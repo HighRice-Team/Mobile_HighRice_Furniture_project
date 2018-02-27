@@ -162,9 +162,6 @@
 	</update>
 	<!-- Delete -->
 
-	<select id="getAllJumin_member" resultType="java.lang.String">
-		select jumin from member
-	</select>
 
 
 
