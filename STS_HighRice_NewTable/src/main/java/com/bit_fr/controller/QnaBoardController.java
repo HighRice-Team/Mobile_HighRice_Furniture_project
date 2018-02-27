@@ -38,15 +38,6 @@ public class QnaBoardController {
 		return view;
 	}
 	
-	@RequestMapping("/delete_qnaBoard.do")
-	public ModelAndView delete_qnaBoard(int board_id) {
-		ModelAndView mav = new ModelAndView();			
-		dao.delete_qnaBoard(board_id);
-		mav.setViewName("redirect:/qnaList.do");
-		
-		return mav;
-	}
-	
 	@RequestMapping(value = "qnaInsert.do", method=RequestMethod.GET)
 	public ModelAndView insert_form() {
 		ModelAndView view = new ModelAndView("template");
@@ -73,6 +64,7 @@ public class QnaBoardController {
 		view.setViewName("redirect:/qnaList.do");
 		return view;
 	}
+
 
 	@RequestMapping(value="getCountRef_qnaboard.do", produces="text/plain; charset=utf-8")
 	@ResponseBody

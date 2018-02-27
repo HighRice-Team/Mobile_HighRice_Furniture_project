@@ -47,37 +47,62 @@
 $(function(){
 	
 
-	$(".updateBtn_product").click(function(){
-		var board_id = $(this).attr("board_id")
-		var cnt = $(this).attr("cnt")
-		var selectBox;
-		var data = {"board_id":board_id}
-		//SelectBox 가져오기.
-		$.ajax({
-			url:"getSelect_qnaBoard.do",
-			data:data,
-			success:function(data){
-				selectBox = data		
-			}
-		})
-		
-		$.ajax({
-			url:"getDetail_qnaBoard.do",
-			data:data,
-			success:function(data){
-				data = eval("("+data+")")
-				$("#reple"+cnt).empty()
-				var post_typeDiv = $("<div></div>").html(selectBox);
-				var titleDiv = $("<div></div>").html("<input type='text' value='"+data.title+"'>");
-				var regdateDiv = $("<div></div>").html("<input type='text' value='"+data.regdate+"'>");
-				var contentDiv = $("<div></div>").html("<textarea>"+data.content+"</textarea>")
-				var updateBtnDiv = $("<div></div>").html("<input type='button' value='수정'><input type='button' value='취소'>")
-				
-				$("#reple"+cnt).append(post_typeDiv, titleDiv, regdateDiv, contentDiv, updateBtnDiv)
-			}
-		})
-		
-	})	
+	//댓글 수정
+	   $(".updateBtn_product").click(function(){
+	      var board_id = $(this).attr("board_id")
+	      var cnt = $(this).attr("cnt")
+	      var selectBox;
+	      var data = {"board_id":board_id}
+	      //SelectBox 가져오기.
+//	       $.ajax({
+//	          url:"getSelect_qnaBoard.do",
+//	          data:data,
+//	          success:function(data){
+//	             selectBox = data      
+//	          }
+//	       })
+	      
+	      $.ajax({
+	         url:"getDetail_qnaBoard.do",
+	         data:data,
+	         success:function(data){
+	            data = eval("("+data+")")
+	            $("#reple"+cnt).empty()
+	            var titleDiv = $("<input type='text' id='title_up' value='"+data.title+"'>");
+	            var regdateDiv = $("<div></div>").attr("style", "text-align: right;").html("등록일  "+ data.regdate);
+	            var contentDiv = $("<textarea id='content_up'></textarea>").html(data.content)
+	            var btnDiv = $("<div></div>").attr("style", "text-align: right;")
+	            var updateBtn = $("<input type='button' value='수정'>").click(function(){
+	               var item = {board_id:data.board_id, title:$("#title_up").val(), content:$("#content_up").val() }
+	               $.ajax({url:"updateAjax_qnaBoard.do", data:item, success:function(data){
+	                  location.href=""
+	               }})
+	            })
+	            var deleteBtn = $("<input type='button' value='취소'>").click(function(){
+	               location.href=""
+	            })
+	            
+	            $(btnDiv).append(updateBtn, deleteBtn)
+	            
+	            $("#reple"+cnt).append(regdateDiv, titleDiv, contentDiv, btnDiv)
+	            
+	            
+	            titleDiv.textinput();
+	            contentDiv.textinput();
+	            updateBtnDiv.button();
+	            deleteBtn.button();
+	         }
+	      })
+	      
+	   })   
+	   //삭제
+	   $(".deleteBtn_product").click(function(){
+	      var data = {board_id : $(this).attr("board_id")}
+	      $.ajax({url:"delete_qnaBoardAjax.do", data:data, success:function(data){
+	         location.href=""
+	      }})
+	   })
+	   
    $("#insertBoard").click(function(){
       var data = $("#insertForm").serializeArray();
       $.ajax({url:"qnaInsert.do",data:data,success:function(data){
@@ -96,8 +121,7 @@ $(function(){
          
          $("body").removeClass("ui-mobile-viewport-transitioning")
          $("#tot_p").html(Intl.NumberFormat().format(rentMonth * price)+" WON")
-         
-         
+       
       })
       
       $("#gotopayment").click(function(){
@@ -129,6 +153,24 @@ $(function(){
            	})
       })
       
+<<<<<<< HEAD
+=======
+      //관리자일때만 댓글폼이 나타나게 하는 ajax
+	$.ajax({url:"getGrade.do", data:{"member_id":$("#sessionId").val()}, success:function(data){
+		if(data == 0){
+			$(".commentform").css("display","")
+		
+		}
+	}})
+	// 댓글 등록
+	$(".commentbtn").click(function(){
+		var data = $(".commentform").serializeArray()
+		$.ajax({url:"insertAdminReply.do", data:data, success:function(data){
+			alert("댓글작성 완료")
+			location.href=""
+		}})
+	})
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 	
 	//댓글 보여주기
 	$(".ref").each(function(index, item){
@@ -137,13 +179,12 @@ $(function(){
 			if(data > 1){
 				$.ajax({url:"getComment.do", data:{"b_ref":$(item).val()}, success:function(data){
 					data = eval("("+data+")")
-	 				var div = $("<div id='comment'></div>")
-	 				var h3 = $("<h3></h3>").html(data.title)
-	 				var date = $("<div id='regdate'></div>").html(data.regdate)
-	 				var content = $("<p></p>").html(data.content)
-	 				$(item).parent().parent().parent().find("#detail_reply").append(div)
-	 				$(div).append(h3, date, content)
-					$(item).parent().empty()
+	 				var replyDate = $("<div id='regdate'></div>").css({"width": "100%", "float": "right", "text-align": "right", "display" : "inline-block", "font-size" : "11px"}).html("등록일: "+data.regdate)
+	 				var replyTitle = $("<div></div>").html("<p>"+data.title+"</p>")
+	 				var replyContent = $("<div></div>").html("<p>"+data.content+"</p>")
+
+	 				$(item).parent().parent().parent().find("#detail_reply").append(replyDate, replyTitle, replyContent)
+	 				$(item).parent().empty()
 							
 				}})
 			}
@@ -263,46 +304,49 @@ $(function(){
 	                   <div style="width:100%; display:inline-block;">
 	                   		<div style="width:49.5%; float:left; font-size:11px;">
 	                   			문의 분류: ${list.post_type}<br>
-	                   			<c:if test="${list.b_level==0}"><b>제목: </c:if><c:if test="${list.b_level==1}">[답변완료] </c:if>${list.title}</b>
 	                   		</div>
 	                   		<div style="width:49%; float:right; text-align:right; font-size:11px;">
 	                   			작성자: ${list.member_id}<br>등록일: ${list.regdate}
 	                   		</div>
 	                   </div>
 	                   <div style="width:100%; display:inline-block;">
+	                   		<p><c:if test="${list.b_level==0}">제목: </c:if><c:if test="${list.b_level==1}">[답변완료] </c:if>${list.title}</p>
 	                   		<div style="width:90%;">
 	                   			${list.content}
-	                   		</div>
+	                   		</div><br>
+	                   		<c:if test="${list.member_id==sessionScope.id&&list.b_level==0}">
+							   	<div style="width:100%; float: right; text-align: right; display: inline-block;">
+			                   		<input type="button" value="수정" class="updateBtn_product" board_id="${list.board_id }" cnt=${cnt.count } data-mini="true" data-inline="true" data-corners="false">
+			                   		<input type="button" value="삭제" class="deleteBtn_product" board_id="${list.board_id }" cnt=${cnt.count } data-mini="true" data-inline="true" data-corners="false">
+			                   	</div>
+	                   		</c:if>
 	                   </div>
-	                   
-	                   <c:if test="${list.member_id==sessionScope.id&&list.b_level==0}">
-						   <div style="width:100%; text-align:right;">
-		                   		<input type="button" value="수정" class="updateBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
-		                   		<input type="button" value="삭제" class="deleteBtn_product" board_id="${list.board_id }" cnt=${cnt.count }>
-		                   </div>
-		                   
-	                   </c:if>
-	                   <div style="border: solid 1px; border-color: gray;">
+	                   <div>
 	                   <form class="commentform" style="display: none;">
-	                   	<input type="hidden" value="${list.b_ref }" class="ref">
-							<h3 style="text-align: center;">답글 쓰기</h3>
+	                   		<input type="hidden" value="${list.b_ref }" class="ref">
 							<input type="hidden" value="${list.board_id }" name="board_id">
 							<input type="hidden" value="${list.product_id }">
 							<table style="width: 100%">
 								<tr>
-									<td width="25%" style="text-align: center;">제목</td>
+									<td colspan="2" style="font-size: 3.3vw; font-weight: bold;">답글 작성</td>
+								</tr>
+								<tr>
+									<td width="20%" style="text-align: center;">제목</td>
 									<td width="*"><input type="text" data-mini="true" name="title"></td>
 								</tr>
 								<tr>
-									<td width="25%" style="text-align: center;">내용</td>
+									<td width="20%" style="text-align: center;">내용</td>
 									<td width="*"><textarea name="content"></textarea></td>
 								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;">
+										<input type="submit" class="commentbtn" data-mini="true" value="답글 등록" data-corners="false" data-inline="true">
+									</td>
+								</tr>
 							</table>
-							<br>
-							<input type="button" class="commentbtn" data-mini="true" value="답글 등록" data-inline="true">					
 						</form>
 						</div>
-		                <div id="detail_reply" style="width:85%; background-color:#EEEEEE; margin:2% 2% 2% 12.5%;">
+ 		                <div id="detail_reply" style="width:85%; background-color:#EEEEEE; padding: 2% 0% 2% 2%; margin:2% 2% 2% 12.5%;">
 		                		
 		                </div>
                    </div>

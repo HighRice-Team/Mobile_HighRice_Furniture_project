@@ -37,7 +37,10 @@ public class LoginFilter implements Filter {
       String gotoPage="";
       
       if(request.getParameter("gotoPage")==null||request.getParameter("gotoPage").equals("")) {
+<<<<<<< HEAD
          gotoPage="";
+=======
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
       }else {
          gotoPage=request.getParameter("gotoPage");
       }
