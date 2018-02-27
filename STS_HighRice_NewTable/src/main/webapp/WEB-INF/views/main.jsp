@@ -159,12 +159,8 @@
     	  }
       	})
 	});
-<<<<<<< HEAD
+
 	function closelightbox() {
-=======
-   
-	function testtest() {
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		$.ajax({url:"onsite.do", success:function(data){
 			location.href="main.do"
 		}})
@@ -172,7 +168,6 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
 <input type="hidden" id="inNum" value="${pageNum }">
    <div data-role="content">
       <div class="slide-box">
@@ -243,80 +238,6 @@
             </ul>
          </form>
       </div>
-=======
-	<input type="hidden" id="inNum" value="${pageNum }">
-	<div data-role="content">
-		<div class="slide-box">
-			<a href="#"><img src="resources/img/slide1.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide2.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide3.jpg" alt="slide"></a>
-			<a href="#"><img src="resources/img/slide4.jpg" alt="slide"></a>
-		</div>
-		<div style="text-align: center">
-			<c:if test="${category == null}">
-				<p class="list-title">전체 가구 목록
-			</c:if>
-			<c:if test="${category != null}">
-				<p class="list-title">${category}목록
-			</c:if>
-		</div>
-		<!-- filter category -->
-		<div data-role="navbar" data-position="inline">
-			<ul>
-				<li><a data-ajax="false" href="main.do?category=SOFA">SOFA</a></li>
-				<li><a data-ajax="false" href="main.do?category=BED">BED</a></li>
-				<li><a data-ajax="false" href="main.do?category=CLOSET">CLOSET</a></li>
-				<li><a data-ajax="false" href="main.do?category=DESK">DESK</a></li>
-			</ul>
-		</div>
-		<!-- filter form -->
-		<div data-role="collapsible" data-theme="d"
-			data-collapsed-icon="search" data-expanded-icon="search"
-			data-iconpos="right">
-			<h3>Filter</h3>
-			<form action="main.do" id="filter_form" method="post"
-				data-ajax="false">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain"><label>상품 품질 :</label>
-						<div class="ui-grid-b">
-							<div class="ui-block-a">
-								<input type="radio" id="quality_a" name="quality" value="A">
-								<label for="quality_a">A</label>
-							</div>
-							<div class="ui-block-b">
-								<input type="radio" id="quality_b" name="quality" value="B">
-								<label for="quality_b">B</label>
-							</div>
-							<div class="ui-block-c">
-								<input type="radio" id="quality_c" name="quality" value="C">
-								<label for="quality_c">C</label>
-							</div>
-						</div></li>
-					<li data-role="fieldcontain"><label>월 대여가격 :</label><br>
-						<br>
-						<p>
-							<input type="text" id="amount" readonly="readonly"
-								style="border: 0; color: #f6931f; font-weight: bold;">
-						</p>
-						<div id="slider-range"></div></li>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
-
-					<li data-role="fieldcontain"><input type="hidden"
-						name="category" id="category" value="${category}"> <input
-						type="hidden" name="min" id="min"> <input type="hidden"
-						name="max" id="max">
-
-						<div class="ui-grid-a">
-							<div class="ui-block-a">
-								<input type="button" id="submit_btn" value="정렬하기" data-theme="b">
-							</div>
-							<div class="ui-block-b">
-								<input type="button" id="cancel_btn" value="취소하기" data-theme="b">
-							</div>
-						</div></li>
-				</ul>
-			</form>
-		</div>
 
 		<!--상품목록 -->
 		<div style="width: 100%; display: inline-block;" id="product_box">
@@ -362,20 +283,9 @@
 		data-transition="fade" id="btnon" data-inline="true"></a>
 
 	<!-- lightBox Popup -->
-<<<<<<< HEAD
 	<div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
 		<div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">	
 			<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px" onclick="closelightbox()">
-=======
-	<div data-role="popup" id="light" data-icon="delete" data-theme="none"
-		style="width: 300px; height: 300px;">
-		<div
-			style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">
-			<a href="main.do" onclick="testtest()"> <img
-				src="resources/img/m/close_w.png" class="close-img"
-				style="padding: 10px">
-			</a>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 			<div style="padding-top: 160px; text-align: center;">
 				<img src="resources/img/lightbox_rent.png" style="width: 45%;"
 					id="lightbox_rent"> <img
