@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
@@ -13,8 +13,23 @@ table{
 }
 
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.0.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+<style type="text/css">
+	.button { width: 100px; height: 30px; margin: 15px 0 10px 0; font-size: 15px; border: 1px solid #ddd; border-radius: 7px;}
+	.contentForm { margin: 0 15% 0 15%; padding: 40px 0 40px 0;}
+	#table { width="100%"; float: left;}
+	#main_footer{
+		font-size: 1.2vw;
+	}
+</style>
 <script type="text/javascript">
 $(function(){
 		
@@ -353,6 +368,7 @@ $(function(){
 			<li><a href="#a">물품관리</a></li>
 			<li><a href="#b">주문관리</a></li>
 			<li><a href="#c">회원관리</a></li>
+			<li><a href="index.jsp">메인</a></li>
 		</ul>
 		
 		<div id="a">

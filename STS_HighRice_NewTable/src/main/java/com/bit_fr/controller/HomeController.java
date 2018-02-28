@@ -392,7 +392,7 @@ public class HomeController {
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView("managementPage/adminPage.jsp");
+		ModelAndView mav = new ModelAndView("./managementPage/adminPage");
 		return mav;
 	}
 
