@@ -26,7 +26,12 @@
 $(function(){
 	   $("#insert").click(function(){
 		   if($("#mainIMG").val()!=null && $("#mainIMG").val()!=""){
-			   $("#sellInsertForm").submit(); 
+			   if($("#subIMG").val()!=null && $("#subIMG").val()!=""){
+				   $("#sellInsertForm").submit(); 
+			   }else{
+				   alert("이미지를 모두 등록해주세요")
+			   }
+			   
 		   }else{
 			   alert("이미지를 등록해주세요")
 		   }     

@@ -63,6 +63,21 @@ $(function(){
 	
 	$("#goToCart").click(function() {
 		var data = {"rent_month":$("#rentMonth").val(),"product_id":product_id};
+		
+		<%
+ 			String loginChk_02 = "";
+ 		
+ 			if( session.getAttribute("id") != null){
+ 				loginChk_02 = (String)session.getAttribute("id");
+ 			}
+ 		%>
+ 		var id = null;
+ 		id = '<%=loginChk_02%>';
+ 		
+ 		if(id == '') {
+ 	    	alert("로그인이 필요한 서비스입니다.")
+ 	    	return;
+		}
 		$.ajax({url:"insertOrderListAjax.do", data:data, success:function(data){
 			if(data >= 1){
 				if(confirm("이미 등록한 상품입니다. 장바구니로 이동하시겠습니까?")){

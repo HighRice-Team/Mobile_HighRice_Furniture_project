@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +38,7 @@ import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hanb.sms.SmsSend;
 
 /**
  * Handles requests for the application home page.
@@ -66,6 +69,8 @@ public class HomeController {
 	public void setOrderlistDao(OrderlistDao orderlistDao) {
 		this.orderlistDao = orderlistDao;
 	}
+	
+	
 
 	// 처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
 	@RequestMapping(value = "/onsite.do", produces = "text/plain; charset=utf-8")
@@ -181,6 +186,38 @@ public class HomeController {
 
 		return str;
 	}
+	
+	//SMS 메소드
+	@RequestMapping(value="chkphone.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String chkphone(String phone) {
+		
+		String str = "";
+		
+		int n = RNum();
+		SmsSend.send(phone, n);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(n);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
+	//랜덤번호 생성
+	public static int RNum()
+	{
+		int r = (int) (Math.floor(Math.random() * 1000000)+100000);
+		if(r>1000000){
+			   r = r - 100000;
+			}
+		return r;
+		
+	}  
 
 	// returnList : 비트맨의 반납요청 목록 ajax통신
 	@RequestMapping(value = "/todoListAjax_returnList.do", produces = "text/plain;charset=utf-8")
@@ -388,9 +425,7 @@ public class HomeController {
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "admin/adminPage.jsp");
-
+		ModelAndView mav = new ModelAndView("./managementPage/adminPage");
 		return mav;
 	}
 
