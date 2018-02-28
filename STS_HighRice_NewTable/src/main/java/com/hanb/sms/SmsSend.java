@@ -41,13 +41,11 @@ class CEncrypt
     String strENCData = "";
 
     public CEncrypt(){}
-    //�ν��Ͻ� ���� �� �ѹ濡 ó���� �� �ֵ��� ������ �ߺ����׽��ϴ�. 
     public CEncrypt(String EncMthd, String strData)
     {
         this.encrypt(EncMthd, strData);
     }
 
-    //��ȣȭ ������ �����ϴ� �޼ҵ��Դϴ�.
     public void encrypt(String EncMthd, String strData)
    {
        try
@@ -64,21 +62,17 @@ class CEncrypt
          }
        }catch(NoSuchAlgorithmException e)
       {
-         System.out.print("��ȣȭ �˰����� �����ϴ�.");
+         System.out.print(e);
       };
     
-      //���߿� ���� �����Ͱ� �ʿ����� ���� ������ �Ӵϴ�.
       strSRCData = strData;
     }
 
-    //������ �ζ��� �Լ�(�ƴ�, �޼ҵ�)���Դϴ�.
     public String getEncryptData(){return strENCData;}
     public String getSourceData(){return strSRCData;}
 
-    //�����Ͱ� ������ �����ִ� �޼ҵ��Դϴ�.
     public boolean equal(String strData)
     {
-      //��ȣȭ �����Ͷ� �񱳸� �ϴ�, �����̶� �񱳸� �ϴ� �����....
       if(strData == strENCData) return true;
       return false;
     }
