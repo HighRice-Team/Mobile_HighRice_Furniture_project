@@ -38,6 +38,14 @@ public class QnaBoardController {
 		return view;
 	}
 	
+	@RequestMapping("/qnaDelete.do")
+	public ModelAndView qnaDelete(int board_id) {
+		ModelAndView view = new ModelAndView("template");         
+		dao.delete_qnaBoard(board_id);
+		view.setViewName("redirect:/qnaList.do");
+		return view;
+   }
+
 	@RequestMapping(value = "qnaInsert.do", method=RequestMethod.GET)
 	public ModelAndView insert_form() {
 		ModelAndView view = new ModelAndView("template");
@@ -144,15 +152,38 @@ public class QnaBoardController {
 	public void hidden_qnaBoard(int board_id) {
 		dao.hidden_qnaBoard(board_id);
 	}
-	
-	
-	/*
-	@RequestMapping("reply.do")
-	public ModelAndView reply() {
-		ModelAndView view = new ModelAndView("template");
-		view.addObject("viewPage", "qnaBoard/reply.jsp");
+
+	@RequestMapping("/productQnaDelete.do")
+	public ModelAndView productQnaDelete(int board_id, int product_id) {
+		ModelAndView view = new ModelAndView("template");         
+		dao.delete_qnaBoard(board_id);
+		view.setViewName("redirect://product_detail.do?product_id="+product_id);
 		return view;
-	}*/
+   }
+	
+	@RequestMapping("/productQnaInsert.do")
+	@ResponseBody
+	public String productQnaInsert(QnaBoardVo qnaboard, HttpSession session) {
+
+		String member_id = (String) session.getAttribute("id");
+		int board_id = dao.getNextId_qnaBoard();
+		
+		qnaboard.setMember_id(member_id);
+		qnaboard.setBoard_id(board_id);
+		qnaboard.setB_ref(board_id);
+		qnaboard.setB_level(0);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(qnaboard);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		dao.insert_qnaBoard(qnaboard);
+		return str;
+	}
+	
+	
+
 	
 /*	@RequestMapping("qnaBoard.do")
 	public ModelAndView qnaBoard() {
@@ -197,7 +228,7 @@ public class QnaBoardController {
 		qb.setB_level(0);
 		
 		int re = dao.insert_qnaBoard(qb);
-		
+		                                                                                                                                                              
 		view.addObject("viewPage", "qnaBoard/insert.jsp");
 		view.setViewName("redirect:/qnaBoard.do");
 		return view;
