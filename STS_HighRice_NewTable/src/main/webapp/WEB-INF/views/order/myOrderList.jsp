@@ -125,70 +125,77 @@
 	<div data-role="content">
 		<h2 style="text-align: center;">${member.name }님의 주문내역</h2>
 		<br>
-		
-		<!-- filter form -->
-		<div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
-			<h3>검색하기</h3>
-			<form action="myOrderList.do" id="seach_form" method="post" data-ajax="false">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain">
-						<br><label>상태 분류 :</label><br>
-						<div class="ui-grid-c">
-							<div class="ui-block-a rate-2" >
-								<input type="radio" id="condition_pay" name="condition" value="입금완료" data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="condition_pay">입금완료</label>
-							</div>
-							<div class="ui-block-b rate-2">
-								<input type="radio" id="condition_rent" name="condition" value="대여중" data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="condition_rent">대여중</label>
-							</div>
-							<div class="ui-block-c rate-2">
-								<input type="radio" id="condition_ing" name="condition" value="배송중" data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="condition_ing">배송중</label>
-							</div>
-							<div class="ui-block-d rate-2">
-								<input type="radio" id="condition_complete" name="condition" value="반납" data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="condition_complete">반납</label>
-							</div>
-						</div>
-					</li>
 
-					<li data-role="fieldcontain">
-						<br><label>가구분류 :</label><br>
-						<div class="ui-grid-c">
-							<div class="ui-block-a">
-								<input type="radio" id="DESK" name="category" value="DESK"  data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="DESK">DESK</label>
-							</div>
-							<div class="ui-block-b">
-								<input type="radio" id="SOFA" name="category" value="SOFA"  data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="SOFA">SOFA</label>
-							</div>
-							<div class="ui-block-c">
-								<input type="radio" id="BED" name="category" value="BED"  data-inline="true" data-mini="true" data-iconpos="top">
-								<label for=BED>BED</label>
-							</div>
-							<div class="ui-block-d">
-								<input type="radio" id="CLOSET" name="category" value="CLOSET"  data-inline="true" data-mini="true" data-iconpos="top">
-								<label for="CLOSET">CLOSET</label>
-							</div>
-						</div>
-					</li>
-					
-					<li data-role="fieldcontain">
-						
+
+
+		<!-- filter form -->
+		<div data-role="collapsible" data-theme="d"
+			data-collapsed-icon="search" data-expanded-icon="search"
+			data-iconpos="right">
+			<h3>검색하기</h3>
+			<form action="myOrderList.do" id="seach_form" method="post"
+				data-ajax="false">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="fieldcontain"><br>
+					<label>상태 분류 :</label><br>
 						<div class="ui-grid-a">
 							<div class="ui-block-a">
-								<input type="button" id="submit_btn" value="검색하기" data-theme="b" >
+								<input type="radio" id="condition_pay" name="condition"
+									value="입금완료" data-mini="true"> <label
+									for="condition_pay">입금완료</label>
+							</div>
+							<div class="ui-block-b">
+								<input type="radio" id="condition_rent" name="condition"
+									value="대여중" data-mini="true"> <label
+									for="condition_rent">대여중</label>
+							</div>
+							<div class="ui-block-a">
+								<input type="radio" id="condition_ing" name="condition"
+									value="배송중" data-mini="true"> <label
+									for="condition_ing">배송중</label>
+							</div>
+							<div class="ui-block-b">
+								<input type="radio" id="condition_complete" name="condition"
+									value="반납" data-mini="true"> <label
+									for="condition_complete">반납</label>
+							</div>
+						</div></li>
+
+					<li data-role="fieldcontain"><br>
+					<label>가구분류 :</label><br>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<input type="radio" id="DESK" name="category" value="DESK"
+									data-mini="true"> <label for="DESK">DESK</label>
+							</div>
+							<div class="ui-block-b">
+								<input type="radio" id="SOFA" name="category" value="SOFA"
+									data-mini="true"> <label for="SOFA">SOFA</label>
+							</div>
+							<div class="ui-block-a">
+								<input type="radio" id="BED" name="category" value="BED"
+									data-mini="true"> <label for=BED>BED</label>
+							</div>
+							<div class="ui-block-b">
+								<input type="radio" id="CLOSET" name="category" value="CLOSET"
+									data-mini="true"> <label for="CLOSET">CLOSET</label>
+							</div>
+						</div></li>
+
+					<li data-role="fieldcontain">
+
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<input type="button" id="submit_btn" value="검색하기" data-theme="b">
 							</div>
 							<div class="ui-block-b">
 								<input type="button" id="cancel_btn" value="취소하기" data-theme="b">
 							</div>
 						</div>
 					</li>
-					
+
 				</ul>
-				
+
 			</form>
 		</div>
 		<c:forEach var="p" items="${list }">
