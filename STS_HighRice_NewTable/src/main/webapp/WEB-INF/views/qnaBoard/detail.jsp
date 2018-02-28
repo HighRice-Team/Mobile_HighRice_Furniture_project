@@ -61,6 +61,7 @@ $(function(){
 			$("#updateComent").css("visibility","hidden")
 			$("#delComment").css("visibility","hidden")
 			$("#commentbtn").css("visibility","hidden")
+			$("#commentform").empty()
 			
 			$.ajax({url:"getComment.do", data:{"b_ref":b_ref}, success:function(data){
 				data = eval("("+data+")")
@@ -101,6 +102,7 @@ $(function(){
 			
 		}
 	}})
+	
 	
 	
 	

@@ -115,6 +115,7 @@ $(function(){
 					// 체크리스트에 따른 가격 상승.
 					index = index + (total/20);
 					var month_price = price + (price * index);
+					month_price = Math.ceil(month_price);
 
 					$("#price").val(month_price);
 					$("#quality_text").html("품질상태 : "+quality);

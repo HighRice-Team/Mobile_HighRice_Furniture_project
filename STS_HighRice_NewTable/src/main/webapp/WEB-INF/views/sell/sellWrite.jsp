@@ -24,15 +24,14 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	  
-	   
+
 	   $("#mainIMG").change(function(){
 		   var mainIMG = $("#mainIMG").val();
 		   if(mainIMG.length >= 10){
 			   mainIMG = mainIMG.substring(0, 10)+"..."
 		   }
 		   
-		   $("#main").html("파일명 :"+ mainIMG)
+		   $("#main").html("파일명 :"+ mainIMG)  
 	   })
 	   $("#subIMG").change(function(){
 		   var subIMG = $("#subIMG").val();
