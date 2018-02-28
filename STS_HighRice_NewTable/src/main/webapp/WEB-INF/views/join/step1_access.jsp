@@ -24,11 +24,10 @@
 </head>
 <body>
 	<div data-role="content">
-		<div class="ui-grid-c join-process">
+		<div class="ui-grid-b join-process">
 		    <div class="ui-block-a step point"><p>약관동의</p></div>
-		    <div class="ui-block-b step"><p>인증</p></div>
-		    <div class="ui-block-c step"><p>가입진행</p></div>
-		    <div class="ui-block-d step"><p>완료</p></div>
+		    <div class="ui-block-b step"><p>가입진행</p></div>
+		    <div class="ui-block-c step"><p>완료</p></div>
 		</div>
 		<form action="joinCheck.do" name="form" method="get" data-ajax="false">
 			<div data-role="collapsible" data-collapsed="false" data-content-theme="d">

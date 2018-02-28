@@ -41,6 +41,7 @@ public class LoginFilter implements Filter {
 		} else {
 			gotoPage = request.getParameter("gotoPage");
 		}
+
 		if (((HttpServletRequest) request).getSession().getAttribute("id") != null) {
 			id = (String) ((HttpServletRequest) request).getSession().getAttribute("id");
 		}

@@ -365,6 +365,7 @@ public class OrderlistController {
 		// 멤버의 잔고 & 결제하기.
 		MemberVo mv = memberDao.getOne_member(member_id);
 		long balance = mv.getBalance();
+		System.out.println(balance);
 
 		// 결제하기.
 		if ((balance - paymentOne) >= 0) {

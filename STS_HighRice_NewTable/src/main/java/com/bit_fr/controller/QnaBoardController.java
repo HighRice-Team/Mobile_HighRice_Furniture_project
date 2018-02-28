@@ -244,5 +244,40 @@ public class QnaBoardController {
 			System.out.println(e);
 		}
 		return str;
+	}
+
+	@RequestMapping("/delete_qnaBoard.do")
+	public ModelAndView delete_qnaBoard(int board_id) {
+		ModelAndView mav = new ModelAndView();			
+		int re = dao.delete_qnaBoard(board_id);
+		
+		mav.setViewName("redirect:/qnaBoard.do");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/delete_qnaBoardAjax.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String delete_qnaBoardAjax(int board_id) {
+		String str = "";		
+		int re = dao.delete_qnaBoard(board_id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(re);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+	
+		
+		return str;
+	}
+
+	@RequestMapping("/hidden_qnaBoard.do")
+	@ResponseBody
+	public void hidden_qnaBoard(int board_id) {
+		dao.hidden_qnaBoard(board_id);
+	}
 	}*/
+
 }

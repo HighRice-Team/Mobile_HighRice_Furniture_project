@@ -45,7 +45,6 @@
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script type="text/javascript">
 $(function(){
-	
 
 	//댓글 수정
 	   $(".updateBtn_product").click(function(){
@@ -133,24 +132,41 @@ $(function(){
       })
       
       $("#goToCart").click(function(){
-    	  
+         
          var data = {"rent_month":$("#rentMonth").val(),"product_id":product_id};
             
+         <%
+ 			String loginChk_02 = "";
+ 		
+ 			if( session.getAttribute("id") != null){
+ 				loginChk_02 = (String)session.getAttribute("id");
+ 			}
+ 		%>
+ 			
+ 			var id = null;
+ 			id = '<%=loginChk_02%>';
+ 		
+ 			if(id == ''){
+ 	    			alert("로그인이 필요한 서비스입니다.")
+ 	    			return;
+ 	      		}
+         
+         
             $.ajax({
                 url:"insertOrderListAjax.do",
                 data:data,
                 success:function(data){
                    if(data >= 1){
-                      	if(confirm("이미 등록한 상품입니다. 장바구니로 이동하시겠습니까?")){
-                         	location.href="cartList.do";
-                      	}                   
+                         if(confirm("이미 등록한 상품입니다. 장바구니로 이동하시겠습니까?")){
+                            location.href="cartList.do";
+                         }                   
                    }else{ 
-                		if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
+                      if(confirm("장바구니에 추가하였습니다. 장바구니로 이동하시겠습니까?")){
                             location.href="cartList.do";
                         }    
                    }
                 }    
-           	})
+              })
       })
       
 //       //관리자일때만 댓글폼이 나타나게 하는 ajax
@@ -190,14 +206,13 @@ $(function(){
 		
 	})
 	
-	
 })
 
 </script>
 </head>
 <body>
-	<input type="hidden" id="sessionId" value="${sessionScope.id }">
-	
+   <input type="hidden" id="sessionId" value="${sessionScope.id }">
+   
    <div data-role="content" style="text-align: center; position: relative; padding: 5% 7% 5% 7%">
 
       <h3 id="category">${vo.category}</h3>
@@ -216,7 +231,7 @@ $(function(){
             <p style="padding: 0; margin: 3% 0 1% 1%; font-size: 13px">대 여 비   : <span id="pp"></span>원</p>
             <div class="ui-grid-a" style="padding: 0; margin: 0; font-size: 13px;">
                <div class="ui-block-a" style="width: 69px; padding: 2% 0 0 1%">
-                	  대여 기간 :
+                     대여 기간 :
                </div>
                <div class="ui-block-b">
                   <select id="rentMonth" style="margin: 0 0 0 0; padding: 0 0 0 0;" data-inline="true" data-mini="true" data-inline="true" data-corners="false">
@@ -247,9 +262,9 @@ $(function(){
                <div class="ui-block-a" data-corners="false">
 
                   <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY<br>NOW<br><hr>구매하기</a>
-		       
+             
                </div>
-		    
+          
                <div class="ui-block-b" data-corners="false">
 
                   <a id="goToCart" data-role="button" data-corners="false">ADD TO<br>CART<br><hr>장바구니</a>
@@ -268,35 +283,35 @@ $(function(){
       <img src="resources/img/product/${vo.sub_img}" style="width: 100%;">
    </div>
    <form id="insertForm">
-   		<input type="hidden" name = "product_id" value="${vo.product_id }">
-	   <div id="qna" class="ui-grid-a" style="margin: .5em 0 0 0; padding: 0 0 0 0;">
-	      <div class="ui-block-a" style="width: 37%">
-	         <select name="post_type"  data-inline="true" data-mini="true"  data-inset="false" data-inline="true" data-corners="false">
-	            <option selected="selected">문의 분류</option>
-	            <option value="물품문의">물품문의</option>
-	            <option value="주문/결제문의">주문/결제문의</option>
-	            <option value="배송문의">배송문의</option>
-	            <option value="취소/환불문의">취소/환불문의</option>
-	            <option value="기타문의">기타문의</option>
-	         </select>
-	      </div>
-	      <div class="ui-block-b" style="width: 62.5%;">
-	         <input type="text" name="title" data-mini="true" style="width: 100%; margin: 0 0 0 0; padding: .7em 0 0 5%;" placeholder="제목을 입력하세요.">
-	      </div>
-	   </div>
-	   <div class="ui-grid-a" style="text-overflow: clip; margin-right: 0;">
-	        <div class="ui-block-a" style="width: 82%" data-corners="false">
-	             <textarea style="width:100%;" name="content" placeholder="문의 내용을 입력하세요."></textarea>
-	        </div>
- 	        <div class="ui-block-b" style="width: 17%; padding-top: .7em; text-align: right" data-corners="false">
-	             <a href="#" data-role="button" data-corners="false" data-mini="true" data-inline="true" id="insertBoard">등록</a>
-	        </div>
+         <input type="hidden" name = "product_id" value="${vo.product_id }">
+      <div id="qna" class="ui-grid-a" style="margin: .5em 0 0 0; padding: 0 0 0 0;">
+         <div class="ui-block-a" style="width: 37%">
+            <select name="post_type"  data-inline="true" data-mini="true"  data-inset="false" data-inline="true" data-corners="false">
+               <option selected="selected">문의 분류</option>
+               <option value="물품문의">물품문의</option>
+               <option value="주문/결제문의">주문/결제문의</option>
+               <option value="배송문의">배송문의</option>
+               <option value="취소/환불문의">취소/환불문의</option>
+               <option value="기타문의">기타문의</option>
+            </select>
+         </div>
+         <div class="ui-block-b" style="width: 62.5%;">
+            <input type="text" name="title" data-mini="true" style="width: 100%; margin: 0 0 0 0; padding: .7em 0 0 5%;" placeholder="제목을 입력하세요.">
+         </div>
+      </div>
+      <div class="ui-grid-a" style="text-overflow: clip; margin-right: 0;">
+           <div class="ui-block-a" style="width: 82%" data-corners="false">
+                <textarea style="width:100%;" name="content" placeholder="문의 내용을 입력하세요."></textarea>
+           </div>
+            <div class="ui-block-b" style="width: 17%; padding-top: .7em; text-align: right" data-corners="false">
+                <a href="#" data-role="button" data-corners="false" data-mini="true" data-inline="true" id="insertBoard">등록</a>
+           </div>
        </div>
    </form>
    <hr>
    <div id="productReplyList" style="float:center" width="100%">
-   		<c:forEach var="list" items="${list }" varStatus="cnt" >	
-   				<div id="reple${cnt.count }" style="width:94%; background-color:#E5E5E1; margin:2%; padding: 1%;">
+         <c:forEach var="list" items="${list }" varStatus="cnt" >   
+               <div id="reple${cnt.count }" style="width:94%; background-color:#E5E5E1; margin:2%; padding: 1%;">
                    <div>
 	                   <div style="width:100%; display:inline-block;">
 	                   		<div style="width:49.5%; float:left; font-size:11px;">
@@ -348,7 +363,7 @@ $(function(){
 		                </div>
                    </div>
                 </div>
-   		</c:forEach>
+         </c:forEach>
    </div>
 </body>
 </html>
