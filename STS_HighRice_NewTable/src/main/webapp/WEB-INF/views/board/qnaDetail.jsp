@@ -25,6 +25,9 @@ $(function(){
 				$("#test1").append(data.title)
 				$("#test2").append(data.regdate)
 				$("#test3").append(data.content)
+				if(id == data.member_id){
+					$("#adminDel").css("visibility","visible")
+				}
 			}})
 		}
 	}})
@@ -33,7 +36,6 @@ $(function(){
 	$.ajax({url:"getGrade.do", data:{"member_id":id}, success:function(data){
 		if(data == 0){
 			$("#commentform").css("visibility","visible")
-			$("#adminDel").css("visibility","visible")
 		}
 	}})
 		
@@ -74,7 +76,7 @@ $(function(){
 				</div>
 				<div id="test3"  style="margin: 10px 0 10px 0; word-break:break-all; word-wrap:break-word;"></div>
 				<div id="adminDel" style="text-align: right; visibility: hidden;">
-					<a href="delete_qnaBoard.do?board_id=-${qnaboard.board_id }">삭제</a>
+					<a href="qnaDelete.do?board_id=-${qnaboard.board_id }">삭제</a>
 				</div>
 			</div>
 		</div>
@@ -83,7 +85,7 @@ $(function(){
 		</div>
 		<div id="controlDiv" style="visibility: hidden;text-align: right;">
 			<a href="resources/dialog/qnaUpdate.jsp?board_id=${qnaboard.board_id }" data-rel="dialog">수정</a>
-			<a href="delete_qnaBoard.do?board_id=${qnaboard.board_id }">삭제</a>
+			<a href="qnaDelete.do?board_id=${qnaboard.board_id }">삭제</a>
 		</div>
 		<form id="commentform" style="visibility:hidden;">
 			<p>답글쓰기</p>
