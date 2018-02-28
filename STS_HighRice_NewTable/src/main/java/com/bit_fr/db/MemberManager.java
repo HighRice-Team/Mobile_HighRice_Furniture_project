@@ -13,7 +13,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 
-
 public class MemberManager {
 	private static SqlSessionFactory factory;
 	static {
@@ -84,6 +83,14 @@ public class MemberManager {
 
 		return list;
 	}
+	
+	public static List<String> getAllJumin_member(){
+		SqlSession session = factory.openSession();
+		List<String> list = session.selectList("member.getAllJumin_member");
+		session.close();
+		
+		return list;
+	}
 
 	public static MemberVo getOne_member(String member_id) { // member_id를 매개변수로 받아 해당 member의 정보를 Vo로 반환한다.
 		HashMap map = new HashMap();
@@ -111,15 +118,16 @@ public class MemberManager {
 
 		return re;
 	}
-	//매니저 분류
+
+	// 매니저 분류
 	public static int getGrade_member(String member_id) {
 		SqlSession session = factory.openSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("member_id", member_id);
 		int re = session.selectOne("member.getGrade_member", map);
-		
+
 		session.close();
-		
+
 		return re;
 	}
 
@@ -175,6 +183,14 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	public static int updateBalance_member(MemberVo v) {
+		SqlSession session = factory.openSession(true);
+		int re = session.update("member.updateBalance_member", v);
+		session.close();
+
+		return re;
+	}
 
 	public static int updateAddr_member(MemberVo v) {
 		SqlSession session = factory.openSession(true);
@@ -193,5 +209,6 @@ public class MemberManager {
 	}
 
 	// Delete
+
 
 }

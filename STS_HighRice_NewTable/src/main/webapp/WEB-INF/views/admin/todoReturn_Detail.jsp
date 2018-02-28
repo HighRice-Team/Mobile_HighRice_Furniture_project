@@ -54,7 +54,6 @@ $(function(){
 	$("#product_img").html("<img src='resources/img/product/"+json.productInfo.main_img+"' style='width: 100%'><br><br><p>가구상세 정보</p>가구이름 : "+json.productInfo.product_name+"<br>상태등급 : "+json.productInfo.quality+"<br><br>카테고리 : "+json.productInfo.category+"<br>월 대여가격 : "+json.productInfo.price+"<br><br>대여시작일 : "+json.orderListInfo.rent_start+"<br>대여 반납예정일 : "+json.orderListInfo.rent_end+"<br><br><br>");    
 	
 	
-	
 	$("input[type='checkbox']").click(function(){
 		
 		if($(this).attr("plus") != "plus"){

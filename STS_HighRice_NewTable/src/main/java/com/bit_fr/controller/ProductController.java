@@ -93,7 +93,7 @@ public class ProductController {
 
 		return mav;
 	}
-
+	int num = 0;
 	@RequestMapping("/main.do")
 	public ModelAndView main(@RequestParam(defaultValue = "1") int pageNum, String category, String quality,
 			@RequestParam(defaultValue = "0") int min, @RequestParam(defaultValue = "0") int max, HttpSession session) {
@@ -102,7 +102,8 @@ public class ProductController {
 		int endNum = pageNum * productMax;
 		int startNum = endNum - (productMax - 1);
 		
-
+		num += 1;
+		System.out.println(num);
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
 		if (category != null && category.equals("")) {
@@ -421,6 +422,7 @@ public class ProductController {
 	@RequestMapping("/sellInsert.do")
 	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");
+		System.out.println(path);
 		String member_id = (String) session.getAttribute("id");
 		String main_img = "";
 		String sub_img = "";

@@ -33,14 +33,15 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String id = null;
-		
-		String gotoPage="";
-		if(gotoPage.equals("")||gotoPage.equals(null)) {
-			gotoPage="";
-		}else {
+
+		String gotoPage = "";
+
+		if (request.getParameter("gotoPage") == null || request.getParameter("gotoPage").equals("")) {
+			gotoPage = "";
+		} else {
 			gotoPage = request.getParameter("gotoPage");
 		}
-		
+
 		if (((HttpServletRequest) request).getSession().getAttribute("id") != null) {
 			id = (String) ((HttpServletRequest) request).getSession().getAttribute("id");
 		}
@@ -50,7 +51,6 @@ public class LoginFilter implements Filter {
 			(((HttpServletRequest) request).getSession()).setAttribute("needLoginMsg", "해당 서비스는 로그인 후 이용이 가능합니다.");
 			(((HttpServletRequest) request).getSession()).setAttribute("gotoPage", gotoPage);
 			((HttpServletResponse) response).sendRedirect("main.do");
-			
 
 		} else {
 			chain.doFilter(request, response);

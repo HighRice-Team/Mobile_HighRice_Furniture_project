@@ -49,7 +49,7 @@
     <url-pattern>/insertQna.do</url-pattern>
     <url-pattern>/goMultiplePayment.do</url-pattern>
     <url-pattern>/myOrderList.do</url-pattern>
-    <url-pattern>/insertQna.do</url-pattern>
+    <url-pattern>/qnaInsert.do</url-pattern>
   </filter-mapping>
   
 </web-app>

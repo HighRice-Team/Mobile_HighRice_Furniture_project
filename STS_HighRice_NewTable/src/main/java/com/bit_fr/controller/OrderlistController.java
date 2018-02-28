@@ -1,5 +1,7 @@
 package com.bit_fr.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -231,6 +233,7 @@ public class OrderlistController {
 			}
 
 		}
+		
 
 		// member_id 값에 따른 회원정보 가져오기.
 		MemberVo mv = memberDao.getOne_member(member_id);
@@ -268,7 +271,16 @@ public class OrderlistController {
 
 		// 프로덕트의 상태변경.
 		re = productDao.updateCondition_product(product_id, condition);
-
+		ProductVo product_v = productDao.getOne_product(product_id);
+		int productPrice = product_v.getPrice();
+		int rentMonth_orderlist = orderlistDao.getRentMonth_orderlist(order_id);
+		
+		int payback = (int)((productPrice * rentMonth_orderlist)* 0.1);
+		
+		String paybackMember = product_v.getMember_id();
+		
+		memberDao.updatePayback_member(paybackMember, payback);
+		
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
@@ -353,6 +365,7 @@ public class OrderlistController {
 		// 멤버의 잔고 & 결제하기.
 		MemberVo mv = memberDao.getOne_member(member_id);
 		long balance = mv.getBalance();
+		System.out.println(balance);
 
 		// 결제하기.
 		if ((balance - paymentOne) >= 0) {

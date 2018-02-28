@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
@@ -56,12 +58,28 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+.filter-img	{height: 20px; float: right}
+
 </style>
 <script type="text/javascript">
+<<<<<<< HEAD
 	$(function() {
 		var auto_slide;
 		var auto_time = 2500; // 슬라이드 시간 1000 = 1초
 		var auto_num = 0;
+=======
+   $(function() {
+	   
+	   $(".imgSize").each(function(index,item){
+		  item.height = (item.width*1.029)
+	   })
+	   
+	   
+      var auto_slide;
+      var auto_time = 2800; // 슬라이드 시간 1000 = 1초
+      var auto_num = 0; 
+
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
       $(".slide-box img").eq(auto_num).css({
          "left" : "0%"
       }); // 처음로드시 첫이미지 보이기
@@ -93,6 +111,9 @@
 		$(window).resize(function() {
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
 			$(".category_img").css("height", $("#product_box").width() * 0.225)
+			$(".imgSize").each(function(index,item){
+			  item.height = (item.width*1.029)
+		    })
 		})
 		
 		
@@ -117,7 +138,19 @@
 		
 		//처음 들어왔을때 라이트박스
 		var on = $("#onsite").val()
+		
 		if(on != 1){
+			//시세가져오기.
+			$.ajax({
+				url:"getAveragePrice_FromWebsite_AJAX.do",
+				success:function(data){
+					var price_avg = eval("("+data+")");
+					$("#BED_AveragePrice").text(price_avg.BED_AveragePrice + " 원");
+					$("#SOFA_AveragePrice").text(price_avg.SOFA_AveragePrice + " 원");
+					$("#CLOSET_AveragePrice").text(price_avg.CLOSET_AveragePrice + " 원");
+					$("#DESK_AveragePrice").text(price_avg.DESK_AveragePrice + " 원");
+				}
+			});
 			document.getElementById("btnon").click();
 		}
 		$("#lightbox_sell").click(function(){
@@ -125,7 +158,7 @@
 				document.getElementById("btnlogin2").click();
 			}else{
 				$.ajax({url:"onsite.do", success:function(data){
-					location.href="sellWrite.do"
+					location.href="sellWrite.do?gotoPage=sellWrite.do"
 				}})
 			}
 		})
@@ -142,14 +175,12 @@
     	  }
       	})
 	});
-	function testtest() {
-		$.ajax({url:"onsite.do", success:function(data){
-				location.href="main.do"
-			}})
-			
-			
-	}
 
+	function closelightbox() {
+		$.ajax({url:"onsite.do", success:function(data){
+			location.href="main.do"
+		}})
+	}
 </script>
 </head>
 <body>
@@ -179,8 +210,8 @@
          </ul>
       </div>
       <!-- filter form -->
-      <div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
-         <h3>Filter</h3>
+      <div data-role="collapsible" data-collapsed-icon="false" data-iconpos="none">
+         <h3>Filter<img src="resources/img/filter.png" class="filter-img"></h3>
          <form action="main.do" id="filter_form" method="post" data-ajax="false">
             <ul data-role="listview" data-inset="true">
                <li data-role="fieldcontain">
@@ -224,51 +255,84 @@
          </form>
       </div>
 
-      <!--상품목록 -->
-      <div style="width: 100%; display: inline-block;" id="product_box" >
-            <c:forEach items="${list}" var="list" varStatus="status">
-               <a href="product_detail.do?product_id=${list.product_id}" data-ajax="false">
-                  <div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center; padding-bottom: 10px;">
-                  <div class="product_img">
-                     <img src="resources/img/product/${list.main_img}" width="100%">
-                  </div>
-                  <p>${list.product_name}</p>
-                  <p>Category: ${list.category }</p>
-                  QUALITY: ${list.quality}<br>
-                  PRICE: ${price_with[status.index]}<font class="small">WON</font>/<font class="small">MONTH</font><br>
-                  </div>
-               </a>
-            </c:forEach>
-         </div>
-         
-          <!--페이징처리 부분 -->
-      <div id="page" style="text-align: center">
-      	<c:if test="${pageNum > page}">
-         	<a href="main.do?pageNum=${pageEnd-page}&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">◀ &nbsp;&nbsp;&nbsp;</a>
-         </c:if>
-         <c:forEach var="pageNum" begin="${pageStart }" end="${pageEnd }">
-            <a href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false"><span class="spanNum">${pageNum}</span>&nbsp;&nbsp;&nbsp;</a>
-         </c:forEach>
-         <c:if test="${pageEnd < pageMax}">
-         	<a href="main.do?pageNum=${pageEnd+1 }&category=${category}&quality=${quality}&max=${max }&min=${min }" data-ajax="false">▶</a>
-         </c:if>
-      </div>
+		<!--상품목록 -->
+		<div style="width: 100%; display: inline-block;" id="product_box">
+			<c:forEach items="${list}" var="list" varStatus="status">
+				<a href="product_detail.do?product_id=${list.product_id}"
+					data-ajax="false">
+					<div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center; padding-bottom: 10px;">
+						<div class="product_img">
+							<img src="resources/img/product/${list.main_img}" width="100%" class="imgSize" onchange="resizeImg()">
+						</div>
+						<p>${list.product_name}</p>
+						<p>Category: ${list.category }</p>
+						QUALITY: ${list.quality}<br> PRICE:
+						${price_with[status.index]}<font class="small">WON</font>/<font
+							class="small">MONTH</font><br>
+					</div>
+				</a>
+			</c:forEach>
+		</div>
+
+		<!--페이징처리 부분 -->
+		<div id="page" style="text-align: center">
+			<c:if test="${pageNum > page}">
+				<a
+					href="main.do?pageNum=${pageEnd-page}&category=${category}&quality=${quality}&max=${max }&min=${min }"
+					data-ajax="false">◀ &nbsp;&nbsp;&nbsp;</a>
+			</c:if>
+			<c:forEach var="pageNum" begin="${pageStart }" end="${pageEnd }">
+				<a
+					href="main.do?pageNum=${pageNum }&category=${category}&quality=${quality}&max=${max }&min=${min }"
+					data-ajax="false"><span class="spanNum">${pageNum}</span>&nbsp;&nbsp;&nbsp;</a>
+			</c:forEach>
+			<c:if test="${pageEnd < pageMax}">
+				<a
+					href="main.do?pageNum=${pageEnd+1 }&category=${category}&quality=${quality}&max=${max }&min=${min }"
+					data-ajax="false">▶</a>
+			</c:if>
+		</div>
 	</div>
-	
+
 	<!--for trigger lightBox-->
-	<a href="#light" data-rel="popup" data-position-to="window" data-transition="fade" id="btnon" data-inline="true"></a>
-	
+	<a href="#light" data-rel="popup" data-position-to="window"
+		data-transition="fade" id="btnon" data-inline="true"></a>
+
 	<!-- lightBox Popup -->
 	<div data-role="popup" id="light" data-icon="delete" data-theme="none" style="width: 300px; height: 300px;">
 		<div style="background-image: url('resources/img/lightbox.png'); background-size: 300px; height: 300px">	
-			<a href="#" data-rel="back" onclick="testtest()" >
-				<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px">
-			</a>
+			<img src="resources/img/m/close_w.png" class="close-img" style="padding: 10px" onclick="closelightbox()">
 			<div style="padding-top: 160px; text-align: center;">
-				<img src="resources/img/lightbox_rent.png" style="width: 45%;" id="lightbox_rent">	
-				<img src="resources/img/lightbox_sell.png" style="width: 45%;" id="lightbox_sell">	
+				<img src="resources/img/lightbox_rent.png" style="width: 45%;"
+					id="lightbox_rent"> <img
+					src="resources/img/lightbox_sell.png" style="width: 45%;"
+					id="lightbox_sell">
 			</div>
 		</div>
-  	</div>
+		<!-- 오늘의 중고거래 시세. -->
+		<div
+			style="background-color: black; height: 100px; color: white; opacity: 0.8;">
+
+			<center>
+				<table style="text-align: center; font-size: small;">
+					<tr style="padding: 2px;">
+						<td colspan="4"><p style="font-size: medium;">오늘의 중고장터 시세</p></td>
+					</tr>
+					<tr>
+						<td>BED</td>
+						<td style="padding-left: 10px;" id="BED_AveragePrice"></td>
+						<td style="padding-left: 5px;">SOFA</td>
+						<td style="padding-left: 5px;" id="SOFA_AveragePrice"></td>
+					</tr>
+					<tr>
+						<td>CLOSET</td>
+						<td style="padding-left: 10px;" id="CLOSET_AveragePrice"></td>
+						<td style="padding-left: 5px;">DESK</td>
+						<td style="padding-left: 5px;" id="DESK_AveragePrice"></td>
+					</tr>
+				</table>
+			</center>
+		</div>
+	</div>
 </body>
 </html>
