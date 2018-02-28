@@ -39,6 +39,7 @@ public class LoginFilter implements Filter {
       if(request.getParameter("gotoPage")==null||request.getParameter("gotoPage").equals("")) {
          gotoPage="";
 
+
       }else {
          gotoPage=request.getParameter("gotoPage");
       }
@@ -46,12 +47,13 @@ public class LoginFilter implements Filter {
          id = (String) ((HttpServletRequest) request).getSession().getAttribute("id");
       }
 
+
       if (id == null) {
          (((HttpServletRequest) request).getSession()).setAttribute("needToLogin", "plz");
          (((HttpServletRequest) request).getSession()).setAttribute("needLoginMsg", "해당 서비스는 로그인 후 이용이 가능합니다.");
          (((HttpServletRequest) request).getSession()).setAttribute("gotoPage", gotoPage);
          ((HttpServletResponse) response).sendRedirect("main.do");
-         
+
 
       } else {
          chain.doFilter(request, response);
@@ -64,3 +66,4 @@ public class LoginFilter implements Filter {
    public void init(FilterConfig fConfig) throws ServletException {
    }
 }
+

@@ -91,6 +91,7 @@
       
       <!-- Start panel -->
       <div data-role="panel" data-position="left" data-display="overlay" id="menu" >
+
 		 <a href="#" data-rel="close">
             <img src="resources/img/m/close.png" class="close-img">
          </a>

@@ -422,6 +422,7 @@ public class ProductController {
 	@RequestMapping("/sellInsert.do")
 	public ModelAndView insert_sell(ProductVo p, HttpServletRequest request, HttpSession session) {
 		String path = request.getRealPath("/resources/img/product");
+		System.out.println(path);
 		String member_id = (String) session.getAttribute("id");
 		String main_img = "";
 		String sub_img = "";

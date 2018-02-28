@@ -9,6 +9,10 @@
 		<![CDATA[select * from qnaboard where product_id = #{product_id} and b_level < 2 order by board_id desc]]>
 	</select>
 	
+	<select id="getSelect_qnaBoard">
+		
+	</select>
+	
 	<select id="getOne_qnaBoard" resultType="qnaBoardVo">
 		select * from qnaboard where board_id = #{board_id}
 	</select>
