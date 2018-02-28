@@ -4,36 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-<!-- Select -->
+	<!-- Select -->
 
 	<!-- Member 테이블의 모든 객체를 member_id 순으로 정렬한 결과를 List로 반환한다. -->
 	<select id="getAll_member" resultType="memberVo">
-		select * from member 
+		select * from member
 		<trim prefix="WHERE" prefixOverrides="AND">
-				<if test="member_id != null">AND member_id like '${member_id}'</if>
-				<if test="pwd != null">AND pwd like '${pwd}'</if>
-				<if test="name != null">AND name like '${name}'</if>
-				<if test="tel != null">AND tel like '${tel}'</if>
-				<if test="jumin != null">AND jumin like '${jumin}'</if>
-				<if test="pwd_q != null">AND pwd_q like '${pwd_q}'</if>
-				<if test="pwd_a != null">AND pwd_a like '${pwd_a}'</if>
-				<if test="address != null">AND address like '${address}'</if>
-				<if test="address_detail != null">AND address_detail like '${address_detail}'</if>
-				<if test="payback!=null">AND and payback = #{payback}</if>
-				<if test="account_no != null">AND account_no like '${account_no}'</if>
-				<if test="bank != null">AND bank like '${bank}'</if>
-				<if test="balance!=null">AND balance = #{balance}</if>
-				<if test="grade!=null">AND grade = #{grade}</if>
-				<if test="grade==null">AND grade = 1</if>
+			<if test="member_id != null">AND member_id like '${member_id}'</if>
+			<if test="pwd != null">AND pwd like '${pwd}'</if>
+			<if test="name != null">AND name like '${name}'</if>
+			<if test="tel != null">AND tel like '${tel}'</if>
+			<if test="jumin != null">AND jumin like '${jumin}'</if>
+			<if test="pwd_q != null">AND pwd_q like '${pwd_q}'</if>
+			<if test="pwd_a != null">AND pwd_a like '${pwd_a}'</if>
+			<if test="address != null">AND address like '${address}'</if>
+			<if test="address_detail != null">AND address_detail like '${address_detail}'</if>
+			<if test="payback!=null">AND and payback = #{payback}</if>
+			<if test="account_no != null">AND account_no like '${account_no}'</if>
+			<if test="bank != null">AND bank like '${bank}'</if>
+			<if test="balance!=null">AND balance = #{balance}</if>
+			<if test="grade!=null">AND grade = #{grade}</if>
+			<if test="grade==null">AND grade = 1</if>
 		</trim>
 		order by member_id
 	</select>
 
 	<!-- member_id를 매개변수로 받아 해당 member의 정보를 Vo로 반환한다. -->
 	<select id="getOne_member" resultType="memberVo">
-		select * from member where member_id = #{member_id}
+		select * from member where
+		member_id = #{member_id}
 	</select>
-	
+
 	<!-- 회원정보 찾기. name과 jumin을 매개변수로 받아 일치하는 member의 member_id값을 반환 -->
 	<select id="getId_member" resultType="java.lang.String">
 		select member_id from member where jumin=#{jumin}
@@ -41,23 +42,26 @@
 			and name=#{name}
 		</if>
 	</select>
-	
+
 	<!-- 모든 회원의 수를 반환. -->
 	<select id="getCount_member" resultType="java.lang.Integer">
-		select count(*) from member
+		select count(*) from
+		member
 	</select>
-	
+
 	<select id="getPwd_q" resultType="java.lang.String">
-		select distinct pwd_q from member where grade = 1
+		select distinct pwd_q from
+		member where grade = 1
 	</select>
-	
+
 	<!-- 내가 관리자인가를 판별 -->
 	<select id="getGrade_member" resultType="java.lang.Integer">
-		select grade from member where member_id = #{member_id}
+		select grade from member
+		where member_id = #{member_id}
 	</select>
 
 
-<!-- Insert -->
+	<!-- Insert -->
 
 	<!-- 회원가입. 일반회원과 관리자 구분없이 아이디 생성이 이루어짐. 구분은 속성 값 grade로 구별한다. -->
 	<insert id="insert_member">
@@ -74,43 +78,46 @@
 		#{payback},
 		#{account_no},
 		#{bank},
-		#{balance},
+		1000000,
 		1)
 	</insert>
 
 
-<!-- Update -->
+	<!-- Update -->
 
 	<!-- 회원계정의 비밀번호 초기화 -->
 	<update id="updateResetPwd_member">
-		update member set pwd='0000' where member_id = #{member_id}
+		update member set pwd='0000' where member_id =
+		#{member_id}
 	</update>
-	
+
 	<!-- 회원계정의 비밀번호 변경 -->
 	<update id="updatePwd_member">
-		update member set pwd = #{pwd} where member_id = #{member_id}
+		update member set pwd = #{pwd} where member_id =
+		#{member_id}
 	</update>
-	
+
 	<!-- 회원계정의 정보변경 -->
 	<update id="updateInfo_member">
-		update member set 
+		update member set
 		pwd_q = #{pwd_q},
 		pwd_a = #{pwd_a},
 		address = #{address},
-		address_detail = #{address_detail},
+		address_detail =
+		#{address_detail},
 		account_no = #{account_no},
 		bank = #{bank},
 		<if test="balance != null">
-		balance = #{balance},
+			balance = #{balance},
 		</if>
 		<if test="grade != null">
-		grade = #{grade},
+			grade = #{grade},
 		</if>
 		tel = #{tel}
-		 
+
 		where member_id = #{member_id}
 	</update>
-	
+
 	<!-- 결제주소 변경 -->
 	<update id="updateAddr_member">
 		update member set
@@ -119,18 +126,23 @@
 		address_detail = #{address_detail}
 		where member_id = #{member_id}
 	</update>
-	
+
 	<!-- payback을 입금해주는 메소드 -->
 	<update id="updatePayback_member">
-		update member set payback = payback + #{payback} where member_id = #{member_id}
+		update member set payback = payback + #{payback}
+		where member_id = #{member_id}
 	</update>
-	
+
 	<!-- 관리자의 balance에서 payback만큼 계좌가 빠져나감 -->
 	<update id="paybackMaster_member">
-		update member set balance = balance - #{payback} where member_id = 'master'
+		update member set balance = balance - #{payback}
+		where member_id = 'master'
 	</update>
-<!-- Delete -->
+	<!-- Delete -->
 
+	<select id="getAllJumin_member" resultType="java.lang.String">
+		select jumin from member
+	</select>
 
 
 

@@ -1,5 +1,7 @@
 package com.bit_fr.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -231,6 +233,7 @@ public class OrderlistController {
 			}
 
 		}
+		
 
 		// member_id 값에 따른 회원정보 가져오기.
 		MemberVo mv = memberDao.getOne_member(member_id);

@@ -1,20 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0,
-			maximum-scale=1.0, minimum-scale=1.0,
-			user-scalable=no"/>
-<title>Insert title here</title>
 <script type="text/javascript">
-$(function(){
-	$("#qnaBack").click(function(){
-		history.back()
-	})
-})
+	$(function(){$("#qnaBack").click(function(){history.back()})})
 </script>
 </head>
 <body>
@@ -42,20 +31,16 @@ $(function(){
 			</table>
 			<br>
 			 내&nbsp;&nbsp;용
-				<textarea name="content" style="height: 200px;" ></textarea>
+			<textarea name="content" style="height: 200px;" ></textarea>
 			<br>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
 					<input type="button" value="뒤로" id="qnaBack">
 				</div>
 				<div class="ui-block-b">
-					<input type="submit" value="등록">
+					<input type="submit" value="등록" data-ajax="false">
 				</div>
-				
 			</div>
-			
-			
-			
 		</form>
 	</div>
 </body>

@@ -55,13 +55,7 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
-	public ModelAndView gotoJoinCheck() {
-		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step2_check.jsp");
-
-		return mav;
-	}
+	
 	
 	//관리자인지 아닌지 판별하는 식
 	@RequestMapping(value = "/getGrade.do", produces = "text/plain;charset=utf-8")
@@ -84,23 +78,33 @@ public class MemberController {
 		
 		return str;
 	}
-
-	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
-	public ModelAndView goToInsertMember(MemberVo v, int jumin1) {
+	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
+	public ModelAndView gotoJoinCheck() {
 		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step3_insert.jsp");
+		mav.addObject("viewPage", "join/step2_insert.jsp");
 
-		String jumin = v.getJumin();
-		mav.addObject("v", v);
-		mav.addObject("jumin1", jumin1);
-		mav.addObject("jumin", jumin);
 		return mav;
 	}
-
+	
+	
+//	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
+//	public ModelAndView goToInsertMember(MemberVo v, String jumin1) {
+//		ModelAndView mav = new ModelAndView("template");
+//		mav.addObject("viewPage", "join/step3_insert.jsp");
+//
+//		String jumin = v.getJumin();
+//		mav.addObject("v", v);
+//		mav.addObject("jumin1", jumin1);
+//		mav.addObject("jumin", jumin);
+//		return mav;
+//	}
+	
+	//회원가입
 	@RequestMapping(value = "/insert_member.do", method = RequestMethod.POST)
 	public ModelAndView insert_member(MemberVo v) {
 		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step4_complete.jsp");
+		System.out.println(v);
+		mav.addObject("viewPage", "join/step3_complete.jsp");
 
 		member_dao.insert_member(v);
 		return mav;

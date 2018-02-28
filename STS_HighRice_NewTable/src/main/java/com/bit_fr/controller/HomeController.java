@@ -36,6 +36,7 @@ import com.bit_fr.vo.MemberVo;
 import com.bit_fr.vo.OrderlistVo;
 import com.bit_fr.vo.ProductVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hanb.sms.SmsSend;
 
 /**
  * Handles requests for the application home page.
@@ -86,8 +87,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/myPage.do")
-	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min,
-			String selectedMyPage) {
+	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min, String selectedMyPage) {
 		ModelAndView mav = new ModelAndView();
 
 		String member_id = (String) session.getAttribute("id");
@@ -143,18 +143,16 @@ public class HomeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/faq.do")
+	@RequestMapping("/faq.do")
 	public ModelAndView goFAQ() {
-		ModelAndView mav = new ModelAndView();
-
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "board/faq.jsp");
-		mav.setViewName("template");
 
 		return mav;
 	}
 
 	// Node Sever HOST 설정
-	private String node_IP = "203.236.209.226";
+	private String node_IP = "192.168.0.160";
 	private int node_PORT = 52273;
 
 	// deliveryList : 비트맨의 배송목록 ajax통신
@@ -184,6 +182,38 @@ public class HomeController {
 
 		return str;
 	}
+	
+	//SMS 메소드
+	@RequestMapping(value="chkphone.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String chkphone(String phone) {
+		
+		String str = "";
+		
+		int n = RNum();
+		SmsSend.send(phone, n);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(n);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
+	//랜덤번호 생성
+	public static int RNum()
+	{
+		int r = (int) (Math.floor(Math.random() * 1000000)+100000);
+		if(r>1000000){
+			   r = r - 100000;
+			}
+		return r;
+		
+	}  
 
 	// returnList : 비트맨의 반납요청 목록 ajax통신
 	@RequestMapping(value = "/todoListAjax_returnList.do", produces = "text/plain;charset=utf-8")
@@ -244,7 +274,6 @@ public class HomeController {
 	@RequestMapping("/todoList.do")
 	public ModelAndView todoList() {
 		ModelAndView mav = new ModelAndView("template");
-
 		mav.addObject("viewPage", "admin/todoList.jsp");
 
 		return mav;
@@ -272,7 +301,6 @@ public class HomeController {
 			str = new String(out.toByteArray(), "UTF-8");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 
@@ -336,7 +364,6 @@ public class HomeController {
 			str = new String(out.toByteArray(), "UTF-8");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 
@@ -345,13 +372,21 @@ public class HomeController {
 
 		return mav;
 	}
+	
+	@RequestMapping("/statistics.do")
+	public ModelAndView statistics() {
+		ModelAndView mav = new ModelAndView("template");
+
+		mav.addObject("viewPage", "admin/statistics.jsp");
+
+		return mav;
+	}
+	
 
 	@RequestMapping(value = "/signSave.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String signSave(HttpServletRequest request) {
-		String path = request.getRealPath("/resources/sgin/delivery");
-
-		System.out.println(path);
+	public String signSave(HttpServletRequest request , String req) {
+		String path = request.getRealPath("/resources/sign_store/"+req);
 
 		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
 		String fileName = System.currentTimeMillis() + ".png";
@@ -368,29 +403,25 @@ public class HomeController {
 
 	@RequestMapping(value = "/sellWrite.do")
 	public ModelAndView sellWrite(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("template");
 		String member_id = (String) session.getAttribute("id");
 		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		mav.setViewName("template");
-
+		
 		return mav;
 	}
 
 	@RequestMapping(value = "/orderlistByCondition.do")
 	public ModelAndView orderlistByCondition() {
-		ModelAndView mav = new ModelAndView();
-
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "orderlist/orderlistByCondition.jsp");
-		mav.setViewName("template");
 
 		return mav;
 	}
 
 	@RequestMapping("/admin.do")
 	public ModelAndView admin() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("template");
+		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewPage", "admin/adminPage.jsp");
 
 		return mav;
