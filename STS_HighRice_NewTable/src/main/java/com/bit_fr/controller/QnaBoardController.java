@@ -235,10 +235,6 @@ public class QnaBoardController {
 	@RequestMapping(value="/updateAjax_qnaBoard.do", produces="text/plain; charset=utf-8")
 	@ResponseBody
 	public String update_submit(QnaBoardVo qnaboard) {
-<<<<<<< HEAD
-		System.out.println(qnaboard);
-=======
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project
 		String str = "";
 		int re = dao.update_qnaBoard(qnaboard);
 		ObjectMapper mapper = new ObjectMapper();
@@ -248,7 +244,6 @@ public class QnaBoardController {
 			System.out.println(e);
 		}
 		return str;
-<<<<<<< HEAD
 	}
 
 	@RequestMapping("/delete_qnaBoard.do")
@@ -283,7 +278,6 @@ public class QnaBoardController {
 	public void hidden_qnaBoard(int board_id) {
 		dao.hidden_qnaBoard(board_id);
 	}
-=======
 	}*/
 
 }
