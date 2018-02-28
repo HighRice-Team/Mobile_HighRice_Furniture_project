@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit_fr.dao.MemberDao;
+import com.bit_fr.vo.MemberVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -338,4 +340,13 @@ public class R_projectController {
 
 		return str;
 	}
+	
+	
+	@RequestMapping(value = "/getAgeForChart.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getAgeForChart() {
+		
+		return "";
+	}
+	
 }
