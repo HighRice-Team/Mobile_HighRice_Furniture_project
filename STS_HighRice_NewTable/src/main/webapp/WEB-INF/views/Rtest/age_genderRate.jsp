@@ -12,7 +12,15 @@
 </script>
 </head>
 <body>
-	<img src="resources/chart_img/${genderRate}">
-	<img src="resources/chart_img/${ageRate}">
+	<center>
+		<h2>R Chart</h2>
+	</center>
+	<center>
+		<img src="resources/chart_img/sssaaa.jpg">
+	</center>
+	
+	<center>
+		<img src="resources/chart_img/aaasss.jpg">
+	</center>
 </body>
 </html>

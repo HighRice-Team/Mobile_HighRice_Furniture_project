@@ -21,6 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class MemberController {
 
+	
+	
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -55,13 +57,7 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
-	public ModelAndView gotoJoinCheck() {
-		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step2_check.jsp");
-
-		return mav;
-	}
+	
 	
 	//관리자인지 아닌지 판별하는 식
 	@RequestMapping(value = "/getGrade.do", produces = "text/plain;charset=utf-8")
@@ -84,23 +80,33 @@ public class MemberController {
 		
 		return str;
 	}
-
-	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
-	public ModelAndView goToInsertMember(MemberVo v, String jumin1) {
+	@RequestMapping(value = "/joinCheck.do", method = RequestMethod.GET)
+	public ModelAndView gotoJoinCheck() {
 		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step3_insert.jsp");
+		mav.addObject("viewPage", "join/step2_insert.jsp");
 
-		String jumin = v.getJumin();
-		mav.addObject("v", v);
-		mav.addObject("jumin1", jumin1);
-		mav.addObject("jumin", jumin);
 		return mav;
 	}
-
+	
+	
+//	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
+//	public ModelAndView goToInsertMember(MemberVo v, String jumin1) {
+//		ModelAndView mav = new ModelAndView("template");
+//		mav.addObject("viewPage", "join/step3_insert.jsp");
+//
+//		String jumin = v.getJumin();
+//		mav.addObject("v", v);
+//		mav.addObject("jumin1", jumin1);
+//		mav.addObject("jumin", jumin);
+//		return mav;
+//	}
+	
+	//회원가입
 	@RequestMapping(value = "/insert_member.do", method = RequestMethod.POST)
 	public ModelAndView insert_member(MemberVo v) {
 		ModelAndView mav = new ModelAndView("template");
-		mav.addObject("viewPage", "join/step4_complete.jsp");
+		System.out.println(v);
+		mav.addObject("viewPage", "join/step3_complete.jsp");
 
 		member_dao.insert_member(v);
 		return mav;
@@ -118,8 +124,15 @@ public class MemberController {
 	@ResponseBody
 	public String logout(HttpSession session) {
 		String str = "";
-
-		session.invalidate();
+		
+		session.setAttribute("needToLogin", "");
+		session.removeAttribute("gotoPage");
+		session.removeAttribute("id");
+		session.removeAttribute("pwd");
+		session.removeAttribute("grade");
+		session.removeAttribute("name");
+		
+		
 
 		return str;
 	}
@@ -287,6 +300,22 @@ public class MemberController {
 		v.setMember_id(member_id);
 		int re = member_dao.updateInfo_member(v);
 
+		try {
+			str = om.writeValueAsString(re);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return str;
+	}
+	
+	@RequestMapping(value = "/updateBalance_member.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateBalance_member(MemberVo v, HttpSession session) {
+		String str = "";
+		ObjectMapper om = new ObjectMapper();
+		String member_id = (String) session.getAttribute("id");
+		v.setMember_id(member_id);
+		int re = member_dao.updateBalance_member(v);
 		try {
 			str = om.writeValueAsString(re);
 		} catch (Exception e) {

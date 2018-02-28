@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-
-	<!-- Select -->
+	<select id="getAllJumin_member" resultType="java.lang.String">
+		select jumin from member
+	</select>
 
 	<!-- Member 테이블의 모든 객체를 member_id 순으로 정렬한 결과를 List로 반환한다. -->
 	<select id="getAll_member" resultType="memberVo">
@@ -78,7 +79,7 @@
 		#{payback},
 		#{account_no},
 		#{bank},
-		#{balance},
+		1000000,
 		1)
 	</insert>
 
@@ -99,23 +100,40 @@
 
 	<!-- 회원계정의 정보변경 -->
 	<update id="updateInfo_member">
-		update member set
-		pwd_q = #{pwd_q},
-		pwd_a = #{pwd_a},
-		address = #{address},
-		address_detail =
-		#{address_detail},
-		account_no = #{account_no},
-		bank = #{bank},
-		<if test="balance != null">
-			balance = #{balance},
-		</if>
-		<if test="grade != null">
+		update member set 
+		
+		<trim suffixOverrides=",">
+			<if test="pwd_q != null">
+			pwd_q = #{pwd_q},
+			</if>
+			<if test="pwd_a != null">
+			pwd_a = #{pwd_a},
+			</if>
+			<if test="address != null">
+			address = #{address},
+			</if>
+			<if test="address_detail != null">
+			address_detail = #{address_detail},
+			</if>
+			<if test="account_no != null">
+			account_no = #{account_no},
+			</if>
+			<if test="bank != null">
+			bank = #{bank},
+			</if>
+			<if test="balance != 0">
+			balance = balance + #{balance},
+			</if>
+			<if test="payback != 0">
+			payback = #{payback},
+			</if>
+			<if test="grade != 0">
 			grade = #{grade},
-		</if>
-		tel = #{tel}
-
-		where member_id = #{member_id}
+			</if>
+			<if test="tel != null">
+			tel = #{tel},
+			</if>
+		</trim>
 	</update>
 
 	<!-- 결제주소 변경 -->
@@ -133,6 +151,10 @@
 		where member_id = #{member_id}
 	</update>
 
+	<update id="updateBalance_member">
+		update member set payback = 0, balance = balance + #{payback} where member_id = #{member_id}
+	</update>
+
 	<!-- 관리자의 balance에서 payback만큼 계좌가 빠져나감 -->
 	<update id="paybackMaster_member">
 		update member set balance = balance - #{payback}
@@ -140,9 +162,6 @@
 	</update>
 	<!-- Delete -->
 
-	<select id="getAllJumin_member" resultType="java.lang.String">
-		select jumin from member
-	</select>
 
 
 

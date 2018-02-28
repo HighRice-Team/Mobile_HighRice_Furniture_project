@@ -30,6 +30,20 @@
 			}	
 		});
 		
+		//payback 기능
+		$("#paybackBtn").click(function(){
+			var payback = $(this).attr("payback")
+			var data = {"payback":payback}
+			$.ajax({
+				url:"updateBalance_member.do",
+				data:data,
+				success:function(){
+					alert("입금 완료")
+					location.href=""
+				}
+			})
+		})
+		
 	});
 </script>
 <script type="text/javascript">
@@ -67,7 +81,7 @@
 		<br>
 		<fieldset class="ui-grid-a">
 			<div class="ui-block-a" align="center" style="border-right: 5px solid grey">장바구니<br>${cart_cnt } 건<br><div id="goCart_btn" data-role="button" data-inline="true">나의 장바구니</div></div>
-			<div class="ui-block-b" align="center" >페이백<br>${member.payback } 원<br><div data-role="button" data-inline="true">반환하기</div></div>
+			<div class="ui-block-b" align="center" >페이백<br>${member.payback } 원<br><div data-role="button" data-inline="true" id="paybackBtn" payback="${member.payback }">반환하기</div></div>
 			<!-- 반환버튼 추후 구현. -->				
 		</fieldset>
 		<br><hr>
