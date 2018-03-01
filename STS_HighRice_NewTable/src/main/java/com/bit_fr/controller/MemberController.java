@@ -408,6 +408,7 @@ public class MemberController {
 		return str;
 	}
 
+	
 	@RequestMapping(value = "/updateMemberOkAjax.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String updateMemberOkAjax(HttpSession session, String j_pwd, String pwd_chk, MemberVo v) {
