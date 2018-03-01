@@ -2,6 +2,7 @@ package com.bit_fr.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
@@ -13,22 +14,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.rosuda.REngine.Rserve.RConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bit_fr.dao.MemberDao;
-import com.bit_fr.vo.MemberVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -139,7 +135,7 @@ public class R_projectController {
 				encoding_keyword = URLEncoder.encode(keyword, "EUC-KR");
 				String URL_Category = "http://corners.auction.co.kr/corner/UsedMarketList.aspx?keyword="
 						+ encoding_keyword + "&arraycategory=27000000";
-				
+
 				Document doc_Category = Jsoup.connect(URL_Category).get();
 				Elements elem_Category = doc_Category.select("div.list_view");
 
@@ -230,8 +226,83 @@ public class R_projectController {
 
 		return str;
 	}
-	
-	
-	
-	
+
+	// 사용자의 유입경로 저장하기.
+	@RequestMapping(value = "/upload_inflowLog.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String upload_inflowLog(HttpServletRequest request, String device, String portal, String keyword) {
+		String path = request.getRealPath("resources/inflow_log");
+
+		String str_JSON = "";
+		String file_name = path + "/inflowLog.txt";
+
+		HashMap map = new HashMap();
+
+		map.put("device", device);
+		map.put("portal", portal);
+		map.put("keyword", keyword);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			str_JSON = mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		System.out.println(path);
+
+		try {
+			BufferedReader reader = null;
+			BufferedWriter writer = null;
+
+			try {
+				reader = new BufferedReader(new FileReader(file_name));
+
+			} catch (Exception e) {
+				File file = new File(file_name);
+
+			}
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file_name), "UTF-8"));
+
+			String old_str;
+			while ((old_str = reader.readLine()) != null) {
+				System.out.println(old_str);
+				writer.write(old_str);
+				writer.newLine();
+			}
+
+			writer.write(str_JSON);
+
+			writer.flush();
+			
+			if(reader != null) {
+				reader.close();
+			}
+			System.out.println("1");
+			writer.close();
+			System.out.println("2");
+			// FileCopyUtils.copy(reader, writer);
+			// FileInputStream file_in = new FileInputStream(file_name);
+			//
+			//
+			// byte[] data = new byte[64];
+			// int readByte = 0;
+			// while((readByte = file_in.read()) != -1) {
+			// System.out.print((char)readByte);
+			// }
+			// file_in.close();
+			//// FileOutputStream file_out = new FileOutputStream(file_name);
+			//
+			//// file_out.write(data);
+			//// file_out.write(str_JSON.getBytes());
+			//// file_out.close();
+			//
+		} catch (Exception e) {
+			System.out.println("에러 : " + e);
+		}
+
+		return str_JSON;
+	}
+
 }
