@@ -354,7 +354,7 @@ public class R_projectController {
 		String path = request.getRealPath("resources/inflow_log");
 
 		String str_JSON = "";
-		String file_name = path + "/inflowLog.txt";
+		String file_name = path + "/inflowLog.json";
 
 		HashMap map = new HashMap();
 
@@ -378,47 +378,32 @@ public class R_projectController {
 
 			try {
 				reader = new BufferedReader(new FileReader(file_name));
-
 			} catch (Exception e) {
 				File file = new File(file_name);
-
-			}
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file_name), "UTF-8"));
-
-			String old_str;
-			System.out.println(reader.);
-			while ((old_str = reader.readLine()) != null) {
-				System.out.println(old_str);
-				writer.write(old_str);
-				writer.newLine();
+				FileOutputStream fos = new FileOutputStream(file);
+				String temp = "[ ]";
+				fos.write(temp.getBytes());
+				fos.flush();
+				fos.close();
 			}
 
-			writer.write(str_JSON);
-
-			writer.flush();
-			
-			if(reader != null) {
-				reader.close();
+			String old_str = "";
+			File file = new File(file_name);
+			if (file.exists()) {
+				reader = new BufferedReader(new FileReader(file));
+				while (reader.ready()) {
+					old_str += reader.readLine() + ",";
+				}
 			}
-			System.out.println("1");
-			writer.close();
-			System.out.println("2");
-			// FileCopyUtils.copy(reader, writer);
-			// FileInputStream file_in = new FileInputStream(file_name);
-			//
-			//
-			// byte[] data = new byte[64];
-			// int readByte = 0;
-			// while((readByte = file_in.read()) != -1) {
-			// System.out.print((char)readByte);
-			// }
-			// file_in.close();
-			//// FileOutputStream file_out = new FileOutputStream(file_name);
-			//
-			//// file_out.write(data);
-			//// file_out.write(str_JSON.getBytes());
-			//// file_out.close();
-			//
+			int findChar = old_str.lastIndexOf("]");
+			StringBuffer sb = new StringBuffer(old_str);
+			str_JSON = sb.insert(findChar - 1, str_JSON).toString();
+
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(str_JSON.getBytes());
+			fos.flush();
+			fos.close();
+
 		} catch (Exception e) {
 			System.out.println("에러 : " + e);
 		}
