@@ -8,53 +8,66 @@
      
       //아이디 판별
       $("#chk_idBtn").click(function(){
-        var member_id = $("#member_id").val()
-        $.ajax({url:"getOne_member.do",data:{member_id:member_id}, success:function(data){
-           data = eval("("+data+")")
-           if(data == null){
-              $("#idchk").html("<img src='resources/img/icon/checked.png' class='check-img'/>"+" 사용가능한 아이디입니다.")
-              $("#idchk").css("color","blue")
-           }
-           else{
-              $("#idchk").html("<img src='resources/img/icon/Xicon.png' class='check-img'>"+" 중복된 아이디입니다.")
-               $("#idchk").css("color","red")
-           }
-        }})
+    	 if($("#member_id").val()=="" || $("#member_id").val()==null){
+    		 $("#idchk").html("아이디를 입력해주세요")
+		     $("#idchk").css("color","red")
+		     return;
+    	 }
+    	 var member_id = $("#member_id").val()
+    	 $.ajax({url:"getOne_member.do",data:{member_id:member_id}, success:function(data){
+    		 data = eval("("+data+")")
+    		 if(data == null){
+    			 $("#idchk").html("<img src='resources/img/icon/checked.png' class='check-img'/>"+" 사용가능한 아이디입니다.")
+    			 $("#idchk").css("color","blue")
+    		 }
+    		 else{
+    			 $("#idchk").html("<img src='resources/img/icon/Xicon.png' class='check-img'>"+" 중복된 아이디입니다.")
+    		     $("#idchk").css("color","red")
+    		 }
+    	 }})
+
       })
       
       
       //시간값
       var sec = 1000;
-
+      var chk;
       //핸드폰 문자 서비스
       $("#chkphone").click(function(){
-         $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
-            $("#chksec").empty().css("color","block")
-            var i = 60;
-            var chk = setInterval(function(){
-               
-               $("#chksec").html(i+" 초 남았습니다.")
-               i--;
-               if(i <= 0){
-                   
-                   $("#chkphonediv").css("display","none")
-                   $("#chksec").html("인증 시간이 초과되었습니다.").css("color","red")
-                 }
-              }, sec)
-                        
-            $("#chkphonediv").css("display","")
-           
-            $("#chkphone2").click(function(){
-               if($("#chknum").val()==data){
-                  clearInterval(chk)
-                  $("#chksec").html("인증되었습니다").css("color","blue")
-               }else{
-                  $("#chksec").append("<div style='color:red;'>틀렸습니다.</div>")
-               }
-            })
-         }})
-      
-          
+    	  if($("#tel").val() == "" || ($("#tel").val()).length != 11){
+    		  $("#chksec").html("전화 번호를 다시 입력해주세요.").css("color","red")
+    		  return
+    	  }
+    	  $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
+    		  $("#chksec").empty().css("color","block")
+ 			  var i = 60;
+    		  
+    		  clearInterval(chk)
+    		  chk = setInterval(function(){
+					
+					$("#chksec").html(i+" 초 남았습니다.")
+					i--;
+					if(i <= 0){
+						 
+						 $("#chkphonediv").css("display","none")
+						 $("#chksec").html("인증 시간이 초과되었습니다.").css("color","red")
+					  }
+				  }, sec)
+				    		  
+    		  $("#chkphonediv").css("display","")
+			  
+    		  $("#chkphone2").click(function(){
+    			  if($("#chknum").val()==data){
+    				  clearInterval(chk)
+    				  $("#chksec").html("인증되었습니다").css("color","blue")
+    			  }else{
+    				  $("#chksec").append("<div style='color:red;'>틀렸습니다.</div>")
+    			  }
+    		  })
+    	  }})
+		
+			 
+
       })
       
      
@@ -84,17 +97,17 @@
       
       //주민등록 번호 가지고 있는 함수
       $("#gender").change(function(){
-         var a = ($("#juminnum").val()).split("-")
-         str = ''
-         $(a).each(function(index, data){
-            str += data
-         })
-         $("input[name='gender']").each(function(index, item){
-            if(item.checked){
-             str += $(item).val()  
-            }
-         })
-         $("#jumin").val(str)
+    	  var a = ($("#juminnum").val()).split("-")
+    	  str = ''
+    	  $(a).each(function(index, data){
+    		  str += data
+    	  })
+    	  $("input[name='gender']").each(function(index, item){
+    		  if(item.checked){
+    			str += $(item).val()  
+    		  }
+    	  })
+    	  $("#jumin").val(str)
       })
       
    })
@@ -142,117 +155,118 @@
 </style>
 </head>
 <body>    
-   <div data-role="content">
-      <div class="ui-grid-b join-process">
-          <div class="ui-block-a step"><p>약관동의</p></div>
-          <div class="ui-block-b step point"><p>가입진행</p></div>
-          <div class="ui-block-c step"><p>완료</p></div>
-      </div>
-      <form action="insert_member.do" name="form" id="form" method="post" data-ajax="false">
-         <div class="ui-grid-c join-row">
-             <div class="ui-block-a rate-2"><p class="p-1row">아이디</p></div>
-               <div class="ui-block-b" style="width: 70%">
-                  <div class="ui-grid-a">
-                     <div class="ui-block-a" style="width: 75%"><input type="text" name="member_id" id="member_id" required="required"></div>
-                     <div class="ui-block-b" style="width: 25%; margin: 5px 0 0 0 ; float: right;">
-                        <input type="button" id="chk_idBtn" value="확인" data-mini="true" data-inline="true" data-corners="false" style="overflow: visible;">
-                     </div>
-                  </div>
-               </div>
-         </div>
-         <div class="ui-grid-a join-row">
-            <div class="ui-block-a rate-2"></div>
-            <div class="ui-block-b rate-8"><div id="idchk"></div></div>
-         </div>
-         
-         
-         <div class="ui-grid-c join-row">
-             <div class="ui-block-a rate-2"><p class="p-1row">비밀번호</p></div>
-               <div class="ui-block-b "style="width: 70%"><input type="password" id="inputPwd"required="required" placeholder="비밀번호는 8자 이상" oninput="chkPwd()"></div>
-               <div class="ui-block-c rate-2" id="chkPwdIcon1" style="align-content: left; width:  10% "></div>
-         </div>
-         <div class="ui-grid-c join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>확인</p></div>
-               <div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="입력한 비밀번호와 같아야 합니다."></div>
-               <div class="ui-block-c" id="chkPwdIcon2" style="align-content: left;width:  10% " ></div>
-         </div>
-         
-    
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">이름</p></div>
-               <div class="ui-block-b rate-8"><input type="text" id="name" name="name" required="required"></div>
-         </div>
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">생년월일</p></div>
-               <div class="ui-block-b" style="width: 80%"><input type="date" id="juminnum" style="text-align: center;"></div>
-         </div>
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">성별</p></div>
-               <div class = "ui-block-b">
-                  <fieldset data-role="controlgroup" data-type="horizontal" id="gender">
-                     <input type="radio" id='gender-m' name="gender" value="1">
-                     <label for="gender-m">남자</label>
-                     <input type="radio" id='gender-fm' name="gender" value="2">
-                     <label for="gender-fm">여자</label>
-                  </fieldset>
-               </div>
-         </div>
-         
-         <div class="ui-grid-b join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">핸드폰번호</p></div>
-               <div class="ui-block-b rate-6"><input type="text" name="tel" id="tel" required="required" placeholder="'-'빼고 입력해주세요"></div>
-               <div class="ui-block-c rate-2"><input type="button" data-inline="true" data-corners="false" data-mini="true" value="인증" id="chkphone" ></div>
-         </div>   
-         <div id="chkphonediv" class="ui-grid-b" style="display: none;">
-            <div class="ui-block-a rate-2"></div>
-               <div class="ui-block-b rate-6"><input type="number" id="chknum"></div>
-               <div class="ui-block-c rate-2"><input type="button" data-inline="true" data-corners="false" data-mini="true" value="번호입력" id="chkphone2" ></div>
-         </div>
-            <div id="chksec"></div>
-          <p class="p-2row">계좌번호</p>
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-4" style=" margin: 5px 5px 0 -5px ; ">
-               <select name="bank" id="bank" data-corners="false" data-mini="true">
-                  <option>신한은행</option>
-                  <option>기업은행</option>
-                  <option>농협은행</option>
-                  <option>국민은행</option>
-                  <option>카카오뱅크</option>
-               </select>
-            </div>
-               <div class="ui-block-b rate-6"><input type="text" id="account_no" name="account_no" required="required"></div>
-         </div>
-         <p class="p-2row">주소</p>
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-8"><input type="text" id="roadAddrPart1" name="address" readonly="readonly" required="required"></div>
-               <div class="ui-block-b rate-2" style=" margin: 5px -10px 0 0 ; float: right;"><a data-role="button" data-ajax="false" data-mini="true"  data-corners="false" data-inline="true" onclick="goPopup()">검색</a></div>
-         </div>
-         
-         <input type="text" id="addrDetail" name="address_detail" readonly="readonly" required="required">
-         <div class="ui-grid-a join-row">
-               <div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>힌트</p></div>
-             <div class="ui-block-b rate-8" >
-               <select name="pwd_q" id="pwd_q"  data-corners="false">
-                  <option>가장 기억에 남는 선물은?</option>
-                  <option>자신의 보물 제1호는?</option>
-                  <option>인상 깊게 읽은 책 이름은?</option>
-                  <option>자신의 출신 초등학교는?</option>
-               </select>
-            </div>
-         </div>
-         <div class="ui-grid-a join-row">
-             <div class="ui-block-a rate-2"><p class="p-2row">힌트 답</p></div>
-               <div class="ui-block-b rate-8"><input type="text" id="pwd_a" name="pwd_a" required="required"></div>
-         </div>
-         <input type="hidden" id="roadAddrPart2"  value="">
-         <input type="hidden" id="confmKey" name="confmKey" value=""  >
-         <input type="hidden" id="zipNo" name="zipNo" >
-         <input type="hidden" name="jumin" id="jumin">
-         <div data-role="controlgroup" data-type="horizontal" data-corners="false" class="fr-button">
-            <input type="button" value="취소" onclick="back()">
-            <input type="submit" value="가입" id="insert_memberBtn">
-         </div>
-      </form>
-   </div>
+
+	<div data-role="content">
+		<div class="ui-grid-b join-process">
+		    <div class="ui-block-a step"><p>약관동의</p></div>
+		    <div class="ui-block-b step point"><p>가입진행</p></div>
+		    <div class="ui-block-c step"><p>완료</p></div>
+		</div>
+		<form action="insert_member.do" name="form" id="form" method="post" data-ajax="false">
+			<div class="ui-grid-c join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-1row">아이디</p></div>
+		   		<div class="ui-block-b" style="width: 70%">
+		   			<div class="ui-grid-a">
+			   			<div class="ui-block-a" style="width: 75%"><input type="text" name="member_id" id="member_id" required="required"></div>
+			   			<div class="ui-block-b" style="width: 25%; margin: 5px 0 0 0 ; float: right;">
+			   				<input type="button" id="chk_idBtn" value="확인" data-mini="true" data-inline="true" data-corners="false" style="overflow: visible;">
+			   			</div>
+		   			</div>
+		   		</div>
+			</div>
+			<div class="ui-grid-a join-row">
+				<div class="ui-block-a rate-2"></div>
+				<div class="ui-block-b rate-8"><div id="idchk"></div></div>
+			</div>
+			
+			
+			<div class="ui-grid-c join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-1row">비밀번호</p></div>
+		   		<div class="ui-block-b "style="width: 70%"><input type="password" id="inputPwd"required="required" placeholder="비밀번호는 8자 이상" oninput="chkPwd()"></div>
+		   		<div class="ui-block-c rate-2" id="chkPwdIcon1" style="align-content: left; width:  10% "></div>
+			</div>
+			<div class="ui-grid-c join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>확인</p></div>
+		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="입력한 비밀번호와 같아야 합니다."></div>
+		   		<div class="ui-block-c" id="chkPwdIcon2" style="align-content: left;width:  10% " ></div>
+			</div>
+			
+	 
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">이름</p></div>
+		   		<div class="ui-block-b rate-8"><input type="text" id="name" name="name" required="required"></div>
+			</div>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">생년월일</p></div>
+		   		<div class="ui-block-b" style="width: 80%"><input type="date" id="juminnum" style="text-align: center;"></div>
+			</div>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">성별</p></div>
+		   		<div class = "ui-block-b">
+		   			<fieldset data-role="controlgroup" data-type="horizontal" id="gender">
+		   				<input type="radio" id='gender-m' name="gender" value="1">
+		   				<label for="gender-m">남자</label>
+		   				<input type="radio" id='gender-fm' name="gender" value="2">
+		   				<label for="gender-fm">여자</label>
+		   			</fieldset>
+		   		</div>
+			</div>
+			
+			<div class="ui-grid-b join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">핸드폰번호</p></div>
+		   		<div class="ui-block-b rate-6"><input type="text" name="tel" id="tel" required="required" placeholder="'-'빼고 입력해주세요" maxlength="11"></div>
+		   		<div class="ui-block-c rate-2"><input type="button" data-inline="true" data-corners="false" data-mini="true" value="인증" id="chkphone" ></div>
+			</div>	
+			<div id="chkphonediv" class="ui-grid-b" style="display: none;">
+				<div class="ui-block-a rate-2"></div>
+		   		<div class="ui-block-b rate-6"><input type="number" id="chknum"></div>
+		   		<div class="ui-block-c rate-2"><input type="button" data-inline="true" data-corners="false" data-mini="true" value="번호입력" id="chkphone2" ></div>
+			</div>
+				<div id="chksec"></div>
+		    <p class="p-2row">계좌번호</p>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-4" style=" margin: 5px 5px 0 -5px ; ">
+					<select name="bank" id="bank" data-corners="false" data-mini="true">
+						<option>신한은행</option>
+						<option>기업은행</option>
+						<option>농협은행</option>
+						<option>국민은행</option>
+						<option>카카오뱅크</option>
+					</select>
+				</div>
+		   		<div class="ui-block-b rate-6"><input type="text" id="account_no" name="account_no" required="required"></div>
+			</div>
+			<p class="p-2row">주소</p>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-8"><input type="text" id="roadAddrPart1" name="address" readonly="readonly" required="required"></div>
+		   		<div class="ui-block-b rate-2" style=" margin: 5px -10px 0 0 ; float: right;"><a data-role="button" data-ajax="false" data-mini="true"  data-corners="false" data-inline="true" onclick="goPopup()">검색</a></div>
+			</div>
+			
+			<input type="text" id="addrDetail" name="address_detail" readonly="readonly" required="required">
+			<div class="ui-grid-a join-row">
+		   		<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>힌트</p></div>
+		    	<div class="ui-block-b rate-8" >
+					<select name="pwd_q" id="pwd_q"  data-corners="false">
+						<option>가장 기억에 남는 선물은?</option>
+						<option>자신의 보물 제1호는?</option>
+						<option>인상 깊게 읽은 책 이름은?</option>
+						<option>자신의 출신 초등학교는?</option>
+					</select>
+				</div>
+			</div>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">힌트 답</p></div>
+		   		<div class="ui-block-b rate-8"><input type="text" id="pwd_a" name="pwd_a" required="required"></div>
+			</div>
+			<input type="hidden" id="roadAddrPart2"  value="">
+			<input type="hidden" id="confmKey" name="confmKey" value=""  >
+			<input type="hidden" id="zipNo" name="zipNo" >
+			<input type="hidden" name="jumin" id="jumin">
+			<div data-role="controlgroup" data-type="horizontal" data-corners="false" class="fr-button">
+				<input type="button" value="취소" onclick="back()">
+				<input type="submit" value="가입" id="insert_memberBtn">
+			</div>
+		</form>
+	</div>
 </body>
 </html>
