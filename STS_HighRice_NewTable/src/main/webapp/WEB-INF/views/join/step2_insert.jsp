@@ -169,7 +169,7 @@
 			</div>
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>확인</p></div>
-		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="입력한 비밀번호와 같아야 합니다."></div>
+		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="위와 같아야 합니다."></div>
 		   		<div class="ui-block-c" id="chkPwdIcon2" style="align-content: left;width:  10% " ></div>
 			</div>
 			

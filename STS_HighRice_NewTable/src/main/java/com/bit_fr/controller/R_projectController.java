@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,152 +90,41 @@ public class R_projectController {
 //		}
 //		return view;
 //	}
-//
-//	@RequestMapping("/getAgeForChart.do")
-//	public ModelAndView getAgeForChart(HttpServletRequest request) {
-//
+
+	@RequestMapping(value="/getAgeForChart.do",produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String getAgeForChart(HttpServletRequest request) {
+		
 //		String path = request.getRealPath("resources/chart_img");
-//		ModelAndView view = new ModelAndView("template");
 //		RConnection connection = null;
-//
-//		List<String> list = member_dao.getAllJumin_member();
-//
-//		List<String> male = new ArrayList<String>();
-//		List<String> femaile = new ArrayList<String>();
-//		List<String> gen10 = new ArrayList<String>();
-//		List<String> gen20 = new ArrayList<String>();
-//		List<String> gen30 = new ArrayList<String>();
-//		List<String> gen40 = new ArrayList<String>();
-//		List<String> overGen50 = new ArrayList<String>();
-//
-//		for (String temp : list) {
-//			Calendar date = Calendar.getInstance();
-//			int year, month, day, age, sex, local;
-//			sex = 0;
-//
-//			/**
-//			 * 910000-'1'234561 생년월일, 성별, 나이 출력하기 1 : 1900년대 내국인 남자, 2: 1900년대 내국인 여자 3 :
-//			 * 2000년대 내국인 남자, 4: 2000년대 내국인 여자 5 : 1900년대 외국인 남자, 6: 1900년대 외국인 여자 7 :
-//			 * 2000년대 외국인 남자, 8: 2000년대 외국인 여자 9 : 1800년대 내국인 남자, 0: 1800년대 내국인 여자 생년월일 값을
-//			 * 받고 Calendar 클래스 사용해서 현재나이 구함.
-//			 */
-//			char gender = temp.charAt(7);
-//			year = Integer.parseInt(temp.substring(0, 2));
-//			month = Integer.parseInt(temp.substring(2, 4));
-//			day = Integer.parseInt(temp.substring(4, 6));
-//
-//			// 7번째 숫자로 성별, 년도, 내/외국인 확인
-//			switch (gender) {
-//			case '1':
-//				year += 1900;
-//				sex = 0;
-//				local = 1;
-//				break;
-//			case '2':
-//				year += 1900;
-//				sex = 1;
-//				local = 1;
-//				break;
-//			case '3':
-//				year += 2000;
-//				sex = 0;
-//				local = 1;
-//				break;
-//			case '4':
-//				year += 2000;
-//				sex = 1;
-//				local = 1;
-//				break;
-//			case '5':
-//				year += 1900;
-//				sex = 0;
-//				local = 0;
-//				break;
-//			case '6':
-//				year += 1900;
-//				sex = 1;
-//				local = 0;
-//				break;
-//			case '7':
-//				year += 2000;
-//				sex = 0;
-//				local = 0;
-//				break;
-//			case '8':
-//				year += 2000;
-//				sex = 1;
-//				local = 0;
-//				break;
-//			case '9':
-//				year += 1800;
-//				sex = 0;
-//				local = 1;
-//				break;
-//			case '0':
-//				year += 1800;
-//				sex = 1;
-//				local = 1;
-//				break;
-//			}
-//			age = (date.get(Calendar.YEAR)) - year + 1;
-//
-//			char sexchk = (sex != 1 ? '남' : '여');
-//
-//			if (sexchk == '남') {
-//				male.add(temp);
-//			} else {
-//				femaile.add(temp);
-//			}
-//
-//			switch (Integer.parseInt((age + "").substring(0, 1))) {
-//			case 1:
-//				gen10.add(temp);
-//				break;
-//			case 2:
-//				gen20.add(temp);
-//				break;
-//			case 3:
-//				gen30.add(temp);
-//				break;
-//			case 4:
-//				gen40.add(temp);
-//				break;
-//			default:
-//				overGen50.add(temp);
-//				break;
-//			}
-//		}
-//
-//		// R project 차트 생성식
-//		try {
-//			System.out.println(path);
-//
-//			connection = new RConnection();
-//
-//			connection.eval("jpeg(filename='" + path + "/genderRate.jpg')");
-//			connection.eval("p1 = c(" + male.size() + "," + femaile.size() + ")");
-//			connection.eval("pie(p1,label=c('남자','여자'),main='연령별 비율')");
-//			connection.eval("dev.off()");
-//
-//			connection.eval("jpeg(filename='" + path + "/ageRate.jpg')");
-//			connection.eval("p2 = c(" + gen10.size() + "," + gen20.size() + "," + gen30.size() + "," + gen40.size()
-//					+ "," + overGen50.size() + ")");
-//			connection.eval("pie(p2,label=c('10대','20대','30대','40대','50대 이상'),main='세대 비율')");
-//			connection.eval("dev.off()");
-//
-//			connection.close();
-//
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println(e);
-//		}
-//
-//		view.addObject("genderRate", "genderRate.jpg");
-//		view.addObject("ageRate", "ageRate.jpg");
-//		view.addObject("viewPage", "Rtest/age_genderRate.jsp");
-//
-//		return view;
-//	}
+
+		List<String> list = member_dao.getAllJumin_member();
+		int []arr = new int[12];
+		int male=0,femaile=0;
+		int gen10=0,gen20=0,gen30=0,gen40=0,overGen50=0;
+		Date date = new Date();
+		int year = date.getYear()+1900;
+		
+		for(String temp : list) {
+			int gen = (year-Integer.parseInt(temp.substring(0, 4)))/10;
+			
+			switch (gen) {
+			case 1: gen10+=1; break;	
+			case 2: gen20+=1; break;
+			case 3: gen30+=1; break;
+			case 4: gen40+=1; break;
+			default: overGen50+=1; break;
+			}
+			
+			if(temp.charAt(8)=='1') {
+				male += 1;
+			}else if(temp.charAt(8)=='2'){
+				femaile += 1;
+			}
+		}
+//		barplot(c(male,femaile),main="성비",names.arg=c("남자","여자"))
+		return year+"";
+	}
 
 	// 크롤링 메소드
 	public int getAveragePrice_FromWebsite(String keyword, String website) {
@@ -342,11 +232,6 @@ public class R_projectController {
 	}
 	
 	
-	@RequestMapping(value = "/getAgeForChart.do", produces = "text/plain; charset=utf-8")
-	@ResponseBody
-	public String getAgeForChart() {
-		
-		return "";
-	}
+	
 	
 }

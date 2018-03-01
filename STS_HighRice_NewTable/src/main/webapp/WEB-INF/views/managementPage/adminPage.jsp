@@ -36,6 +36,14 @@ $(function(){
 	
 		$("#tabs").tabs();
 		
+		//Rchart를 위한 ajax
+		$.ajax({
+			url:"getAgeForChart.do",
+			success:function(data){
+				alert(data)
+			}
+		})
+		
 		//제품 검수완료 및 변경을 위한 dialog
 		$("#productDialog").dialog({
 			width:400,
@@ -368,6 +376,7 @@ $(function(){
 			<li><a href="#a">물품관리</a></li>
 			<li><a href="#b">주문관리</a></li>
 			<li><a href="#c">회원관리</a></li>
+			<li><a href="#d">통계</a></li>
 			<li><a href="index.jsp">메인</a></li>
 		</ul>
 		
@@ -400,6 +409,14 @@ $(function(){
 				<table id="member_grid" border="1" cellpadding="10px" cellspacing="10px" class="table">
 			
 				</table>
+			</div>
+		</div>
+		
+		<div id="c">
+			<h2>통계</h2>
+			<hr>
+			<div id="Rchart">
+				
 			</div>
 		</div>
 	</div>

@@ -8,6 +8,7 @@
 <script type="text/javascript">
 $(function(){
 	location.href="main.do"
+	
 })
 </script>
 </head>

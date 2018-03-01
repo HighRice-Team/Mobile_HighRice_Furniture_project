@@ -134,6 +134,7 @@
 			tel = #{tel},
 			</if>
 		</trim>
+		where member_id = #{member_id}
 	</update>
 
 	<!-- 결제주소 변경 -->

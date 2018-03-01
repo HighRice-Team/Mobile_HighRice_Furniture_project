@@ -45,10 +45,7 @@ $(function(){
 			}
 		})
 		
-		$(".img").each(function(index,item){
-			var width = item.width
-			item.height = width
-		})
+		
 		
 		$(window).resize(function(){
 			$(".img").each(function(index,item){

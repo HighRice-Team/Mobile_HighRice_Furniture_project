@@ -27,9 +27,8 @@
 			$.ajax({
 				url:"../../updateInfo_member.do",
 				data:data,
-				success:function(data){
-				
-					if(data==1)
+				success:function(dat){
+					if(dat==1)
 					{
 						alert("회원정보 수정에 성공하였습니다.");
 						if($("#pageName").val()=="mp"){

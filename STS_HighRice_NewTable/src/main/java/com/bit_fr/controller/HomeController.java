@@ -650,4 +650,22 @@ public class HomeController {
 
 		return mav;
 	}
+	
+	
+	@RequestMapping(value="writeJSON.do",produces="text/plain;charset=utf8")
+	@ResponseBody
+	public String writeJSON(OrderlistVo o) {
+		String str ="";
+		
+		List<OrderlistVo> list =  orderlistDao.getAll_orderlist(o);
+		try {
+			ObjectMapper om = new ObjectMapper();
+			str = om.writeValueAsString(list);
+			System.out.println(str);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "";
+	}
+	
 }
