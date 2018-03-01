@@ -63,9 +63,15 @@
 </style>
 <script type="text/javascript">
    $(function() {
+	   
+	   $(".imgSize").each(function(index,item){
+		  item.height = (item.width*1.029)
+	   })
+	   
+	   
       var auto_slide;
       var auto_time = 2800; // 슬라이드 시간 1000 = 1초
-      var auto_num = 0;
+      var auto_num = 0; 
 
       $(".slide-box img").eq(auto_num).css({
          "left" : "0%"
@@ -98,6 +104,9 @@
 		$(window).resize(function() {
 			$(".category_img").css("width", $("#product_box").width() * 0.225)
 			$(".category_img").css("height", $("#product_box").width() * 0.225)
+			$(".imgSize").each(function(index,item){
+			  item.height = (item.width*1.029)
+		    })
 		})
 		
 		
@@ -142,7 +151,7 @@
 				document.getElementById("btnlogin2").click();
 			}else{
 				$.ajax({url:"onsite.do", success:function(data){
-					location.href="sellWrite.do"
+					location.href="sellWrite.do?gotoPage=sellWrite.do"
 				}})
 			}
 		})
@@ -246,7 +255,7 @@
 					data-ajax="false">
 					<div style="width: 48%; background-color: #DDDDDD; float: left; margin: 1%; text-align: center; padding-bottom: 10px;">
 						<div class="product_img">
-							<img src="resources/img/product/${list.main_img}" width="100%">
+							<img src="resources/img/product/${list.main_img}" width="100%" class="imgSize" onchange="resizeImg()">
 						</div>
 						<p>${list.product_name}</p>
 						<p>Category: ${list.category }</p>

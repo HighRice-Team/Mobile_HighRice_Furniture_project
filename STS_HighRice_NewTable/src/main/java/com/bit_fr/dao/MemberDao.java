@@ -9,6 +9,10 @@ import com.bit_fr.vo.MemberVo;
 
 @Repository
 public class MemberDao {
+	public List<String> getAllJumin_member(){
+		return MemberManager.getAllJumin_member();
+	}
+	
 	public List<MemberVo> getAll_member(MemberVo m) {
 		return MemberManager.getAll_member(m);
 	}
@@ -53,6 +57,11 @@ public class MemberDao {
 		return MemberManager.updateInfo_member(v);
 	}
 
+	
+	public int updateBalance_member(MemberVo v) {
+		return MemberManager.updateBalance_member(v);
+	}
+
 	public int updateAddr_member(MemberVo v) {
 		return MemberManager.updateAddr_member(v);
 	}
@@ -63,10 +72,6 @@ public class MemberDao {
 	
 	public int clearPwd(String member_id, int pwd) {
 		return MemberManager.clearPwd(member_id, pwd);
-	}
-
-	public List<String> getAllJumin_member() {
-		return MemberManager.getAllJumin_member();
 	}
 
 }

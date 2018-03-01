@@ -53,7 +53,6 @@ public class ProductManager {
 		}
 
 		if (!v.getCategory().equals("")) {
-			// map.put("category",v.getCategory().toUpperCase());
 			map.put("category", v.getCategory());
 		}
 		if (!v.getProduct_name().equals("")) {
@@ -262,5 +261,9 @@ public class ProductManager {
 		session.close();
 		return re;
 	}
-
+	
+	
+	
+	//--------------------------------------------
+	
 }
