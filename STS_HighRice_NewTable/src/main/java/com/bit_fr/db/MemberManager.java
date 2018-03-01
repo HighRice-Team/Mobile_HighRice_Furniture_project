@@ -5,6 +5,8 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -122,6 +124,18 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	// 폰번호로 아이디받기
+	public static String getIdByPhone_member(String name ,String tel) {
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("tel", tel);
+		String id = session.selectOne("getIdByPhone_member", map);
+		session.close();
+		
+		return id;
+	}
 
 	// Insert
 
@@ -190,6 +204,19 @@ public class MemberManager {
 		session.close();
 
 		return list;
+	}
+	
+	//비번 초기화
+	public static int clearPwd(String member_id, int pwd) {
+		SqlSession session = factory.openSession();
+		HashMap map = new HashMap();
+		map.put("member_id", member_id);
+		map.put("pwd",pwd+"");
+		int re = session.update("member.clearPwd", map);
+		session.commit();
+		session.close();
+		
+		return re;
 	}
 
 	// Delete

@@ -1,5 +1,7 @@
 package com.bit_fr.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +88,24 @@ public class MemberController {
 		return mav;
 	}
 	
+	//아이디 비밀번호 찾기
+	@RequestMapping(value="getIdByPhone.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String getIdByPhone(String name ,String tel) {
+		String str = "";
+		
+		String member_id = member_dao.getIdByPhone_member(name ,tel);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(member_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return str;
+	}
+	
 	
 //	@RequestMapping(value = "/joinInsert.do", method = RequestMethod.POST)
 //	public ModelAndView goToInsertMember(MemberVo v, String jumin1) {
@@ -103,7 +123,6 @@ public class MemberController {
 	@RequestMapping(value = "/insert_member.do", method = RequestMethod.POST)
 	public ModelAndView insert_member(MemberVo v) {
 		ModelAndView mav = new ModelAndView("template");
-		System.out.println(v);
 		mav.addObject("viewPage", "join/step3_complete.jsp");
 
 		member_dao.insert_member(v);
@@ -130,8 +149,7 @@ public class MemberController {
 		session.removeAttribute("grade");
 		session.removeAttribute("name");
 		
-		
-
+	
 		return str;
 	}
 	
@@ -443,6 +461,25 @@ public class MemberController {
 			str = "입력한 두 번호가 일치하지 않습니다.";
 		}
 
+		return str;
+	}
+	
+	@RequestMapping(value="clearPwd.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String clearPwd(String member_id) {
+		String str = "";
+		
+		Random r = new Random();
+		int pwd = r.nextInt(10000);
+		int re = member_dao.clearPwd(member_id, pwd);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(pwd);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
 		return str;
 	}
 
