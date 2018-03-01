@@ -24,23 +24,6 @@
 </style>
 <script type="text/javascript">
 $(function(){
-<<<<<<< HEAD
-
-=======
-	   $("#insert").click(function(){
-		   if($("#mainIMG").val()!=null && $("#mainIMG").val()!=""){
-			   if($("#subIMG").val()!=null && $("#subIMG").val()!=""){
-				   $("#sellInsertForm").submit(); 
-			   }else{
-				   alert("이미지를 모두 등록해주세요")
-			   }
-			   
-		   }else{
-			   alert("이미지를 등록해주세요")
-		   }     
-	   });
-	   
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 	   $("#mainIMG").change(function(){
 		   var mainIMG = $("#mainIMG").val();
 		   if(mainIMG.length >= 10){

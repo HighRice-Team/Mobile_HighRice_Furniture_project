@@ -4,72 +4,93 @@
 <head>
 <link rel="stylesheet" href="resources/css/join.css">
 <script type="text/javascript">
-	$(function(){
-		$(".findInfo").click(function(){
-	       if($("#myname").val()!=""&&$("#jumin").val()!=""){
-	          var myname = $("#myname").val()
-	          var jumin = $("#jumin1").val()+"-"+$("#jumin2").val()
-	          //올바른 주민등록번호 인지 검사.
-	          var chkJumin = Number(jumin.substr(13,1)) == 11-((2*Number(jumin.substr(0,1))+3*Number(jumin.substr(1,1))+4*Number(jumin.substr(2,1))+5*Number(jumin.substr(3,1))+6*Number(jumin.substr(4,1))+7*Number(jumin.substr(5,1))+8*Number(jumin.substr(7,1))+9*Number(jumin.substr(8,1))+2*Number(jumin.substr(9,1))+3*Number(jumin.substr(10,1))+4*Number(jumin.substr(11,1))+5*Number(jumin.substr(12,1)))%11)
-	          if(chkJumin){
-	             data = {"name":myname,"jumin":jumin}
-	             $.ajax({
-	                url:"getId_member.do",
-	                type:"POST",
-	                data:data,
-	                success:function(data){
-	                   if(data!="")
-	                   {
-	                      if(confirm("가입한 ID : "+data +"\n비밀번호를 찾으시겠습니까?")){
-	                         $.ajax({
-	                            url:"sendMail.do",
-	                            data:{"member_id":data},
-	                            success:function(re){
-	                               alert("비밀번호를 메일로 발송하였습니다.")
-	                            }
-	                         })
-	                      }
-	                   }else{
-	                      alert("가입 된 정보가 없습니다.")
-	                   }
-	                }
-	             })
-	          }else{
-	             $("#msg_joinCheck").html("* 올바르지 않는 주민등록번호 입니다.")
-	          }
-	       }else{
-	          alert("입력정보를 모두 작성해주시길 바랍니다.")
-	       }
-	    })
-	})
+   $(function(){      
+       var sec = 1000;
+        var chk;
+      $("#findId").click(function(){
+         if($("#tel").val() == "" || ($("#tel").val()).length != 11){
+               $("#msg_joinCheck").html("전화 번호를 다시 입력해주세요.").css("color","red")
+               return
+            }
+            $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
+               $("#msg_joinCheck").empty().css("color","block")
+               var i = 60;
+               
+               clearInterval(chk)
+               chk = setInterval(function(){
+                  
+                  $("#msg_joinCheck").html(i+" 초 남았습니다.")
+                  i--;
+                  if(i <= 0){
+                      
+                      $("#idChkForm").css("visibility","hidden")
+                      $("#msg_joinCheck").html("인증 시간이 초과되었습니다.").css("color","red")
+                    }
+                 }, sec)
+                           
+               $("#idChkForm").css("visibility","visible")
+              
+               $("#idChkbtn").click(function(){
+                  if($("#idChkNum").val()==data){
+                     clearInterval(chk)
+                     $.ajax({url:"getIdByPhone.do", data:{name:$("#name").val() ,tel:$("#tel").val()}, success:function(m){
+                        m = eval(m)
+                        if(confirm("당신의 아이디는 "+m+"입니다. 비밀번호를 초기화 하시겠습니까?")){
+                           $.ajax({url:"clearPwd.do", data:{member_id:m}, success:function(item){
+                              alert("초기화된 번호 "+item)
+                              location.href="main.do"
+                           }})
+                        }else{
+                           alert("로그인 해 주시기 바랍니다.")
+                           location.href="main.do"
+                        } 
+                     }})
+                     
+                  }else{
+                     $("#msg_joinCheck").append("<div style='color:red;'>틀렸습니다.</div>")
+                  }
+               })
+            }})
+      })
+   
+   })
 </script>
 </head>
 <body>
 
-	<div data-role="content">
-		<h1>회원정보 입력</h1>
-		<div data-role="fieldcontain">
-			<label for="myname">이름 </label>
-			<input type="text" id="myname" required="required">
-		</div>
-		<label>주민번호</label>
-		<div class="ui-grid-b frjmin">
-		    <div class="ui-block-a juminform">
-		    	<input type="text" id="jumin1" name="jumin1" required="required" maxlength="6">
-		    </div>
-		    <div class="ui-block-b juminhyphen">
-		    	<p class="p">-</p>
-		    </div>
-		    <div class="ui-block-c juminform">
-		    	<input type="password" id="jumin2" name="jumin2" required="required" maxlength="7">
-		    </div>
-		</div>		
-		<label id="msg_joinCheck" style="color: red;"></label>
-		
-		<a onclick="clearMsg()" href="#popupLogin" data-rel="popup" data-position-to="window" data-transition="pop" id="btnlogin" data-corners="false" >		
-			<input type="button" value="로그인">
-		</a>
-		<input type="button" value="ID/PW 찾기" id="findId" class="findInfo">
-	</div>
+   <div data-role="content">
+      <h1>번호인증</h1>
+
+      
+      <div class="ui-grid-a frjmin">
+         <div class="ui-block-a">
+            <label for = "name" style="margin-top: 10%;">이름</label>
+         </div>
+          <div class="ui-block-b">
+             <input type="text" id="name" name="name" required="required">
+          </div>
+      </div>
+      
+      <div class="ui-grid-a frjmin">
+         <div class="ui-block-a">
+            <label for = "tel" style="margin-top: 10%;">핸드폰 번호</label>
+         </div>
+          <div class="ui-block-b">
+             <input type="text" id="tel" name="tel" required="required" placeholder="'-'빼고 입력해주세요">
+          </div>
+      </div>
+      <div id="msg_joinCheck"></div>
+      <div class="ui-grid-a" id="idChkForm" style="visibility: hidden;">
+         <div class="ui-block-a">
+            <input type="number" id="idChkNum">
+         </div>
+         <div class="ui-block-b">
+            <input type="button" id="idChkbtn" value="인증">
+         </div>
+      </div>      
+      
+      
+      <input type="button" value="ID 찾기" id="findId" class="findInfo">
+   </div>
 </body>
 </html>

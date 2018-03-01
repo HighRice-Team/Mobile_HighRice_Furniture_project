@@ -62,12 +62,6 @@
 
 </style>
 <script type="text/javascript">
-<<<<<<< HEAD
-	$(function() {
-		var auto_slide;
-		var auto_time = 2500; // 슬라이드 시간 1000 = 1초
-		var auto_num = 0;
-=======
    $(function() {
 	   
 	   $(".imgSize").each(function(index,item){
@@ -78,8 +72,6 @@
       var auto_slide;
       var auto_time = 2800; // 슬라이드 시간 1000 = 1초
       var auto_num = 0; 
-
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
       $(".slide-box img").eq(auto_num).css({
          "left" : "0%"
       }); // 처음로드시 첫이미지 보이기

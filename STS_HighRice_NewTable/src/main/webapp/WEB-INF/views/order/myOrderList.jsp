@@ -125,38 +125,6 @@
 	<div data-role="content">
 		<h2 style="text-align: center;">${member.name }님의 주문내역</h2>
 		<br>
-<<<<<<< HEAD
-		
-		<!-- filter form -->
-		<div data-role="collapsible" data-theme="d" data-collapsed-icon="search" data-expanded-icon="search" data-iconpos="right">
-			<h3>검색하기</h3>
-			<form action="myOrderList.do" id="seach_form" method="post" data-ajax="false">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain">
-						<br><label>상태 분류 :</label><br>
-						<div class="ui-grid-a">
-							<div class="ui-block-a">
-								<input type="radio" id="condition_pay" name="condition" value="입금완료" data-mini="true">
-								<label for="condition_pay">입금완료</label>
-							</div>
-							<div class="ui-block-b">
-								<input type="radio" id="condition_rent" name="condition" value="대여중" data-mini="true">
-								<label for="condition_rent">대여중</label>
-							</div>
-							<div class="ui-block-a">
-								<input type="radio" id="condition_ing" name="condition" value="배송중" data-mini="true">
-								<label for="condition_ing">배송중</label>
-							</div>
-							<div class="ui-block-b">
-								<input type="radio" id="condition_complete" name="condition" value="반납" data-mini="true">
-								<label for="condition_complete">반납</label>
-							</div>
-						</div>
-					</li>
-=======
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
-
-<<<<<<< HEAD
 					<li data-role="fieldcontain">
 						<br><label>가구분류 :</label><br>
 						<div class="ui-grid-a">
@@ -180,21 +148,6 @@
 					</li>
 					
 					<li data-role="fieldcontain">
-						
-=======
-
-
-		<!-- filter form -->
-		<div data-role="collapsible" data-theme="d"
-			data-collapsed-icon="search" data-expanded-icon="search"
-			data-iconpos="right">
-			<h3>검색하기</h3>
-			<form action="myOrderList.do" id="seach_form" method="post"
-				data-ajax="false">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain"><br>
-					<label>상태 분류 :</label><br>
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 						<div class="ui-grid-a">
 							<div class="ui-block-a">
 								<input type="radio" id="condition_pay" name="condition"
