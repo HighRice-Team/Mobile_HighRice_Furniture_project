@@ -375,36 +375,35 @@ public class R_projectController {
 		try {
 			BufferedReader reader = null;
 			BufferedWriter writer = null;
-			
+
 			try {
-	            reader = new BufferedReader(new FileReader(file_name));
-	         } catch (Exception e) {
-	            File file = new File(file_name);
-	            FileOutputStream fos = new FileOutputStream(file);
-	            String temp = "[ ]";
-	            fos.write(temp.getBytes());
-	            fos.flush();
-	            fos.close();
-	         }
-			
+				reader = new BufferedReader(new FileReader(file_name));
+			} catch (Exception e) {
+				File file = new File(file_name);
+				FileOutputStream fos = new FileOutputStream(file);
+				String temp = "[ ]";
+				fos.write(temp.getBytes());
+				fos.flush();
+				fos.close();
+			}
+
 			String old_str = "";
 			File file = new File(file_name);
 			if (file.exists()) {
 				reader = new BufferedReader(new FileReader(file));
 				while (reader.ready()) {
-					old_str += reader.readLine()+",";
+					old_str += reader.readLine() + ",";
 				}
 			}
 			int findChar = old_str.lastIndexOf("]");
-	         StringBuffer sb = new StringBuffer(old_str);
-	         str_JSON =sb.insert(findChar-1, str_JSON).toString();
-			
+			StringBuffer sb = new StringBuffer(old_str);
+			str_JSON = sb.insert(findChar - 1, str_JSON).toString();
+
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(str_JSON.getBytes());
 			fos.flush();
 			fos.close();
 
-			
 		} catch (Exception e) {
 			System.out.println("에러 : " + e);
 		}
