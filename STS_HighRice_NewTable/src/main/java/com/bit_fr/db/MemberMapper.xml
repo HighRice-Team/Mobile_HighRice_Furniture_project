@@ -6,6 +6,10 @@
 	<select id="getAllJumin_member" resultType="java.lang.String">
 		select jumin from member
 	</select>
+	
+	<select id="getBitMan_member" resultType="memberVo">
+		select * from member where grade=2
+	</select>
 
 	<!-- Member 테이블의 모든 객체를 member_id 순으로 정렬한 결과를 List로 반환한다. -->
 	<select id="getAll_member" resultType="memberVo">
@@ -161,6 +165,7 @@
 		update member set balance = balance - #{payback}
 		where member_id = 'master'
 	</update>
+
 	<!-- Delete -->
 
 

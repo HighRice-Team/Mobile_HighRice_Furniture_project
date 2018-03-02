@@ -36,13 +36,6 @@ $(function(){
 	
 		$("#tabs").tabs();
 		
-		//Rchart를 위한 ajax
-		$.ajax({
-			url:"getAgeForChart.do",
-			success:function(data){
-				alert(data)
-			}
-		})
 		
 		//제품 검수완료 및 변경을 위한 dialog
 		$("#productDialog").dialog({

@@ -3,8 +3,10 @@ package com.bit_fr.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -26,6 +28,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit_fr.dao.MemberDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 @Controller
 public class R_projectController {
@@ -251,6 +257,9 @@ public class R_projectController {
 			System.out.println(e);
 		}
 		System.out.println(path);
+		System.out.println(str_JSON);
+		
+		
 
 		try {
 			BufferedReader reader = null;
@@ -258,50 +267,38 @@ public class R_projectController {
 
 			try {
 				reader = new BufferedReader(new FileReader(file_name));
-
 			} catch (Exception e) {
 				File file = new File(file_name);
-
+				FileOutputStream fos = new FileOutputStream(file);
+				String temp = "[]";
+				fos.write(temp.getBytes());
+				fos.close();
 			}
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file_name), "UTF-8"));
-
-			String old_str;
-			while ((old_str = reader.readLine()) != null) {
-				System.out.println(old_str);
-				writer.write(old_str);
-				writer.newLine();
+			String old_str ="";
+			File file = new File(file_name);
+			if(file.exists()) {
+				reader = new BufferedReader(new FileReader(file));
+				while (reader.ready()) {
+					old_str +=reader.readLine();
+				}
 			}
-
-			writer.write(str_JSON);
-
-			writer.flush();
+			int findChar = old_str.lastIndexOf("]");
+			StringBuffer sb = new StringBuffer(old_str);
 			
-			if(reader != null) {
-				reader.close();
+			if(old_str.lastIndexOf("}")!=-1) {
+				str_JSON =sb.insert(findChar, (","+str_JSON)).toString();
+			}else {
+				str_JSON =sb.insert(findChar, str_JSON).toString();
 			}
-			System.out.println("1");
-			writer.close();
-			System.out.println("2");
-			// FileCopyUtils.copy(reader, writer);
-			// FileInputStream file_in = new FileInputStream(file_name);
-			//
-			//
-			// byte[] data = new byte[64];
-			// int readByte = 0;
-			// while((readByte = file_in.read()) != -1) {
-			// System.out.print((char)readByte);
-			// }
-			// file_in.close();
-			//// FileOutputStream file_out = new FileOutputStream(file_name);
-			//
-			//// file_out.write(data);
-			//// file_out.write(str_JSON.getBytes());
-			//// file_out.close();
-			//
+			
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(str_JSON.getBytes());
+			fos.close();
+
 		} catch (Exception e) {
 			System.out.println("에러 : " + e);
 		}
-
+		
 		return str_JSON;
 	}
 
