@@ -27,6 +27,19 @@ public class OrderlistManager {
 			System.out.println(e);
 		}
 	}
+	
+	public static OrderlistVo getOne_orderlist(int order_id) {
+		SqlSession session = factory.openSession();
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("order_id", order_id+"");
+		
+		OrderlistVo v = session.selectOne("orderlist.getOne_orderlist",map);
+		
+		session.close();
+		
+		return v;
+	}
 
 	public static List<OrderlistVo> getOrders_orderlist(String order_id) {
 		SqlSession session = factory.openSession();
@@ -357,6 +370,16 @@ public class OrderlistManager {
 		SqlSession session = factory.openSession(true);
 		System.out.println("changeRequest매니저: "+changeRequest);
 		re = session.update("orderlist.updateOrderCondition_changeRequest", map);
+		return re;
+	}
+	
+	public static int updateOrderlistCondition_orderlist(int order_id, String orderlist_condition) {
+		SqlSession session = factory.openSession(true);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("order_id", order_id+"");
+		map.put("orderlist_condition", orderlist_condition);
+		int re = session.update("orderlist.updateOrderlistCondition_orderlist",map);
+		session.close();
 		return re;
 	}
 

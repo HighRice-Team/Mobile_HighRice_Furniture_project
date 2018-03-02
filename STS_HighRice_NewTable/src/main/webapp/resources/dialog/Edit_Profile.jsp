@@ -10,7 +10,11 @@
 
 			$("#member_id").html(data.member_id);
 			$("#name").html(data.name);
-			$("#jumin").html(data.jumin);
+			var birthY = (data.jumin).substring(0,4)
+			var birthM = (data.jumin).substring(4,6)
+			var birthD = (data.jumin).substring(6,8)
+			var gender = (data.jumin).substring(8)
+			$("#jumin").html(birthY+"년 "+birthM+"월 "+birthD+"일 ");
 			$("#account_no").val(data.account_no);
 			$("#address3").val(data.address3);
 			$("#tel").val(data.tel);
@@ -27,9 +31,8 @@
 			$.ajax({
 				url:"../../updateInfo_member.do",
 				data:data,
-				success:function(data){
-				
-					if(data==1)
+				success:function(dat){
+					if(dat==1)
 					{
 						alert("회원정보 수정에 성공하였습니다.");
 						if($("#pageName").val()=="mp"){
@@ -91,8 +94,8 @@
 				</tr>
 
 				<tr>
-					<td id="title">주민번호</td>
-					<td colspan="4" id="jumin" name="jumin"></td>
+					<td id="title">생년월일</td>
+					<td colspan="2" id="jumin" name="jumin"></td>
 				</tr>
 
 				<tr>

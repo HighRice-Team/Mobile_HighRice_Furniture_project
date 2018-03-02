@@ -21,6 +21,18 @@
 <script type="text/javascript">
 
    $(function(){
+	   
+	   $(".mainIMG").each(function(index,item){
+		   item.height = item.width
+	   })
+	   $(window).resize(function(){
+		   $(".mainIMG").each(function(index,item){
+			   item.height = item.width
+		   })
+	   })
+	   
+	   
+	   
       //선택된 상품을 담을 변수, 주문 or 삭제를 위한 작업.
       var selectedOrder = "";
       //선택항목 삭제
@@ -231,7 +243,7 @@
          <div class="ui-grid-a">
          	
             <div class="ui-block-a" style="width: 31%; padding-left: 5%; padding-top: 5%; <c:if test="${list.pay_date == '1111-11-11' }">opacity: .20;</c:if>">
-               <img src="resources/img/product/${list.main_img }" width="100%">
+               <img src="resources/img/product/${list.main_img }" width="100%" class="mainIMG">
             </div>
             <div class="ui-block-b" style="width: 64%; padding-top: 5%;<c:if test="${list.pay_date == '1111-11-11' }">opacity: .20; </c:if>">
                <div style="padding-left: 20%;">
