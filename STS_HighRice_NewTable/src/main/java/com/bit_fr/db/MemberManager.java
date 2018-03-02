@@ -230,20 +230,13 @@ public class MemberManager {
 	}
 	
 	public static int updateMasterForRefund_member(int payback) {
-<<<<<<< HEAD
-		int re = -1;
-		SqlSession session = factory.openSession(true);
-		session.update("member.paybackMaster_member", payback);
-		session.close();
-=======
-=======
       		int re = -1;
       		SqlSession session = factory.openSession(true);
       		session.update("member.paybackMaster_member", payback);
      		return re;
    	}
 	
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
+
 	//비번 초기화
 	public static int clearPwd(String member_id, int pwd) {
 		SqlSession session = factory.openSession();
