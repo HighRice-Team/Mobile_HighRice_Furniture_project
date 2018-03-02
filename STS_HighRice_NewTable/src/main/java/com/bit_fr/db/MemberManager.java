@@ -234,6 +234,7 @@ public class MemberManager {
 		int re = -1;
 		SqlSession session = factory.openSession(true);
 		session.update("member.paybackMaster_member", payback);
+		session.close();
 =======
 	//비번 초기화
 	public static int clearPwd(String member_id, int pwd) {
