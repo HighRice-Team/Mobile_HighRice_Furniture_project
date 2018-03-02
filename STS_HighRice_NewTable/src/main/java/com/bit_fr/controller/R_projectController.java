@@ -24,10 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit_fr.dao.MemberDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'Isung2' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 @Controller
 public class R_projectController {
 
