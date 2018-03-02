@@ -70,7 +70,6 @@ public class HomeController {
 		this.orderlistDao = orderlistDao;
 	}
 	
-	
 
 	// 처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
 	@RequestMapping(value = "/onsite.do", produces = "text/plain; charset=utf-8")
@@ -650,4 +649,127 @@ public class HomeController {
 
 		return mav;
 	}
+	
+	
+	@RequestMapping(value="writeJSON.do",produces="text/plain;charset=utf8")
+	@ResponseBody
+	public String writeJSON(OrderlistVo o) {
+		String str ="";
+		
+		List<OrderlistVo> list =  orderlistDao.getAll_orderlist(o);
+		try {
+			ObjectMapper om = new ObjectMapper();
+			str = om.writeValueAsString(list);
+			System.out.println(str);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "";
+	}
+	
+	@RequestMapping(value = "/refund.do", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String refund(int order_id) {
+		String str = "";
+		
+		OrderlistVo orderVo = orderlistDao.getOne_orderlist(order_id);
+		String member_id = orderVo.getMember_id();
+		
+		MemberVo memverVo = memberDao.getOne_member(member_id);
+		
+		long memberBalance = memverVo.getBalance();
+		
+		int product_id = orderVo.getProduct_id();
+		int price = productDao.getOne_product(product_id).getPrice();
+		
+		int refundAmount = orderVo.getRent_month()*price;
+		
+		memverVo.setBalance(memberBalance - refundAmount);
+		
+		memberDao.updateInfo_member(memverVo);
+		memberDao.updateMasterForRefund_member(refundAmount);
+		
+		
+		return str;
+	}
+	
+	@RequestMapping("admin/deliveryInfo.do")
+	public ModelAndView deliveryInfo(int order_id) {
+		ModelAndView mav = new ModelAndView("managementPage/deliveryInfo");
+		OrderlistVo orderV = orderlistDao.getOne_orderlist(order_id);
+		List<MemberVo> bitManList = memberDao.getBitMan_member();
+		String bitSelect="<select name='bitman'>";
+		
+		for(MemberVo mv : bitManList) {
+			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		}
+		 bitSelect += "</select>";
+		 
+		int product_id = orderV.getProduct_id();
+		String member_id = orderV.getMember_id();
+		MemberVo memberVo =  memberDao.getOne_member(member_id);
+		
+		mav.addObject("bitSelect",bitSelect);
+		ProductVo productVo = productDao.getOne_product(product_id);
+		
+		mav.addObject("product_info",productVo);
+		mav.addObject("orderlist_info",orderV);
+		mav.addObject("member_info",memberVo);
+		
+		
+		return mav;
+	}
+	
+	@RequestMapping("admin/collectInfo.do")
+	public ModelAndView collectInfo(int product_id) {
+		ModelAndView mav = new ModelAndView("managementPage/collectInfo");
+		List<MemberVo> bitManList = memberDao.getBitMan_member();
+		String bitSelect="<select name='bitman'>";
+		
+		for(MemberVo mv : bitManList) {
+			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		}
+		bitSelect += "</select>";
+		
+		ProductVo productVo = productDao.getOne_product(product_id);
+		
+		MemberVo memberVo =  memberDao.getOne_member(productVo.getMember_id());
+		
+		mav.addObject("bitSelect",bitSelect);
+		
+		
+		mav.addObject("product_info",productVo);
+		mav.addObject("member_info",memberVo);
+		
+		
+		return mav;
+	}
+	
+	@RequestMapping("admin/returnInfo.do")
+	public ModelAndView returnInfo(int order_id) {
+		ModelAndView mav = new ModelAndView("managementPage/returnInfo");
+		OrderlistVo orderV = orderlistDao.getOne_orderlist(order_id);
+		List<MemberVo> bitManList = memberDao.getBitMan_member();
+		String bitSelect="<select name='bitman'>";
+		
+		for(MemberVo mv : bitManList) {
+			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		}
+		bitSelect += "</select>";
+		
+		int product_id = orderV.getProduct_id();
+		String member_id = orderV.getMember_id();
+		MemberVo memberVo =  memberDao.getOne_member(member_id);
+		
+		mav.addObject("bitSelect",bitSelect);
+		ProductVo productVo = productDao.getOne_product(product_id);
+		
+		mav.addObject("product_info",productVo);
+		mav.addObject("orderlist_info",orderV);
+		mav.addObject("member_info",memberVo);
+		
+		
+		return mav;
+	}
+	
 }

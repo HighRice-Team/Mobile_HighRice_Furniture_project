@@ -13,6 +13,10 @@ public class MemberDao {
 		return MemberManager.getAllJumin_member();
 	}
 	
+	public List<MemberVo> getBitMan_member(){
+		return MemberManager.getBitMan_member();
+	}
+	
 	public List<MemberVo> getAll_member(MemberVo m) {
 		return MemberManager.getAll_member(m);
 	}
@@ -68,6 +72,10 @@ public class MemberDao {
 
 	public int updatePayback_member(String member_id, int payback) {
 		return MemberManager.updatePayback_member(member_id, payback);
+	}
+	
+	public int updateMasterForRefund_member(int payback) {
+		return MemberManager.updateMasterForRefund_member(payback);
 	}
 	
 	public int clearPwd(String member_id, int pwd) {
