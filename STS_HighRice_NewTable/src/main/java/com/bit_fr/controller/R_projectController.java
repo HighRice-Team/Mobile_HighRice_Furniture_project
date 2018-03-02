@@ -3,14 +3,9 @@ package com.bit_fr.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.ObjectInputStream;
-import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +25,6 @@ import com.bit_fr.dao.MemberDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@Controller
 public class R_projectController {
 
 	@Autowired
@@ -256,8 +250,6 @@ public class R_projectController {
 		System.out.println(path);
 		System.out.println(str_JSON);
 		
-		
-
 		try {
 			BufferedReader reader = null;
 			BufferedWriter writer = null;
