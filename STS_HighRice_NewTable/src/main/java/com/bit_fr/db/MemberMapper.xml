@@ -60,6 +60,11 @@
 		select grade from member
 		where member_id = #{member_id}
 	</select>
+	
+<!-- 	폰번으로 아이디 찾기 -->
+	<select id="getIdByPhone_member" resultType="java.lang.String">
+		select member_id from member where name = #{name} and tel = #{tel}
+	</select>
 
 
 	<!-- Insert -->
@@ -160,6 +165,12 @@
 		update member set balance = balance - #{payback}
 		where member_id = 'master'
 	</update>
+
+	<!-- 비밀번호 초기화 -->
+	<update id="clearPwd">
+		update member set pwd = #{pwd} where member_id = #{member_id}
+	</update>
+	
 	<!-- Delete -->
 
 
