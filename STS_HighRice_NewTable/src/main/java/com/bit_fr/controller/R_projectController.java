@@ -25,6 +25,7 @@ import com.bit_fr.dao.MemberDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+@Controller
 public class R_projectController {
 
 	@Autowired
