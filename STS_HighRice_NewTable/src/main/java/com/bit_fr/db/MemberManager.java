@@ -5,6 +5,8 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -137,6 +139,18 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	// 폰번호로 아이디받기
+	public static String getIdByPhone_member(String name ,String tel) {
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("tel", tel);
+		String id = session.selectOne("getIdByPhone_member", map);
+		session.close();
+		
+		return id;
+	}
 
 	// Insert
 
@@ -215,10 +229,23 @@ public class MemberManager {
 		return list;
 	}
 	
+<<<<<<< HEAD
 	public static int updateMasterForRefund_member(int payback) {
 		int re = -1;
 		SqlSession session = factory.openSession(true);
 		session.update("member.paybackMaster_member", payback);
+=======
+	//비번 초기화
+	public static int clearPwd(String member_id, int pwd) {
+		SqlSession session = factory.openSession();
+		HashMap map = new HashMap();
+		map.put("member_id", member_id);
+		map.put("pwd",pwd+"");
+		int re = session.update("member.clearPwd", map);
+		session.commit();
+		session.close();
+		
+>>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 		return re;
 	}
 

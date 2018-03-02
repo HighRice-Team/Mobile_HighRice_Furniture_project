@@ -7,10 +7,20 @@
 		
 		//비밀번호 수정 ajax
 		$("#Change_pwd_btn").click(function(){
+			
 			var oldPwd = $("#oldPwd").val();
 			var pwd = $("#newPwd").val();
 			var pwd2 = $("#chk_newPwd").val();
 			
+			if(pwd == ""){
+				alert("비밀번호를 반드시 입력해주세요")
+				return false;
+			}
+			
+			if(pwd.length < 8){
+				alert("비밀번호는 8자리 이상입니다.")
+				return false;
+			}
 			
 			var data ={"input_pwd":pwd,"input_pwd2":pwd2,"old_pwd":oldPwd};
 				
@@ -56,7 +66,7 @@
 			</tr>
 			<tr>
 				<td>변경할 비밀번호</td>
-				<td><input type="password" id="newPwd"></td>
+				<td><input type="password" id="newPwd" placeholder="8자리 이상 입력해주세요"></td>
 			</tr>
 			<tr>
 				<td>변경할 비밀번호 확인</td>
