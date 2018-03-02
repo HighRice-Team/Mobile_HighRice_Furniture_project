@@ -60,7 +60,6 @@ public class MemberController {
 	}
 
 	
-	
 	//관리자인지 아닌지 판별하는 식
 	@RequestMapping(value = "/getGrade.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody

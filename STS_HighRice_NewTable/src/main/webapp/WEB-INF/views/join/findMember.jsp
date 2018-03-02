@@ -12,29 +12,35 @@
 	    		  $("#msg_joinCheck").html("전화 번호를 다시 입력해주세요.").css("color","red")
 	    		  return
 	    	  }
-	    	  $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
-	    		  $("#msg_joinCheck").empty().css("color","block")
-	 			  var i = 60;
-	    		  
-	    		  clearInterval(chk)
-	    		  chk = setInterval(function(){
-						
-						$("#msg_joinCheck").html(i+" 초 남았습니다.")
-						i--;
-						if(i <= 0){
-							 
-							 $("#idChkForm").css("visibility","hidden")
-							 $("#msg_joinCheck").html("인증 시간이 초과되었습니다.").css("color","red")
-						  }
-					  }, sec)
-					    		  
-	    		  $("#idChkForm").css("visibility","visible")
+			
+			  $.ajax({url:"getIdByPhone.do", data:{name:$("#name").val() ,tel:$("#tel").val()}, success:function(m){
+				  m = eval(m)
+				  if(m == null || m == ""){
+					  $("#msg_joinCheck").html("없는 회원정보입니다.").css("color","red")
+		    		  return
+				  }
 				  
-	    		  $("#idChkbtn").click(function(){
+				  $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
+		    		  $("#msg_joinCheck").empty()
+		 			  var i = 60;
+		    		  
+		    		  clearInterval(chk)
+		    		  chk = setInterval(function(){
+							
+							$("#msg_joinCheck").html(i+" 초 남았습니다.").css("color","block")
+							i--;
+							if(i <= 0){
+								 
+								 $("#idChkForm").css("visibility","hidden")
+								 $("#msg_joinCheck").html("인증 시간이 초과되었습니다.").css("color","red")
+							  }
+						  }, sec)
+						    		  
+		    		  $("#idChkForm").css("visibility","visible")
+		    		   $("#idChkbtn").click(function(){
 	    			  if($("#idChkNum").val()==data){
-	    				  clearInterval(chk)
-	    				  $.ajax({url:"getIdByPhone.do", data:{name:$("#name").val() ,tel:$("#tel").val()}, success:function(m){
-	    					  m = eval(m)
+	    				  
+	    					  clearInterval(chk)
 	    					  if(confirm("당신의 아이디는 "+m+"입니다. 비밀번호를 초기화 하시겠습니까?")){
 		    					  $.ajax({url:"clearPwd.do", data:{member_id:m}, success:function(item){
 		    						  alert("초기화된 번호 "+item)
@@ -44,16 +50,18 @@
 		    					  alert("로그인 해 주시기 바랍니다.")
 		    					  location.href="main.do"
 		    				  } 
-	    				  }})
 	    				  
 	    			  }else{
 	    				  $("#msg_joinCheck").append("<div style='color:red;'>틀렸습니다.</div>")
 	    			  }
 	    		  })
-	    	  }})
-		})
+				 
+			}})
+			 
+		}})
 	
 	})
+})
 </script>
 </head>
 <body>
