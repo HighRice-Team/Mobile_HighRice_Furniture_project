@@ -270,9 +270,10 @@ public class R_projectController {
 			} catch (Exception e) {
 				File file = new File(file_name);
 				FileOutputStream fos = new FileOutputStream(file);
-<<<<<<< HEAD
+
 				String temp = "[]";
 				fos.write(temp.getBytes());
+				fos.flush();
 				fos.close();
 			}
 			String old_str ="";
@@ -282,14 +283,8 @@ public class R_projectController {
 				while (reader.ready()) {
 					old_str +=reader.readLine();
 				}
-=======
-				String temp = "[ ]";
-				fos.write(temp.getBytes());
-				fos.flush();
-				fos.close();
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 			}
-<<<<<<< HEAD
+
 			int findChar = old_str.lastIndexOf("]");
 			StringBuffer sb = new StringBuffer(old_str);
 			
@@ -297,30 +292,12 @@ public class R_projectController {
 				str_JSON =sb.insert(findChar, (","+str_JSON)).toString();
 			}else {
 				str_JSON =sb.insert(findChar, str_JSON).toString();
-=======
 
-			String old_str = "";
-			File file = new File(file_name);
-			if (file.exists()) {
-				reader = new BufferedReader(new FileReader(file));
-				while (reader.ready()) {
-					old_str += reader.readLine() + ",";
-				}
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 			}
-<<<<<<< HEAD
 			
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(str_JSON.getBytes());
-=======
-			int findChar = old_str.lastIndexOf("]");
-			StringBuffer sb = new StringBuffer(old_str);
-			str_JSON = sb.insert(findChar - 1, str_JSON).toString();
-
-			FileOutputStream fos = new FileOutputStream(file);
-			fos.write(str_JSON.getBytes());
 			fos.flush();
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 			fos.close();
 
 		} catch (Exception e) {

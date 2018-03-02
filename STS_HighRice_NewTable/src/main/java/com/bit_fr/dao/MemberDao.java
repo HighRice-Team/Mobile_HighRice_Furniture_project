@@ -74,14 +74,12 @@ public class MemberDao {
 		return MemberManager.updatePayback_member(member_id, payback);
 	}
 	
-<<<<<<< HEAD
 	public int updateMasterForRefund_member(int payback) {
 		return MemberManager.updateMasterForRefund_member(payback);
 	}
-=======
+	
 	public int clearPwd(String member_id, int pwd) {
 		return MemberManager.clearPwd(member_id, pwd);
 	}
 
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 }

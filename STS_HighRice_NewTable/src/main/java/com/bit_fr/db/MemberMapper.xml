@@ -171,14 +171,11 @@
 		where member_id = 'master'
 	</update>
 
-<<<<<<< HEAD
-=======
 	<!-- 비밀번호 초기화 -->
 	<update id="clearPwd">
 		update member set pwd = #{pwd} where member_id = #{member_id}
 	</update>
 	
->>>>>>> branch 'master' of https://github.com/HighRice-Team/Mobile_HighRice_Furniture_project.git
 	<!-- Delete -->
 
 
