@@ -236,6 +236,7 @@ public class MemberManager {
      		return re;
    	}
 	
+
 	//비번 초기화
 	public static int clearPwd(String member_id, int pwd) {
 		SqlSession session = factory.openSession();
