@@ -381,7 +381,7 @@ public class R_projectController {
 			} catch (Exception e) {
 				File file = new File(file_name);
 				FileOutputStream fos = new FileOutputStream(file);
-				String temp = "[ ]";
+				String temp = "[]";
 				fos.write(temp.getBytes());
 				fos.flush();
 				fos.close();
@@ -392,12 +392,17 @@ public class R_projectController {
 			if (file.exists()) {
 				reader = new BufferedReader(new FileReader(file));
 				while (reader.ready()) {
-					old_str += reader.readLine() + ",";
+					old_str += reader.readLine();
 				}
 			}
 			int findChar = old_str.lastIndexOf("]");
 			StringBuffer sb = new StringBuffer(old_str);
-			str_JSON = sb.insert(findChar - 1, str_JSON).toString();
+
+			if (old_str.lastIndexOf("}") != -1) {
+				str_JSON = sb.insert(findChar, ("," + str_JSON)).toString();
+			} else {
+				str_JSON = sb.insert(findChar, str_JSON).toString();
+			}
 
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(str_JSON.getBytes());
