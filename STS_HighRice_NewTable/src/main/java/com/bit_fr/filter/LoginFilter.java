@@ -53,7 +53,9 @@ public class LoginFilter implements Filter {
 			((HttpServletResponse) response).sendRedirect("main.do");
 
 		} else {
+
 			chain.doFilter(request, response);
+
 		}
 	}
 

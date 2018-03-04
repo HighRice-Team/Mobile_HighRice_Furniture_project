@@ -16,11 +16,19 @@
 		<h2>R Chart</h2>
 	</center>
 	<center>
-		<img src="resources/chart_img/sssaaa.jpg">
+		<img src="resources/chart_img/${inflowRoute}">
 	</center>
 	
 	<center>
-		<img src="resources/chart_img/aaasss.jpg">
+		<img src="resources/chart_img/${generationRate}">
+	</center>
+	
+	<center>
+		<img src="resources/chart_img/${searchKeyword}">
+	</center>
+	
+	<center>
+		<img src="resources/chart_img/${genderRate}">
 	</center>
 </body>
 </html>

@@ -103,7 +103,7 @@ public class ProductController {
 		int startNum = endNum - (productMax - 1);
 		
 		num += 1;
-		System.out.println(num);
+		System.out.println("메인페이지 조회수 : "+num);
 		String sql = "select * from (select rownum rnum, product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from (select product_id,condition, product_name, category, quality, price, main_img, sub_img, member_id from product where condition='물품게시'";
 
 		if (category != null && category.equals("")) {
