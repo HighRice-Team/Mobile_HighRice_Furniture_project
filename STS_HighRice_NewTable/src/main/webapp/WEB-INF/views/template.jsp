@@ -111,6 +111,10 @@
                <c:if test="${sessionScope.grade == '2'}">
                   <a data-ajax="false" href="todoList.do">Bitman</a>
                </c:if>
+               <c:if test="${sessionScope.grade == '0'}">
+                  <a data-ajax="false" href="admin.do">관리자페이지</a>
+                  <a data-ajax="false" href="statistics_Rchart.do">통계페이지</a>
+               </c:if>
             </div>
          </c:if>
          <div data-role="navbar" data-position="inline" class="navbaraa">
@@ -143,6 +147,7 @@
                <ul data-role="listview" data-icon="false">
                   <li><a data-ajax="false" href="qnaList.do">QnA</a></li>
                   <li><a data-ajax="false" href="faq.do">FAQ</a></li>
+                  <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
                   <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
                </ul>
             </div>

@@ -1,6 +1,5 @@
 package com.bit_fr.controller;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,7 +45,6 @@ import com.hanb.sms.SmsSend;
 @Controller
 public class HomeController {
 
-	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
@@ -69,7 +67,6 @@ public class HomeController {
 	public void setOrderlistDao(OrderlistDao orderlistDao) {
 		this.orderlistDao = orderlistDao;
 	}
-	
 
 	// 처음에만 대문을 팝업으로 쏴주고 다음에는 열리지 않게 하는 메소드
 	@RequestMapping(value = "/onsite.do", produces = "text/plain; charset=utf-8")
@@ -90,7 +87,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("/myPage.do")
-	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min, String selectedMyPage) {
+	public ModelAndView goMyPage(HttpSession session, @RequestParam(value = "min", defaultValue = "1") int min,
+			String selectedMyPage) {
 		ModelAndView mav = new ModelAndView();
 
 		String member_id = (String) session.getAttribute("id");
@@ -155,7 +153,7 @@ public class HomeController {
 	}
 
 	// Node Sever HOST 설정
-	private String node_IP = "192.168.0.160";
+	private String node_IP = "203.236.209.226";
 	private int node_PORT = 52273;
 
 	// deliveryList : 비트맨의 배송목록 ajax통신
@@ -185,17 +183,17 @@ public class HomeController {
 
 		return str;
 	}
-	
-	//SMS 메소드
-	@RequestMapping(value="chkphone.do", produces="text/plain; charset=utf-8")
+
+	// SMS 메소드
+	@RequestMapping(value = "chkphone.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String chkphone(String phone) {
-		
+
 		String str = "";
-		
+
 		int n = RNum();
 		SmsSend.send(phone, n);
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			str = mapper.writeValueAsString(n);
@@ -203,20 +201,19 @@ public class HomeController {
 			// TODO: handle exception
 			System.out.println(e);
 		}
-		
+
 		return str;
 	}
-	
-	//랜덤번호 생성
-	public static int RNum()
-	{
-		int r = (int) (Math.floor(Math.random() * 1000000)+100000);
-		if(r>1000000){
-			   r = r - 100000;
-			}
+
+	// 랜덤번호 생성
+	public static int RNum() {
+		int r = (int) (Math.floor(Math.random() * 1000000) + 100000);
+		if (r > 1000000) {
+			r = r - 100000;
+		}
 		return r;
-		
-	}  
+
+	}
 
 	// returnList : 비트맨의 반납요청 목록 ajax통신
 	@RequestMapping(value = "/todoListAjax_returnList.do", produces = "text/plain;charset=utf-8")
@@ -375,21 +372,11 @@ public class HomeController {
 
 		return mav;
 	}
-	
-	@RequestMapping("/statistics.do")
-	public ModelAndView statistics() {
-		ModelAndView mav = new ModelAndView("template");
-
-		mav.addObject("viewPage", "admin/statistics.jsp");
-
-		return mav;
-	}
-	
 
 	@RequestMapping(value = "/signSave.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String signSave(HttpServletRequest request , String req) {
-		String path = request.getRealPath("/resources/sign_store/"+req);
+	public String signSave(HttpServletRequest request, String req) {
+		String path = request.getRealPath("/resources/sign_store/" + req);
 
 		String sign = StringUtils.split(request.getParameter("sign"), ",")[1];
 		String fileName = System.currentTimeMillis() + ".png";
@@ -410,7 +397,7 @@ public class HomeController {
 		String member_id = (String) session.getAttribute("id");
 		mav.addObject("viewPage", "sell/sellWrite.jsp");
 		mav.addObject("member_id", member_id);
-		
+
 		return mav;
 	}
 
@@ -423,7 +410,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/admin.do")
-	public ModelAndView admin() {
+	public ModelAndView admin(HttpSession session) {
 		ModelAndView mav = new ModelAndView("./managementPage/adminPage");
 		return mav;
 	}
@@ -649,14 +636,13 @@ public class HomeController {
 
 		return mav;
 	}
-	
-	
-	@RequestMapping(value="writeJSON.do",produces="text/plain;charset=utf8")
+
+	@RequestMapping(value = "writeJSON.do", produces = "text/plain;charset=utf8")
 	@ResponseBody
 	public String writeJSON(OrderlistVo o) {
-		String str ="";
-		
-		List<OrderlistVo> list =  orderlistDao.getAll_orderlist(o);
+		String str = "";
+
+		List<OrderlistVo> list = orderlistDao.getAll_orderlist(o);
 		try {
 			ObjectMapper om = new ObjectMapper();
 			str = om.writeValueAsString(list);
@@ -666,110 +652,105 @@ public class HomeController {
 		}
 		return "";
 	}
-	
-	@RequestMapping(value = "/refund.do", produces="text/plain; charset=utf-8")
+
+	@RequestMapping(value = "/refund.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String refund(int order_id) {
 		String str = "";
-		
+
 		OrderlistVo orderVo = orderlistDao.getOne_orderlist(order_id);
 		String member_id = orderVo.getMember_id();
-		
+
 		MemberVo memverVo = memberDao.getOne_member(member_id);
-		
+
 		long memberBalance = memverVo.getBalance();
-		
+
 		int product_id = orderVo.getProduct_id();
 		int price = productDao.getOne_product(product_id).getPrice();
-		
-		int refundAmount = orderVo.getRent_month()*price;
-		
+
+		int refundAmount = orderVo.getRent_month() * price;
+
 		memverVo.setBalance(memberBalance - refundAmount);
-		
+
 		memberDao.updateInfo_member(memverVo);
 		memberDao.updateMasterForRefund_member(refundAmount);
-		
-		
+
 		return str;
 	}
-	
+
 	@RequestMapping("admin/deliveryInfo.do")
 	public ModelAndView deliveryInfo(int order_id) {
 		ModelAndView mav = new ModelAndView("managementPage/deliveryInfo");
 		OrderlistVo orderV = orderlistDao.getOne_orderlist(order_id);
 		List<MemberVo> bitManList = memberDao.getBitMan_member();
-		String bitSelect="<select name='bitman'>";
-		
-		for(MemberVo mv : bitManList) {
-			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		String bitSelect = "<select name='bitman'>";
+
+		for (MemberVo mv : bitManList) {
+			bitSelect += "<option value='" + mv.getName() + "'>" + mv.getName() + "</option>";
 		}
-		 bitSelect += "</select>";
-		 
+		bitSelect += "</select>";
+
 		int product_id = orderV.getProduct_id();
 		String member_id = orderV.getMember_id();
-		MemberVo memberVo =  memberDao.getOne_member(member_id);
-		
-		mav.addObject("bitSelect",bitSelect);
+		MemberVo memberVo = memberDao.getOne_member(member_id);
+
+		mav.addObject("bitSelect", bitSelect);
 		ProductVo productVo = productDao.getOne_product(product_id);
-		
-		mav.addObject("product_info",productVo);
-		mav.addObject("orderlist_info",orderV);
-		mav.addObject("member_info",memberVo);
-		
-		
+
+		mav.addObject("product_info", productVo);
+		mav.addObject("orderlist_info", orderV);
+		mav.addObject("member_info", memberVo);
+
 		return mav;
 	}
-	
+
 	@RequestMapping("admin/collectInfo.do")
 	public ModelAndView collectInfo(int product_id) {
 		ModelAndView mav = new ModelAndView("managementPage/collectInfo");
 		List<MemberVo> bitManList = memberDao.getBitMan_member();
-		String bitSelect="<select name='bitman'>";
-		
-		for(MemberVo mv : bitManList) {
-			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		String bitSelect = "<select name='bitman'>";
+
+		for (MemberVo mv : bitManList) {
+			bitSelect += "<option value='" + mv.getName() + "'>" + mv.getName() + "</option>";
 		}
 		bitSelect += "</select>";
-		
+
 		ProductVo productVo = productDao.getOne_product(product_id);
-		
-		MemberVo memberVo =  memberDao.getOne_member(productVo.getMember_id());
-		
-		mav.addObject("bitSelect",bitSelect);
-		
-		
-		mav.addObject("product_info",productVo);
-		mav.addObject("member_info",memberVo);
-		
-		
+
+		MemberVo memberVo = memberDao.getOne_member(productVo.getMember_id());
+
+		mav.addObject("bitSelect", bitSelect);
+
+		mav.addObject("product_info", productVo);
+		mav.addObject("member_info", memberVo);
+
 		return mav;
 	}
-	
+
 	@RequestMapping("admin/returnInfo.do")
 	public ModelAndView returnInfo(int order_id) {
 		ModelAndView mav = new ModelAndView("managementPage/returnInfo");
 		OrderlistVo orderV = orderlistDao.getOne_orderlist(order_id);
 		List<MemberVo> bitManList = memberDao.getBitMan_member();
-		String bitSelect="<select name='bitman'>";
-		
-		for(MemberVo mv : bitManList) {
-			bitSelect+= "<option value='"+mv.getName()+"'>"+mv.getName()+"</option>";
+		String bitSelect = "<select name='bitman'>";
+
+		for (MemberVo mv : bitManList) {
+			bitSelect += "<option value='" + mv.getName() + "'>" + mv.getName() + "</option>";
 		}
 		bitSelect += "</select>";
-		
+
 		int product_id = orderV.getProduct_id();
 		String member_id = orderV.getMember_id();
-		MemberVo memberVo =  memberDao.getOne_member(member_id);
-		
-		mav.addObject("bitSelect",bitSelect);
+		MemberVo memberVo = memberDao.getOne_member(member_id);
+
+		mav.addObject("bitSelect", bitSelect);
 		ProductVo productVo = productDao.getOne_product(product_id);
-		
-		mav.addObject("product_info",productVo);
-		mav.addObject("orderlist_info",orderV);
-		mav.addObject("member_info",memberVo);
-		
-		
+
+		mav.addObject("product_info", productVo);
+		mav.addObject("orderlist_info", orderV);
+		mav.addObject("member_info", memberVo);
+
 		return mav;
 	}
-	
+
 }
