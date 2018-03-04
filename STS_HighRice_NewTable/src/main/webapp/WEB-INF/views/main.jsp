@@ -63,9 +63,10 @@
 </style>
 <script type="text/javascript">
    $(function() {
+	   $(".ui-slider-track").css("width","100%")
 	   
-	   $.ajax({
-		   url:"getAgeForChart.do"
+	   $("a[role='slider']").click(function(){
+		   alert("asdasd")
 	   })
 	   
 	   $(".imgSize").each(function(index,item){
@@ -232,6 +233,10 @@
                   <label>월 대여가격 :</label><br><br>
                   <p><input type="text" id="amount" readonly="readonly" style="border: 0; color: #f6931f; font-weight: bold;"></p>
                   <div id="slider-range"></div>
+                  	<div data-role="rangeslider" style="width: 100%;">
+					  <input name="range-4a" id="range-4a" min="0" max="10000" value="3000" type="range" style="display: none;" />
+					  <input name="range-4b" id="range-4b" min="0" max="10000" value="6000" type="range" style="display: none;"/>
+					</div>
                </li>
                
                <li data-role="fieldcontain">

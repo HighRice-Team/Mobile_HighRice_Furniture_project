@@ -36,91 +36,109 @@ public class R_projectController {
 		this.member_dao = dao;
 	}
 
-//	@RequestMapping("/chart.do")
-//	public ModelAndView chart(HttpServletRequest request) {
-//		String path = request.getRealPath("WEB-INF/views");
-//		ModelAndView view = new ModelAndView("template");
-//		RConnection connection = null;
-//		try {
-//			connection = new RConnection();
-//			connection.eval("library(devtools)");
-//			connection.eval("library(RCurl)");
-//			connection.eval("library(d3Network)");
-//			connection.eval(
-//					"name <- c('한글','Jessica +num1 +','Winona Ryder','Michelle Pfeiffer','Whoopi Goldberg','Emma Thompson','Julia Roberts','Sharon Stone','Meryl Streep', 'Susan Sarandon','Nicole Kidman')");
-//			connection.eval(
-//					"pemp <- c('한글','한글','Jessica Lange','Winona Ryder','Winona Ryder','Angela Bassett','Emma Thompson', 'Julia Roberts','Angela Bassett', 'Meryl Streep','Susan Sarandon')");
-//			connection.eval("emp <- data.frame(이름=name,상사이름=pemp)");
-//			connection.eval("d3SimpleNetwork(emp,width=600,height=600,file='~/Desktop/Study/Study_Note/test01.jsp')");
-//			connection.eval("aa <- '한글'");
-//			System.out.println(connection.eval("aa").asString());
-//			connection.close();
-//			/*
-//			 * 기존 소스는 생성된 .jsp 에서 한글이 깨짐.
-//			 */
-//			// FileInputStream fis = new
-//			// FileInputStream("/Users/jinsoo_mac/Desktop/Study/Study_Note/test01.jsp");
-//			// FileOutputStream fos = new FileOutputStream(path+"/test01.jsp");
-//			//
-//			// FileCopyUtils.copy(fis, fos);
-//			/*
-//			 * 생성한 .jsp 가 한글이 깨져 한글을 처리함.
-//			 */
-//			BufferedReader reader = new BufferedReader(
-//					new FileReader("/Users/jinsoo_mac/Desktop/Study/Study_Note/test01.jsp"));
-//			BufferedWriter writer = new BufferedWriter(
-//					new OutputStreamWriter(new FileOutputStream(path + "/test01.jsp"), "UTF-8"));
-//			String s;
-//			String str = "<%@ page contentType=\"text/html;charset=UTF-8\"%>";
-//			writer.write(str);
-//			while ((s = reader.readLine()) != null) {
-//				writer.write(s);
-//				writer.newLine();
-//			}
-//			FileCopyUtils.copy(reader, writer);
-//			view.addObject("viewPage", "Rtest/test01.jsp");
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println(e);
-//		}
-//		return view;
-//	}
+	// @RequestMapping("/chart.do")
+	// public ModelAndView chart(HttpServletRequest request) {
+	// String path = request.getRealPath("WEB-INF/views");
+	// ModelAndView view = new ModelAndView("template");
+	// RConnection connection = null;
+	// try {
+	// connection = new RConnection();
+	// connection.eval("library(devtools)");
+	// connection.eval("library(RCurl)");
+	// connection.eval("library(d3Network)");
+	// connection.eval(
+	// "name <- c('한글','Jessica +num1 +','Winona Ryder','Michelle Pfeiffer','Whoopi
+	// Goldberg','Emma Thompson','Julia Roberts','Sharon Stone','Meryl Streep',
+	// 'Susan Sarandon','Nicole Kidman')");
+	// connection.eval(
+	// "pemp <- c('한글','한글','Jessica Lange','Winona Ryder','Winona Ryder','Angela
+	// Bassett','Emma Thompson', 'Julia Roberts','Angela Bassett', 'Meryl
+	// Streep','Susan Sarandon')");
+	// connection.eval("emp <- data.frame(이름=name,상사이름=pemp)");
+	// connection.eval("d3SimpleNetwork(emp,width=600,height=600,file='~/Desktop/Study/Study_Note/test01.jsp')");
+	// connection.eval("aa <- '한글'");
+	// System.out.println(connection.eval("aa").asString());
+	// connection.close();
+	// /*
+	// * 기존 소스는 생성된 .jsp 에서 한글이 깨짐.
+	// */
+	// // FileInputStream fis = new
+	// // FileInputStream("/Users/jinsoo_mac/Desktop/Study/Study_Note/test01.jsp");
+	// // FileOutputStream fos = new FileOutputStream(path+"/test01.jsp");
+	// //
+	// // FileCopyUtils.copy(fis, fos);
+	// /*
+	// * 생성한 .jsp 가 한글이 깨져 한글을 처리함.
+	// */
+	// BufferedReader reader = new BufferedReader(
+	// new FileReader("/Users/jinsoo_mac/Desktop/Study/Study_Note/test01.jsp"));
+	// BufferedWriter writer = new BufferedWriter(
+	// new OutputStreamWriter(new FileOutputStream(path + "/test01.jsp"), "UTF-8"));
+	// String s;
+	// String str = "<%@ page contentType=\"text/html;charset=UTF-8\"%>";
+	// writer.write(str);
+	// while ((s = reader.readLine()) != null) {
+	// writer.write(s);
+	// writer.newLine();
+	// }
+	// FileCopyUtils.copy(reader, writer);
+	// view.addObject("viewPage", "Rtest/test01.jsp");
+	// } catch (Exception e) {
+	// // TODO: handle exception
+	// System.out.println(e);
+	// }
+	// return view;
+	// }
 
-	@RequestMapping(value="/getAgeForChart.do",produces="text/plain;charset=utf-8")
+	@RequestMapping(value = "/getAgeForChart.do", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String getAgeForChart(HttpServletRequest request) {
 
 		List<String> list = member_dao.getAllJumin_member();
-		int []arr = new int[12];
-		int male=0,femaile=0;
-		int gen10=0,gen20=0,gen30=0,gen40=0,overGen50=0;
+		int[] arr = new int[12];
+		int male = 0, femaile = 0;
+		int gen10 = 0, gen20 = 0, gen30 = 0, gen40 = 0, overGen50 = 0;
 		Date date = new Date();
-		int year = date.getYear()+1900;
-		
-		for(String temp : list) {
-			int gen = (year-Integer.parseInt(temp.substring(0, 4)))/10;
-			
+		int year = date.getYear() + 1900;
+
+		for (String temp : list) {
+			int gen = (year - Integer.parseInt(temp.substring(0, 4))) / 10;
+
 			switch (gen) {
-			case 1: gen10+=1; break;	
-			case 2: gen20+=1; break;
-			case 3: gen30+=1; break;
-			case 4: gen40+=1; break;
-			default: overGen50+=1; break;
+			case 1:
+				gen10 += 1;
+				break;
+			case 2:
+				gen20 += 1;
+				break;
+			case 3:
+				gen30 += 1;
+				break;
+			case 4:
+				gen40 += 1;
+				break;
+			default:
+				overGen50 += 1;
+				break;
 			}
-			
-			if(temp.charAt(8)=='1') {
+
+			if (temp.charAt(8) == '1') {
 				male += 1;
-			}else if(temp.charAt(8)=='2'){
+			} else if (temp.charAt(8) == '2') {
 				femaile += 1;
 			}
-			
+
 		}
-		Double dd=(double)gen20/list.size();
+		Double dd = (double) gen20 / list.size();
 		NumberFormat nf = NumberFormat.getPercentInstance();
-		//R로 실행할 명령어
-		String tempStr = "jpeg('generationRateChart.jpg') \n pie(c("+gen10+","+gen20+","+gen20+","+gen20+","+overGen50+"),lab=c('10대\\n("+nf.format((double)gen10/list.size())+")','20대\\n("+nf.format((double)gen20/list.size())+")','30대\\n("+nf.format((double)gen30/list.size())+")','4대\\n("+nf.format((double)gen40/list.size())+")','50대 이상\\n("+nf.format((double)overGen50/list.size())+")'),main='BIT FR 회원 연령비') \n dev.off()";
+		// R로 실행할 명령어
+		String tempStr = "jpeg('generationRateChart.jpg') \n pie(c(" + gen10 + "," + gen20 + "," + gen20 + "," + gen20
+				+ "," + overGen50 + "),lab=c('10대\\n(" + nf.format((double) gen10 / list.size()) + ")','20대\\n("
+				+ nf.format((double) gen20 / list.size()) + ")','30대\\n(" + nf.format((double) gen30 / list.size())
+				+ ")','4대\\n(" + nf.format((double) gen40 / list.size()) + ")','50대 이상\\n("
+				+ nf.format((double) overGen50 / list.size()) + ")'),main='BIT FR 회원 연령비') \n dev.off()";
 		System.out.println(tempStr);
-		
+
 		return "";
 	}
 
@@ -254,7 +272,7 @@ public class R_projectController {
 		}
 		System.out.println(path);
 		System.out.println(str_JSON);
-		
+
 		try {
 			BufferedReader reader = null;
 			BufferedWriter writer = null;
@@ -270,25 +288,25 @@ public class R_projectController {
 				fos.flush();
 				fos.close();
 			}
-			String old_str ="";
+			String old_str = "";
 			File file = new File(file_name);
-			if(file.exists()) {
+			if (file.exists()) {
 				reader = new BufferedReader(new FileReader(file));
 				while (reader.ready()) {
-					old_str +=reader.readLine();
+					old_str += reader.readLine();
 				}
 			}
 
 			int findChar = old_str.lastIndexOf("]");
 			StringBuffer sb = new StringBuffer(old_str);
-			
-			if(old_str.lastIndexOf("}")!=-1) {
-				str_JSON =sb.insert(findChar, (","+str_JSON)).toString();
-			}else {
-				str_JSON =sb.insert(findChar, str_JSON).toString();
+
+			if (old_str.lastIndexOf("}") != -1) {
+				str_JSON = sb.insert(findChar, ("," + str_JSON)).toString();
+			} else {
+				str_JSON = sb.insert(findChar, str_JSON).toString();
 
 			}
-			
+
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(str_JSON.getBytes());
 			fos.flush();
@@ -297,54 +315,165 @@ public class R_projectController {
 		} catch (Exception e) {
 			System.out.println("에러 : " + e);
 		}
-		
+
 		return str_JSON;
 	}
-	
-	
-	//유입경로 R차트 생성
-	public String makeChart_inflowRoute() {
-		String filename="";
-		
+
+	// 유입경로 R차트 생성
+	public String makeChart_inflowRoute(HttpServletRequest request) {
+		String img_name = "";
+		String json_name = "";
+		String out_filename = "inflowRoute.jpg";
+
+		String img_path = request.getRealPath("resources/chart_img");
+		String json_path = request.getRealPath("resources/inflow_log");
+
+		System.out.println(img_path);
+
 		RConnection connection = null;
-		
+
 		try {
-			
+
 			connection = new RConnection();
-			
-			//진수형이 적어줄 곳
-			filename="";
-			
-			connection.eval("jpeg(\""+filename+"\")");
+
+			// 진수형이 적어줄 곳
+			img_name = img_path + "/" + out_filename;
+			json_name = json_path + "/inflowLog.json";
+
+			connection.eval("jpeg(filename='" + img_name + "')");
 			connection.eval("library(jsonlite)");
-			connection.eval("data = fromJSON(\"inflowLog.json\")");
+			connection.eval("data = fromJSON('" + json_name + "')");
 			connection.eval("naver=0");
 			connection.eval("google=0");
 			connection.eval("daum=0");
 			connection.eval("nate=0");
-			connection.eval("for(i in 1:nrow(data)){\n" + 
-					"	if(data[i,1]==\"naver\"){\n" + 
-					"		naver = naver +1\n" + 
-					"	}else if(data[i,1]==\"daum\"){\n" + 
-					"		daum = daum +1\n" + 
-					"	}else if(data[i,1]==\"nate\"){\n" + 
-					"		nate= nate+1\n" + 
-					"	}else if(data[i,1]==\"google\"){\n" + 
-					"		google= google+1\n" + 
-					"	}\n" + 
-					"}");
+			connection.eval(
+					"for(i in 1:nrow(data)){   if(data[i,1]=='naver'){   naver = naver +1}else if(data[i,1]=='daum'){daum = daum +1}else if(data[i,1]=='nate'){nate= nate+1}else if(data[i,1]=='google'){google= google+1}}");
 			connection.eval("engine = c(naver,daum,google,nate)");
-			connection.eval("barplot(engine,col=rainbow(4),main=\"검색매체별 유입량\",xlab=\"검색매체\",ylim=c(0,max(engine)+5))");
-			connection.eval("axis(1,at=1:4,c(\"naver\",\"daum\",\"google\",\"nate\"))");
-			connection.eval("legend(4,max(engine)+5,c(\"naver\",\"daum\",\"google\",\"nate\"),cex=0.9,col=c(\"red\",\"green\",\"skyblue\",\"grey\"),lty=1,lwd=10)");
+			connection.eval("barplot(engine,col=rainbow(4),main='검색매체별 유입량',xlab='검색매체',ylim=c(0,max(engine)+5))");
+			connection.eval("axis(1,at=1:4,c('naver','daum','google','nate'))");
+			connection.eval(
+					"legend(4,max(engine)+5,c('naver','daum','google','nate'),cex=0.9,col=c('red','green','skyblue','grey'),lty=1,lwd=10)");
 			connection.eval("dev.off()");
-			
+
+			connection.close();
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
-		
-		return filename; 
+
+		return out_filename;
 	}
 
+	// 회원 연령비 차트 생성
+	public String makeChart_generationRate(HttpServletRequest request) {
+
+		List<String> list = member_dao.getAllJumin_member();
+		int male = 0, femaile = 0;
+		int gen10 = 0, gen20 = 0, gen30 = 0, gen40 = 0, overGen50 = 0;
+		Date date = new Date();
+		int year = date.getYear() + 1900;
+
+		for (String temp : list) {
+			int gen = (year - Integer.parseInt(temp.substring(0, 4))) / 10;
+
+			switch (gen) {
+			case 1:
+				gen10 += 1;
+				break;
+			case 2:
+				gen20 += 1;
+				break;
+			case 3:
+				gen30 += 1;
+				break;
+			case 4:
+				gen40 += 1;
+				break;
+			default:
+				overGen50 += 1;
+				break;
+			}
+
+			if (temp.charAt(8) == '1') {
+				male += 1;
+			} else if (temp.charAt(8) == '2') {
+				femaile += 1;
+			}
+
+		}
+
+		Double dd = (double) gen20 / list.size();
+		NumberFormat nf = NumberFormat.getPercentInstance();
+
+		// R로 실행할 명령어
+		String tempStr = "jpeg('generationRateChart.jpg') \n pie(c(" + gen10 + "," + gen20 + "," + gen20 + "," + gen20
+				+ "," + overGen50 + "),lab=c('10대\\n(" + nf.format((double) gen10 / list.size()) + ")','20대\\n("
+				+ nf.format((double) gen20 / list.size()) + ")','30대\\n(" + nf.format((double) gen30 / list.size())
+				+ ")','4대\\n(" + nf.format((double) gen40 / list.size()) + ")','50대 이상\\n("
+				+ nf.format((double) overGen50 / list.size()) + ")'),main='BIT FR 회원 연령비') \n dev.off()";
+
+		String img_name = "";
+		String out_filename = "generationRate.jpg";
+
+		String img_path = request.getRealPath("resources/chart_img");
+		RConnection connection = null;
+
+		try {
+
+			connection = new RConnection();
+
+			// 진수형이 적어줄 곳
+			img_name = img_path + "/" + out_filename;
+
+			connection.eval("jpeg(filename='" + img_name + "')");
+			connection.eval(tempStr);
+			connection.eval("dev.off()");
+
+			connection.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return out_filename;
+	}
+
+	// 회원 성비비 차트 생성
+	public String makeChart_genderRate(HttpServletRequest request) {
+
+		List<String> list = member_dao.getAllJumin_member();
+		int male = 0, femaile = 0;
+
+		for (String temp : list) {
+			if (temp.charAt(8) == '1') {
+				male += 1;
+			} else if (temp.charAt(8) == '2') {
+				femaile += 1;
+			}
+		}
+		
+		String img_path = request.getRealPath("resources/chart_img");
+		String img_name = "";
+		String out_filename = "genderRate.jpg";
+		img_name = img_path + "/" + out_filename;
+
+		// R로 실행할 명령어
+		String tempStr = "jpeg('"+img_name+"') \n barplot(c(" + male + "," + femaile
+				+ "),col=c(\"skyblue\",\"pink\"),main=\"BIT FR 회원 성비\",names=c(\"남자\",\"여자\"))\n" + " \n dev.off()";
+
+		RConnection connection = null;
+
+		try {
+
+			connection = new RConnection();
+			connection.eval(tempStr);
+			connection.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return out_filename;
+	}
 }
