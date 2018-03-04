@@ -24,7 +24,7 @@
 				<if test="price!=null">AND price=${price}</if>
 				<if test="condition!=null">AND condition='${condition}'</if>
 			</trim>
-			order by product_id
+			order by product_id desc
 	</select>
 
 	<select id="getOne_product" resultType="productVo">

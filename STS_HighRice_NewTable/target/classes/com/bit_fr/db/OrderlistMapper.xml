@@ -45,7 +45,7 @@
 				<if test = "rent_end != null">AND rent_end='${rent_end}'</if>
 				<if test = "rent_month != null">AND rent_date=#{rent_date}</if>
 			</trim>
-		order by order_id
+		order by order_id desc
 	</select>
 
 	<select id="getMyOrderlistToCondition_orderlist" resultType="orderlistVo">
