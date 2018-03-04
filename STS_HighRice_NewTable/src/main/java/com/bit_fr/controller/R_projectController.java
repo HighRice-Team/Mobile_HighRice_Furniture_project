@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.net.URLEncoder;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.rosuda.REngine.Rserve.RConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,9 +89,6 @@ public class R_projectController {
 	@RequestMapping(value="/getAgeForChart.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String getAgeForChart(HttpServletRequest request) {
-		
-//		String path = request.getRealPath("resources/chart_img");
-//		RConnection connection = null;
 
 		List<String> list = member_dao.getAllJumin_member();
 		int []arr = new int[12];
@@ -114,9 +113,15 @@ public class R_projectController {
 			}else if(temp.charAt(8)=='2'){
 				femaile += 1;
 			}
+			
 		}
-//		barplot(c(male,femaile),main="성비",names.arg=c("남자","여자"))
-		return year+"";
+		Double dd=(double)gen20/list.size();
+		NumberFormat nf = NumberFormat.getPercentInstance();
+		//R로 실행할 명령어
+		String tempStr = "jpeg('generationRateChart.jpg') \n pie(c("+gen10+","+gen20+","+gen20+","+gen20+","+overGen50+"),lab=c('10대\\n("+nf.format((double)gen10/list.size())+")','20대\\n("+nf.format((double)gen20/list.size())+")','30대\\n("+nf.format((double)gen30/list.size())+")','4대\\n("+nf.format((double)gen40/list.size())+")','50대 이상\\n("+nf.format((double)overGen50/list.size())+")'),main='BIT FR 회원 연령비') \n dev.off()";
+		System.out.println(tempStr);
+		
+		return "";
 	}
 
 	// 크롤링 메소드
@@ -294,6 +299,52 @@ public class R_projectController {
 		}
 		
 		return str_JSON;
+	}
+	
+	
+	//유입경로 R차트 생성
+	public String makeChart_inflowRoute() {
+		String filename="";
+		
+		RConnection connection = null;
+		
+		try {
+			
+			connection = new RConnection();
+			
+			//진수형이 적어줄 곳
+			filename="";
+			
+			connection.eval("jpeg(\""+filename+"\")");
+			connection.eval("library(jsonlite)");
+			connection.eval("data = fromJSON(\"inflowLog.json\")");
+			connection.eval("naver=0");
+			connection.eval("google=0");
+			connection.eval("daum=0");
+			connection.eval("nate=0");
+			connection.eval("for(i in 1:nrow(data)){\n" + 
+					"	if(data[i,1]==\"naver\"){\n" + 
+					"		naver = naver +1\n" + 
+					"	}else if(data[i,1]==\"daum\"){\n" + 
+					"		daum = daum +1\n" + 
+					"	}else if(data[i,1]==\"nate\"){\n" + 
+					"		nate= nate+1\n" + 
+					"	}else if(data[i,1]==\"google\"){\n" + 
+					"		google= google+1\n" + 
+					"	}\n" + 
+					"}");
+			connection.eval("engine = c(naver,daum,google,nate)");
+			connection.eval("barplot(engine,col=rainbow(4),main=\"검색매체별 유입량\",xlab=\"검색매체\",ylim=c(0,max(engine)+5))");
+			connection.eval("axis(1,at=1:4,c(\"naver\",\"daum\",\"google\",\"nate\"))");
+			connection.eval("legend(4,max(engine)+5,c(\"naver\",\"daum\",\"google\",\"nate\"),cex=0.9,col=c(\"red\",\"green\",\"skyblue\",\"grey\"),lty=1,lwd=10)");
+			connection.eval("dev.off()");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+		return filename; 
 	}
 
 }

@@ -64,6 +64,10 @@
 <script type="text/javascript">
    $(function() {
 	   
+	   $.ajax({
+		   url:"getAgeForChart.do"
+	   })
+	   
 	   $(".imgSize").each(function(index,item){
 		  item.height = (item.width*1.029)
 	   })
