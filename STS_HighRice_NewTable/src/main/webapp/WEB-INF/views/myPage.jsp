@@ -110,7 +110,7 @@
 			<table>
 			<tr><td width="30%">아이디 :</td><td colspan="2" width="40%">${member.member_id }</td></tr>
 			<tr><td width="30%">전화번호 :</td><td colspan="2" width="40%">${member.tel }</td></tr>
-			<tr><td width="30%">주소 :</td><td colspan="2" width="40%">${member.address }${member.address_detail }</td></tr>
+			<tr><td width="30%">주소 :</td><td colspan="2" width="40%">${member.address } ${member.address_detail }</td></tr>
 			<tr><td width="30%">현재 비밀번호 :</td><td colspan="2" width="40%"><input id="current_pwd" type="password"></td></tr>
 			
 			<tr><td colspan="3">
