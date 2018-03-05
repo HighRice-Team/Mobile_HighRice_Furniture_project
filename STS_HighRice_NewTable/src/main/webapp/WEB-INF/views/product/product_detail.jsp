@@ -169,7 +169,7 @@ $(function(){
          <c:if test="${vo.member_id != sessionScope.id}">
             <div class="ui-grid-a">
                <div class="ui-block-a" data-corners="false">
-                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">BUY<br>NOW<br><hr>구매하기</a>
+                  <a id="gotopayment" data-role="button" data-theme="a" data-corners="false">RENT<br>NOW<br><hr>대여하기</a>
                </div>  
                <div class="ui-block-b" data-corners="false">
                   <a id="goToCart" data-role="button" data-corners="false">ADD TO<br>CART<br><hr>장바구니</a>
@@ -229,7 +229,7 @@ $(function(){
 					<div style="margin: 10px 0 10px 0; word-break:break-all; word-wrap:break-word;">${list.content }</div>
 					<c:if test="${list.member_id==sessionScope.id&&list.b_level==0}">
 						<div id="controlDiv" style="text-align: right;">
-							<a href="productQnaDelete.do?board_id=${list.board_id }&product_id=${vo.product_id }">삭제</a>
+							<a data-ajax="false" href="productQnaDelete.do?board_id=${list.board_id }&product_id=${vo.product_id }">삭제</a>
 						</div>
 					</c:if>
 					<div id="adminReply${cnt.count}" style=" background-color:#eee; padding: 10px; visibility: hidden;">

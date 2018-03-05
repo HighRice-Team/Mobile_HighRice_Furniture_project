@@ -73,7 +73,7 @@ public class R_projectController {
 			connection.eval("palete <- brewer.pal(12,\"Set3\")");
 			connection.eval("png(filename='" + img_name + "')");
 			connection.eval(
-					"wordcloud(names(wordcount),freq=wordcount,scale=c(5,1),rot.per=0.25,min.freq=1,random.order=F,random.color=T,colors=palete)");
+					"wordcloud(names(wordcount),freq=wordcount,scale=c(20,1),rot.per=0.25,min.freq=1,random.order=F,random.color=T,colors=palete)");
 			connection.eval(
 					"legend(0.1,1,\"bit 가구대여점 인기 검색키워드\",cex=0.8,fill=NA,border=NA,bg=\"white\",text.col=\"red\",text.font=3,box.col=\"red\")");
 
