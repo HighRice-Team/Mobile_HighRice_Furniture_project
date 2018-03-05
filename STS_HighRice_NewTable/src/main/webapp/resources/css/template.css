@@ -12,6 +12,7 @@
 .select-menu .tabs {width: 100%; text-align:  center ; display:inline-block}
 .select-menu .tabs .tab1 {width: 50%; height: 50px; float: left; background: #ddd}
 .select-menu .tabs .tab2 {width: 50%; height: 50px; float: right; background: #ccc}
+.select-menu .tabs .tab3 {width: 100%; height: 50px; float: right; background: #ccc}
 .select-menu .tabs .active { background: #aaa; color: #fff}
 
 .login-row .left {width: 30%; padding: 15px 0 0 0}

@@ -56,7 +56,7 @@ $(function(){
             					paymentOk_msg = "결제가 성공적으로 완료되었습니다.";
             					alert(paymentOk_msg);
             					if(confirm("마이페이지로 이동하시겠습니까?") == true){
-            						location.href="myPage.do";
+            						location.href="myPage.do?selectedMyPage=mP";
             					}else{
             						location.href="main.do";
             					}

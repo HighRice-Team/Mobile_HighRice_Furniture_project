@@ -57,9 +57,11 @@ $(function(){
 				<input type="text" name="member_id" value="${member_info.member_id }" style="display:none ;">
 				<input type="text" name="member_name" value="${member_info.name }" style="display:none ;">
 				<input type="text" name="member_tel" value="${member_info.tel}" style="display:none ;">
-				<input type="text" name="member_address" value="${member_info.address}" style="display:none ;">
-				<input type="text" name="member_address_detail" value="${member_info.address_detail}" style="display:none ;">
 				<input type="text" name="regDate" id ="regDate" style="display:none ;">
+				<p>고객님의 주소</p>
+				<input size="30" type="text" name="member_address" value="${member_info.address}">
+				<p style="font-size: x-small;">상세 주소</p>
+				<input type="text" name="member_address_detail" value="${member_info.address_detail}">
 		</form>
 	</center>
 </body>
