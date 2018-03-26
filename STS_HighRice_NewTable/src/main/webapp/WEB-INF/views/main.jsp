@@ -63,7 +63,6 @@
 </style>
 <script type="text/javascript">
    $(function() {
-	   
 	   $(".imgSize").each(function(index,item){
 		  item.height = (item.width*1.029)
 	   })

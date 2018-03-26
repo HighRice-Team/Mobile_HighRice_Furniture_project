@@ -5,6 +5,8 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -29,6 +31,13 @@ public class MemberManager {
 	}
 
 	// Select
+	
+	public static List<MemberVo> getBitMan_member(){
+		SqlSession session = factory.openSession();
+		List<MemberVo> list = session.selectList("member.getBitMan_member");
+		session.close();
+		return list;
+	}
 
 	public static List<MemberVo> getAll_member(MemberVo m) { // Member 테이블의 모든 객체를 member_id 순으로 정렬한 결과를 List로 반환한다.
 		SqlSession session = factory.openSession();
@@ -130,6 +139,18 @@ public class MemberManager {
 
 		return re;
 	}
+	
+	// 폰번호로 아이디받기
+	public static String getIdByPhone_member(String name ,String tel) {
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("tel", tel);
+		String id = session.selectOne("getIdByPhone_member", map);
+		session.close();
+		
+		return id;
+	}
 
 	// Insert
 
@@ -206,6 +227,27 @@ public class MemberManager {
 		session.close();
 
 		return list;
+	}
+	
+	public static int updateMasterForRefund_member(int payback) {
+      		int re = -1;
+      		SqlSession session = factory.openSession(true);
+      		session.update("member.paybackMaster_member", payback);
+     		return re;
+   	}
+	
+
+	//비번 초기화
+	public static int clearPwd(String member_id, int pwd) {
+		SqlSession session = factory.openSession();
+		HashMap map = new HashMap();
+		map.put("member_id", member_id);
+		map.put("pwd",pwd+"");
+		int re = session.update("member.clearPwd", map);
+		session.commit();
+		session.close();
+		
+		return re;
 	}
 
 	// Delete

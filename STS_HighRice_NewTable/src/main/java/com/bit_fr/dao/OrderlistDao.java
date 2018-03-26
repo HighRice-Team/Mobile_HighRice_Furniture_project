@@ -15,6 +15,10 @@ public class OrderlistDao {
 		return OrderlistManager.getOrders_orderlist(order_id);
 	}
 	
+	public OrderlistVo getOne_orderlist(int order_id) {
+		return OrderlistManager.getOne_orderlist(order_id);
+	}
+	
 	public int getCheckExist_orderlist(String member_id, int product_id) {
 		return OrderlistManager.getCheckExist_orderlist(member_id, product_id);
 	}
@@ -102,6 +106,10 @@ public class OrderlistDao {
 
 	public int updateOrderCondition_changeRequest(String member_id, int order_id, String changeRequest) {
 		return OrderlistManager.updateOrderCondition_changeRequest(member_id , order_id, changeRequest);
+	}
+	
+	public int updateOrderlistCondition_orderlist(int order_id, String orderlist_condition) {
+		return OrderlistManager.updateOrderlistCondition_orderlist(order_id, orderlist_condition);
 	}
 	
 

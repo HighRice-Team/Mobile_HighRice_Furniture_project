@@ -8,6 +8,11 @@
      
 		//아이디 판별
       $("#chk_idBtn").click(function(){
+    	 if($("#member_id").val()=="" || $("#member_id").val()==null){
+    		 $("#idchk").html("아이디를 입력해주세요")
+		     $("#idchk").css("color","red")
+		     return;
+    	 }
     	 var member_id = $("#member_id").val()
     	 $.ajax({url:"getOne_member.do",data:{member_id:member_id}, success:function(data){
     		 data = eval("("+data+")")
@@ -25,13 +30,19 @@
       
       //시간값
       var sec = 1000;
-
+      var chk;
       //핸드폰 문자 서비스
       $("#chkphone").click(function(){
+    	  if($("#tel").val() == "" || ($("#tel").val()).length != 11){
+    		  $("#chksec").html("전화 번호를 다시 입력해주세요.").css("color","red")
+    		  return
+    	  }
     	  $.ajax({url:"chkphone.do", data:{phone:$("#tel").val()},success:function(data){
     		  $("#chksec").empty().css("color","block")
  			  var i = 60;
-    		  var chk = setInterval(function(){
+    		  
+    		  clearInterval(chk)
+    		  chk = setInterval(function(){
 					
 					$("#chksec").html(i+" 초 남았습니다.")
 					i--;
@@ -89,7 +100,11 @@
     	  $(a).each(function(index, data){
     		  str += data
     	  })
-    	  str = str+$("#gender").val()
+    	  $("input[name='gender']").each(function(index, item){
+    		  if(item.checked){
+    			str += $(item).val()  
+    		  }
+    	  })
     	  $("#jumin").val(str)
       })
       
@@ -169,7 +184,7 @@
 			</div>
 			<div class="ui-grid-c join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-2row">비밀번호<br>확인</p></div>
-		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="입력한 비밀번호와 같아야 합니다."></div>
+		   		<div class="ui-block-b" style="width: 70%"><input type="password" id="inputPwd2" name="pwd"  required="required" oninput="chkPwd()" placeholder="위와 같아야 합니다."></div>
 		   		<div class="ui-block-c" id="chkPwdIcon2" style="align-content: left;width:  10% " ></div>
 			</div>
 			
@@ -178,15 +193,25 @@
 		    	<div class="ui-block-a rate-2"><p class="p-2row">이름</p></div>
 		   		<div class="ui-block-b rate-8"><input type="text" id="name" name="name" required="required"></div>
 			</div>
-			<div class="ui-grid-c join-row">
-		    	<div class="ui-block-a rate-2"><p class="p-2row">주민번호</p></div>
-		   		<div class="ui-block-b rate-4"><input type="date" id="juminnum" style="text-align: center;"></div>
-		   		<div class="ui-block-c" style="width: 10%;"><input type="number" min="1" max="6" id='gender'></div>
-		   		<div class="ui-block-d rate-2" style="margin-top: 5%">******</div>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">생년월일</p></div>
+		   		<div class="ui-block-b" style="width: 80%"><input type="date" id="juminnum" style="text-align: center;"></div>
 			</div>
+			<div class="ui-grid-a join-row">
+		    	<div class="ui-block-a rate-2"><p class="p-2row">성별</p></div>
+		   		<div class = "ui-block-b">
+		   			<fieldset data-role="controlgroup" data-type="horizontal" id="gender">
+		   				<input type="radio" id='gender-m' name="gender" value="1">
+		   				<label for="gender-m">남자</label>
+		   				<input type="radio" id='gender-fm' name="gender" value="2">
+		   				<label for="gender-fm">여자</label>
+		   			</fieldset>
+		   		</div>
+			</div>
+			
 			<div class="ui-grid-b join-row">
 		    	<div class="ui-block-a rate-2"><p class="p-2row">핸드폰번호</p></div>
-		   		<div class="ui-block-b rate-6"><input type="text" name="tel" id="tel" required="required" placeholder="'-'빼고 입력해주세요"></div>
+		   		<div class="ui-block-b rate-6"><input type="text" name="tel" id="tel" required="required" placeholder="'-'빼고 입력해주세요" maxlength="11"></div>
 		   		<div class="ui-block-c rate-2"><input type="button" data-inline="true" data-corners="false" data-mini="true" value="인증" id="chkphone" ></div>
 			</div>	
 			<div id="chkphonediv" class="ui-grid-b" style="display: none;">

@@ -108,7 +108,7 @@
                <a data-inline="true" href="#" data-rel="popup" data-position-to="window" data-transition="pop">
                   <img id="logout_img" src="resources/img/logout.png" class="log-img">
                </a>
-               <c:if test="${sessionScope.grade == '2'}">
+                <c:if test="${sessionScope.grade == '2'}">
                   <a data-ajax="false" href="todoList.do">Bitman</a>
                </c:if>
             </div>
@@ -128,6 +128,11 @@
                <div rel="tab2" class="tab2">
                   <p>Community</p>
                </div>
+               <c:if test="${sessionScope.grade == '0'}">
+              		<div rel="tab3" class="tab3">
+               	  		<p>관리자</p>
+               		</div>
+               </c:if>
             </div>
             
             <div id="tab1" class="tab_content">
@@ -144,6 +149,13 @@
                   <li><a data-ajax="false" href="qnaList.do">QnA</a></li>
                   <li><a data-ajax="false" href="faq.do">FAQ</a></li>
                   <li><a data-ajax="false" href="aboutus.do">ABOUT US</a></li>
+               </ul>
+            </div>
+            
+            <div id="tab3" class="tab_content">
+               <ul data-role="listview" data-icon="false">
+                  <li><a data-ajax="false" href="admin.do">관리자페이지</a></li>
+                  <li><a data-ajax="false" href="statistics_Rchart.do">통계페이지</a></li>
                </ul>
             </div>
          </div>

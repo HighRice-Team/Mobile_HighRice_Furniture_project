@@ -6,6 +6,10 @@
 	<select id="getAllJumin_member" resultType="java.lang.String">
 		select jumin from member
 	</select>
+	
+	<select id="getBitMan_member" resultType="memberVo">
+		select * from member where grade=2
+	</select>
 
 	<!-- Member 테이블의 모든 객체를 member_id 순으로 정렬한 결과를 List로 반환한다. -->
 	<select id="getAll_member" resultType="memberVo">
@@ -59,6 +63,11 @@
 	<select id="getGrade_member" resultType="java.lang.Integer">
 		select grade from member
 		where member_id = #{member_id}
+	</select>
+	
+<!-- 	폰번으로 아이디 찾기 -->
+	<select id="getIdByPhone_member" resultType="java.lang.String">
+		select member_id from member where name = #{name} and tel = #{tel}
 	</select>
 
 
@@ -134,6 +143,7 @@
 			tel = #{tel},
 			</if>
 		</trim>
+		where member_id = #{member_id}
 	</update>
 
 	<!-- 결제주소 변경 -->
@@ -160,6 +170,12 @@
 		update member set balance = balance - #{payback}
 		where member_id = 'master'
 	</update>
+
+	<!-- 비밀번호 초기화 -->
+	<update id="clearPwd">
+		update member set pwd = #{pwd} where member_id = #{member_id}
+	</update>
+	
 	<!-- Delete -->
 
 

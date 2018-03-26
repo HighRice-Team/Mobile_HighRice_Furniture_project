@@ -499,5 +499,13 @@ public class OrderlistController {
 
 		return str;
 	}
+	
+	@RequestMapping(value = "/updateOrderlistCondition.do", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateOrderlistCondition_orderlist(int order_id, String condition) {
+		String str = "";
+		str = orderlistDao.updateOrderlistCondition_orderlist(order_id, condition)+"";
+		return str;
+	}
 
 }
